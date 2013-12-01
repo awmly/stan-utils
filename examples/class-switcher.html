@@ -1,0 +1,86 @@
+<!DOCTYPE html>  
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Class Switcher</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+	<script src="../media-query-class/media-query-class.js"></script>
+	<script src="class-switcher.js"></script>
+	<link rel="stylesheet" href="class-switcher.css">
+</head>
+<body>
+<div class='container'>
+
+	<h1>Class Switcher</h1>
+
+	<ul data-toggle='class-switcher' data-target='.switcher' data-active-class='btn-success' data-inactive-class='btn-default'>
+		<li class="btn" data-class='col-sm-3 grid' data-active='1'><i class='fa fa-th-large'></i> Grid View</li>
+		<li class="btn" data-class='col-sm-12 list'><i class='fa fa-reorder'></i> List View</li>
+	</ul>
+	<div class='clear30'></div>
+
+	<div class='row switcher clearfix'>
+
+		<div><span></span></div>
+
+		<div><span></span></div>
+
+		<div><span></span></div>
+
+		<div><span></span></div>
+		
+	</div>
+
+	<script src="/_core/core.js"></script>
+	<script>
+	$('.switcher').ClassSwitcher({
+		selector:'div',
+		onSwitch:function(){
+			data=this.data('data');
+			//SetSessionVariable('ClassSwitcher',data.current_class);
+		}
+	});
+	</script>
+
+
+	<h1>Class Switcher 2</h1>
+
+	<ul data-toggle='class-switcher' data-target='.switcher2' data-active-class='btn-danger' data-inactive-class='btn-default'>
+		<li class="btn" data-class='col-sm-2 grid'><i class='fa fa-th-large'></i> Small Grid View</li>
+		<li class="btn" data-class='col-sm-4 grid'><i class='fa fa-th'></i> Large Grid View</li>
+		<li class="btn" data-class='col-sm-12 list' data-active='1'><i class='fa fa-reorder'></i> List View</li>
+	</ul>
+	<div class='clear30'></div>
+
+	<div class='row switcher2 clearfix'>
+
+		<div><span></span></div>
+
+		<div><span></span></div>
+
+		<div><span></span></div>
+
+		<div><span></span></div>
+
+		<div><span></span></div>
+
+		<div><span></span></div>
+
+		<div><span></span></div>
+
+		<div><span></span></div>
+
+	</div>
+
+	<script>
+	$('.switcher2').ClassSwitcher({
+		selector:'div'
+	});
+	</script>
+
+</div>
+</body>
+</html>

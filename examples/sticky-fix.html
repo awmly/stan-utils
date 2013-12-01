@@ -1,0 +1,38 @@
+<!DOCTYPE html>  
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Sticky Fix</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+	<script src="../media-query-class/media-query-class.js"></script>
+	<script src="sticky-fix.js"></script>
+</head>
+<body>
+<div class='container'>
+
+	<div style='height:50px;background:#0000ff;position:fixed;top:0; left:0; width:100%;'><h1 style='margin:0;padding:0;'>Sticky Fix</h1></div>
+
+	<div style='height:300px;background:#ff00ff;margin-top:50px;'>I scroll</div> 
+	
+	<div style='height:300px;background:#ff0000;' id='stickyfix'>I'm sticky!</div>
+
+	<div style='height:1000px;background:#00ffff;'>Scolling...<br/>Scolling...<br/>Scolling...<br/>Scolling...<br/>Scolling...<br/></div>
+
+	<script src="/_core/core.js"></script>
+	<script>
+	$('#stickyfix').StickyFix({
+		top:50,
+		maxtop:700,
+		sticky_class:'stuck',
+		stick_to:'parent',
+		unstuck_position:'relative',
+		devices:{ xs:true, sm:true, md:true, lg:true }
+	});
+	</script>
+
+</div>
+</body>
+</html>

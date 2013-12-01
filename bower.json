@@ -1,0 +1,12 @@
+{
+	"name": "stan-plugins",
+	"version": "0.0.1",
+	"main": [
+		"dist/stan-plugins.min.js",
+		"dist/stan-plugins.min.css"
+	],
+	"dependencies": {
+		"jquery": "~1.10.2",
+		"bootstrap": "~3.0.2"
+	}
+}

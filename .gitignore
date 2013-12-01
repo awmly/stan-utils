@@ -1,0 +1,7 @@
+#Files
+.DS_Store
+
+#Folder
+tests
+bower_components
+node_modules

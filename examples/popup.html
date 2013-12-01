@@ -1,0 +1,69 @@
+<!DOCTYPE html>  
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Responsive PopUp</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+	<script src="../media-query-class/media-query-class.js"></script>
+	<link href="popup.css" rel="stylesheet">
+	<script src="popup.js"></script>
+	<script src="slimScroll.js"></script>
+</head>
+<body>
+<div class='container'>
+
+	<h1>Responsive PopUp</h1>
+
+	<p>
+		<a href='http://www.youtube.com/watch?v=kJuwVuP4ezc' data-toggle='popup.toggle' data-target='#iframe' data-src='http://www.youtube.com/embed/kJuwVuP4ezc'>Youtube 1</a>
+		&nbsp; &nbsp;
+		<a href='http://www.youtube.com/watch?v=Bozx24IcV0k' data-toggle='popup.toggle' data-target='#iframe' data-src='http://www.youtube.com/embed/Bozx24IcV0k'>Youtube 2</a>
+		&nbsp; &nbsp;
+		<a href='http://www.youtube.com/watch?v=0dFz10R529g' data-toggle='popup.toggle' data-target='#iframe' data-src='http://www.youtube.com/embed/0dFz10R529g'>Youtube 3</a>
+		&nbsp; &nbsp;
+		<a href='javascript:;' data-toggle='popup.toggle' data-target='#iframe'>Open Last</a>
+	</p>
+
+	<p><a href='javascript:;' data-toggle='popup.show' data-target='#html'>Form</a></p>
+
+	<div class='popup' id='iframe'>
+		<i class='fa fa-times popup-close'></i>
+		<div class='popup-display'></div>
+	</div>
+
+	<div class='popup' id='html'>
+		<i class='fa fa-times popup-close'></i>
+		<div class='popup-display'><? include('form.php'); ?></div>
+	</div>
+
+	<script src="/_core/core.js"></script>
+	<script>
+	$('#iframe').PopUp({
+		type:'iframe',
+		width:1600,
+		height:900,
+		gutter:30,
+		devices:{ xs:false, sm:true, md:true, lg:true }
+	});
+
+	$('#html').PopUp({
+		type:'html',
+		width:500,
+		height:600,
+		lock_aspect_ratio:false,
+		scroll:false
+	});
+
+	 $('.form').slimScroll({
+        height: '100%',
+        color:'#2a2a2a',
+        wheelStep: 40,
+    });
+	</script>
+
+</div>
+</body>
+</html>

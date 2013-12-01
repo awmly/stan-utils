@@ -1,0 +1,4 @@
+#! /bin/sh
+## Shortcut to install Node and Bower modules
+npm install
+bower install

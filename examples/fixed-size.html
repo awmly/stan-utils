@@ -1,0 +1,42 @@
+<!DOCTYPE html>  
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Fixed Size</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+	<link href="fixed-size.css" rel="stylesheet">
+	<script src="../media-query-class/media-query-class.js"></script>
+	<script src="fixed-size.js"></script>
+</head>
+<body>
+<div class='container'>
+
+	<h1>Fixed Size</h1>
+
+	<div class='row'>
+		<div class='col col-sm-6 col-md-4 col-lg-3'><div><span style='height:100px;'></span></div></div>
+		<div class='col col-sm-6 col-md-4 col-lg-3'><div><span style='height:150px;'></span></div></div>
+		<div class='col col-sm-6 col-md-4 col-lg-3'><div><span style='height:200px;'></span></div></div>
+		<div class='col col-sm-6 col-md-4 col-lg-3'><div><span style='height:150px;'></span></div></div>
+		<div class='col col-sm-6 col-md-4 col-lg-3'><div><span style='height:50px;'></span></div></div>
+		<div class='col col-sm-6 col-md-4 col-lg-3'><div><span style='height:100px;'></span></div></div>
+		<div class='col col-sm-6 col-md-4 col-lg-3'><div><span style='height:150px;'></span></div></div>
+		<div class='col col-sm-6 col-md-4 col-lg-3'><div><span style='height:250px;'></span></div></div>
+	</div>
+
+	<script src="/_core/core.js"></script>
+	<script>
+	$('.col>div').FixedSize({
+		devices:{ xs:false, sm:2, md:3, lg:4 },
+		onFixSize:function(element){
+			$(element).find('span').html($(element).height());
+		}
+	});
+	</script>
+
+</div>
+</body>
+</html>

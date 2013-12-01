@@ -1,0 +1,35 @@
+<!DOCTYPE html>  
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Image Responsive</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+	<script src="../media-query-class/media-query-class.js"></script>
+	<script src="img-responsive.js"></script>
+</head>
+<body>
+<div class='container'>
+
+	<h1>Image Responsive</h1>
+
+	<?php
+	$img=array(
+		'xs'=>'img-320.jpg',
+		'sm'=>'img-700.jpg',
+		'md'=>'img-1000.jpg',
+		'lg'=>'img-1200.jpg'
+	);
+	?>
+	<img src='img-320.jpg' data-src='<?=json_encode($img);?>' class='img-responsive' />
+
+	<script src="/_core/core.js"></script>
+	<script>
+	$('.img-responsive').ImgResponsive();
+	</script>
+
+</div>
+</body>
+</html>
