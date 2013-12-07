@@ -1,0 +1,21 @@
+---
+title: 		Class Switcher
+layout:		examples
+---
+
+<h1>Image Responsive</h1>
+
+<?php
+$img=array(
+	'xs'=>'img-320.jpg',
+	'sm'=>'img-700.jpg',
+	'md'=>'img-1000.jpg',
+	'lg'=>'img-1200.jpg'
+);
+?>
+<img src='img-320.jpg' data-src='<?=json_encode($img);?>' class='img-responsive' />
+
+<script src="/_core/core.js"></script>
+<script>
+$('.img-responsive').ImgResponsive();
+</script>

@@ -8,7 +8,7 @@ module.exports = function(grunt) {
         banner:     '/*!\n' +
                     ' * STAN Plugins <%= pkg.version %>\n' +
                     ' * Copyright <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
-                    ' */\n\n',
+                    ' */\n',
 	                   	
     	watch: {
             
@@ -17,16 +17,17 @@ module.exports = function(grunt) {
             },
             
             html: {
-                files: ['index.html','examples/*.html']
+                files: ['_assets/**/*','_layouts/*.html','_includes/*.html','_includes/**/*.html','_pages/*.html','_pages/**/*.html','dist/*'],
+                tasks: ['jekyll','shell:jekyll']
             },
 
             js: {
-                files: ['src/**/*.js'],
+                files: ['src/**/*.js','src/core.js'],
                 tasks: ['uglify']
             },
 
             css: {
-                files: ['src/**/*.css'],
+                files: ['src/**/*.css','src/core.css'],
                 tasks: ['cssmin']
             }
 
@@ -39,8 +40,20 @@ module.exports = function(grunt) {
                 options: {
                     port: 9001,
                     open: true,
-                    livereload:true
+                    livereload: true,
+                    base: '_site'
                 }
+            }
+
+        },
+
+        jekyll: {
+
+            dev: {
+                options: {
+                    config: '_config.yml'
+                }
+
             }
 
         },
@@ -48,13 +61,12 @@ module.exports = function(grunt) {
 
 		uglify: {
 
-			options: {
-				banner: '<%= banner %>',
-			},
-
 			dist: {
+                options: {
+                    banner: '<%= banner %>',
+                },
 				files: {
-					'dist/<%= pkg.name %>.min.js': ['src/**/*.js']
+					'dist/<%= pkg.name %>.min.js': ['src/**/*.js','src/core.js']
 				}
 			}
 		
@@ -62,17 +74,36 @@ module.exports = function(grunt) {
 
 		
 		cssmin: {
-			
-            options: {
-                banner: '<%= banner %>',
-            },
 
             dist: {
+                options: {
+                    banner: '<%= banner %>',
+                },
 				files: {
-					'dist/<%= pkg.name %>.min.css': ['src/**/*.css']
+					'dist/<%= pkg.name %>.min.css': ['src/**/*.css','src/core.css']
 				}
 			}
 		
+        },
+
+        shell: {
+
+            jekyll: {
+                command: [
+                    'mv _site/dist _site/_assets/dist',
+                    'mv _site/_pages/* _site/',
+                    'rm -rf _site/_pages'
+                ].join('&&')
+            },
+
+            git: {
+                //commit & push
+            },
+
+            scp: {
+                command: 'scp -P 7722 -r _site/* ftp@aw1.me:/var/www/git.aw1.me/stan-plugins/'
+            }
+
         }
 
 	});
@@ -83,10 +114,12 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-watch');
-
+    grunt.loadNpmTasks('grunt-shell');
+    grunt.loadNpmTasks('grunt-jekyll');
 
     // Register tasks
-    grunt.registerTask('dev', ['connect', 'watch' ]);
-	grunt.registerTask('default', ['uglify', 'cssmin']);
+    grunt.registerTask('deploy', ['prettify', 'jekyll', 'shell:jekyll', 'shell:git', 'shell:scp']);
+    grunt.registerTask('site', ['uglify', 'cssmin', 'jekyll', 'shell:jekyll', 'connect', 'watch']);
+	grunt.registerTask('default', ['uglify', 'cssmin', 'jekyll', 'shell:jekyll']);
 
 };

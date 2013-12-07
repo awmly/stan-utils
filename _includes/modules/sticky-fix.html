@@ -1,0 +1,70 @@
+{% assign module = "sf" %}
+
+<h1>Sticky Fix</h1>
+<p></p>
+
+<div class='collapse-tab'>
+
+	<ul class="nav nav-tabs hidden-xs">
+		<li class='active'><a href="#{{ module }}examples" data-toggle="tab">Examples</a></li>
+		<li><a href="#{{ module }}settings" data-toggle="tab">Settings</a></li>
+		<li><a href="#{{ module }}methods" data-toggle="tab">Methods</a></li>
+		<li><a href="#{{ module }}events" data-toggle="tab">Events</a></li>
+		<li><a href="#{{ module }}listeners" data-toggle="tab">Listeners</a></li>
+	</ul>
+
+	<div class="tab-content">
+
+		<div class="tab-pane active" id="{{ module }}examples">
+			<h3 data-toggle="collapse" data-target="#{{ module }}examples>div">Examples</h3>
+			<div class='collapse'>
+				
+				<h4>AA</h4>
+				<p>bb</p>
+				<code class='js block'>
+					
+				</code>
+
+				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
+
+			</div>
+		</div>
+		<div class="tab-pane" id="{{ module }}settings">
+			<h3 data-toggle="collapse" data-target="#{{ module }}settings>div">Settings</h3>
+			<div class='collapse'>
+				<table class='table table-bordered'>
+					<tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+					<tr>
+						<td><code>breakpoint</code></td>
+						<td>integer</td>
+						<td>768</td>
+						<td>The breakpoint for when tabs and collapse switch</td>
+					</tr>
+					
+				</table>
+			</div>
+		</div>
+		<div class="tab-pane" id="{{ module }}methods">
+			<h3 data-toggle="collapse" data-target="#{{ module }}methods>div">Methods</h3>
+			<div class='collapse'>
+				<code>$('#selector').CollapseTab('resize');</code> Invokes the resize method
+			</div>
+		</div>
+		<div class="tab-pane" id="{{ module }}events">
+			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
+			<div class='collapse'>
+				<code class='html block'>$('#selector').on('sa.collapsetab.tab',function(event,settings){<br/>
+				{{site.tab}} //Triggered every time view switches to tabs<br/>
+				});</code> 
+			</div>
+		</div>
+		<div class="tab-pane" id="{{ module }}listeners">
+			<h3 data-toggle="collapse" data-target="#{{ module }}listeners>div">Listeners</h3>
+			<div class='collapse'>
+				<p></p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class='divide20'></div>

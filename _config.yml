@@ -1,0 +1,17 @@
+# Dependencies
+markdown:         rdiscount
+pygments:         true
+
+# Permalinks
+permalink:        pretty
+
+# Server
+destination:      ./_site
+exclude:          [".gitignore", "bower.json", "composer.json", "Gruntfile.js", "package.json", "node_modules", "bower_components", "src", "README.md", "install"]
+include:			["_assets","_pages"]
+port:             9001
+
+# Custom vars
+download:			"https://github.com/awomersley/stan-plugins/archive/0.0.1.zip"
+github:				"https://github.com/awomersley/stan-plugins"
+tab:			  	"&nbsp;&nbsp;"

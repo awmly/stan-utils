@@ -1,0 +1,55 @@
+---
+title: 		Class Switcher
+layout:		examples
+---
+
+<h1>Collapse Tab</h1>
+
+<div class='collapse-tab'>
+
+	<ul class="nav nav-tabs hidden-xs">
+		<li class='active'><a href="#home" data-toggle="tab">Home</a></li>
+		<li><a href="#profile" data-toggle="tab">Profile</a></li>
+		<li><a href="#messages" data-toggle="tab">Messages</a></li>
+		<li><a href="#settings" data-toggle="tab">Settings</a></li>
+	</ul>
+
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+
+		<div class="tab-pane active" id="home">
+			<h2 data-toggle="collapse" data-target="#home>div">Home</h2>
+			<div class='collapse'>
+				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. </p>
+			</div>
+		</div>
+		<div class="tab-pane" id="profile">
+			<h2 data-toggle="collapse" data-target="#profile>div">Profile</h2>
+			<div class='collapse'>
+				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. </p>
+			</div>
+		</div>
+		<div class="tab-pane" id="messages">
+			<h2 data-toggle="collapse" data-target="#messages>div">Messages</h2>
+			<div class='collapse'>
+				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. </p>
+			</div>
+		</div>
+		<div class="tab-pane" id="settings">
+			<h2 data-toggle="collapse" data-target="#settings>div">Settings</h2>
+			<div class='collapse'>
+				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+<script src="/_core/core.js"></script>
+<script>
+	$('.collapse-tab').CollapseTab({
+		break_point:768
+	});
+</script>

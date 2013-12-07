@@ -2,6 +2,6 @@
 .DS_Store
 
 #Folder
-tests
+_site
 bower_components
 node_modules

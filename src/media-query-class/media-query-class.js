@@ -18,41 +18,8 @@
 			
 	        $(Selectors[i]).each(function(){
 
-	        	options=$(this).data('options');
-
-	        	for(i in options.breakpoints){
-	        		
-	        		bp=options.breakpoints[i];
-	        		
-	        		// Remove classes
-	        		$(this).removeClass(bp.class);
-
-	        		// Remove attributes
-	        		for(x in bp){
-	        			if(x.indexOf('data')>-1) $(this).attr(x,'');
-	        		}
-
-	        	}
-
-	        	for(i in options.breakpoints){
-	        		
-	        		bp=options.breakpoints[i];
-	        		
-	        		ww=$(window).width();
-
-	        		if(bp['min-width']<=ww && ww<((!bp['max-width'])?9999:bp['max-width'])){
-	        			
-	        			// Add class
-	        			$(this).addClass(bp.class);
-		        		
-	        			// Add attributes
-		        		for(x in bp){
-		        			if(x.indexOf('data')>-1) $(this).attr(x,bp[x]);
-		        		}
-	        		
-	        		}
-
-	        	}
+	        	// Resize check
+	        	methods['resize'].apply(this);
 
 	        });
 
@@ -77,10 +44,52 @@
 		    	// Set Options
 		    	$(this).data('options',options);
 		    	
-		    	// Invoke resize
-		    	$(window).resize();
+		    	// Do resize
+				methods['resize'].apply(this);
 
 		    });
+
+	    },
+
+	    resize: function(){
+
+	    	options=$(this).data('options');
+
+        	for(i in options.breakpoints){
+        		
+        		bp=options.breakpoints[i];
+        		
+        		// Remove classes
+        		$(this).removeClass(bp.class);
+
+        		// Remove attributes
+        		for(x in bp){
+        			if(x.indexOf('data')>-1) $(this).attr(x,'');
+        		}
+
+        	}
+
+        	for(i in options.breakpoints){
+        		
+        		bp=options.breakpoints[i];
+        		
+        		ww=$(window).width();
+
+        		if(bp['min-width']<=ww && ww<((!bp['max-width'])?9999:bp['max-width'])){
+        			
+        			// Add class
+        			$(this).addClass(bp.class);
+	        		
+        			// Add attributes
+	        		for(x in bp){
+	        			if(x.indexOf('data')>-1) $(this).attr(x,bp[x]);
+	        		}
+        		
+        		}
+
+        	}
+
+        	$(this).trigger('sa.mqclass.resize',[options]);
 
 	    }
 	
