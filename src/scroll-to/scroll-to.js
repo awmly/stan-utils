@@ -80,7 +80,12 @@
 
 	    	vars=methods['getVars'].apply(this,[_this,settings]);
 
-			$(settings.scroller).animate({scrollTop:vars.position},settings.scroll_speed);
+			$(settings.scroller).animate({scrollTop:vars.position},settings.scroll_speed,function(){
+
+				// Trigger
+			    $(this).trigger('sa.scrollto.scroll_end',[settings]);
+
+			});
 	    
 	    },
 

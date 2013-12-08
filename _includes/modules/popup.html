@@ -1,7 +1,7 @@
 {% assign module = "popup" %}
 
 <h1>Popup</h1>
-<p></p>
+<p>A responsive popup module that can be controlled on a per device basis.</p>
 
 <div class='collapse-tab'>
 
@@ -19,10 +19,42 @@
 			<h3 data-toggle="collapse" data-target="#{{ module }}examples>div">Examples</h3>
 			<div class='collapse'>
 				
-				<h4>AA</h4>
-				<p>bb</p>
-				<code class='js block'>
-					
+				<h4>iFrame Popup</h4>
+				<p>A responsive youtube popup that loads youtube direct if on mobile, works great on phones with the youtube app installed.</p>
+				<code class='js block pre-scrollable'>
+					&lt;div class='popup' id='iframe'&gt;<br/>
+					{{ site.tab }}&lt;i class='fa fa-times popup-close'>&lt;/i&gt;<br/>
+					{{ site.tab }}&lt;div class='popup-display'&gt;&lt;/div&gt;<br/>
+					&lt;/div&gt;<br/>
+					&lt;a href='http://www.youtube.com/watch?v=kJuwVuP4ezc' data-toggle='popup.toggle' data-target='#iframe' data-src='http://www.youtube.com/embed/kJuwVuP4ezc'&gt;Load Video&lt;/a&gt;<br/><br/>
+					$('#iframe').PopUp({<br/>
+					{{ site.tab }}type:'iframe',<br/>
+					{{ site.tab }}width:1600,<br/>
+					{{ site.tab }}height:900,<br/>
+					{{ site.tab }}gutter:30,<br/>
+					{{ site.tab }}scroll:false,<br/>
+					{{ site.tab }}devices:{ xs:false, sm:true, md:true, lg:true }<br/>
+					});
+				</code>
+
+				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
+
+				<div class='clear20'></div>
+
+				<h4>HTML Popup</h4>
+				<p>A responsive html block popup that scales dynamically in the window.</p>
+				<code class='js block pre-scrollable'>
+					&lt;div class='popup' id='html'&gt;<br/>
+					{{ site.tab }}&lt;i class='fa fa-times popup-close'>&lt;/i&gt;<br/>
+					{{ site.tab }}&lt;div class='popup-display'&gt;&lt;/div&gt;<br/>
+					&lt;/div&gt;<br/>
+					&lt;a href='javascript:;' data-toggle='popup.show' data-target='#html'&gt;Load Popup&lt;/a&gt;<br/><br/>
+					$('#html').PopUp({<br/>
+					{{ site.tab }}type:'html',<br/>
+					{{ site.tab }}width:500,<br/>
+					{{ site.tab }}height:600,<br/>
+					{{ site.tab }}lock_aspect_ratio:false<br/>
+					});
 				</code>
 
 				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
@@ -35,36 +67,97 @@
 				<table class='table table-bordered'>
 					<tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
 					<tr>
-						<td><code>breakpoint</code></td>
-						<td>integer</td>
-						<td>768</td>
-						<td>The breakpoint for when tabs and collapse switch</td>
+						<td><code>type</code></td>
+						<td>string</td>
+						<td>html</td>
+						<td>html - Popup contains standard html code<br/>iframe - Popup loads an external webpage via iframe.</td>
 					</tr>
-					
+					<tr>
+						<td><code>src</code></td>
+						<td>string</td>
+						<td>about:blank</td>
+						<td>The source of the iFrame. This can be overwritten by setting click listeners.</td>
+					</tr>
+					<tr>
+						<td><code>width</code></td>
+						<td>integer</td>
+						<td>200</td>
+						<td>The maximum width of the popup in pixels.</td>
+					</tr>
+					<tr>
+						<td><code>height</code></td>
+						<td>integer</td>
+						<td>300</td>
+						<td>The maximum height of the popup in pixels.</td>
+					</tr>
+					<tr>
+						<td><code>gutter</code></td>
+						<td>integer</td>
+						<td>15</td>
+						<td>If popup dimensions are bigger than window set gutter spacing around edge of popup in pixels.</td>
+					</tr>
+					<tr>
+						<td><code>open</code></td>
+						<td>boolean</td>
+						<td>false</td>
+						<td>Open popup on page load.</td>
+					</tr>
+					<tr>
+						<td><code>auto_reopen</code></td>
+						<td>boolean</td>
+						<td>true</td>
+						<td>Whether to automatically reopen the popup if window size changes.</td>
+					</tr>
+					<tr>
+						<td><code>lock_aspect_ratio</code></td>
+						<td>boolean</td>
+						<td>true</td>
+						<td>Lock the aspect ratio of the popup as it resizes.</td>
+					</tr>
+					<tr>
+						<td><code>scroll</code></td>
+						<td>boolean</td>
+						<td>true</td>
+						<td>Show scroll bars if content doesn't fit the popup.</td>
+					</tr>
+					<tr>
+						<td><code>devices</code></td>
+						<td>object</td>
+						<td>{ xs:true, sm:true, md:true, lg:true }</td>
+						<td>Which devices the popup actions for, if set to false the default action will be taken. Devices based on Bootstrap spec.</td>
+					</tr>
 				</table>
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}methods">
 			<h3 data-toggle="collapse" data-target="#{{ module }}methods>div">Methods</h3>
 			<div class='collapse'>
-				<code>$('#selector').CollapseTab('resize');</code> Invokes the resize method
+				<p><code>$('#selector').Popup('show');</code> Shows the popup</p>
+				<p><code>$('#selector').Popup('hide');</code> Hides the popup</p>
+				<p><code>$('#selector').Popup('toggle');</code> Shows/hides the popup</p>
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}events">
 			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
 			<div class='collapse'>
-				<code class='html block'>$('#selector').on('sa.collapsetab.tab',function(event,settings){<br/>
-				{{site.tab}} //Triggered every time view switches to tabs<br/>
-				});</code> 
+				<p><code class='html block'>$('#selector').on('sa.popup.show',function(event,settings){<br/>
+				{{site.tab}} //Triggered every time view popup is shown<br/>
+				});</code> </p>
+				<p><code class='html block'>$('#selector').on('sa.popup.hide',function(event,settings){<br/>
+				{{site.tab}} //Triggered every time view popup is hidden<br/>
+				});</code> </p>
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}listeners">
 			<h3 data-toggle="collapse" data-target="#{{ module }}listeners>div">Listeners</h3>
 			<div class='collapse'>
-				<p></p>
+				<p><code>&lt;a href='javascript:;' data-toggle='popup.show' data-target='#selector'&gt;Show Popup&lt;/a&gt;</code></p>
+				<p><code>&lt;a href='javascript:;' data-toggle='popup.hide' data-target='#selector'&gt;Hide Popup&lt;/a&gt;</code></p>
+				<p><code>&lt;a href='javascript:;' data-toggle='popup.toggle' data-target='#selector'&gt;Toggle Popup&lt;/a&gt;</code></p>
+				<p>If popup is an iFrame set <code>data-src='http://www...com'</code> to load in a new webpage.</p>
 			</div>
 		</div>
 	</div>
 </div>
 
-<div class='divide20'></div>
+<div class='divide40'></div>

@@ -96,14 +96,50 @@ module.exports = function(grunt) {
                 ].join('&&')
             },
 
-            git: {
-                //commit & push
+            zip: {
+                command: [
+                    'rm -f releases/stan-plugins-<%= pkg.version %>.zip',
+                    'zip -j releases/stan-plugins-<%= pkg.version %>.zip dist/*'
+                ].join('&&')
             },
 
-            scp: {
+            publish: {
                 command: 'scp -P 7722 -r _site/* ftp@aw1.me:/var/www/git.aw1.me/stan-plugins/'
             }
 
+        },
+
+        htmlmin: { 
+
+            dist: {                          
+                options: {                          
+                    removeComments: true,
+                    collapseWhitespace: true,
+                    removeEmptyAttributes: true
+                },
+                files: [{
+                    expand: true,
+                    cwd: '_site',
+                    src: ['*.html'],
+                    dest: '_site'
+                }]
+            }
+
+        },
+
+        prettify: {
+            options: {
+                indent: 4,
+                wrap_line_length: 120,
+                brace_style: 'end-expand',
+                unformatted: ['code', 'pre']
+            },
+            all: {
+                expand: true,
+                cwd: '_site/examples',
+                src: ['*.html'],
+                dest: '_site/examples'
+            }
         }
 
 	});
@@ -116,9 +152,11 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-jekyll');
+    grunt.loadNpmTasks('grunt-contrib-htmlmin');
+    grunt.loadNpmTasks('grunt-prettify');
 
     // Register tasks
-    grunt.registerTask('deploy', ['prettify', 'jekyll', 'shell:jekyll', 'shell:git', 'shell:scp']);
+    grunt.registerTask('deploy', ['jekyll', 'shell:jekyll', 'htmlmin', 'prettify', 'shell:zip', 'shell:publish']);
     grunt.registerTask('site', ['uglify', 'cssmin', 'jekyll', 'shell:jekyll', 'connect', 'watch']);
 	grunt.registerTask('default', ['uglify', 'cssmin', 'jekyll', 'shell:jekyll']);
 

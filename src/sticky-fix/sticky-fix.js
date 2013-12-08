@@ -55,8 +55,8 @@
 				top:0,
 				maxtop:false,
 				sticky_class:'',
-				stick_to:'parent',
-				unstuck_position:'static',
+				stick_to:'window',
+				unstuck_position:'static', //REMOVE!!
 				devices:{ xs:true, sm:true, md:true, lg:true }
 			},options);
 
@@ -97,11 +97,15 @@
 					pos=options.top-($(window).scrollTop()-maxtop);
 					$(this).css('top',pos+'px');
 				}else{
+					// Trigger
+					if($(this).attr('data-sticky')!='stuck') $(this).trigger('sa.stickyfix.stuck',[settings]);
 					$(this).addClass(options.sticky_class).css({'z-index':99999,top:options.top+'px',position:'fixed'}).attr('data-sticky','stuck');
 					$(options.placeholder).css('display','block');
 					if(options.stick_to=='parent') $(this).css({width:$(options.placeholder).width()+'px',left:$(options.placeholder).offset().left+'px'});
 				}
 			}else{
+				// Trigger
+				if($(this).attr('data-sticky')=='stuck') $(this).trigger('sa.stickyfix.unstuck',[settings]);
 				$(this).removeClass(options.sticky_class).css({top:'auto',position:options.unstuck_position}).attr('data-sticky','');
 				$(options.placeholder).css('display','none');
 				if(options.stick_to=='parent') $(this).css({width:'auto',left:'auto'});

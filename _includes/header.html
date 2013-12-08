@@ -1,8 +1,9 @@
 <div class='jumbotron'>
 	<div class='container'>
-  		<h1>STAN Plugins {{ site.current_version }}</h1>
+  		<h1>STAN Plugins</h1>
   		<p>A collection of responsive jQuery plugins based on the bootstrap framework.</p>
   		<div class='clear10'></div>
-  		<p><a href='{{ site.download }}' class='btn btn-lg btn-primary'><i class='fa fa-download fa-lg'></i> &nbsp;Download</a> &nbsp; <a href='{{ site.github }}' class='btn btn-lg btn-primary' target='_blank'><i class='fa fa-github fa-lg'></i> &nbsp;Github</a></p>
+  		<p><a href='{{ site.download | replace:"[version]", site.version }}' class='btn btn-lg btn-primary'><i class='fa fa-download fa-lg'></i> &nbsp;Download</a> &nbsp; <a href='{{ site.github }}' class='btn btn-lg btn-primary' target='_blank'><i class='fa fa-github fa-lg'></i> &nbsp;Github</a></p>
+  		<p class='sml'><em>Current Version: {{ site.version }}</em></p>
   	</div>
 </div>

@@ -151,6 +151,9 @@
 					// Set open to true			
 			    	settings.open=true;
 
+			    	// Trigger
+			    	$(this).trigger('sa.popup.show',[settings]);
+
 			    	// Return false to stop default action
 			    	return false;
 
@@ -183,6 +186,9 @@
 
 		    	// Set open to false
 		    	settings.open=false;
+
+		    	// Trigger
+			    $(this).trigger('sa.popup.hide',[settings]);
 
 		    }
 

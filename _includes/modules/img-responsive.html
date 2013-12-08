@@ -1,7 +1,7 @@
 {% assign module = "is" %}
 
 <h1>Image Responsive</h1>
-<p></p>
+<p>Load images responsivly depending on window size.</p>
 
 <div class='collapse-tab'>
 
@@ -19,10 +19,11 @@
 			<h3 data-toggle="collapse" data-target="#{{ module }}examples>div">Examples</h3>
 			<div class='collapse'>
 				
-				<h4>AA</h4>
-				<p>bb</p>
-				<code class='js block'>
-					
+				<h4>Mobile first</h4>
+				<p>Start by loading the smallest image and only load larger if needed. If the <code>data-src</code> attr is not set then no image replacement happens.</p>
+				<code class='js block pre-scrollable'>
+					&lt;img src='/image/phone.jpg' data-src='{ xs:"/image/phone.jpg", sm:"/image/tablet.jpg", md:"/image/laptop.jpg", lg:"/image/desktop.jpg"}' /&gt;<br/><br/>
+					$('img').ImgResponsive();
 				</code>
 
 				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
@@ -32,39 +33,28 @@
 		<div class="tab-pane" id="{{ module }}settings">
 			<h3 data-toggle="collapse" data-target="#{{ module }}settings>div">Settings</h3>
 			<div class='collapse'>
-				<table class='table table-bordered'>
-					<tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
-					<tr>
-						<td><code>breakpoint</code></td>
-						<td>integer</td>
-						<td>768</td>
-						<td>The breakpoint for when tabs and collapse switch</td>
-					</tr>
-					
-				</table>
+				<p>This module has no settings.</p>
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}methods">
 			<h3 data-toggle="collapse" data-target="#{{ module }}methods>div">Methods</h3>
 			<div class='collapse'>
-				<code>$('#selector').CollapseTab('resize');</code> Invokes the resize method
+				<p>This module has no methods.</p>
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}events">
 			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
 			<div class='collapse'>
-				<code class='html block'>$('#selector').on('sa.collapsetab.tab',function(event,settings){<br/>
-				{{site.tab}} //Triggered every time view switches to tabs<br/>
-				});</code> 
+				<p>This module has no events.</p>
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}listeners">
 			<h3 data-toggle="collapse" data-target="#{{ module }}listeners>div">Listeners</h3>
 			<div class='collapse'>
-				<p></p>
+				<p>This module has no listeners.</p>
 			</div>
 		</div>
 	</div>
 </div>
 
-<div class='divide20'></div>
+<div class='divide40'></div>

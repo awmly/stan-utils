@@ -2,16 +2,19 @@
 markdown:         rdiscount
 pygments:         true
 
-# Permalinks
-permalink:        pretty
-
 # Server
-destination:      ./_site
-exclude:          [".gitignore", "bower.json", "composer.json", "Gruntfile.js", "package.json", "node_modules", "bower_components", "src", "README.md", "install"]
+destination:		./_site
+exclude:			[".gitignore", "bower.json", "composer.json", "Gruntfile.js", "package.json", "node_modules", "bower_components", "src", "releases", "README.md", "install"]
 include:			["_assets","_pages"]
-port:             9001
+port:				9001
 
-# Custom vars
-download:			"https://github.com/awomersley/stan-plugins/archive/0.0.1.zip"
-github:				"https://github.com/awomersley/stan-plugins"
+# App
+app:				"Stan Plugins"
+version:			"0.0.1"
+
+# Formatting
 tab:			  	"&nbsp;&nbsp;"
+
+# URLs
+download:			"https://github.com/awomersley/stan-plugins/releases/download/[version]/stan-plugins-[version].zip"
+github:				"https://github.com/awomersley/stan-plugins"

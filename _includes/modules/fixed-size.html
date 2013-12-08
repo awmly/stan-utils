@@ -1,7 +1,7 @@
 {% assign module = "fs" %}
 
 <h1>Fixed Size</h1>
-<p></p>
+<p>Make elements always be the same height</p>
 
 <div class='collapse-tab'>
 
@@ -19,10 +19,13 @@
 			<h3 data-toggle="collapse" data-target="#{{ module }}examples>div">Examples</h3>
 			<div class='collapse'>
 				
-				<h4>AA</h4>
-				<p>bb</p>
+				<h4>Responsive Columns</h4>
+				<p>Fix the heights of columns when inside a responsive column structure.</p>
 				<code class='js block'>
-					
+					$('.row').FixedSize({<br/>
+					{{ site.tab }}selector:'.col>div',<br/>
+					{{ site.tab }}devices:{ xs:false, sm:2, md:3, lg:4 }<br/>
+					});
 				</code>
 
 				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
@@ -35,36 +38,41 @@
 				<table class='table table-bordered'>
 					<tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
 					<tr>
-						<td><code>breakpoint</code></td>
-						<td>integer</td>
-						<td>768</td>
-						<td>The breakpoint for when tabs and collapse switch</td>
+						<td><code>selector</code></td>
+						<td>string</td>
+						<td>div</td>
+						<td>The selectors to fix the size of</td>
 					</tr>
-					
+					<tr>
+						<td><code>devices</code></td>
+						<td>object</td>
+						<td>{ xs:0, sm:0, md:0, lg:0 }</td>
+						<td>How many selectors to group together when fixing the size. Set to <code>0</code> for all, or set to a number. ie setting to <code>3</code> will make the first 3 selectors the same height, then the next 3 and so on. Devices based on Bootstrap spec.</td>
+					</tr>
 				</table>
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}methods">
 			<h3 data-toggle="collapse" data-target="#{{ module }}methods>div">Methods</h3>
 			<div class='collapse'>
-				<code>$('#selector').CollapseTab('resize');</code> Invokes the resize method
+				<p><code>$('#selector').FixedSize('fix');</code> Invokes the fix method</p>
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}events">
 			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
 			<div class='collapse'>
-				<code class='html block'>$('#selector').on('sa.collapsetab.tab',function(event,settings){<br/>
-				{{site.tab}} //Triggered every time view switches to tabs<br/>
-				});</code> 
+				<p><code class='html block'>$('#selector').on('sa.fixedsize.fix',function(event,settings){<br/>
+				{{site.tab}} //Triggered every time selectors are resized<br/>
+				});</code></p>
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}listeners">
 			<h3 data-toggle="collapse" data-target="#{{ module }}listeners>div">Listeners</h3>
 			<div class='collapse'>
-				<p></p>
+				<p>This module has no listeners.</p>
 			</div>
 		</div>
 	</div>
 </div>
 
-<div class='divide20'></div>
+<div class='divide40'></div>

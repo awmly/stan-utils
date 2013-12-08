@@ -174,6 +174,9 @@
 			    		
 			    		// Set open to true			
 			    		settings.open=true;
+
+			    		// Trigger
+			    		$(this).trigger('sa.slideout.show',[settings]);
 			    	
 			    	});
 
@@ -210,6 +213,9 @@
 
 		    		// Set open to false
 		    		settings.open=false;
+
+		    		// Trigger
+			    	$(this).trigger('sa.slideout.hide',[settings]);
 
 		    	});
 

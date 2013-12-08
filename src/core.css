@@ -25,6 +25,8 @@ p.left, p.right{ float:none; }
 
 .divide10{ clear:both; height:10px; border-bottom:solid 1px #ddd; margin-bottom:10px; }
 .divide20{ clear:both; height:20px; border-bottom:solid 1px #ddd; margin-bottom:20px; }
+.divide30{ clear:both; height:30px; border-bottom:solid 1px #ddd; margin-bottom:30px; }
+.divide40{ clear:both; height:40px; border-bottom:solid 1px #ddd; margin-bottom:40px; }
 
 .clk{ cursor:pointer; }
 .last{ margin-right:0 !important; }

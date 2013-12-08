@@ -1,7 +1,7 @@
 {% assign module = "so" %}
 
 <h1>Slide Out</h1>
-<p></p>
+<p>A responsive slide out module that can be controlled on a per device basis.</p>
 
 <div class='collapse-tab'>
 
@@ -19,10 +19,32 @@
 			<h3 data-toggle="collapse" data-target="#{{ module }}examples>div">Examples</h3>
 			<div class='collapse'>
 				
-				<h4>AA</h4>
-				<p>bb</p>
+				<h4>Left Panel</h4>
+				<p>Slide out the a left panel for all devices.</p>
+				<code class='js block pre-scrollable'>
+					&lt;div class='slideout_left'&gt;&lt;/div&gt;<br/>
+					&lt;a href='javascript:;' data-toggle='slideout.toggle' data-target='.slideout_left'&gt;TOGGLE&lt;/a&gt;<br/><br/>
+					$('.slideout_left').SlideOut({<br/>
+					{{site.tab}}pos:'left',<br/>
+					{{site.tab}}open:true<br/>
+					});
+				</code>
+
+				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
+
+				<div class='clear20'></div>
+
+				<h4>Bottom Panel</h4>
+				<p>Slide out the a bottom panel for all devices except for extra small (xs).</p>
 				<code class='js block'>
-					
+					&lt;div class='slideout_bottom'&gt;&lt;/div&gt;<br/>
+					&lt;a href='javascript:;' data-toggle='slideout.show' data-target='.slideout_bottom'&gt;SHOW&lt;/a&gt;<br/><br/>
+					$('.slideout_bottom').SlideOut({<br/>
+					{{site.tab}}pos:'bottom',<br/>
+					{{site.tab}}auto_reopen:false,<br/>
+					{{site.tab}}auto_close:5,<br/>
+					{{site.tab}}devices:{ xs:false, sm:true, md:true, lg:true }<br/>
+					});
 				</code>
 
 				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
@@ -35,10 +57,40 @@
 				<table class='table table-bordered'>
 					<tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
 					<tr>
-						<td><code>breakpoint</code></td>
+						<td><code>pos</code></td>
+						<td>string</td>
+						<td>left</td>
+						<td>The positioning of the panel. Allowed values are <code>left</code>, <code>right</code>, <code>top</code> and <code>bottom</code>.</td>
+					</tr>
+					<tr>
+						<td><code>open</code></td>
+						<td>boolean</td>
+						<td>false</td>
+						<td>Open panel on page load.</td>
+					</tr>
+					<tr>
+						<td><code>speed</code></td>
 						<td>integer</td>
-						<td>768</td>
-						<td>The breakpoint for when tabs and collapse switch</td>
+						<td>300</td>
+						<td>The speed to open the panel.</td>
+					</tr>
+					<tr>
+						<td><code>auto_reopen</code></td>
+						<td>boolean</td>
+						<td>true</td>
+						<td>Whether to automatically reopen the popup if window size changes.</td>
+					</tr>
+					<tr>
+						<td><code>auto_close</code></td>
+						<td>integer</td>
+						<td>0</td>
+						<td>Delay to auto close panel. If <code>0</code> panel will remain open to manually closed.</td>
+					</tr>
+					<tr>
+						<td><code>devices</code></td>
+						<td>object</td>
+						<td>{ xs:true, sm:true, md:true, lg:true }</td>
+						<td>Which devices the popup actions for, if set to false the default action will be taken. Devices based on Bootstrap spec.</td>
 					</tr>
 					
 				</table>
@@ -47,24 +99,31 @@
 		<div class="tab-pane" id="{{ module }}methods">
 			<h3 data-toggle="collapse" data-target="#{{ module }}methods>div">Methods</h3>
 			<div class='collapse'>
-				<code>$('#selector').CollapseTab('resize');</code> Invokes the resize method
+				<p><code>$('#selector').SlideOut('show');</code> Shows the slideout</p>
+				<p><code>$('#selector').SlideOut('hide');</code> Hides the slideout</p>
+				<p><code>$('#selector').SlideOut('toggle');</code> Shows/hides the slideout</p>
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}events">
 			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
 			<div class='collapse'>
-				<code class='html block'>$('#selector').on('sa.collapsetab.tab',function(event,settings){<br/>
-				{{site.tab}} //Triggered every time view switches to tabs<br/>
-				});</code> 
+				<p><code class='html block'>$('#selector').on('sa.slideout.show',function(event,settings){<br/>
+				{{site.tab}} //Triggered every time view slide-out is shown<br/>
+				});</code> </p>
+				<p><code class='html block'>$('#selector').on('sa.slideout.hide',function(event,settings){<br/>
+				{{site.tab}} //Triggered every time view slide-out is hidden<br/>
+				});</code> </p>
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}listeners">
 			<h3 data-toggle="collapse" data-target="#{{ module }}listeners>div">Listeners</h3>
 			<div class='collapse'>
-				<p></p>
+				<p><code>&lt;a href='javascript:;' data-toggle='slideout.show' data-target='#selector'&gt;Show Slideout&lt;/a&gt;</code></p>
+				<p><code>&lt;a href='javascript:;' data-toggle='slideout.hide' data-target='#selector'&gt;Hide Slideout&lt;/a&gt;</code></p>
+				<p><code>&lt;a href='javascript:;' data-toggle='slideout.toggle' data-target='#selector'&gt;Toggle Slideout&lt;/a&gt;</code></p>
 			</div>
 		</div>
 	</div>
 </div>
 
-<div class='divide20'></div>
+<div class='divide40'></div>

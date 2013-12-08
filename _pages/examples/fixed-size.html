@@ -18,10 +18,8 @@ layout:		examples
 
 <script src="/_core/core.js"></script>
 <script>
-$('.col>div').FixedSize({
-	devices:{ xs:false, sm:2, md:3, lg:4 },
-	onFixSize:function(element){
-		$(element).find('span').html($(element).height());
-	}
+$('.row').FixedSize({
+	selector:'.col>div',
+	devices:{ xs:false, sm:2, md:3, lg:4 }
 });
 </script>
