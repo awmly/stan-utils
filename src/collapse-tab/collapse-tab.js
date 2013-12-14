@@ -43,7 +43,8 @@
 	    	return this.each(function(){
 
 	    		if($(window).width()<options.break_point) view='collapse'; else view='tab';
-		    	
+		    	view='';
+
 		    	// Set Options
 				settings=$.extend({
 					breakpoint:768,
@@ -53,6 +54,7 @@
 		    	// Set Options
 		    	$(this).data('CollapseTab',settings);
 
+		    	$(this).find('.tab-pane.active>div').addClass('in');
 
 		    	// Add click listeners
 		    	$(this).find("[data-toggle='collapse']").click(function(){
@@ -122,6 +124,11 @@
 	    },
 
 	    accordion: function(t){
+
+	    	$(this).find('.tab-pane').removeClass('active');
+		    
+		    tar=$(t).attr('data-target');
+		    if(!$(tar).hasClass('in')) $(t).parent().addClass('active');
 
 	    	this.find("[data-toggle='collapse']").not(t).each(function(){
 	    		tar=$(this).attr('data-target');

@@ -4,7 +4,7 @@ pygments:         true
 
 # Server
 destination:		./_site
-exclude:			[".gitignore", "bower.json", "composer.json", "Gruntfile.js", "package.json", "node_modules", "bower_components", "src", "releases", "README.md", "install"]
+exclude:			[".gitignore", "bower.json", "composer.json", "Gruntfile.js", "package.json", "node_modules", "bower_components", "src", "releases", "README.md", "install", "tests"]
 include:			["_assets","_pages"]
 port:				9001
 

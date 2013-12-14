@@ -1,0 +1,117 @@
+<!DOCTYPE html>  
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Colousel</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+	<script src="media-query-class/media-query-class.js"></script>
+	<script src="colousel/colousel.js"></script>
+	<script src="_scripts.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet" href="colousel/colousel.css">
+	<link rel="stylesheet" href="_styles.css">
+</head>
+<body>
+
+	<div class='container'>
+
+		<h1>Normal</h1>
+
+		<!--<div class='row'>
+			<div class='col-xs-12 col-sm-4 col-md-3 col-lg-2'><div class='inner' style='background:#ff0000;'></div></div>
+			<div class='col-xs-12 col-sm-4 col-md-3 col-lg-2'><div class='inner' style='background:#00ff00;'></div></div>
+			<div class='col-xs-12 col-sm-4 col-md-3 col-lg-2'><div class='inner' style='background:#ff0000;'></div></div>
+			<div class='col-xs-12 col-sm-4 col-md-3 col-lg-2'><div class='inner' style='background:#00ff00;'></div></div>
+			<div class='col-xs-12 col-sm-4 col-md-3 col-lg-2'><div class='inner' style='background:#ff0000;'></div></div>
+			<div class='col-xs-12 col-sm-4 col-md-3 col-lg-2'><div class='inner' style='background:#00ff00;'></div></div>
+		</div>-->
+
+		<div class='row colousel' id='colousel1'>
+			<i class='fa fa-chevron-left colousel-prev'></i>
+			<i class='fa fa-chevron-right colousel-next'></i>
+			<div><div class='inner' style='background:#ff0000;'></div></div>
+			<div><div class='inner' style='background:#00ff00;'></div></div>
+			<div><div class='inner' style='background:#0000ff;'></div></div>
+			<div><div class='inner' style='background:#ff00ff;'></div></div>
+			<div><div class='inner' style='background:#00ffff;'></div></div>
+			<div><div class='inner' style='background:#ffff00;'></div></div>
+			<div><div class='inner' style='background:#cccccc;'></div></div>
+			<div><div class='inner' style='background:#666666;'></div></div>
+			<div><div class='inner' style='background:#000000;'></div></div>
+		</div>
+
+		<p>
+			<a href='javascript:;' data-toggle='colousel.prev' data-target='#colousel1'>PREV</a>
+			&nbsp; | &nbsp;
+			<a href='javascript:;' data-toggle='colousel.next' data-target='#colousel1'>NEXT</a>
+		</p>
+
+		<div style='height:40px;'></div>
+
+		<h1>Continuous</h1>
+
+		<div class='row colousel' id='colousel2'>
+			<i class='fa fa-chevron-left colousel-prev'></i>
+			<i class='fa fa-chevron-right colousel-next'></i>
+			<div><div class='inner' style='background:#ff0000;'></div></div>
+			<div><div class='inner' style='background:#00ff00;'></div></div>
+			<div><div class='inner' style='background:#0000ff;'></div></div>
+			<div><div class='inner' style='background:#ff00ff;'></div></div>
+			<div><div class='inner' style='background:#00ffff;'></div></div>
+			<div><div class='inner' style='background:#ffff00;'></div></div>
+			<div><div class='inner' style='background:#cccccc;'></div></div>
+			<div><div class='inner' style='background:#666666;'></div></div>
+			<div><div class='inner' style='background:#000000;'></div></div>
+		</div>
+
+		<p>
+			<a href='javascript:;' data-toggle='colousel.prev' data-target='#colousel2'>PREV</a>
+			&nbsp; | &nbsp;
+			<a href='javascript:;' data-toggle='colousel.next' data-target='#colousel2'>NEXT</a>
+		</p>
+
+	</div>
+
+	<script>
+
+		// Set up event listners
+		$('#colousel1').on('next.sa.colousel',function(event){
+			console.log(event.type+" - "+event.namespace);
+		});
+
+		$('#colousel1').on('prev.sa.colousel',function(event){
+			console.log(event.type+" - "+event.namespace);
+		});
+
+		$('#colousel1').on('resize.sa.colousel',function(event){
+			console.log(event.type+" - "+event.namespace);
+		});
+
+		// Init plugin
+		$('#colousel1').Colousel({
+			continuous:false,
+			selector:'div',
+			selector_class:'col-xs-12 col-sm-4 col-md-3 col-lg-2',
+			autoplay:false,
+			autoplay_delay:2000,
+			break_delay_on_click:false,
+			transition_speed:300
+		});
+
+		// Init plugin
+		$('#colousel2').Colousel({
+			continuous:true,
+			selector:'div',
+			selector_class:'col-xs-12 col-sm-4 col-md-3 col-lg-2',
+			autoplay:false,
+			autoplay_delay:2000,
+			break_delay_on_click:false,
+			transition_speed:300
+		});
+
+	</script>
+
+</body>
+</html>

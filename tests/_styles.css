@@ -1,0 +1,4 @@
+.inner{ height:200px; }
+
+.colousel.end .colousel-next{ opacity:0.5; }
+.colousel.start .colousel-prev{ opacity:0.5; }
