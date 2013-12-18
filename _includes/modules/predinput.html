@@ -1,7 +1,7 @@
-{% assign module = "dom" %}
+{% assign module = "pred" %}
 
-<h1>DOMovr</h1>
-<p>Move content between selectors depending on current device.</p>
+<h1>Predinput</h1>
+<p>A simple predictive input module.</p>
 
 <div class='collapse-tab'>
 
@@ -19,37 +19,22 @@
 			<h3 data-toggle="collapse" data-target="#{{ module }}examples>div">Examples</h3>
 			<div class='collapse'>
 				
-				<h4>XS, SM, MD &amp; LG</h4>
-				<p>The content is in a different holder for all devices.</p>
+				<h4>Simple Predictive Search</h4>
+				<p>Return search results that match passed string</p>
 				<code class='js block'>
-					&lt;div id='xs-holder'&gt;&lt;div class='domovr'&gt;&lt;/div&gt;&lt;/div&gt;<br/>
-					&lt;div id='sm-holder'&gt;&lt;/div&gt;<br/>
-					&lt;div id='md-holder'&gt;&lt;/div&gt;<br/>
-					&lt;div id='lg-holder'&gt;&lt;/div&gt;<br/><br/>
-					$('.domovr').DOMovr({<br/>
-					{{ site.tab }}xs:'#xs-holder',<br/>
-					{{ site.tab }}sm:'#sm-holder',<br/>
-					{{ site.tab }}md:'#md-holder',<br/>
-					{{ site.tab }}lg:'#lg-holder'<br/>
-					});
+					&lt;div class='predinput'><br/>
+			        {{ site.tab }}&lt;input type='text' class='form-control' /&gt;<br/>
+			        {{ site.tab }}&lt;div class='results'&gt;&lt;/div&gt;<br/>
+			        {{ site.tab }}&lt;i class='clear fa fa-times'&gt;&lt;/i&gt;<br/>
+			        &lt;/div&gt;<br/><br/>
+					$('.predinput').Predinput({<br/>
+			        {{ site.tab }}search_url:'http://127.0.0.1:9001/predinput-results.html',<br/>
+			        {{ site.tab }}data: { results_limit:10 }<br/>
+			    	});
 				</code>
 
 				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
 
-				<div class='clear20'></div>
-
-				<h4>XS/SM &amp; MD/LG</h4>
-				<p>The content is split between xs/sm and md/lg devices.</p>
-				<code class='js block'>
-					&lt;div id='xssm-holder'&gt;&lt;div class='domovr'&gt;&lt;/div&gt;&lt;/div&gt;<br/>
-					&lt;div id='mdlg-holder'&gt;&lt;/div&gt;<br/><br/>
-					$('.domovr').DOMovr({<br/>
-					{{ site.tab }}sm:'#xssm-holder',<br/>
-					{{ site.tab }}md:'#mdlg-holder'<br/>
-					});
-				</code>
-
-				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
 
 			</div>
 		</div>
@@ -59,28 +44,22 @@
 				<table class='table table-bordered'>
 					<tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
 					<tr>
-						<td><code>xs</code></td>
+						<td><code>search_url</code></td>
 						<td>string</td>
 						<td></td>
 						<td>The selector to hold the content on XS devices</td>
 					</tr>
 					<tr>
-						<td><code>sm</code></td>
+						<td><code>http_request</code></td>
 						<td>string</td>
-						<td></td>
-						<td>The selector to hold the content on SM devices</td>
+						<td>GET</td>
+						<td>The type of HTTP request to make to the search url</td>
 					</tr>
 					<tr>
-						<td><code>md</code></td>
-						<td>string</td>
+						<td><code>data</code></td>
+						<td>object</td>
 						<td></td>
-						<td>The selector to hold the content on MD devices</td>
-					</tr>
-					<tr>
-						<td><code>lg</code></td>
-						<td>string</td>
-						<td></td>
-						<td>The selector to hold the content on LG devices</td>
+						<td>An object of data to pass to the search URL - passed as JSON</td>
 					</tr>
 					
 				</table>
@@ -95,8 +74,11 @@
 		<div class="tab-pane" id="{{ module }}events">
 			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
 			<div class='collapse'>
-				<p><code class='html block'>$('#selector').on('moved.sa.domovr',function(event,settings){<br/>
-				{{site.tab}} //Triggered every time content moves selector<br/>
+				<p><code class='html block'>$('#selector').on('search.sa.predinput',function(event,settings){<br/>
+				{{site.tab}} //Triggered every time search happens<br/>
+				});</code></p>
+				<p><code class='html block'>$('#selector').on('selected.sa.predinput',function(event,settings){<br/>
+				{{site.tab}} //Triggered every time a predicted result is selected<br/>
 				});</code></p>
 			</div>
 		</div>

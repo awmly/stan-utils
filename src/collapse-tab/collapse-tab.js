@@ -63,6 +63,14 @@
 
 	    		});
 
+	    		$("[data-toggle='collapse-tab']").click(function(){
+
+	    			$(".nav-tabs [href='"+$(this).attr('href')+"']").tab('show');
+	    			$($(this).attr('href')+">div").collapse('show');
+	    			methods['Accordion'].apply(_this,[$("[data-target='"+$(this).attr('href')+">div']")]);
+
+	    		});
+
 		    	// Do resize
 	    		methods['resize'].apply(this);
 		    

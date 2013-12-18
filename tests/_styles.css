@@ -2,3 +2,11 @@
 
 .colousel.end .colousel-next{ opacity:0.5; }
 .colousel.start .colousel-prev{ opacity:0.5; }
+
+.switcher div{ padding-bottom:30px; }
+.switcher .grid span{ height:300px; background:#ccc; display:block; }
+.switcher .list span{ height:100px; background:#ccc; display:block; }
+
+.switcher2 div{ padding-bottom:30px; }
+.switcher2 .grid span{ height:100px; background:#ccc; display:block; }
+.switcher2 .list span{ height:50px; background:#ccc; display:block; }

@@ -88,6 +88,9 @@
 
         		settings.current_holder=element;
 
+        		// Trigger
+				$(this).trigger('moved.sa.domovr',[settings]);
+
         	}
 
 	    }

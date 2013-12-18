@@ -35,14 +35,14 @@
 		// Next
 		$("[data-toggle='colousel.next']").click(function(){
 
-			return methods['next'].apply($($(this).attr('data-target')),[true]);
+			return methods['move'].apply($($(this).attr('data-target')),['next',true]);
 
 		});
 
 		// Prev
 		$("[data-toggle='colousel.prev']").click(function(){
 
-			return methods['prev'].apply($($(this).attr('data-target')),[true]);
+			return methods['move'].apply($($(this).attr('data-target')),['prev',true]);
 
 		});
 
@@ -57,59 +57,71 @@
 			// Save selector in array
 			Selectors.push(this.selector);
 		    
-			// Iterate Through Selectors
+				// Iterate Through Selectors
 	    	return this.each(function(index){
 
 	    		// Set this
-				var $this=$(this);
+					var $this=$(this);
 
-	    		// Set Options
-				var settings=$.extend({
-					continuous:true,
-					selector:'div',
-					selector_class:false,
-					transition_speed:300,
-					autoplay:false,
-					autoplay_delay:5000,
-					break_delay_on_click:true,
-					current_position:0,
+		    	// Set Options
+					var settings=$.extend({
+						continuous:true,
+						selector:'div',
+						selector_class:false,
+						transition_speed:300,
+						autoplay:false,
+						autoplay_delay:5000,
+						break_autoplay_on_click:true,
+						current_index:0,
+						autoplay_method:'next',
+						selector_width:0,
+						max_index:0,
+						timer:false,
+						action:false,
+					},options);
+					
+					
+					
+			    // Save settings
+					$this.data('Colousel',settings);
 
-					autoplay_method:'next',
-					selector_width:0,
-					max_position:0,
-					timer:false
-				},options);
-				
-				// Calculate total
-				settings.total=$this.children(settings.selector).length;
-				
-		    	// Save settings
-				$this.data('Colousel',settings);
 
-				// Add classes
-				if(settings.selector_class) $this.children(settings.selector).addClass(settings.selector_class);
+					var $Selectors=$this.find('.colousel-inner').children(settings.selector);
 
-				// Click handler for next
-				$this.find('.colousel-next').click(function(event){
+					// Calculate total
+					settings.total=$Selectors.length;
 
-					methods['next'].apply($this,[true]);
-				
-				});
+					// Add classes
+					if(settings.selector_class) $Selectors.addClass(settings.selector_class);
 
-				// Click handler for prev
-				$this.find('.colousel-prev').click(function(event){
+					// Loop through selectors
+		    	$Selectors.each(function(index){
+		    		
+		    		// Set index position
+		    		$(this).data('ColouselIndex',index);
 
-					methods['prev'].apply($this,[true]);
-				
-				});
+		    	});
 
-				// Do resize
-				methods['resize'].apply($this);
+					// Click handler for next
+					$this.find('.colousel-next').click(function(event){
 
-				// Set autoplay timer
-				methods['autoplay'].apply($this);
+						methods['move'].apply($this,['next',true]);
+					
+					});
 
-		    
+					// Click handler for prev
+					$this.find('.colousel-prev').click(function(event){
+
+						methods['move'].apply($this,['prev',true]);
+					
+					});
+
+					// Do resize
+					methods['resize'].apply($this);
+
+					// Set autoplay timer
+					methods['autoplay'].apply($this);
+
 		    });
 
 	    },
@@ -117,24 +129,24 @@
 	    autoplay:function(){
 
 	    	// Load settings
-	    	settings=$(this).data('Colousel');
+	    	var settings=$(this).data('Colousel');
 	    	
 	    	// Set this
-	    	$this=$(this);
+	    	var $this=$(this);
 
 	    	if(settings.autoplay){
 
 	    		// Calculate which method to call
-	    		if(settings.current_position==settings.max_position){
+	    		if(settings.current_index==settings.max_index && !settings.continuous){
 	    			settings.autoplay_method='prev';
-	    		}else if(settings.current_position==0 && settings.autoplay_method=='prev'){
+	    		}else if(settings.current_index==0 && settings.autoplay_method=='prev'){
 	    			settings.autoplay_method='next';
 	    		}
 
 	    		// Set Timer
 	    		settings.timer=setTimeout(function(){ 
 	    			
-	    			methods[settings.autoplay_method].apply($this,[false]);
+	    			methods['move'].apply($this,[settings.autoplay_method,false]);
 	    		
 	    		},settings.autoplay_delay);
 
@@ -145,148 +157,228 @@
 	    resize:function(){
 
 	    	// Load settings
-	    	settings=$(this).data('Colousel');
+	    	var settings=$(this).data('Colousel');
 	    	
 	    	// Set this
-	    	$this=$(this);
+	    	var $this=$(this);
+	    	var $Selectors=$this.find('.colousel-inner').children(settings.selector);
 
 	    	// Reset vars
-	    	height=0;
-	    	left=0;
+	    	var height=0;
+	    	var left=0;
+	    	var inview_check=0;
 	    	settings.inview=0;
 
+	    	// Set selector width
+	    	settings.selector_width=$Selectors.outerWidth();
+
 	    	// Loop through selectors
-	    	$(this).children(settings.selector).each(function(){
+	    	$Selectors.each(function(index){
 
 	    		// Check height of current selector and set height if its larger
 	    		if($(this).outerHeight()>height) height=$(this).outerHeight();
 	    		
+	    		// Calculate left positoion
+	    		left=$(this).data('ColouselIndex')*settings.selector_width;
+
 	    		// Set left position
 	    		$(this).css('left',left+'px');
 
-	    		// Incriment left position
-	    		left=left+$(this).outerWidth();
-
 	    		// If left position is less than colousel width incriment in selectors in view
-	    		if(left<=$this.width()+10) settings.inview++;
-	    		
-	    		// Set selector width
-	    		settings.selector_width=$(this).outerWidth();
+	    		inview_check=inview_check+settings.selector_width;
+	    		if(inview_check<=$this.find('.colousel-inner').width()+10) settings.inview++;
 
 	    	});
 	    	
 	    	// Set height for container
 	    	$(this).css('height',height+'px');
 
-	    	// Ensure all selectors are the same width
-	    	$(this).children(settings.selector).css('width',settings.selector_width+'px');
+	    	// Set start and end positions
+	    	settings.start_position=settings.selector_width*-1;
+		    settings.end_position=settings.selector_width*(settings.total-1);
 
-	    	// Set max_position
-	    	settings.max_position=settings.total-settings.inview;
+		    // Set max_index
+		    settings.max_index=settings.total-settings.inview;
 
-	    	// Check current_position isnt above maximum position
-	    	if(settings.current_position>settings.max_position) settings.current_position=settings.max_position;
+		    if(!settings.continuous){
 
-	    	// Move slider to current position
-	    	if(settings.current_position>0){
-	    		offset=settings.current_position*settings.selector_width;
-	    		$(this).children(settings.selector).css('left','-='+offset+'px');
-	    	}
+		    	// Check current_index isnt above maximum position
+		    	if(settings.current_index>settings.max_index) settings.current_index=settings.max_index;
 
-	    	// Positon checks
-			methods['position_checks'].apply($this);
+		    	// Move slider to current position
+		    	if(settings.current_index>0){
+		    		
+		    		var offset=settings.current_index*settings.selector_width;
+		    		$Selectors.css('left','-='+offset+'px');
+		    	
+		    	}
+
+		    }
 
 	    	// Trigger
-			$(this).trigger('resize.sa.colousel',[settings]);
+				$(this).trigger('resize.sa.colousel',[settings]);
 
 	    },
 
-	    next:function(isClick){
+	    pre_move_checks:function(method){
 
 	    	// Load settings
-	    	settings=$(this).data('Colousel');
+	    	var settings=$(this).data('Colousel');
 
 	    	// Set this
-	    	$this=$(this);
+	    	var $this=$(this);
+	    	var $Selectors=$this.find('.colousel-inner').children(settings.selector);
+
+	    	// If continuous - reposition selectors
+	    	if(settings.continuous){
+
+		    	// Loop through selectors
+		    	$Selectors.each(function(){
+
+		    		// Get index position
+		    		var $index=$(this).data('ColouselIndex');
+		    		
+		    		if(method=='next'){
+
+		    				if($index==-1){
+
+		    					// Reset index and left position
+		    					$index=settings.total-1;
+		    					$(this).css('left',settings.end_position+'px');
+		    				
+		    				}
+
+		    				$index--;
+		    				
+		    		}
+
+		    		if(method=='prev'){
+		    				
+		    				$index++;
+		    				
+		    				if($index==settings.total){
+
+		    					// Reset index and left position
+		    					$index=0;
+		    					$(this).css('left',settings.start_position+'px');
+		    				
+		    				}
+		    				
+		    		}
+
+		    		// Save index position
+		    		$(this).data('ColouselIndex',$index);
+
+		    	});
+
+	    	}
+
+	    },
+
+	    post_move_checks:function(method){
+
+	    	// Load settings
+	    	var settings=$(this).data('Colousel');
+
+	    	// Set this
+	    	var $this=$(this);
+	    	var $Selectors=$this.find('.colousel-inner').children(settings.selector);
+
+	    	// If not continuous check for index positions
+	    	if(!settings.continuous){
+
+	    		// Check start position
+	    		if(settings.current_index==0) $(this).addClass('start'); else $(this).removeClass('start');
+
+	    		// Check end position
+	    		if(settings.current_index>=settings.max_index) $(this).addClass('end'); else $(this).removeClass('end');
+
+	    	}
+
+	    },
+
+	    move:function(direction,isClick){
+
+	    	// Load settings
+	    	var settings=$(this).data('Colousel');
+
+	    	// Set this
+	    	var $this=$(this);
+	    	var $Selectors=$this.find('.colousel-inner').children(settings.selector);
+
+	    	if(direction=='next'){
+	    		inc_value=1;
+	    		left_modifier='-';
+	    	}else{
+	    		inc_value=-1;
+	    		left_modifier='+';
+	    	}
+
+	    	// Set this
+	    	var $this=$(this);
 	    	
-	    	if(settings.current_position<settings.max_position){
+	    	if((settings.continuous
+	    		|| (settings.current_index<settings.max_index && direction=='next')
+	    		|| (settings.current_index>0 && direction=='prev'))
+	    		&& !settings.action
+	    	){
+
+	    		// Set action
+	    		settings.action=true;
 
 	    		// If isClick and beak delay on click - break autplay
-	    		if(isClick && settings.break_delay_on_click) settings.autoplay=false;
+	    		if(isClick && settings.break_autoplay_on_click) settings.autoplay=false;
 
 	    		// If isClick - set autoplay method to follow click action
-	    		if(isClick) settings.autoplay_method='next';
+	    		if(isClick) settings.autoplay_method=direction;
 
 	    		// Clear timer
 	    		clearTimeout(settings.timer);
 
 	    		// Incriment current position
-	    		settings.current_position++;
+	    		settings.current_index=settings.current_index+inc_value;
+
+	    		
+	    		// Positon checks
+					methods['pre_move_checks'].apply($this,[direction]);
 
 	    		// Animate selectors left
-	    		$(this).children(settings.selector).animate({left:'-='+settings.selector_width+'px'},settings.transition_speed);
+	    		$Selectors.animate({left:left_modifier+'='+settings.selector_width+'px'},settings.transition_speed);
 
-	    		// Reset autoplay timer
-	    		methods['autoplay'].apply($this);
-	    	
-	    		// Positon checks
-				methods['position_checks'].apply($this);
+	    		setTimeout(function(){ 
+	    			
+	    			// Set action
+	    			settings.action=false;
+
+	    			
+
+	    			methods['resize'].apply($this);
+
+	    			// Positon checks
+						methods['post_move_checks'].apply($this,[direction]);
+						
+						// Reset autoplay timer
+	    			methods['autoplay'].apply($this);
+	    			
+	    		
+	    		},settings.transition_speed+50);
 
 	    		// Trigger
-				$(this).trigger('next.sa.colousel',[settings]);
+					$(this).trigger('next.sa.colousel',[settings]);
 
-			}
+				}
 
 	    },
 
-	    prev:function(isClick){
+	    next:function(){
 
-	    	// Load settings
-	    	settings=$(this).data('Colousel');
-
-	    	// Set this
-	    	$this=$(this);
-	    	
-	    	if(settings.current_position>0){
-
-	    		// If isClick and beak delay on click - break autplay
-	    		if(isClick && settings.break_delay_on_click) settings.autoplay=false;
-
-	    		// If isClick - set autoplay method to follow click action
-	    		if(isClick) settings.autoplay_method='prev';
-
-	    		// Clear timer
-	    		clearTimeout(settings.timer);
-
-	    		// Decrease current position
-	    		settings.current_position--;
-
-	    		// Animate selectors left
-	    		$(this).children(settings.selector).animate({left:'+='+settings.selector_width+'px'},settings.transition_speed);
-
-	    		// Reset autoplay timer
-	    		methods['autoplay'].apply($this);
-
-	    		// Positon checks
-				methods['position_checks'].apply($this);
-	    	
-	    		// Trigger
-				$(this).trigger('prev.sa.colousel',[settings]);
-
-			}
+	    	methods['move'].apply($this,['next',true]);
 
 	    },
 
-	    position_checks:function(){
+	    prev:function(){
 
-	    	// Load settings
-	    	settings=$(this).data('Colousel');
-
-	    	// Check start position
-	    	if(settings.current_position==0) $(this).addClass('start'); else $(this).removeClass('start');
-
-	    	// Check end position
-	    	if(settings.current_position>=settings.max_position) $(this).addClass('end'); else $(this).removeClass('end');
+	    	methods['move'].apply($this,['prev',true]);
 
 	    }
 	
@@ -308,6 +400,6 @@
 
 		}    
   
-  	};
+  };
 
 }(jQuery));

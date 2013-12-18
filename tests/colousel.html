@@ -19,27 +19,20 @@
 
 		<h1>Normal</h1>
 
-		<!--<div class='row'>
-			<div class='col-xs-12 col-sm-4 col-md-3 col-lg-2'><div class='inner' style='background:#ff0000;'></div></div>
-			<div class='col-xs-12 col-sm-4 col-md-3 col-lg-2'><div class='inner' style='background:#00ff00;'></div></div>
-			<div class='col-xs-12 col-sm-4 col-md-3 col-lg-2'><div class='inner' style='background:#ff0000;'></div></div>
-			<div class='col-xs-12 col-sm-4 col-md-3 col-lg-2'><div class='inner' style='background:#00ff00;'></div></div>
-			<div class='col-xs-12 col-sm-4 col-md-3 col-lg-2'><div class='inner' style='background:#ff0000;'></div></div>
-			<div class='col-xs-12 col-sm-4 col-md-3 col-lg-2'><div class='inner' style='background:#00ff00;'></div></div>
-		</div>-->
-
 		<div class='row colousel' id='colousel1'>
 			<i class='fa fa-chevron-left colousel-prev'></i>
 			<i class='fa fa-chevron-right colousel-next'></i>
-			<div><div class='inner' style='background:#ff0000;'></div></div>
-			<div><div class='inner' style='background:#00ff00;'></div></div>
-			<div><div class='inner' style='background:#0000ff;'></div></div>
-			<div><div class='inner' style='background:#ff00ff;'></div></div>
-			<div><div class='inner' style='background:#00ffff;'></div></div>
-			<div><div class='inner' style='background:#ffff00;'></div></div>
-			<div><div class='inner' style='background:#cccccc;'></div></div>
-			<div><div class='inner' style='background:#666666;'></div></div>
-			<div><div class='inner' style='background:#000000;'></div></div>
+			<div class='colousel-inner'>
+				<div><div class='inner' style='background:#ff0000;'></div></div>
+				<div><div class='inner' style='background:#00ff00;'></div></div>
+				<div><div class='inner' style='background:#0000ff;'></div></div>
+				<div><div class='inner' style='background:#ff00ff;'></div></div>
+				<div><div class='inner' style='background:#00ffff;'></div></div>
+				<div><div class='inner' style='background:#ffff00;'></div></div>
+				<div><div class='inner' style='background:#cccccc;'></div></div>
+				<div><div class='inner' style='background:#666666;'></div></div>
+				<div><div class='inner' style='background:#000000;'></div></div>
+			</div>
 		</div>
 
 		<p>
@@ -52,18 +45,20 @@
 
 		<h1>Continuous</h1>
 
-		<div class='row colousel' id='colousel2'>
+		<div class='colousel' id='colousel2' style='padding:0 50px;'>
 			<i class='fa fa-chevron-left colousel-prev'></i>
 			<i class='fa fa-chevron-right colousel-next'></i>
-			<div><div class='inner' style='background:#ff0000;'></div></div>
-			<div><div class='inner' style='background:#00ff00;'></div></div>
-			<div><div class='inner' style='background:#0000ff;'></div></div>
-			<div><div class='inner' style='background:#ff00ff;'></div></div>
-			<div><div class='inner' style='background:#00ffff;'></div></div>
-			<div><div class='inner' style='background:#ffff00;'></div></div>
-			<div><div class='inner' style='background:#cccccc;'></div></div>
-			<div><div class='inner' style='background:#666666;'></div></div>
-			<div><div class='inner' style='background:#000000;'></div></div>
+			<div class='colousel-inner'>
+				<div><div class='inner' style='background:#ff0000;'></div></div>
+				<div><div class='inner' style='background:#00ff00;'></div></div>
+				<div><div class='inner' style='background:#0000ff;'></div></div>
+				<div><div class='inner' style='background:#ff00ff;'></div></div>
+				<div><div class='inner' style='background:#00ffff;'></div></div>
+				<div><div class='inner' style='background:#ffff00;'></div></div>
+				<div><div class='inner' style='background:#cccccc;'></div></div>
+				<div><div class='inner' style='background:#666666;'></div></div>
+				<div><div class='inner' style='background:#000000;'></div></div>
+			</div>
 		</div>
 
 		<p>
@@ -75,6 +70,8 @@
 	</div>
 
 	<script>
+
+	$(function(){
 
 		// Set up event listners
 		$('#colousel1').on('next.sa.colousel',function(event){
@@ -93,24 +90,25 @@
 		$('#colousel1').Colousel({
 			continuous:false,
 			selector:'div',
-			selector_class:'col-xs-12 col-sm-4 col-md-3 col-lg-2',
-			autoplay:false,
+			selector_class:'col-xs-12 col-sm-6 col-md-4 col-lg-3',
+			autoplay:true,
 			autoplay_delay:2000,
-			break_delay_on_click:false,
-			transition_speed:300
+			break_autoplay_on_click:true,
+			transition_speed:500
 		});
 
 		// Init plugin
 		$('#colousel2').Colousel({
 			continuous:true,
 			selector:'div',
-			selector_class:'col-xs-12 col-sm-4 col-md-3 col-lg-2',
-			autoplay:false,
-			autoplay_delay:2000,
-			break_delay_on_click:false,
-			transition_speed:300
+			selector_class:'col-xs-6 col-sm-4 col-md-3 col-lg-2',
+			autoplay:true,
+			autoplay_delay:3000,
+			break_autoplay_on_click:false,
+			transition_speed:1000
 		});
 
+	});
 	</script>
 
 </body>

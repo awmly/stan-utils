@@ -4,8 +4,37 @@
 
 (function($){
 	
-	// Define Global Vars
-	var Selectors=[];
+	/*
+	 * Click Listeners
+	 */
+	$(window).ready(function(){
+		
+		// Show
+		$("[data-toggle='popup.show']").click(function(){
+
+			methods['set_src'].apply($($(this).attr('data-target')),[$(this).attr('data-src')]);
+
+			return methods['show'].apply($($(this).attr('data-target')));
+
+		});
+
+		// Hide
+		$("[data-toggle='popup.hide']").click(function(){
+
+			return methods['hide'].apply($($(this).attr('data-target')));
+
+		});
+
+		// Toggle
+		$("[data-toggle='popup.toggle']").click(function(){
+
+			methods['set_src'].apply($($(this).attr('data-target')),[$(this).attr('data-src')]);
+
+			return methods['toggle'].apply($($(this).attr('data-target')));
+
+		});
+
+	});
 
 
 	// Define Methods
@@ -14,77 +43,59 @@
 	    init: function(options){ 
 
 	    	var _this=this;
-	    	var _classes='';
-	    	var _btn=false;
-
-	    	// Set Options
-			options=$.extend({
-
-				selector:'div',
-				onSwitch:false
-
-			},options);
-
-	    	// Find Controllers and Set Listeners
-			$("[data-toggle='class-switcher'][data-target='"+_this.selector+"']").each(function(){
-	    		
-				class_active=$(this).attr('data-active-class');
-				class_inactive=$(this).attr('data-inactive-class');
-
-	    		$(this).find('li').each(function(){
-
-	    			// Add to class list
-		    		_classes=_classes+" "+$(this).attr('data-class');
-		    		
-		    		// Check if button has active class
-		    		if($(this).attr('data-active')=='1') _btn=$(this);
-		    		
-		    		// Add click listener
-		    		$(this).click(function(){
-		    			methods['Switch'].apply(_this,[$(this)]);
-		    		});
-
-	    		});
-		    
-		    });
-		    
 
 			// Iterate Through Selectors
-	    	return this.each(function(){
+	    	return this.each(function(index){
 
-		    	// Set Data
-		    	$(this).data('data',{
-		    		current_class:0,
-		    		classes:_classes,
-		    		selector:_this.selector,
-		    		class_active:class_active,
-		    		class_inactive:class_inactive
+	    		// Set this
+				var $this=$(this);
 
-		    	});
+	    		// Set Options
+				var settings=$.extend({
+					selector:'div',
+					current_class:''
+				},options);
+				
 
-		    	// Set Options
-		    	$(this).data('options',options);
+		    	// Save settings
+				$this.data('ClassSwitcher',settings);
+				
+				// Find Controllers and Set Listeners
+				$("[data-toggle='class-switcher'][data-target='"+_this.selector+"']").each(function(){
 
-		    	// Set Active
-		    	if(_btn) $(_btn).click();
+		    		$(this).find('li').each(function(){
+			    		
+			    		// Check if button has active class
+			    		if($(this).hasClass('active')) methods['change'].apply($this,[$(this)]);
+			    		
+			    		// Add click listener
+			    		$(this).click(function(){
+			    			methods['change'].apply($this,[$(this)]);
+			    		});
+
+		    		});
+			    
+			    });
 		    
 		    });
 
 	    },
-	    
-	    Switch: function(_this){
 
-	    	data=this.data('data');
-	    	options=this.data('options');
+	    change: function(_this){
 
-	    	$("[data-toggle='class-switcher'][data-target='"+data.selector+"']").find('li').removeClass(data.class_active).addClass(data.class_inactive);
-		    _this.addClass(data.class_active);
+	    	settings=$(this).data('ClassSwitcher');
 
-	    	this.find(options.selector).removeClass(data.classes).addClass(_this.attr('data-class'));
+	    	$this=$(this);
 
-	    	data.current_class=_this.attr('data-class');
+	    	$(_this).siblings().removeClass('active');
+		    _this.addClass('active');
 
-	    	if(options.onSwitch) options.onSwitch.call(this);
+	    	this.children(settings.selector).removeClass(settings.current_class).addClass(_this.attr('data-class'));
+
+	    	settings.current_class=_this.attr('data-class');
+
+	    	// Trigger
+			$(this).trigger('change.sa.class-switcher',[settings]);
 	    
 	    }
 	
@@ -92,19 +103,19 @@
 
  	$.fn.ClassSwitcher=function(method){
 
-	    if(methods[method]){
-	    
-	      return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
-	    
-	    }else if( typeof method === 'object' || ! method ){
-	    
-	      return methods.init.apply( this, arguments );
-	    
-	    }else{
-	    
-	      $.error( 'Method ' +  method + ' does not exist on jQuery.Datatable' );
-	    
-	    }    
+		if(methods[method]){
+
+			return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
+
+		}else if( typeof method === 'object' || ! method ){
+
+			return methods.init.apply( this, arguments );
+
+		}else{
+
+			$.error( 'Method ' +  method + ' does not exist on jQuery.Datatable' );
+
+		}    
   
   	};
 
