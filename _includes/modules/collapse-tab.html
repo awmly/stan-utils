@@ -71,11 +71,11 @@
 		<div class="tab-pane" id="{{ module }}events">
 			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
 			<div class='collapse'>
-				<code class='html block'>$('#selector').on('sa.collapsetab.tab',function(event,settings){<br/>
+				<code class='html block'>$('#selector').on('tab.sa.collapsetab',function(event,settings){<br/>
 				{{site.tab}} //Triggered every time view switches to tabs<br/>
 				});</code> 
 
-				<code class='html block'>$('#selector').on('sa.collapsetab.collapse',function(event,settings){<br/>
+				<code class='html block'>$('#selector').on('collapse.sa.collapsetab',function(event,settings){<br/>
 				{{site.tab}} //Triggered every time view switches to collapse<br/>
 				});</code> 
 

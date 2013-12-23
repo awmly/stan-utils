@@ -1,0 +1,29 @@
+---
+title: 		Slide Out
+layout:		examples
+---
+
+<h1>Slide Out</h1>
+
+<p>
+	<a href='/link/to/static/page' data-toggle='slideout.toggle' data-target='.slideout_left'>TOGGLE LEFT</a>
+	&nbsp; &nbsp;
+	<a href='/link/to/static/page' data-toggle='slideout.toggle' data-target='#bottom'>TOGGLE BOTTOM</a>
+</p>
+
+<div class='slideout_left'></div>
+<div class='slideout_bottom' id='bottom'></div>
+
+<script src="/_core/core.js"></script>
+<script>
+$('.slideout_left').SlideOut({
+	pos:'left',
+	open:true
+});
+$('.slideout_bottom').SlideOut({
+	pos:'bottom',
+	auto_reopen:false,
+	auto_close:5,
+	devices:{ xs:false, sm:true, md:true, lg:true }
+});
+</script>

@@ -5,6 +5,8 @@ h4{ padding:0 0 10px 0; font-weight:500; }
 p{ padding-bottom:10px; }
 code.block{ margin-bottom:10px; }
 
+header{ background:#1a1a1a; height:50px; }
+
 .collapse-tab{ margin-top:15px; }
 .collapse-tab .tab-pane{ padding-top:15px; }
 .collapse-tab h3{ display:none; }

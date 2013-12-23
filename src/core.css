@@ -56,3 +56,18 @@ p.left, p.right{ float:none; }
 .marbs{ margin-bottom:15px; }
 .marls{ margin-left:15px; }
 .marrs{ margin-right:15px; }
+
+
+
+
+.col-sm-1-5{ position:relative; min-height:1px; float:left; padding-left:15px; padding-right:15px; } /* this line is only needed if the div doesn't have any default bootstrap column classes applied */
+
+@media screen and (min-width: 599px){
+  .col-sm-1-5{ width:12.5%; }
+}
+@media screen and (min-width: 1025px){
+  .col-md-1-5{ width:12.5%; }
+}
+@media screen and (min-width: 1200px){
+  .col-lg-1-5{ width:12.5%; }
+}

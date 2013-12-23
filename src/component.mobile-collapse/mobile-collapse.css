@@ -1,0 +1,2 @@
+.xscollapse{ height:34px; padding:0 10px; line-height:36px; background:#ccc; font-size:16px; cursor:pointer; display:none; }
+.device-xs .xscollapse{ display:block; }

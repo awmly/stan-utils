@@ -1,0 +1,33 @@
+---
+title: 		Class Switcher
+layout:		examples
+---
+
+<h1>Scroll To</h1>
+
+<div class='scrollTo_JS' style='position:fixed;top:0;left:0;width:100%;height:50px;background:#000;opacity:0.9;line-height:50px;'>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href='#red' class='scrollTo'>Red</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href='http://www.google.com' class='scrollTo' data-target='#green' data-offset='70'>Green</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href='#blue' class='scrollTo'>Blue</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href='#yellow' class='scrollTo'>Yellow</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href='#cyan' class='scrollTo'>Cyan</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href='#magenta' class='scrollTo'>Magenta</a>
+</div>
+
+<div id='red' style='margin-top:20px;background:#ff0000;height:1000px;'></div>
+<div id='green' style='margin-top:20px;background:#00ff00;height:1000px;'></div>
+<div id='blue' style='margin-top:20px;background:#0000ff;height:1000px;'></div>
+<div id='yellow' style='margin-top:20px;background:#ffff00;height:1000px;'></div>
+<div id='cyan' style='margin-top:20px;background:#00ffff;height:1000px;'></div>
+<div id='magenta' style='margin-top:20px;background:#ff00ff;height:1000px;'></div>
+
+<script>
+$('.scrollTo_JS').ScrollTo({
+	selector:'a',
+	scroller:'body,html',
+	listener:'click',
+	offset:70,
+	scroll_speed:300
+});
+</script>
