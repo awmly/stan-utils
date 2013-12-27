@@ -1,266 +1,277 @@
-/*
- * PopUp
- */
+/* ========================================================================
+ * STAN Plugins: Popup
+ * Author Andrew Womersley
+ * ======================================================================== */
 
-(function($){
-	
-	// Define Global Vars
-	var Selectors=[];
+(function($, $STAN) {
 
-	/*
-	 * Resize Listener for resizing slideshow height
-	 */
-	$(window).resize(function(){
+    'use strict';
 
-		if(!Selectors.length) return;
-		
-		for(i in Selectors){
-			
-	        $(Selectors[i]).each(function(){
+    // Define Global Vars
+    var Selectors = [];
 
-	        	// Resize check
-	        	methods['resize'].apply(this);
-	        
-	        });
+    // Resize Listener for resizing slideshow height
+    $(window).resize(function() {
 
-	    }
+        if (!Selectors.length) return;
 
-	}).resize();
+            $(Selectors).each(function() {
 
-	/*
-	 * Click Listeners
-	 */
-	$(window).ready(function(){
-		
-		// Show
-		$("[data-toggle='popup.show']").click(function(){
+                // Resize check
+                methods.resize.apply(this);
 
-			methods['set_src'].apply($($(this).attr('data-target')),[$(this).attr('data-src')]);
+            });
 
-			return methods['show'].apply($($(this).attr('data-target')));
+    }).resize();
 
-		});
+    // Click Listeners
+    $(window).ready(function() {
 
-		// Hide
-		$("[data-toggle='popup.hide']").click(function(){
+        // Show
+        $("[data-toggle='popup.show']").click(function() {
 
-			return methods['hide'].apply($($(this).attr('data-target')));
+            methods.set_src.apply($($(this).attr('data-target')), [$(this).attr('data-src')]);
 
-		});
+            return methods.show.apply($($(this).attr('data-target')));
 
-		// Toggle
-		$("[data-toggle='popup.toggle']").click(function(){
+        });
 
-			methods['set_src'].apply($($(this).attr('data-target')),[$(this).attr('data-src')]);
+        // Hide
+        $("[data-toggle='popup.hide']").click(function() {
 
-			return methods['toggle'].apply($($(this).attr('data-target')));
+            return methods.hide.apply($($(this).attr('data-target')));
 
-		});
+        });
 
-	});
+        // Toggle
+        $("[data-toggle='popup.toggle']").click(function() {
 
+            methods.set_src.apply($($(this).attr('data-target')), [$(this).attr('data-src')]);
 
-	// Define Methods
-	var methods={
-	    
-	    init: function(options){ 
+            return methods.toggle.apply($($(this).attr('data-target')));
 
-			// Save selector in array
-			Selectors.push(this.selector);
-		    
-			// Iterate Through Selectors
-	    	return this.each(function(index){
+        });
 
-	    		// Set this
-				var $this=$(this);
+    });
 
-	    		// Set Options
-				var settings=$.extend({
-					type:'html',
-					src:'about:blank',
-					width:200,
-					height:300,
-					gutter:15,
-					open:false,
-					auto_reopen:true,
-					lock_aspect_ratio:true,
-					scroll:true,
-					devices:{ xs:true, sm:true, md:true, lg:true }
-				},options);
-				
 
-		    	// Save settings
-				$this.data('PopUp',settings);
+    // Define Methods
+    var methods = {
 
-				// Scroll settings
-				_scroll=(settings.scroll) ? 'yes' : 'no';
-				_class=(settings.scroll) ? '' : 'no-scroll';
+        init: function(options) {
 
-				// Set HTML/iFrame/Classes
-				if(settings.type=='iframe'){
+            // Save selector in array
+            Selectors.push(this.selector);
 
-					$this.find('.popup-display').html("<iframe src='about:blank' class='"+_class+"' style='width:100%;height:100%;' seamless frameborder='0' scrolling='"+_scroll+"'></iframe>")
+            // Iterate Through Selectors
+            return this.each(function(index) {
 
-				}else{
+                // Set this
+                var $this = $(this);
 
-					$this.find('.popup-display').addClass(_class);
+                // Set Options
+                var settings = $.extend({
+                    type: 'html',
+                    src: 'about:blank',
+                    width: 200,
+                    height: 300,
+                    gutter: 15,
+                    open: false,
+                    auto_reopen: true,
+                    lock_aspect_ratio: true,
+                    scroll: true,
+                    devices: {
+                        xs: true,
+                        sm: true,
+                        md: true,
+                        lg: true
+                    }
+                }, options);
 
-				}
 
-				// Set close listener
-				$this.click(function(){
+                // Save settings
+                $this.data('PopUp', settings);
 
-					methods['hide'].apply($this);
+                // Scroll settings
+                var _scroll = (settings.scroll) ? 'yes' : 'no';
+                var _class = (settings.scroll) ? '' : 'no-scroll';
 
-				});
+                // Set HTML/iFrame/Classes
+                if (settings.type == 'iframe') {
 
-				$this.find('.popup-display').click(function(event){
+                    $this.find('.popup-display').html("<iframe src='about:blank' class='" + _class + "' style='width:100%;height:100%;' seamless frameborder='0' scrolling='" + _scroll + "'></iframe>");
 
-					event.stopPropagation();
+                }
+                else {
 
-				});
+                    $this.find('.popup-display').addClass(_class);
 
-				// Show if open and allowed on current device
-				if(settings.open && settings.devices[$('body').attr('data-current-device')]){
+                }
 
-					$(this).css('display','block');
-				
-				}
+                // Set close listener
+                $this.click(function() {
 
-				// Do resize
-				methods['resize'].apply(this);
-		    
-		    });
+                    methods.hide.apply($this);
 
-	    },
+                });
 
-	    show:function(){
+                $this.find('.popup-display').click(function(event) {
 
-	    	settings=$(this).data('PopUp');
+                    event.stopPropagation();
 
-	    	if(!settings.open){
+                });
 
-		    	if(settings.devices[$('body').attr('data-current-device')]){
+                // Show if open and allowed on current device
+                if (settings.open && settings.devices[$('body').attr('data-current-device')]) {
 
-		    		// Set iFrame source
-		    		$(this).find('iframe').attr('src',settings.src);
+                    $(this).css('display', 'block');
 
-		    		// Display Popup
-		    		$(this).css('display','block');
-					
-					// Set open to true			
-			    	settings.open=true;
+                }
 
-			    	// Trigger
-			    	$(this).trigger('show.sa.popup',[settings]);
+                // Do resize
+                methods.resize.apply(this);
 
-			    	// Return false to stop default action
-			    	return false;
+            });
 
-		    	}else{
+        },
 
-		    		// Return true to allow default action
-		    		return true;
-		    	
-		    	}
+        show: function() {
 
-		    }else{
+            var settings = $(this).data('PopUp');
 
-		    	return false;
+            if (!settings.open) {
 
-		    }
+                if (settings.devices[$STAN.device]) {
 
-	    },
+                    // Set iFrame source
+                    $(this).find('iframe').attr('src', settings.src);
 
-	    hide:function(){
+                    // Display Popup
+                    $(this).css('display', 'block');
 
-	    	settings=$(this).data('PopUp');
+                    // Set open to true			
+                    settings.open = true;
 
-	    	if(settings.open){
+                    // Trigger
+                    $(this).trigger('show.sa.popup', [settings]);
 
-	    		// Close Popup
-		    	$(this).css('display','none');
+                    // Return false to stop default action
+                    return false;
 
-		    	// Unset iFrame src
-		    	if(settings.type=='iframe') $(this).find('iframe').attr('src','about:blank');
+                }
+                else {
 
-		    	// Set open to false
-		    	settings.open=false;
+                    // Return true to allow default action
+                    return true;
 
-		    	// Trigger
-			    $(this).trigger('hide.sa.popup',[settings]);
+                }
 
-		    }
+            }
+            else {
 
-		    // Return false to stop default action
-		    return false;
-			
-	    },
+                return false;
 
-	    toggle:function(src){
+            }
 
-	    	settings=$(this).data('PopUp');
+        },
 
-	    	if(settings.open) return methods['hide'].apply(this);
-	    	else return methods['show'].apply(this,[src]);
-			
-	    },
+        hide: function() {
 
-	    resize:function(){
+            var settings = $(this).data('PopUp');
 
-	    	settings=$(this).data('PopUp');
+            if (settings.open) {
 
-	    	// Resize to fit
-			w=$(window).width()-(2*settings.gutter);
-			h=$(window).height()-(2*settings.gutter);
+                // Close Popup
+                $(this).css('display', 'none');
 
-			if(w>settings.width) w=settings.width;
-			if(h>settings.height) h=settings.height;
+                // Unset iFrame src
+                if (settings.type == 'iframe') $(this).find('iframe').attr('src', 'about:blank');
 
-			if(settings.lock_aspect_ratio){
-				if((w/h)>(settings.width/settings.height)) 	w=settings.width*(h/settings.height);
-				else 										h=settings.height*(w/settings.width);
-			}
+                // Set open to false
+                settings.open = false;
 
-			$(this).find('.popup-display').css({width:w+'px',height:h+'px',marginTop:'-'+(h/2)+'px',marginLeft:'-'+(w/2)+'px'});
+                // Trigger
+                $(this).trigger('hide.sa.popup', [settings]);
 
-			// Check if device has changed
-    		if(!settings.devices[$('body').attr('data-current-device')] && settings.open){
-    			settings.reopen=true;
-    			methods['hide'].apply(this);
-    		}else if(settings.devices[$('body').attr('data-current-device')] && settings.reopen && settings.auto_reopen){
-    			settings.reopen=false;
-    			methods['show'].apply(this);
-    		}
+            }
 
-	    },
+            // Return false to stop default action
+            return false;
 
-	    set_src:function(src){
+        },
 
-	    	settings=$(this).data('PopUp');
+        toggle: function(src) {
 
-	    	if(src) settings.src=src;
+            var settings = $(this).data('PopUp');
 
-	    }
-	
-	};
+            if (settings.open) return methods.hide.apply(this);
+            else return methods.show.apply(this, [src]);
 
- 	$.fn.PopUp=function(method){
+        },
 
-		if(methods[method]){
+        resize: function() {
 
-			return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
+            var settings = $(this).data('PopUp');
 
-		}else if( typeof method === 'object' || ! method ){
+            // Resize to fit
+            var w = $(window).width() - (2 * settings.gutter);
+            var h = $(window).height() - (2 * settings.gutter);
 
-			return methods.init.apply( this, arguments );
+            if (w > settings.width) w = settings.width;
+            if (h > settings.height) h = settings.height;
 
-		}else{
+            if (settings.lock_aspect_ratio) {
+                if ((w / h) > (settings.width / settings.height)) w = settings.width * (h / settings.height);
+                else h = settings.height * (w / settings.width);
+            }
 
-			$.error( 'Method ' +  method + ' does not exist on jQuery.Datatable' );
+            $(this).find('.popup-display').css({
+                width: w + 'px',
+                height: h + 'px',
+                marginTop: '-' + (h / 2) + 'px',
+                marginLeft: '-' + (w / 2) + 'px'
+            });
 
-		}    
-  
-  	};
+            // Check if device has changed
+            if (!settings.devices[$STAN.device] && settings.open) {
+                settings.reopen = true;
+                methods.hide.apply(this);
+            }
+            else if (settings.devices[$STAN.device] && settings.reopen && settings.auto_reopen) {
+                settings.reopen = false;
+                methods.show.apply(this);
+            }
 
-}(jQuery));
+        },
+
+        set_src: function(src) {
+
+            var settings = $(this).data('PopUp');
+
+            if (src) settings.src = src;
+
+        }
+
+    };
+
+    $.fn.PopUp = function(method) {
+
+        if (methods[method]) {
+
+            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+
+        }
+        else if (typeof method === 'object' || !method) {
+
+            return methods.init.apply(this, arguments);
+
+        }
+        else {
+
+            $.error('Method ' + method + ' does not exist on jQuery.Datatable');
+
+        }
+
+    };
+
+}(jQuery, $STAN));

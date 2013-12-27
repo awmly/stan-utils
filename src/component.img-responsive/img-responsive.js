@@ -1,27 +1,34 @@
-/*
- * IMG-RESPONSIVE
- */
+/* ========================================================================
+ * STAN Plugins: ImgResponsive
+ * Author Andrew Womersley
+ * ======================================================================== */
 
-$(function(){
+$(function() {
 
-	$(window).resize(function(){
-		
-		$("img[data-resp-src^='{']").each(function(){
+	'use strict';
 
-			var t=$(this);
+	var imgResonsive=function(){
 
-			if(t.attr('data-resp-src')){
-        	
-	        	var src=jQuery.parseJSON(t.attr('data-resp-src'));
+		$("img[data-resp-src^='{']").each(function() {
 
-	        	var device=!! $('body').attr('data-current-device') ? $('body').attr('data-current-device') : 'xs';
+			var t = $(this);
 
-	        	t.attr('src',src[device]);
+			if (t.attr('data-resp-src')) {
 
-	        }
+				var src = jQuery.parseJSON(t.attr('data-resp-src'));
+
+				var device = !! $STAN.device ? $STAN.device : 'xs';
+
+				t.attr('src', src[device]);
+
+			}
 
 		});
 
-	});
+	}
+
+	$(window).on('resize',imgResonsive);
+
+	imgResonsive();
 
 });

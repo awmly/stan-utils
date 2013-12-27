@@ -1,0 +1,122 @@
+{% assign module = "st" %}
+
+<h1>Scroll To</h1>
+<p>Animate window scrolling to inpage elements.</p>
+
+<div class='collapse-tab'>
+
+	<ul class="nav nav-tabs hidden-xs">
+		<li class='active'><a href="#{{ module }}examples" data-toggle="tab">Examples</a></li>
+		<li><a href="#{{ module }}settings" data-toggle="tab">Settings</a></li>
+		<li><a href="#{{ module }}methods" data-toggle="tab">Methods</a></li>
+		<li><a href="#{{ module }}events" data-toggle="tab">Events</a></li>
+		<li><a href="#{{ module }}listeners" data-toggle="tab">Listeners</a></li>
+	</ul>
+
+	<div class="tab-content">
+
+		<div class="tab-pane active" id="{{ module }}examples">
+			<h3 data-toggle="collapse" data-target="#{{ module }}examples>div">Examples</h3>
+			<div class='collapse'>
+				
+				<h4>Simple Scroll Navigation 1</h4>
+				<p>Scrolling using <code>&lt;a&gt;</code> tags with the attribute <code>href='selector'</code>.</p>
+				<code class='js block'>
+					&lt;p&gt;<br/>
+					{{ site.tab }}&lt;a href='#link1'&gt;Link 1&lt;/a&gt;<br/>
+					{{ site.tab }}&lt;a href='#link2' data-offet='30'&gt;Link 2 with offset override&lt;/a&gt;<br/>
+					&lt;/p&gt;<br/><br/>
+					$('p').ScrollTo({<br/>
+					{{ site.tab }}offset:70<br/>
+					});
+				</code>
+
+				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
+
+				<div class='clear20'></div>
+
+				<h4>Simple Scroll Navigation 2</h4>
+				<p>Scrolling using <code>&lt;li&gt;</code> tags with the attribute <code>data-target='selector'</code>.</p>
+				<code class='js block'>
+					&lt;ul&gt;<br/>
+					{{ site.tab }}&lt;li data-target='#link1'&gt;Link 1&lt;/li&gt;<br/>
+					{{ site.tab }}&lt;li data-target='#link2' data-offet='30'&gt;Link 2 with offset override&lt;/a&gt;<br/>
+					&lt;/ul&gt;<br/><br/>
+					$('ul').ScrollTo({<br/>
+					{{ site.tab }}selector:'li'<br/>
+					{{ site.tab }}offset:70<br/>
+					});
+				</code>
+
+				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
+
+			</div>
+		</div>
+		<div class="tab-pane" id="{{ module }}settings">
+			<h3 data-toggle="collapse" data-target="#{{ module }}settings>div">Settings</h3>
+			<div class='collapse'>
+				<table class='table table-bordered'>
+					<tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+					<tr>
+						<td><code>selector</code></td>
+						<td>string</td>
+						<td>a</td>
+						<td>The element to attach the click listener.</td>
+					</tr>
+					<tr>
+						<td><code>listener</code></td>
+						<td>string</td>
+						<td>click</td>
+						<td>The event listener to attach to the selector.</td>
+					</tr>
+					<tr>
+						<td><code>scroller</code></td>
+						<td>string</td>
+						<td>body,html</td>
+						<td>The element to scroll.</td>
+					</tr>
+					<tr>
+						<td><code>offset</code></td>
+						<td>integer</td>
+						<td>0</td>
+						<td>The offset from the top of the page to scroll to. Usefull when the page has a sticky header.</td>
+					</tr>
+					<tr>
+						<td><code>scroll_speed</code></td>
+						<td>integer</td>
+						<td>300</td>
+						<td>The speed to scroll.</td>
+					</tr>
+					<tr>
+						<td><code>scroll_spy</code></td>
+						<td>boolean</td>
+						<td>true</td>
+						<td>If true, plugin listens to natural scroll and sets active classes and element scrolls in to view.</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="tab-pane" id="{{ module }}methods">
+			<h3 data-toggle="collapse" data-target="#{{ module }}methods>div">Methods</h3>
+			<div class='collapse'>
+				<p>This module has no methods.</p>
+			</div>
+		</div>
+		<div class="tab-pane" id="{{ module }}events">
+			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
+			<div class='collapse'>
+				<p><code class='html block'>$('#selector').on('sa.scrollto.scroll_end',function(event,settings){<br/>
+				{{site.tab}} //Triggered on scroll end<br/>
+				});</code> </p>
+			</div>
+		</div>
+		<div class="tab-pane" id="{{ module }}listeners">
+			<h3 data-toggle="collapse" data-target="#{{ module }}listeners>div">Listeners</h3>
+			<div class='collapse'>
+				<p>This module has no listeners.</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class='divide40'></div>

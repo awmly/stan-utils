@@ -1,150 +1,166 @@
-/*
- * ScrollTo
- */
+/* ========================================================================
+ * STAN Plugins: ScrollTo
+ * Author Andrew Womersley
+ * ======================================================================== */
 
-(function($){
-	
-	// Define Global Vars
-	var Selectors=[];
+(function($, $STAN) {
 
-	$(window).scroll(function(){
+    'use strict';
 
-		if(!Selectors.length) return;
-		
-		for(i in Selectors){
-			
-	        $(Selectors[i]).each(function(){
+    // Define Global Vars
+    var Selectors = [];
 
-	        	settings=$(this).data('scrollTo');
+    $(window).scroll(function() {
 
-	        	if(settings.scroll_spy) methods['Scroll'].apply(this);
+        if (!Selectors.length) return;
 
-	        });			
+        $(Selectors).each(function() {
 
-	    }
+            var settings = $(this).data('scrollTo');
 
-	});
+            if (settings.scroll_spy) methods.Scroll.apply(this);
 
-	// Define Methods
-	var methods={
-	    
-	    init: function(options){ 
+        });
 
-	    	// Save selector in array
-			Selectors.push(this.selector);
+    });
 
-			return this.each(function(){
+    // Define Methods
+    var methods = {
 
-				// Set this
-				var $this=$(this);
+        init: function(options) {
 
-		    	// Set Options
-				var settings=$.extend({
+            // Save selector in array
+            Selectors.push(this.selector);
 
-					selector:'a',
-					scroller:'body,html',
-					listener:'click',
-					offset:0,
-					scroll_speed:300,
-					scroll_spy:true
+            return this.each(function() {
 
-				},options);
+                // Set this
+                var $this = $(this);
 
-				// Save settings
-				$this.data('scrollTo',settings);
+                // Set Options
+                var settings = $.extend({
 
-				// Add listener
-				$(this).on(settings.listener,settings.selector,function(){
-					
-					methods['Listener'].apply($this,[$(this)]);
+                    selector: 'a',
+                    scroller: 'body,html',
+                    listener: 'click',
+                    offset: 0,
+                    scroll_speed: 300,
+                    scroll_spy: true
 
-					return false;
-				
-				});
+                }, options);
 
-				$this.find(settings.selector).each(function(){
+                // Save settings
+                $this.data('scrollTo', settings);
 
-					vars=methods['getVars'].apply(this,[this,settings]);
+                // Add listener
+                $(this).on(settings.listener, settings.selector, function() {
 
-					if(window.location.hash.substring(2)==vars.target.substring(1)) $(settings.scroller).scrollTop(vars.position);
+                    methods.Listener.apply($this, [$(this)]);
 
-				});
+                    return false;
 
-			});
-	    
-	    },
-	    
-	    Listener: function(_this){
+                });
 
-	    	settings=this.data('scrollTo');
+                $this.find(settings.selector).each(function() {
 
-	    	$this=$(this);
+                    var vars = methods.getVars.apply(this, [this, settings]);
 
-	    	vars=methods['getVars'].apply(this,[_this,settings]);
+                    if (window.location.hash.substring(2) == vars.target.substring(1)) $(settings.scroller).scrollTop(vars.position);
 
-			$(settings.scroller).animate({scrollTop:vars.position},settings.scroll_speed,function(){
+                });
 
-				// Trigger
-			    $this.trigger('scroll_end.sa.scrollto',[settings]);
+            });
 
-			});
-	    
-	    },
+        },
 
-	    Scroll: function(){
+        Listener: function(_this) {
 
-	    	var $this=$(this);
+            var settings = this.data('scrollTo');
 
-	        var settings=$this.data('scrollTo');
+            var $this = $(this);
 
-	        $this.find(settings.selector).removeClass('active');
+            var vars = methods.getVars.apply(this, [_this, settings]);
 
-	        st={position:0, target:false };
-			$this.find(settings.selector).each(function(){
+            $(settings.scroller).animate({
+                scrollTop: vars.position
+            }, settings.scroll_speed, function() {
 
-				vars=methods['getVars'].apply(this,[this,settings]);
+                // Trigger
+                $this.trigger('scroll_end.sa.scrollto', [settings]);
 
-				if($(window).scrollTop()>=vars.position && vars.position>=st.position) st={position:vars.position,element:$(this),target:vars.target};
+            });
 
-			});
-			
-			if(st.target){
-				$(st.element).addClass('active');
-				window.location.hash='#/'+st.target.substring(1);
-			}else{
-				window.location.hash='';
-			}
+        },
 
-		},
+        Scroll: function() {
 
-		getVars: function(object,settings){
+            var $this = $(this);
 
-			offset=$(object).attr('data-offset') ? $(object).attr('data-offset') : settings.offset;
-	    	target=$(object).attr('data-target') ? $(object).attr('data-target') : $(object).attr('href');
-			position=parseInt($(target).offset().top)-parseInt(offset);
+            var settings = $this.data('scrollTo');
 
-			return {offset:offset,target:target,position:position};
+            $this.find(settings.selector).removeClass('active');
 
-		}
-	
-	};
+            var st = {
+                position: 0,
+                target: false
+            };
 
- 	$.fn.ScrollTo=function(method){
+            $this.find(settings.selector).each(function() {
 
-	    if(methods[method]){
-	    
-	      return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
-	    
-	    }else if( typeof method === 'object' || ! method ){
-	    
-	      return methods.init.apply( this, arguments );
-	    
-	    }else{
-	    
-	      $.error( 'Method ' +  method + ' does not exist on jQuery.Datatable' );
-	    
-	    }    
-  
-  	};
+                var vars = methods.getVars.apply(this, [this, settings]);
 
-}(jQuery));
+                if ($(window).scrollTop() >= vars.position && vars.position >= st.position) st = {
+                    position: vars.position,
+                    element: $(this),
+                    target: vars.target
+                };
+
+            });
+
+            if (st.target) {
+                $(st.element).addClass('active');
+                window.location.hash = '#/' + st.target.substring(1);
+            }
+            else {
+                window.location.hash = '';
+            }
+
+        },
+
+        getVars: function(object, settings) {
+
+            var offset = $(object).attr('data-offset') ? $(object).attr('data-offset') : settings.offset;
+            var target = $(object).attr('data-target') ? $(object).attr('data-target') : $(object).attr('href');
+            var position = parseInt($(target).offset().top) - parseInt(offset);
+
+            return {
+                offset: offset,
+                target: target,
+                position: position
+            };
+
+        }
+
+    };
+
+    $.fn.ScrollTo = function(method) {
+
+        if (methods[method]) {
+
+            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+
+        }
+        else if (typeof method === 'object' || !method) {
+
+            return methods.init.apply(this, arguments);
+
+        }
+        else {
+
+            $.error('Method ' + method + ' does not exist on jQuery.Datatable');
+
+        }
+
+    };
+
+}(jQuery, $STAN));

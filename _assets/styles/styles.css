@@ -5,7 +5,22 @@ h4{ padding:0 0 10px 0; font-weight:500; }
 p{ padding-bottom:10px; }
 code.block{ margin-bottom:10px; }
 
-header{ background:#1a1a1a; height:50px; }
+header{ background:#1a1a1a; height:50px; width:100%; }
+header .logo{ float:left; line-height:50px; padding:0 30px 0 43px; font-size:24px; color:#eee; position:relative; }
+header .logo:hover{ text-decoration:none; color:#fff; }
+header .logo img{ position:absolute; top:10px; left:0; width:35px; height:30px; }
+
+header ul{ float:left; padding:10px 0; }
+header li{ height:30px; line-height:30px; float:left; padding:0 20px 0 0; }
+header li a{ padding:0 8px; border-radius:5px; color:#eee; display:block; }
+header li a:hover{ color:#fff; text-decoration:none; background:#333; }
+header li.active a{ background:#444; }
+
+.stan{ min-height:100%; position:relative; z-index:20; background:#fff; }
+
+.jumbotron{ margin:0; }
+
+footer{ position:fixed; z-index:10; bottom:0; left:0; width:100%; height:200px; background:#eee; }
 
 .collapse-tab{ margin-top:15px; }
 .collapse-tab .tab-pane{ padding-top:15px; }
@@ -41,5 +56,3 @@ h2{ padding:0; margin:0 0 10px 0; }
 
 .list{ padding:0 0 10px 20px; }
 .list li{ list-style:disc; line-height:16px; padding:0 0 5px 0; }
-
-footer{ height:200px; background:#eee; }

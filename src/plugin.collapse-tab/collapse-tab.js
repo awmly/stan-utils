@@ -1,185 +1,183 @@
-/*
- * CollapseTab
- */
+/* ========================================================================
+ * STAN Plugins: CollapseTab
+ * Author Andrew Womersley
+ * ======================================================================== */
 
-(function($){
-	
-	// Define Global Vars
-	var Selectors=[];
+(function($, $STAN) {
 
-	/*
-	 * Resize Listener for resizing slideshow height
-	 */
+    'use strict';
 
-	$(window).resize(function(){
+    // Define Global Vars
+    var Selectors = [];
 
-		if(!Selectors.length) return;
-		
-		for(i in Selectors){
-			
-	        $(Selectors[i]).each(function(){
+    // Resize Listener for resizing slideshow height
+    $(window).resize(function() {
 
-	        	// Resize check
-	        	methods['resize'].apply(this);
+        if (!Selectors.length) return;
 
-	        });
+        $(Selectors).each(function() {
 
-	    }
+            // Resize check
+            methods.resize.apply(this);
 
-	}).resize();
+        });
+
+    }).resize();
 
 
-	/*
-	 * Click Listeners
-	 */
-	$(window).ready(function(){
-		
-		// Show
-		$("[data-toggle='collapse-tab']").click(function(){
+    // Click Listeners
+    $(window).ready(function() {
 
-			return methods['show'].apply($($(this).attr('data-target')),[$(this)]);
+        // Show
+        $("[data-toggle='collapse-tab']").click(function() {
 
-		});
+            return methods.show.apply($($(this).attr('data-target')), [$(this)]);
 
-	});
+        });
 
-	// Define Methods
-	var methods={
-	    
-	    init: function(options){ 
+    });
 
-	    	// Save selector in array
-			Selectors.push(this.selector);
+    // Define Methods
+    var methods = {
 
-	    	// Iterate Through Selectors
-	    	return this.each(function(){
+        init: function(options) {
 
-	    		var $this=$(this);
+            // Save selector in array
+            Selectors.push(this.selector);
 
-		    	// Set Options
-				settings=$.extend({
-					breakpoint:768,
-					view:false
-				},options);
-		    	
-		    	// Set Options
-		    	$(this).data('CollapseTab',settings);
+            // Iterate Through Selectors
+            return this.each(function() {
 
-		    	$(this).find('.tab-pane.active>div').addClass('in');
+                var $this = $(this);
 
-		    	// Add click listeners
-		    	$(this).find("[data-toggle='collapse']").click(function(){
+                // Set Options
+                var settings = $.extend({
+                    breakpoint: 768,
+                    view: false
+                }, options);
 
-	    			methods['accordion'].apply($this,[$(this)]);
+                // Set Options
+                $(this).data('CollapseTab', settings);
 
-	    		});
+                $(this).find('.tab-pane.active>div').addClass('in');
 
-		    	// Do resize
-	    		methods['resize'].apply(this);
-		    
-		    });
+                // Add click listeners
+                $(this).find("[data-toggle='collapse']").click(function() {
 
-	    },
+                    methods.accordion.apply($this, [$(this)]);
 
-	    show: function(_this){
-	    	
-	    	settings=$(this).data('CollapseTab');
+                });
 
-	    	if(settings.view=='tab'){
-	    		
-	    		$(".nav-tabs [href='"+$(_this).attr('href')+"']").tab('show');
-	    	
-	    	}else{
-	    		
-	    		$($(_this).attr('href')+">div").collapse('show');
-	    		methods['accordion'].apply($(this),[$("[data-target='"+$(_this).attr('href')+">div']")]);
-	    	
-	    	}
-	    
-	    },
+                // Do resize
+                methods.resize.apply(this);
 
-	    accordion: function(t){
-		    
-	    	this.find("[data-toggle='collapse']").not(t).each(function(){
-	    		tar=$(this).attr('data-target');
-	    		if($(tar).hasClass('in')) $(tar).collapse('hide');
-	    	});
+            });
 
-	    },
+        },
 
-	    resize: function(){
+        show: function(_this) {
 
-	    	settings=$(this).data('CollapseTab');
+            var settings = $(this).data('CollapseTab');
 
-        	if($(window).width()<settings.breakpoint){
+            if (settings.view == 'tab') {
 
-				if(settings.view!='collapse'){
-					
-					$(this).find('.tab-pane').addClass('active');
+                $(".nav-tabs [href='" + $(_this).attr('href') + "']").tab('show');
 
-					$(this).find('.in').addClass('collapse');
+            }
+            else {
 
-					index=$(this).find('.nav-tabs li').index($(this).find('.nav-tabs .active'));
+                $($(_this).attr('href') + ">div").collapse('show');
+                methods.accordion.apply($(this), [$("[data-target='" + $(_this).attr('href') + ">div']")]);
 
-					$(this).find('.collapse:eq('+index+')').removeClass('collapse');
+            }
 
-					$(this).trigger('collapse.sa.collapsetab',[settings]);
+        },
 
-				}
+        accordion: function(t) {
 
-				$(this).find('.collapse').removeClass('in');
+            this.find("[data-toggle='collapse']").not(t).each(function() {
+                var tar = $(this).attr('data-target');
+                if ($(tar).hasClass('in')) $(tar).collapse('hide');
+            });
 
-				$(this).find("[data-toggle='collapse-off']").attr('data-toggle','collapse');
+        },
 
-				settings.view='collapse';
+        resize: function() {
 
-			}else{
+            var settings = $(this).data('CollapseTab');
 
-				if(settings.view!='tab'){
+            if ($(window).width() < settings.breakpoint) {
 
-					indx=0;
-					$(this).find('.tab-pane').each(function(index){
-						if($(this).find('div').hasClass('in')) indx=index;
-					});
+                if (settings.view != 'collapse') {
 
-					$(this).find('.nav-tabs li').removeClass('active');
-					$(this).find('.tab-pane').removeClass('active');
+                    $(this).find('.tab-pane').addClass('active');
 
-					$(this).find('.nav-tabs li:eq('+indx+')').addClass('active');
-					$(this).find('.tab-content .tab-pane:eq('+indx+')').addClass('active');
+                    $(this).find('.in').addClass('collapse');
 
-					$(this).trigger('tab.sa.collapsetab',[settings]);
+                    var index = $(this).find('.nav-tabs li').index($(this).find('.nav-tabs .active'));
 
-				}
+                    $(this).find('.collapse:eq(' + index + ')').removeClass('collapse');
 
-				$(this).find('.collapse').css('height','auto').addClass('in');
+                    $(this).trigger('collapse.sa.collapsetab', [settings]);
 
-				$(this).find("[data-toggle='collapse']").attr('data-toggle','collapse-off');
+                }
 
-				settings.view='tab';
+                $(this).find('.collapse').removeClass('in');
 
-			}
+                $(this).find("[data-toggle='collapse-off']").attr('data-toggle', 'collapse');
 
-	    }
-	
-	};
+                settings.view = 'collapse';
 
- 	$.fn.CollapseTab=function(method){
+            }
+            else {
 
-	    if(methods[method]){
-	    
-	      return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
-	    
-	    }else if( typeof method === 'object' || ! method ){
-	    
-	      return methods.init.apply( this, arguments );
-	    
-	    }else{
-	    
-	      $.error( 'Method ' +  method + ' does not exist on jQuery.Datatable' );
-	    
-	    }    
-  
-  	};
+                if (settings.view != 'tab') {
 
-}(jQuery));
+                    var indx = 0;
+                    $(this).find('.tab-pane').each(function(index) {
+                        if ($(this).find('div').hasClass('in')) indx = index;
+                    });
+
+                    $(this).find('.nav-tabs li').removeClass('active');
+                    $(this).find('.tab-pane').removeClass('active');
+
+                    $(this).find('.nav-tabs li:eq(' + indx + ')').addClass('active');
+                    $(this).find('.tab-content .tab-pane:eq(' + indx + ')').addClass('active');
+
+                    $(this).trigger('tab.sa.collapsetab', [settings]);
+
+                }
+
+                $(this).find('.collapse').css('height', 'auto').addClass('in');
+
+                $(this).find("[data-toggle='collapse']").attr('data-toggle', 'collapse-off');
+
+                settings.view = 'tab';
+
+            }
+
+        }
+
+    };
+
+    $.fn.CollapseTab = function(method) {
+
+        if (methods[method]) {
+
+            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+
+        }
+        else if (typeof method === 'object' || !method) {
+
+            return methods.init.apply(this, arguments);
+
+        }
+        else {
+
+            $.error('Method ' + method + ' does not exist on jQuery.Datatable');
+
+        }
+
+    };
+
+}(jQuery, $STAN));

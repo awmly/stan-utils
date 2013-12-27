@@ -1,128 +1,129 @@
-/*
- * FixedSize
- */
+/* ========================================================================
+ * STAN Plugins: FixedSize
+ * Author Andrew Womersley
+ * ======================================================================== */
 
-(function($){
-	
-	// Define Global Vars
-	var Selectors=[];
+(function($, $STAN) {
 
-	/*
-	 * Resize Listener for resizing slideshow height
-	 */
-	$(window).resize(function(){
+    'use strict';
 
-		if(!Selectors.length) return;
-		
-		for(i in Selectors){
-			
-	        $(Selectors[i]).each(function(){
+    // Define Global Vars
+    var Selectors = [];
 
-	        	// Resize check
-	        	methods['fix'].apply(this);
-	        
-	        });
+    // Resize Listener
+    $(window).resize(function() {
 
-	    }
+        if (!Selectors.length) return;
 
-	}).resize();
+        $(Selectors).each(function() {
+
+            // Resize check
+            methods.fix.apply(this);
+
+        });
+
+    }).resize();
 
 
-	// Define Methods
-	var methods={
-	    
-	    init: function(options){ 
+    // Define Methods
+    var methods = {
 
-			// Save selector in array
-			Selectors.push(this.selector);
-		    
-			// Iterate Through Selectors
-	    	return this.each(function(index){
+        init: function(options) {
 
-	    		// Set this
-				var $this=$(this);
+            // Save selector in array
+            Selectors.push(this.selector);
 
+            // Iterate Through Selectors
+            return this.each(function() {
 
-	    		// Set Options
-				var settings=$.extend({
-					selector:'div',
-					devices:{ xs:0, sm:0, md:0, lg:0 }
-				},options);
-				
+                // Set this
+                var $this = $(this);
 
-		    	// Save settings
-				$this.data('FixedSize',settings);
+                // Set Options
+                var settings = $.extend({
+                    selector: 'div',
+                    devices: {
+                        xs: 0,
+                        sm: 0,
+                        md: 0,
+                        lg: 0
+                    }
+                }, options);
 
+                // Save settings
+                $this.data('FixedSize', settings);
 
-				// Do fix
-				methods['fix'].apply(this);
-		    
-		    });
+                // Do fix
+                methods.fix.apply(this);
 
-	    },
+            });
 
-	    fix:function(){
+        },
 
-	    	var settings=$(this).data('FixedSize');
+        fix: function() {
 
-			var split=settings.devices[$('body').attr('data-current-device')];
-			
-			// Reset height of elements
-			$(this).find(settings.selector).css('height','auto');
+            var settings = $(this).data('FixedSize');
 
-			// If split value is set
-			if(split){
+            var split = settings.devices[$STAN.device];
 
-				$(this).each(function(){
+            // Reset height of elements
+            $(this).find(settings.selector).css('height', 'auto');
 
-					var h=0;
-					var t=[];
+            // If split value is set
+            if (split) {
 
-			        $(this).find(settings.selector).each(function(index){
+                $(this).each(function() {
 
-			            if($(this).outerHeight()>h) h=$(this).outerHeight();
-			            t.push(this);
-			            
-			            if((index+1)%split==0){
-			            	for(x in t) $(t[x]).css('height',h+'px');
-			            	h=0;
-			            	t=[];
-			            }
+                    var h = 0;
+                    var t = [];
 
-			        });
+                    $(this).find(settings.selector).each(function(index) {
 
-			        // Check for uncomplete row
-			        if(h){
-			        	for(x in t) $(t[x]).css('height',h+'px');
-			        }
+                        if ($(this).outerHeight() > h) h = $(this).outerHeight();
+                        t.push(this);
 
-				});
+                        if ((index + 1) % split === 0) {
+                            for (var x in t) $(t[x]).css('height', h + 'px');
+                            h = 0;
+                            t = [];
+                        }
 
-		    	// Inititate event trigger
-		    	$(this).trigger('resize.sa.fixedsize',[settings]);
+                    });
 
-	        }
+                    // Check for uncomplete row
+                    if (h) {
+                        for (var x in t) $(t[x]).css('height', h + 'px');
+                    }
 
-	    }
-	
-	};
+                });
 
- 	$.fn.FixedSize=function(method){
+                // Inititate event trigger
+                $(this).trigger('resize.sa.fixedsize', [settings]);
 
-		if(methods[method]){
+            }
 
-			return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        }
 
-		}else if( typeof method === 'object' || ! method ){
+    };
 
-			return methods.init.apply( this, arguments );
+    $.fn.FixedSize = function(method) {
 
-		}else{
+        if (methods[method]) {
 
-			$.error( 'Method ' +  method + ' does not exist on jQuery.Datatable' );
+            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
 
-		}    
-  
-  	};
+        }
+        else if (typeof method === 'object' || !method) {
 
-}(jQuery));
+            return methods.init.apply(this, arguments);
+
+        }
+        else {
+
+            $.error('Method ' + method + ' does not exist on jQuery.Datatable');
+
+        }
+
+    };
+
+}(jQuery, $STAN));

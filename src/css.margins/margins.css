@@ -1,0 +1,42 @@
+/* ========================================================================
+ * STAN Plugins: Margins/Paddings
+ * Author Andrew Womersley
+ * ======================================================================== */
+
+ .no-mar{ 		margin:0 			!important; }
+.no-mar-top{ 	margin-top:0 		!important; }
+.no-mar-btm{ 	margin-bottom:0 	!important; }
+.no-mar-left{ 	margin-left:0 		!important; }
+.no-mar-right{ 	margin-right:0 		!important; }
+
+.no-pad{ 		padding:0 			!important; }
+.no-pad-top{ 	padding-top:0 		!important; }
+.no-pad-btm{ 	padding-bottom:0 	!important; }
+.no-pad-left{ 	padding-left:0 		!important; }
+.no-pad-right{ 	padding-right:0 	!important; }
+
+.mar-top{ 		margin-top:30px 	!important; }
+.mar-btm{ 		margin-bottom:30px 	!important; }
+.mar-left{ 		margin-left:30px 	!important; }
+.mar-right{ 	margin-right:30px 	!important; }
+.mar-top-lrg{ 	margin-top:60px 	!important; }
+.mar-btm-lrg{ 	margin-bottom:60px 	!important; }
+.mar-left-lrg{ 	margin-left:60px 	!important; }
+.mar-right-lrg{ margin-right:60px 	!important; }
+.mar-top-sml{ 	margin-top:15px 	!important; }
+.mar-btm-sml{ 	margin-bottom:15px 	!important; }
+.mar-left-sml{ 	margin-left:15px 	!important; }
+.mar-right-sml{ margin-right:15px 	!important; }
+
+.pad-top{ 		padding-top:30px 	!important; }
+.pad-btm{ 		padding-bottom:30px !important; }
+.pad-left{ 		padding-left:30px 	!important; }
+.pad-right{ 	padding-right:30px 	!important; }
+.pad-top-lrg{ 	padding-top:60px 	!important; }
+.pad-btm-lrg{ 	padding-bottom:60px !important; }
+.pad-left-lrg{ 	padding-left:60px 	!important; }
+.pad-right-lrg{ padding-right:60px 	!important; }
+.pad-top-sml{ 	padding-top:15px 	!important; }
+.pad-btm-sml{ 	padding-bottom:15px !important; }
+.pad-left-sml{ 	padding-left:15px 	!important; }
+.pad-right-sml{ padding-right:15px 	!important; }

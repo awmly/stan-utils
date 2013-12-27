@@ -1,0 +1,35 @@
+<!DOCTYPE html>  
+<html lang="en">
+{% include head.html %}
+<body>
+	
+	<div class='site'>
+
+		{% include header.html %}
+
+		{% if page.id == 'index' %}{% include hero.html %}{% endif %}
+
+		<div class='container pad-top pad-btm'>
+
+			<div class='col-sm-4 col-md-3'>
+
+				{% include sidebar.html %}
+
+			</div>
+			<div  class='col-sm-8 col-md-9'>
+
+				{{ content }}
+
+			</div>
+
+		</div>
+
+	</div>
+	<div class='clear30'></div>
+
+	{% include footer.html %}
+
+	{% include scripts.html %}
+
+</body>
+</html>

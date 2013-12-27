@@ -1,0 +1,100 @@
+{% assign module = "mqc" %}
+
+<h1>Media Query Class</h1>
+<p>Sets class or attribute values depending on the current window size. This is a core component of STAN plugins as it is used by other modules to determine the current device type.</p>
+
+<div class='collapse-tab'>
+
+	<ul class="nav nav-tabs hidden-xs">
+		<li class='active'><a href="#{{ module }}examples" data-toggle="tab">Examples</a></li>
+		<li><a href="#{{ module }}settings" data-toggle="tab">Settings</a></li>
+		<li><a href="#{{ module }}methods" data-toggle="tab">Methods</a></li>
+		<li><a href="#{{ module }}events" data-toggle="tab">Events</a></li>
+		<li><a href="#{{ module }}listeners" data-toggle="tab">Listeners</a></li>
+	</ul>
+
+	<div class="tab-content">
+
+		<div class="tab-pane active" id="{{ module }}examples">
+			<h3 data-toggle="collapse" data-target="#{{ module }}examples>div">Examples</h3>
+			<div class='collapse'>
+				
+				<h4>Bootstrap body classes</h4>
+				<p>Add classes and data values to body based on Bootstraps media query break points.</p>
+				<code class='js block'>
+					$('body').MQClass({<br/>
+						{{ site.tab }}breakpoints:[<br/>
+							{{ site.tab }}{{ site.tab }}{ 'min-width':0, 	'max-width':768,	'class':'device-xs',	'data-current-device':'xs' },<br/>
+							{{ site.tab }}{{ site.tab }}{ 'min-width':768, 	'max-width':992,	'class':'device-sm',	'data-current-device':'sm' },<br/>
+							{{ site.tab }}{{ site.tab }}{ 'min-width':992, 	'max-width':1200,	'class':'device-md',	'data-current-device':'md' },<br/>
+							{{ site.tab }}{{ site.tab }}{ 'min-width':1200, 'max-width':0,		'class':'device-lg',	'data-current-device':'lg' }<br/>
+						{{ site.tab }}]<br/>
+					});
+				</code>
+
+				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
+
+			</div>
+		</div>
+		<div class="tab-pane" id="{{ module }}settings">
+			<h3 data-toggle="collapse" data-target="#{{ module }}settings>div">Settings</h3>
+			<div class='collapse'>
+				<table class='table table-bordered'>
+					<tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+					<tr>
+						<td><code>breakpoints</code></td>
+						<td>array</td>
+						<td>false</td>
+						<td>an array of breakpoints as objects</td>
+					</tr>
+					<tr>
+						<td><code>breakpoints.min-width</code></td>
+						<td>integer</td>
+						<td>0</td>
+						<td>set the min width of breakpoint</td>
+					</tr>
+					<tr>
+						<td><code>breakpoints.max-width</code></td>
+						<td>integer</td>
+						<td>0</td>
+						<td>set the max width of breakpoint</td>
+					</tr>
+					<tr>
+						<td><code>breakpoints.class</code></td>
+						<td>string</td>
+						<td>''</td>
+						<td>set the class to add</td>
+					</tr>
+					<tr>
+						<td><code>breakpoints.data-*</code></td>
+						<td>string</td>
+						<td>''</td>
+						<td>set attributes to add</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="tab-pane" id="{{ module }}methods">
+			<h3 data-toggle="collapse" data-target="#{{ module }}methods>div">Methods</h3>
+			<div class='collapse'>
+				<code>$('#selector').MQClass('resize');</code> Invokes the resize method
+			</div>
+		</div>
+		<div class="tab-pane" id="{{ module }}events">
+			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
+			<div class='collapse'>
+				<code class='html block'>$('#selector').on('sa.mqclass.resize',function(event,settings){<br/>
+				{{site.tab}} //Triggered after every resize<br/>
+				});</code> 
+			</div>
+		</div>
+		<div class="tab-pane" id="{{ module }}listeners">
+			<h3 data-toggle="collapse" data-target="#{{ module }}listeners>div">Listeners</h3>
+			<div class='collapse'>
+				<p>This module has no listeners.</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class='divide40'></div>

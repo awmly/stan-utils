@@ -1,232 +1,244 @@
-/*
- * Colousel
- */
+/* ========================================================================
+ * STAN Plugins: PredInput
+ * Author Andrew Womersley
+ * ======================================================================== */
 
-(function($){
-	
+(function($, $STAN) {
 
-	// Define Methods
-	var methods={
-	    
-	    init: function(options){ 
-		    
-			// Iterate Through Selectors
-	    	return this.each(function(index){
+    'use strict';
 
-	    		// Set this
-				var $this=$(this);
+    // Define Methods
+    var methods = {
 
-		    	// Set Options
-				var settings=$.extend({
-					
-					search_url:'',
-					http_request:'GET',
-					data:[],
-					searching:false
-						
-				},options);
-					
-				// Save settings
-				$this.data('Predinput',settings);
+        init: function(options) {
 
-				// Turn off autocomplete on input box
-				$this.find('input').attr('autocomplete','off');
+            // Iterate Through Selectors
+            return this.each(function(index) {
 
-				// Add Key press listeners
-				$this.find('input').keyup(function(event){
+                // Set this
+                var $this = $(this);
 
-					methods['keyup'].apply($this,[event]);
+                // Set Options
+                var settings = $.extend({
 
-				});
+                    search_url: '',
+                    http_request: 'GET',
+                    data: [],
+                    searching: false
 
-				// Stop return from submitting the form
-				$this.find('input').keydown(function(event){
-					
-					if(event.keyCode==13) event.preventDefault();
-				
-				});
+                }, options);
 
-				// Clear search
-				$this.find('.clear').click(function(event){
+                // Save settings
+                $this.data('Predinput', settings);
 
-					$this.find('input').val('');
-					$(this).css('display','none');
-					methods['hide_results'].apply($this);
-					$this.find('input').focus();
+                // Turn off autocomplete on input box
+                $this.find('input').attr('autocomplete', 'off');
 
-					// Trigger
-			    	$this.trigger('clear.sa.predinput',[settings]);
+                // Add Key press listeners
+                $this.find('input').keyup(function(event) {
 
-				});
+                    methods.keyup.apply($this, [event]);
 
-				// Stop propagtion on click
-				$this.click(function(event){
+                });
 
-					event.stopPropagation();
+                // Stop return from submitting the form
+                $this.find('input').keydown(function(event) {
 
-				});
+                    if (event.keyCode == 13) event.preventDefault();
 
-				// Hide when off click
-				$('body').click(function(){
-					
-					methods['hide_results'].apply($this);
-				
-				});
+                });
 
-		    });
+                // Clear search
+                $this.find('.clear').click(function(event) {
 
-	    },
+                    $this.find('input').val('');
+                    $(this).css('display', 'none');
+                    methods.hide_results.apply($this);
+                    $this.find('input').focus();
 
-	    keyup:function(e){
+                    // Trigger
+                    $this.trigger('clear.sa.predinput', [settings]);
 
-	    	// Load settings
-	    	var settings=$(this).data('Predinput');
+                });
 
-	    	// Set objects
-	    	var $this=$(this);
-	    	var $res=$(this).find('.results');
+                // Stop propagtion on click
+                $this.click(function(event) {
 
-	    	// Check for down, up and return keys
-	    	if(e.keyCode==40 || e.keyCode==38 || e.keyCode==13){
+                    event.stopPropagation();
 
-	    		// Get current index
-			    var index=parseInt($res.find('ul').attr('data-index'));
-			    
-			    if(e.keyCode==40){ // down
-			    
-			     	index++;
-			     	if(index==$res.find('ul li').length) index--;
-			    
-			    }else if(e.keyCode==38){ // up
-			    	
-			    	index--;
-			    	if(index<0) index=0;
-			    
-			    }else if(e.keyCode==13){
-			    	
-			    	methods['hide_results'].apply($this);
+                });
 
-			    	// Trigger
-			    	$this.trigger('selected.sa.predinput',[settings]);
-			    
-			    }
+                // Hide when off click
+                $('body').click(function() {
 
-			    // Save index
-			    $res.find('ul').attr('data-index',index);
+                    methods.hide_results.apply($this);
 
-			    // Get object for current index
-			    $index=$res.find('ul li:nth-child('+(index+1)+')');
-			    
-			    // Remove active class
-			    $res.find('ul li').removeClass('active');
+                });
 
-			    // Add active class to
-				$index.addClass('active');
+            });
 
-				// Set search string
-				$this.find('input').val($index.text());
+        },
 
-			}else{
+        keyup: function(e) {
 
-				if(!settings.searching){
-					settings.searching=true;
-					methods['search'].apply($this);
-				}else{
-					settings.search_again=true;
-				}
+            // Load settings
+            var settings = $(this).data('Predinput');
 
-			}
+            // Set objects
+            var $this = $(this);
+            var $res = $(this).find('.results');
 
-			if($this.find('input').val()){
-				$this.find('.clear').css('display','block');
-			}else{
-				$this.find('.clear').css('display','none');
-			}
+            // Check for down, up and return keys
+            if (e.keyCode == 40 || e.keyCode == 38 || e.keyCode == 13) {
 
-	    },
+                // Get current index
+                var index = parseInt($res.find('ul').attr('data-index'));
 
-	    search:function(){
+                if (e.keyCode == 40) { // down
 
-	    	// Load settings
-	    	var settings=$(this).data('Predinput');
+                    index++;
+                    if (index == $res.find('ul li').length) index--;
 
-	    	// Set objects
-	    	var $this=$(this);
-	    	var $res=$(this).find('.results');
+                }
+                else if (e.keyCode == 38) { // up
 
-	    	// Clear results HTML
-	    	$res.html('').css('display','block');
+                    index--;
+                    if (index < 0) index = 0;
 
-	    	// Do seach
-			$.ajax({
-				
-				url: settings.search_url,
-				cache: false,
-				type: settings.http_request,
-				data: { search: $(this).find('input').val(), data: JSON.stringify(settings.data) }
-			
-			}).done(function(results) {
-			    
-			    $res.html(results);
-			
-	    		$res.find('ul').attr('data-index','-1');
+                }
+                else if (e.keyCode == 13) {
 
-				$res.find('li').each(function(index){
-					$(this).attr('data-index',index);
-				});
+                    methods.hide_results.apply($this);
 
-				$res.find('li').mouseover(function(){
-					$(this).siblings().removeClass('active');
-					$(this).addClass('active');
-					$(this).parent().attr('data-index',$(this).attr('data-index'));
-				});
+                    // Trigger
+                    $this.trigger('selected.sa.predinput', [settings]);
 
-				$res.find('li').click(function(){
-					$this.find('input').val($(this).text());
-					methods['hide_results'].apply($this);
+                }
 
-					// Trigger
-			    	$this.trigger('selected.sa.predinput',[settings]);
+                // Save index
+                $res.find('ul').attr('data-index', index);
 
-				});
-				
-				settings.searching=false;
+                // Get object for current index
+                var $index = $res.find('ul li:nth-child(' + (index + 1) + ')');
 
-				if(settings.search_again){
-					settings.search_again=false;
-					settings.searching=true;
-					methods['search'].apply($this);
-				}
+                // Remove active class
+                $res.find('ul li').removeClass('active');
 
-				// Trigger
-			    $this.trigger('search.sa.predinput',[settings]);
+                // Add active class to
+                $index.addClass('active');
 
-			});
+                // Set search string
+                $this.find('input').val($index.text());
 
-	    },
+            }
+            else {
 
-	    hide_results:function(){
-	    	$(this).find('.results').css('display','none');
-	    }
-	
-	};
+                if (!settings.searching) {
+                    settings.searching = true;
+                    methods.search.apply($this);
+                }
+                else {
+                    settings.search_again = true;
+                }
 
- 	$.fn.Predinput=function(method){
+            }
 
-		if(methods[method]){
+            if ($this.find('input').val()) {
+                $this.find('.clear').css('display', 'block');
+            }
+            else {
+                $this.find('.clear').css('display', 'none');
+            }
 
-			return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        },
 
-		}else if( typeof method === 'object' || ! method ){
+        search: function() {
 
-			return methods.init.apply( this, arguments );
+            // Load settings
+            var settings = $(this).data('Predinput');
 
-		}else{
+            // Set objects
+            var $this = $(this);
+            var $res = $(this).find('.results');
 
-			$.error( 'Method ' +  method + ' does not exist on jQuery.Datatable' );
+            // Clear results HTML
+            $res.html('').css('display', 'block');
 
-		}    
-  
-  };
+            // Do seach
+            $.ajax({
 
-}(jQuery));
+                url: settings.search_url,
+                cache: false,
+                type: settings.http_request,
+                data: {
+                    search: $(this).find('input').val(),
+                    data: JSON.stringify(settings.data)
+                }
+
+            }).done(function(results) {
+
+                $res.html(results);
+
+                $res.find('ul').attr('data-index', '-1');
+
+                $res.find('li').each(function(index) {
+                    $(this).attr('data-index', index);
+                });
+
+                $res.find('li').mouseover(function() {
+                    $(this).siblings().removeClass('active');
+                    $(this).addClass('active');
+                    $(this).parent().attr('data-index', $(this).attr('data-index'));
+                });
+
+                $res.find('li').click(function() {
+                    $this.find('input').val($(this).text());
+                    methods.hide_results.apply($this);
+
+                    // Trigger
+                    $this.trigger('selected.sa.predinput', [settings]);
+
+                });
+
+                settings.searching = false;
+
+                if (settings.search_again) {
+                    settings.search_again = false;
+                    settings.searching = true;
+                    methods.search.apply($this);
+                }
+
+                // Trigger
+                $this.trigger('search.sa.predinput', [settings]);
+
+            });
+
+        },
+
+        hide_results: function() {
+            $(this).find('.results').css('display', 'none');
+        }
+
+    };
+
+    $.fn.Predinput = function(method) {
+
+        if (methods[method]) {
+
+            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+
+        }
+        else if (typeof method === 'object' || !method) {
+
+            return methods.init.apply(this, arguments);
+
+        }
+        else {
+
+            $.error('Method ' + method + ' does not exist on jQuery.Datatable');
+
+        }
+
+    };
+
+}(jQuery, $STAN));

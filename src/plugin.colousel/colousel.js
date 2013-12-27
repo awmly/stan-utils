@@ -1,436 +1,409 @@
-/*
- * Colousel
- */
+/* ========================================================================
+ * STAN Plugins: Colousel
+ * Author Andrew Womersley
+ * ======================================================================== */
 
-(function($) {
+(function($, $STAN) {
 
-	// Define Global Vars
-	var Selectors = [];
+    'use strict';
 
-	/*
-	 * Resize Listener for resizing slideshow height
-	 */
-	$(window).resize(function() {
+    // Define Global Vars
+    var Selectors = [];
 
-		if (!Selectors.length) return;
+    // Resize Listener for resizing slideshow height
+    $(window).resize(function() {
 
-		for (i in Selectors) {
+        if (!Selectors.length) return;
 
-			$(Selectors[i]).each(function() {
+            $(Selectors).each(function() {
 
-				// Resize check
-				methods['resize'].apply(this);
+                // Resize check
+                methods.resize.apply(this);
 
-			});
+            });
 
-		}
+    }).resize();
 
-	}).resize();
+    // Click Listeners
+    $(window).ready(function() {
 
-	/*
-	 * Click Listeners
-	 */
-	$(window).ready(function() {
+        // Next
+        $("[data-toggle='colousel.next']").click(function() {
 
-		// Next
-		$("[data-toggle='colousel.next']").click(function() {
+            return methods.move.apply($($(this).attr('data-target')), ['next', true]);
 
-			return methods['move'].apply($($(this).attr('data-target')), ['next', true]);
+        });
 
-		});
+        // Prev
+        $("[data-toggle='colousel.prev']").click(function() {
 
-		// Prev
-		$("[data-toggle='colousel.prev']").click(function() {
+            return methods.move.apply($($(this).attr('data-target')), ['prev', true]);
 
-			return methods['move'].apply($($(this).attr('data-target')), ['prev', true]);
+        });
 
-		});
+    });
 
-	});
 
+    // Define Methods
+    var methods = {
 
-	// Define Methods
-	var methods = {
+        init: function(options) {
 
-		init: function(options) {
+            // Save selector in array
+            Selectors.push(this.selector);
 
-			// Save selector in array
-			Selectors.push(this.selector);
+            // Iterate Through Selectors
+            return this.each(function(index) {
 
-			// Iterate Through Selectors
-			return this.each(function(index) {
+                // Set this
+                var $this = $(this);
 
-				// Set this
-				var $this = $(this);
+                // Set Options
+                var settings = $.extend({
+                    continuous: true,
+                    selector: 'div',
+                    selector_class: false,
+                    transition_speed: 300,
+                    autoplay: false,
+                    autoplay_delay: 5000,
+                    break_autoplay_on_click: true,
+                    scroll_amount: {
+                        xs: 1,
+                        sm: 1,
+                        md: 1,
+                        lg: 1
+                    },
+                    current_index: 0,
+                    autoplay_method: 'next',
+                    selector_width: 0,
+                    max_index: 0,
+                    timer: false,
+                    action: false,
+                }, options);
 
-				// Set Options
-				var settings = $.extend({
-					continuous: true,
-					selector: 'div',
-					selector_class: false,
-					transition_speed: 300,
-					autoplay: false,
-					autoplay_delay: 5000,
-					break_autoplay_on_click: true,
-					scroll_amount: {
-						xs: 1,
-						sm: 1,
-						md: 1,
-						lg: 1
-					},
-					current_index: 0,
-					autoplay_method: 'next',
-					selector_width: 0,
-					max_index: 0,
-					timer: false,
-					action: false,
-				}, options);
 
+                // Save settings
+                $this.data('Colousel', settings);
 
-				// Save settings
-				$this.data('Colousel', settings);
 
+                var $Selectors = $this.find('.colousel-inner').children(settings.selector);
 
-				var $Selectors = $this.find('.colousel-inner').children(settings.selector);
+                // Calculate total
+                settings.total = $Selectors.length;
 
-				// Calculate total
-				settings.total = $Selectors.length;
+                // Add classes
+                if (settings.selector_class) $Selectors.addClass(settings.selector_class);
 
-				// Add classes
-				if (settings.selector_class) $Selectors.addClass(settings.selector_class);
+                // Loop through selectors
+                $Selectors.each(function(index) {
 
-				// Loop through selectors
-				$Selectors.each(function(index) {
+                    // Set index position
+                    $(this).data('ColouselIndex', index);
 
-					// Set index position
-					$(this).data('ColouselIndex', index);
+                });
 
-				});
+                // Click handler for next
+                $this.find('.colousel-next').click(function(event) {
 
-				// Click handler for next
-				$this.find('.colousel-next').click(function(event) {
+                    methods.move.apply($this, ['next', true]);
 
-					methods['move'].apply($this, ['next', true]);
+                });
 
-				});
+                // Click handler for prev
+                $this.find('.colousel-prev').click(function(event) {
 
-				// Click handler for prev
-				$this.find('.colousel-prev').click(function(event) {
+                    methods.move.apply($this, ['prev', true]);
 
-					methods['move'].apply($this, ['prev', true]);
+                });
 
-				});
+                // Do resize
+                methods.resize.apply($this);
 
-				// Do resize
-				methods['resize'].apply($this);
+                // Set autoplay timer
+                methods.autoplay.apply($this);
 
-				// Set autoplay timer
-				methods['autoplay'].apply($this);
+            });
 
-			});
+        },
 
-		},
+        autoplay: function() {
 
-		autoplay: function() {
+            // Load settings
+            var settings = $(this).data('Colousel');
 
-			// Load settings
-			var settings = $(this).data('Colousel');
+            // Set this
+            var $this = $(this);
 
-			// Set this
-			var $this = $(this);
+            if (settings.autoplay) {
 
-			if (settings.autoplay) {
+                // Calculate which method to call
+                if (settings.current_index == settings.max_index && !settings.continuous) {
+                    settings.autoplay_method = 'prev';
+                }
+                else if (settings.current_index === 0 && settings.autoplay_method == 'prev') {
+                    settings.autoplay_method = 'next';
+                }
 
-				// Calculate which method to call
-				if (settings.current_index == settings.max_index && !settings.continuous) {
-					settings.autoplay_method = 'prev';
-				}
-				else if (settings.current_index == 0 && settings.autoplay_method == 'prev') {
-					settings.autoplay_method = 'next';
-				}
+                // Set Timer
+                settings.timer = setTimeout(function() {
 
-				// Set Timer
-				settings.timer = setTimeout(function() {
+                    methods.move.apply($this, [settings.autoplay_method, false]);
 
-					methods['move'].apply($this, [settings.autoplay_method, false]);
+                }, settings.autoplay_delay);
 
-				}, settings.autoplay_delay);
+            }
 
-			}
+        },
 
-		},
+        resize: function() {
 
-		resize: function() {
+            // Load settings
+            var settings = $(this).data('Colousel');
 
-			// Load settings
-			var settings = $(this).data('Colousel');
+            // Set this
+            var $this = $(this);
+            var $Selectors = $this.find('.colousel-inner').children(settings.selector);
 
-			// Set this
-			var $this = $(this);
-			var $Selectors = $this.find('.colousel-inner').children(settings.selector);
+            // Reset vars
+            var height = 0;
+            var left = 0;
+            var inview_check = 0;
+            settings.inview = 0;
 
-			// Reset vars
-			var height = 0;
-			var left = 0;
-			var inview_check = 0;
-			settings.inview = 0;
+            // Set selector width
+            settings.selector_width = $Selectors.outerWidth();
 
-			// Set selector width
-			settings.selector_width = $Selectors.outerWidth();
+            // Loop through selectors
+            $Selectors.each(function(index) {
 
-			// Loop through selectors
-			$Selectors.each(function(index) {
+                // Check height of current selector and set height if its larger
+                if ($(this).outerHeight() > height) height = $(this).outerHeight();
 
-				// Check height of current selector and set height if its larger
-				if ($(this).outerHeight() > height) height = $(this).outerHeight();
+                // Calculate left positoion
+                left = $(this).data('ColouselIndex') * settings.selector_width;
 
-				// Calculate left positoion
-				left = $(this).data('ColouselIndex') * settings.selector_width;
+                // Set left position
+                $(this).css('left', left + 'px');
 
-				// Set left position
-				$(this).css('left', left + 'px');
+                // If left position is less than colousel width incriment in selectors in view
+                inview_check = inview_check + settings.selector_width;
+                if (inview_check <= $this.find('.colousel-inner').width() + 10) settings.inview++;
 
-				// If left position is less than colousel width incriment in selectors in view
-				inview_check = inview_check + settings.selector_width;
-				if (inview_check <= $this.find('.colousel-inner').width() + 10) settings.inview++;
+            });
 
-			});
+            // Set height for container
+            $(this).css('height', height + 'px');
 
-			// Set height for container
-			$(this).css('height', height + 'px');
+            // Set start and end positions
+            settings.start_position = settings.selector_width * -1;
+            settings.end_position = settings.selector_width * settings.total;
 
-			// Set start and end positions
-			settings.start_position = settings.selector_width * -1;
-			settings.end_position = settings.selector_width * settings.total;
+            // Set max_index
+            settings.max_index = settings.total - settings.inview;
 
-			// Set max_index
-			settings.max_index = settings.total - settings.inview;
+            if (!settings.continuous) {
 
-			if (!settings.continuous) {
+                // Check current_index isnt above maximum position
+                if (settings.current_index > settings.max_index) settings.current_index = settings.max_index;
 
-				// Check current_index isnt above maximum position
-				if (settings.current_index > settings.max_index) settings.current_index = settings.max_index;
+                // Move slider to current position
+                if (settings.current_index > 0) {
 
-				// Move slider to current position
-				if (settings.current_index > 0) {
+                    var offset = settings.current_index * settings.selector_width;
+                    $Selectors.css('left', '-=' + offset + 'px');
 
-					var offset = settings.current_index * settings.selector_width;
-					$Selectors.css('left', '-=' + offset + 'px');
+                }
 
-				}
+                // Check start position
+                if (settings.current_index === 0) $(this).addClass('start');
+                else $(this).removeClass('start');
 
-				// Check start position
-				if (settings.current_index == 0) $(this).addClass('start');
-				else $(this).removeClass('start');
+                // Check end position
+                if (settings.current_index >= settings.max_index) $(this).addClass('end');
+                else $(this).removeClass('end');
 
-				// Check end position
-				if (settings.current_index >= settings.max_index) $(this).addClass('end');
-				else $(this).removeClass('end');
+            }
 
-			}
+        },
 
-		},
+        pre_move_checks: function(direction) {
 
-		pre_move_checks: function(direction) {
+            // Load settings
+            var settings = $(this).data('Colousel');
 
-			// Load settings
-			var settings = $(this).data('Colousel');
+            // Set this
+            var $this = $(this);
+            var $Selectors = $this.find('.colousel-inner').children(settings.selector);
 
-			// Set this
-			var $this = $(this);
-			var $Selectors = $this.find('.colousel-inner').children(settings.selector);
+            var inc_value = settings.scroll_amount[$STAN.device];
+            if (!inc_value) inc_value=1;
 
-			var inc_value = settings.scroll_amount[$('body').attr('data-current-device')];
-			if(!inc_value) inc_value;
 
+            if (!settings.continuous) {
 
-			if (!settings.continuous) {
+                // Incriment current position
 
-				// Incriment current position
+                var diff = 0;
 
-				var diff = 0;
+                if (direction == 'next') {
+                    settings.current_index = settings.current_index + inc_value;
+                    if (settings.current_index > settings.max_index) {
+                        diff = settings.current_index - settings.max_index;
+                        settings.current_index = settings.max_index;
+                    }
 
-				if (direction == 'next') {
-					settings.current_index = settings.current_index + inc_value;
-					if (settings.current_index > settings.max_index) {
-						var diff = settings.current_index - settings.max_index;
-						settings.current_index = settings.max_index;
-					}
+                }
+                else {
+                    settings.current_index = settings.current_index - inc_value;
+                    if (settings.current_index < 0) {
+                        diff = 0 - settings.current_index;
+                        settings.current_index = 0;
+                    }
+                }
+                var move_amount = inc_value - diff;
+                settings._distance = move_amount * settings.selector_width;
+                settings._speed = move_amount * settings.transition_speed;
 
-				}
-				else {
-					settings.current_index = settings.current_index - inc_value;
-					if (settings.current_index < 0) {
-						var diff = 0 - settings.current_index;
-						settings.current_index = 0;
-					}
-				}
-				var move_amount = inc_value - diff;
-				settings._distance = move_amount * settings.selector_width;
-				settings._speed = move_amount * settings.transition_speed;
+            }
 
-			}
+            // If continuous - reposition selectors
+            if (settings.continuous) {
 
-			// If continuous - reposition selectors
-			if (settings.continuous) {
+                // Loop through selectors
+                $Selectors.each(function() {
 
-				// Loop through selectors
-				$Selectors.each(function() {
+                    // Get index position
+                    var $index = $(this).data('ColouselIndex');
 
-					// Get index position
-					var $index = $(this).data('ColouselIndex');
+                    if (direction == 'next') {
 
-					if (direction == 'next') {
+                        if ($index < 0) {
+                            var offset = 0 - $index;
+                            // Reset index and left position
+                            $index = settings.total - offset;
+                            $(this).css('left', (settings.end_position - (settings.selector_width * offset)) + 'px');
 
-						if ($index < 0) {
-							offset = 0 - $index;
-							// Reset index and left position
-							$index = settings.total - offset;
-							$(this).css('left', (settings.end_position - (settings.selector_width * offset)) + 'px');
+                        }
 
-						}
+                        $index = $index - inc_value;
 
-						$index = $index - inc_value;
+                    }
 
-					}
+                    if (direction == 'prev') {
 
-					if (direction == 'prev') {
+                        $index = $index + inc_value;
 
-						$index = $index + inc_value;
+                        if ($index >= settings.total) {
+                            var offset = $index - settings.total;
+                            // Reset index and left position
+                            $index = offset;
+                            offset = inc_value - offset;
+                            $(this).css('left', '-' + (settings.selector_width * offset) + 'px');
 
-						if ($index >= settings.total) {
-							offset = $index - settings.total;
-							// Reset index and left position
-							$index = offset;
-							offset = inc_value - offset;
-							$(this).css('left', '-' + (settings.selector_width * offset) + 'px');
+                        }
 
-						}
+                    }
 
-					}
+                    // Save index position
+                    $(this).data('ColouselIndex', $index);
 
-					// Save index position
-					$(this).data('ColouselIndex', $index);
+                });
 
-				});
+                settings._distance = inc_value * settings.selector_width;
+                settings._speed = inc_value * settings.transition_speed;
 
-				settings._distance = inc_value * settings.selector_width;
-				settings._speed = inc_value * settings.transition_speed;
+            }
 
-			}
+        },
 
-		},
+        move: function(direction, isClick) {
 
-		post_move_checks: function(method) {
+            // Load settings
+            var settings = $(this).data('Colousel');
 
-			// Load settings
-			var settings = $(this).data('Colousel');
+            // Set this
+            var $this = $(this);
+            var $Selectors = $this.find('.colousel-inner').children(settings.selector);
+            var left_modifier;
 
-			// Set this
-			var $this = $(this);
-			var $Selectors = $this.find('.colousel-inner').children(settings.selector);
+            if (direction == 'next') left_modifier = '-';
+            else left_modifier = '+';
 
-			// If not continuous check for index positions
-			if (!settings.continuous) {
 
-				
+            if ((settings.continuous || (settings.current_index < settings.max_index && direction == 'next') || (settings.current_index > 0 && direction == 'prev')) && !settings.action) {
 
-			}
+                // Set action
+                settings.action = true;
 
-		},
+                // If isClick and beak delay on click - break autplay
+                if (isClick && settings.break_autoplay_on_click) settings.autoplay = false;
 
-		move: function(direction, isClick) {
+                // If isClick - set autoplay method to follow click action
+                if (isClick) settings.autoplay_method = direction;
 
-			// Load settings
-			var settings = $(this).data('Colousel');
+                // Clear timer
+                clearTimeout(settings.timer);
 
-			// Set this
-			var $this = $(this);
-			var $Selectors = $this.find('.colousel-inner').children(settings.selector);
+                // Positon checks
+                methods.pre_move_checks.apply($this, [direction]);
 
-			if (direction == 'next') left_modifier = '-';
-			else left_modifier = '+';
+                // Animate selectors left
+                $Selectors.animate({
+                    left: left_modifier + '=' + settings._distance + 'px'
+                }, settings._speed);
 
-			// Set this
-			var $this = $(this);
+                setTimeout(function() {
 
-			if ((settings.continuous || (settings.current_index < settings.max_index && direction == 'next') || (settings.current_index > 0 && direction == 'prev')) && !settings.action) {
+                    // Set action
+                    settings.action = false;
 
-				// Set action
-				settings.action = true;
+                    methods.resize.apply($this);
 
-				// If isClick and beak delay on click - break autplay
-				if (isClick && settings.break_autoplay_on_click) settings.autoplay = false;
+                    // Reset autoplay timer
+                    methods.autoplay.apply($this);
 
-				// If isClick - set autoplay method to follow click action
-				if (isClick) settings.autoplay_method = direction;
 
-				// Clear timer
-				clearTimeout(settings.timer);
+                }, settings._speed + 50);
 
-				// Positon checks
-				methods['pre_move_checks'].apply($this, [direction]);
+                // Trigger
+                $(this).trigger(direction + '.sa.colousel', [settings]);
 
-				// Animate selectors left
-				$Selectors.animate({
-					left: left_modifier + '=' + settings._distance + 'px'
-				}, settings._speed);
+            }
 
-				setTimeout(function() {
+        },
 
-					// Set action
-					settings.action = false;
+        next: function() {
 
-					methods['resize'].apply($this);
+            methods.move.apply($this, ['next', true]);
 
-					// Positon checks
-					//methods['post_move_checks'].apply($this, [direction]);
+        },
 
-					// Reset autoplay timer
-					methods['autoplay'].apply($this);
+        prev: function() {
 
+            methods.move.apply($this, ['prev', true]);
 
-				}, settings._speed + 50);
+        }
 
-				// Trigger
-				$(this).trigger(direction+'.sa.colousel', [settings]);
+    };
 
-			}
+    $.fn.Colousel = function(method) {
 
-		},
+        if (methods[method]) {
 
-		next: function() {
+            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
 
-			methods['move'].apply($this, ['next', true]);
+        }
+        else if (typeof method === 'object' || !method) {
 
-		},
+            return methods.init.apply(this, arguments);
 
-		prev: function() {
+        }
+        else {
 
-			methods['move'].apply($this, ['prev', true]);
+            $.error('Method ' + method + ' does not exist on jQuery.Datatable');
 
-		}
+        }
 
-	};
+    };
 
-	$.fn.Colousel = function(method) {
-
-		if (methods[method]) {
-
-			return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-
-		}
-		else if (typeof method === 'object' || !method) {
-
-			return methods.init.apply(this, arguments);
-
-		}
-		else {
-
-			$.error('Method ' + method + ' does not exist on jQuery.Datatable');
-
-		}
-
-	};
-
-}(jQuery));
+}(jQuery, $STAN));

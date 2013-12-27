@@ -1,57 +1,10 @@
 ---
-title: STAN Plugins
+title: STAN CSS
+layout:	main
 base:	"./"
+id: 	"css"
 ---
 
-<!DOCTYPE html>  
-<html lang="en">
-{% include head.html %}
-<body>
+{% include modules/css-clears.html %}
 
-	{% include header.html %}
-
-	<div class='container'>
-
-		<div class='col-sm-4 col-md-3'>
-
-			{% include sidebar.html %}
-
-		</div>
-		<div  class='col-sm-8 col-md-9'>
-
-			{% include modules/media-query-class.html %}
-
-			{% include modules/anchor-nav.html %}
-
-			{% include modules/collapse-tab.html %}
-
-			{% include modules/colousel.html %}
-
-			{% include modules/class-switcher.html %}
-
-			{% include modules/domovr.html %}
-
-			{% include modules/fixed-size.html %}
-
-			{% include modules/img-responsive.html %}
-
-			{% include modules/popup.html %}
-
-			{% include modules/predinput.html %}
-
-			{% include modules/scroll-to.html %}
-
-			{% include modules/slide-out.html %}
-
-			{% include modules/sticky-fix.html %}
-
-		</div>
-		<div class='clear30'></div>
-
-	</div>
-
-	{% include footer.html %}
-
-</body>
-{% include scripts.html %}
-</html>
+{% include modules/css-margins.html %}

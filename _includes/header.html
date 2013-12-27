@@ -1,25 +1,24 @@
 <header>
-    
-    <div class='container'>
-    
-    	<div class='logo'><a href='{{ page.base }}'><img src='{{ page.base }}_assets/imgs/sa-logo.png' /> <span>STAN</span></a></div>
 
-    	<ul>
-    		<li><a href='{{ page.base }}plugins'>PLUGINS</a></li>
-    		<li><a href='{{ page.base }}components'>COMPONENTS</a></li>
-    		<li><a href='{{ page.base }}css'>CSS</a></li>
-    	</ul>
+    <div class='container'>
+
+        <a href='{{ page.base }}' class='logo'>
+            <img src='{{ page.base }}_assets/imgs/sa-logo.png' />
+            <span>STAN</span>
+        </a>
+
+        <ul>
+            <li {% if page.id == 'plugins' %}class='active'{% endif %}>
+                <a href='{{ page.base }}plugins.html'>PLUGINS</a>
+            </li>
+            <li {% if page.id == 'components' %}class='active'{% endif %}>
+                <a href='{{ page.base }}components.html'>COMPONENTS</a>
+            </li>
+            <li {% if page.id == 'css' %}class='active'{% endif %}>
+                <a href='{{ page.base }}css.html'>CSS</a>
+            </li>
+        </ul>
 
     </div>
 
 </header>
-
-<div class='jumbotron'>
-	<div class='container'>
-  		<h1>STAN Plugins</h1>
-  		<p>A collection of responsive jQuery plugins based on the bootstrap framework.</p>
-  		<div class='clear10'></div>
-  		<p><a href='{{ site.download | replace:"[version]", site.version }}' class='btn btn-lg btn-primary'><i class='fa fa-download fa-lg'></i> &nbsp;Download</a> &nbsp; <a href='{{ site.github }}' class='btn btn-lg btn-primary' target='_blank'><i class='fa fa-github fa-lg'></i> &nbsp;Github</a></p>
-  		<p class='sml'><em>Current Version: {{ site.version }}</em></p>
-  	</div>
-</div>

@@ -1,4 +1,9 @@
-.slideout{ display:none; position:fixed; z-index:1000;  }
+/* ========================================================================
+ * STAN Plugins: SlideOut
+ * Author Andrew Womersley
+ * ======================================================================== */
+
+ .slideout{ display:none; position:fixed; z-index:1000;  }
 .slideout-left, .slideout-right{ width:100px; height:100%; top:0; }
 .slideout-left{ left:0; }
 .slideout-right{ right:0; }

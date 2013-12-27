@@ -1,0 +1,20 @@
+/* ========================================================================
+ * STAN Plugins: Clears/Divides
+ * Author Andrew Womersley
+ * ======================================================================== */
+
+[class^="clear"]{ clear:both; height:0; }
+.clear5{ height:5px; }
+.clear10{ height:10px; }
+.clear20{ height:20px; }
+.clear30{ height:30px; }
+.clear40{ height:40px; }
+.clear50{ height:50px; }
+
+[class^="divide"]{ clear:both; border-bottom:solid 1px #ccc; }
+.divide5{ height:5px; margin-bottom:5px; }
+.divide10{ height:10px; margin-bottom:10px; }
+.divide20{ height:20px; margin-bottom:20px; }
+.divide30{ height:30px; margin-bottom:30px; }
+.divide40{ height:40px; margin-bottom:40px; }
+.divide50{ height:50px; margin-bottom:50px; }

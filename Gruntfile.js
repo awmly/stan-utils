@@ -22,7 +22,7 @@ module.exports = function(grunt) {
                 tasks: ['uglify']
             },
             css: {
-                files: ['src/**/*.css','src/core.css'],
+                files: ['src/**/*.css'],
                 tasks: ['cssmin']
             }
         },
@@ -81,7 +81,7 @@ module.exports = function(grunt) {
                     banner: '<%= banner %>',
                 },
 				files: {
-					'dist/<%= pkg.name %>.min.css': ['src/**/*.css','src/core.css']
+					'dist/<%= pkg.name %>.min.css': ['src/**/*.css']
 				}
 			}
         },

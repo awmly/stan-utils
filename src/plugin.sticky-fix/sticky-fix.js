@@ -1,136 +1,177 @@
-/*
- * CollapseTab
- */
+/* ========================================================================
+ * STAN Plugins: StickyFix
+ * Author Andrew Womersley
+ * ======================================================================== */
 
-(function($){
-	
-	// Define Global Vars
-	var Selectors=[];
+(function($, $STAN) {
 
-	/*
-	 * Resize Listener for resizing slideshow height
-	 */
-	$(window).resize(function(){
+    'use strict';
 
-		if(!Selectors.length) return;
-		
-		for(i in Selectors){
-			
-	        $(Selectors[i]).each(function(){
+    // Define Global Vars
+    var Selectors = [];
 
-	        	methods['stick'].apply(this);
+    // Resize Listener for resizing slideshow height
+    $(window).resize(function() {
 
-	        });
+        if (!Selectors.length) return;
 
-	    }
+        $(Selectors).each(function() {
 
-	}).resize();
+            methods.stick.apply(this);
 
-	$(window).scroll(function(){
+        });
 
-		if(!Selectors.length) return;
-		
-		for(i in Selectors){
-			
-	        $(Selectors[i]).each(function(){
+    }).resize();
 
-	        	methods['stick'].apply(this);
+    $(window).scroll(function() {
 
-	        });
+        if (!Selectors.length) return;
 
-	    }
+        $(Selectors).each(function() {
 
-	}).scroll();
+            methods.stick.apply(this);
+
+        });
+
+    }).scroll();
 
 
-	// Define Methods
-	var methods={
-	    
-	    init: function(options){ 
+    // Define Methods
+    var methods = {
 
-	    	var _this=this;
+        init: function(options) {
 
-	    	// Set Options
-			var settings=$.extend({
-				top:0,
-				maxtop:false,
-				sticky_class:'',
-				stick_to:'window',
-				unstuck_position:'static', //REMOVE!!
-				devices:{ xs:true, sm:true, md:true, lg:true }
-			},options);
+            var $this = this;
 
-			// Save selector in array
-			Selectors.push(this.selector);
-		    
-			// Iterate Through Selectors
-	    	return this.each(function(index){
+            // Set Options
+            var settings = $.extend({
+                top: 0,
+                maxtop: false,
+                sticky_class: '',
+                stick_to: 'window',
+                devices: {
+                    xs: true,
+                    sm: true,
+                    md: true,
+                    lg: true
+                },
+                _css:{
+                    top: $this.css('top'),
+                    position: $this.css('position'),
+                    zindex: $this.css('z-index')
+                },
+                _status: 'unstuck'
+            }, options);
 
-	    		placeholder="sticky-"+_this.selector.substring(1)+"-"+index;
+            // Save selector in array
+            Selectors.push(this.selector);
 
-	    		$(this).after("<div class='sticky-placeholder' id='"+placeholder+"' style='display:none;height:"+$(this).height()+"px;'></div>");
+            // Iterate Through Selectors
+            return this.each(function(index) {
 
-		    	// Set Data
-		    	settings.offset=$(this).offset();
-		    	settings.placeholder='#'+placeholder;
+                var placeholder = "sticky-" + $this.selector.substring(1) + "-" + index;
 
-		    	// Save settings
-		    	$(this).data('StickyFix',settings);
-		    
-		    });
+                $(this).after("<div class='sticky-placeholder' id='" + placeholder + "' style='display:none;height:" + $(this).height() + "px;'></div>");
 
-	    },
+                // Set Data
+                settings.offset = $(this).offset();
+                settings.placeholder = '#' + placeholder;
 
-	    stick:function(){
+                // Save settings
+                $(this).data('StickyFix', settings);
 
-	    	var settings=$(this).data('StickyFix');
+            });
 
-			t=settings.offset.top-$(window).scrollTop();
+        },
 
-			if(t<settings.top && settings.devices[$('body').attr('data-current-device')]){
-				
-				if(typeof settings.maxtop==='function') maxtop=settings.maxtop();
-				else if(typeof settings.maxtop==='number') maxtop=settings.maxtop;
-				else maxtop=99999;
+        stick: function() {
 
-				if($(window).scrollTop()>maxtop){
-					pos=settings.top-($(window).scrollTop()-maxtop);
-					$(this).css('top',pos+'px');
-				}else{
-					// Trigger
-					if($(this).attr('data-sticky')!='stuck') $(this).trigger('stuck.sa.stickyfix',[settings]);
-					$(this).addClass(settings.sticky_class).css({'z-index':999,top:settings.top+'px',position:'fixed'}).attr('data-sticky','stuck');
-					$(settings.placeholder).css('display','block');
-					if(settings.stick_to=='parent') $(this).css({width:$(settings.placeholder).width()+'px',left:$(settings.placeholder).offset().left+'px'});
-				}
-			}else{
-				// Trigger
-				if($(this).attr('data-sticky')=='stuck') $(this).trigger('unstuck.sa.stickyfix',[settings]);
-				$(this).removeClass(settings.sticky_class).css({top:'auto',position:settings.unstuck_position}).attr('data-sticky','');
-				$(settings.placeholder).css('display','none');
-				if(settings.stick_to=='parent') $(this).css({width:'auto',left:'auto'});
-			}
+            var settings = $(this).data('StickyFix');
 
-	    }
-	
-	};
+            var t = settings.offset.top - $(window).scrollTop();
 
- 	$.fn.StickyFix=function(method){
+            var maxtop;
+            var pos;
 
-	    if(methods[method]){
-	    
-	      return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
-	    
-	    }else if( typeof method === 'object' || ! method ){
-	    
-	      return methods.init.apply( this, arguments );
-	    
-	    }else{
-	    
-	      $.error( 'Method ' +  method + ' does not exist on jQuery.Datatable' );
-	    
-	    }    
-  
-  	};
+            if (t < settings.top && settings.devices[$STAN.device]) {
 
-}(jQuery));
+                if (typeof settings.maxtop === 'function') maxtop = settings.maxtop();
+                else if (typeof settings.maxtop === 'number') maxtop = settings.maxtop;
+                else maxtop = 99999;
+
+                if ($(window).scrollTop() > maxtop) {
+
+                    pos = settings.top - ($(window).scrollTop() - maxtop);
+                    $(this).css('top', pos + 'px');
+
+                }
+                else {
+
+                    // Trigger
+                    if (settings._status == 'unstuck') $(this).trigger('stuck.sa.stickyfix', [settings]);
+
+                    $(this).addClass(settings.sticky_class).css({
+                        'z-index': 999,
+                        top: settings.top + 'px',
+                        position: 'fixed'
+                    });
+
+                    settings._status='stuck';
+
+                    $(settings.placeholder).css('display', 'block');
+
+                    if (settings.stick_to == 'parent') $(this).css({
+                        width: $(settings.placeholder).width() + 'px',
+                        left: $(settings.placeholder).offset().left + 'px'
+                    });
+
+                }
+
+            }
+            else {
+
+                // Trigger
+                if (settings._status == 'stuck') $(this).trigger('unstuck.sa.stickyfix', [settings]);
+
+                $(this).removeClass(settings.sticky_class).css({
+                    top: settings._css.top,
+                    position: settings._css.position,
+                    'z-index': settings._css.zindex
+                });
+
+                settings._status='unstuck';
+
+                $(settings.placeholder).css('display', 'none');
+
+                if (settings.stick_to == 'parent') $(this).css({
+                    width: 'auto',
+                    left: 'auto'
+                });
+
+            }
+
+        }
+
+    };
+
+    $.fn.StickyFix = function(method) {
+
+        if (methods[method]) {
+
+            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+
+        }
+        else if (typeof method === 'object' || !method) {
+
+            return methods.init.apply(this, arguments);
+
+        }
+        else {
+
+            $.error('Method ' + method + ' does not exist on jQuery.Datatable');
+
+        }
+
+    };
+
+}(jQuery, $STAN));
