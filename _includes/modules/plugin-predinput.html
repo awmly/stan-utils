@@ -21,17 +21,19 @@
 				
 				<h4>Simple Predictive Search</h4>
 				<p>Return search results that match passed string</p>
-				<code class='js block'>
-					&lt;div class='predinput'><br/>
-			        {{ site.tab }}&lt;input type='text' class='form-control' /&gt;<br/>
-			        {{ site.tab }}&lt;div class='results'&gt;&lt;/div&gt;<br/>
-			        {{ site.tab }}&lt;i class='clear fa fa-times'&gt;&lt;/i&gt;<br/>
-			        &lt;/div&gt;<br/><br/>
-					$('.predinput').Predinput({<br/>
-			        {{ site.tab }}search_url:'http://127.0.0.1:9001/predinput-results.html',<br/>
-			        {{ site.tab }}data: { results_limit:10 }<br/>
-			    	});
-				</code>
+				
+<pre><code class='xml'>&lt;div class='predinput'>
+	&lt;input type='text' class='form-control' /&gt;
+	&lt;div class='results'&gt;&lt;/div&gt;
+	&lt;i class='clear fa fa-times'&gt;&lt;/i&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+$('.predinput').Predinput({
+	search_url:'http://127.0.0.1:9001/predinput-results.html',
+	data: { results_limit:10 }
+});
+&lt;/script&gt;</code></pre>
 
 				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
 
@@ -74,12 +76,15 @@
 		<div class="tab-pane" id="{{ module }}events">
 			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
 			<div class='collapse'>
-				<p><code class='html block'>$('#selector').on('search.sa.predinput',function(event,settings){<br/>
-				{{site.tab}} //Triggered every time search happens<br/>
-				});</code></p>
-				<p><code class='html block'>$('#selector').on('selected.sa.predinput',function(event,settings){<br/>
-				{{site.tab}} //Triggered every time a predicted result is selected<br/>
-				});</code></p>
+
+<pre><code class='javascript'>$('#selector').on('search.sa.predinput',function(event,settings){
+	// Triggered every time search happens
+});
+
+$('#selector').on('selected.sa.predinput',function(event,settings){
+	// Triggered every time a predicted result is selected
+});</code></pre>
+
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}listeners">

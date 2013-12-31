@@ -21,18 +21,20 @@
 				
 				<h4>XS, SM, MD &amp; LG</h4>
 				<p>The content is in a different holder for all devices.</p>
-				<code class='js block'>
-					&lt;div id='xs-holder'&gt;&lt;div class='domovr'&gt;&lt;/div&gt;&lt;/div&gt;<br/>
-					&lt;div id='sm-holder'&gt;&lt;/div&gt;<br/>
-					&lt;div id='md-holder'&gt;&lt;/div&gt;<br/>
-					&lt;div id='lg-holder'&gt;&lt;/div&gt;<br/><br/>
-					$('.domovr').DOMovr({<br/>
-					{{ site.tab }}xs:'#xs-holder',<br/>
-					{{ site.tab }}sm:'#sm-holder',<br/>
-					{{ site.tab }}md:'#md-holder',<br/>
-					{{ site.tab }}lg:'#lg-holder'<br/>
-					});
-				</code>
+				
+<pre><code class='xml'>&lt;div id='xs-holder'&gt;&lt;div class='domovr'&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div id='sm-holder'&gt;&lt;/div&gt;
+&lt;div id='md-holder'&gt;&lt;/div&gt;
+&lt;div id='lg-holder'&gt;&lt;/div&gt;
+
+&lt;script&gt;
+$('.domovr').DOMovr({
+	xs:'#xs-holder',
+	sm:'#sm-holder',
+	md:'#md-holder',
+	lg:'#lg-holder'
+});
+&lt;/script&gt;</code></pre>
 
 				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
 
@@ -40,14 +42,16 @@
 
 				<h4>XS/SM &amp; MD/LG</h4>
 				<p>The content is split between xs/sm and md/lg devices.</p>
-				<code class='js block'>
-					&lt;div id='xssm-holder'&gt;&lt;div class='domovr'&gt;&lt;/div&gt;&lt;/div&gt;<br/>
-					&lt;div id='mdlg-holder'&gt;&lt;/div&gt;<br/><br/>
-					$('.domovr').DOMovr({<br/>
-					{{ site.tab }}sm:'#xssm-holder',<br/>
-					{{ site.tab }}md:'#mdlg-holder'<br/>
-					});
-				</code>
+				
+<pre><code class='xml'>&lt;div id='xssm-holder'&gt;&lt;div class='domovr'&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div id='mdlg-holder'&gt;&lt;/div&gt;
+
+&lt;script&gt;
+$('.domovr').DOMovr({
+	sm:'#xssm-holder',
+	md:'#mdlg-holder'
+});
+&lt;/script&gt;</code></pre>
 
 				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
 
@@ -95,9 +99,11 @@
 		<div class="tab-pane" id="{{ module }}events">
 			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
 			<div class='collapse'>
-				<p><code class='html block'>$('#selector').on('moved.sa.domovr',function(event,settings){<br/>
-				{{site.tab}} //Triggered every time content moves selector<br/>
-				});</code></p>
+
+<pre><code class='javascript'>$('#selector').on('moved.sa.domovr',function(event,settings){
+	// Triggered every time content moves selector
+});</code></pre>
+
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}listeners">

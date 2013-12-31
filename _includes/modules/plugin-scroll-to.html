@@ -21,15 +21,17 @@
 				
 				<h4>Simple Scroll Navigation 1</h4>
 				<p>Scrolling using <code>&lt;a&gt;</code> tags with the attribute <code>href='selector'</code>.</p>
-				<code class='js block'>
-					&lt;p&gt;<br/>
-					{{ site.tab }}&lt;a href='#link1'&gt;Link 1&lt;/a&gt;<br/>
-					{{ site.tab }}&lt;a href='#link2' data-offet='30'&gt;Link 2 with offset override&lt;/a&gt;<br/>
-					&lt;/p&gt;<br/><br/>
-					$('p').ScrollTo({<br/>
-					{{ site.tab }}offset:70<br/>
-					});
-				</code>
+				
+<pre><code class='xml'>&lt;p&gt;
+	&lt;a href='#link1'&gt;Link 1&lt;/a&gt;
+	&lt;a href='#link2' data-offet='30'&gt;Link 2 with offset override&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;script&gt;
+$('p').ScrollTo({
+	offset:70
+});
+&lt;/script&gt;</code></pre>
 
 				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
 
@@ -37,16 +39,18 @@
 
 				<h4>Simple Scroll Navigation 2</h4>
 				<p>Scrolling using <code>&lt;li&gt;</code> tags with the attribute <code>data-target='selector'</code>.</p>
-				<code class='js block'>
-					&lt;ul&gt;<br/>
-					{{ site.tab }}&lt;li data-target='#link1'&gt;Link 1&lt;/li&gt;<br/>
-					{{ site.tab }}&lt;li data-target='#link2' data-offet='30'&gt;Link 2 with offset override&lt;/a&gt;<br/>
-					&lt;/ul&gt;<br/><br/>
-					$('ul').ScrollTo({<br/>
-					{{ site.tab }}selector:'li'<br/>
-					{{ site.tab }}offset:70<br/>
-					});
-				</code>
+				
+<pre><code class='xml'>&lt;ul&gt;
+	&lt;li data-target='#link1'&gt;Link 1&lt;/li&gt;
+	&lt;li data-target='#link2' data-offet='30'&gt;Link 2 with offset override&lt;/a&gt;
+&lt;/ul&gt;
+
+&lt;script&gt;
+$('ul').ScrollTo({
+	selector:'li'
+	offset:70
+});
+&lt;/script&gt;</code></pre>
 
 				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
 
@@ -105,9 +109,11 @@
 		<div class="tab-pane" id="{{ module }}events">
 			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
 			<div class='collapse'>
-				<p><code class='html block'>$('#selector').on('sa.scrollto.scroll_end',function(event,settings){<br/>
-				{{site.tab}} //Triggered on scroll end<br/>
-				});</code> </p>
+
+<pre><code class='javascript'>$('#selector').on('scrollend.sa.scrollto',function(event,settings){
+	// Triggered on scroll end
+});</code></pre>
+
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}listeners">

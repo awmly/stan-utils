@@ -4,8 +4,13 @@
  * ======================================================================== */
 
 /* Floats */
-.left{ 			float:left 			!important; }
-.right{ 		float:right 		!important; }
+.float-left{ 	float:left 			!important; }
+.float-right{ 	float:right 		!important; }
+
+/* Text aligns */
+.text-left{ 	text-align:left 	!important; }
+.text-center{ 	text-align:center 	!important; }
+.text-right{ 	text-align:right 	!important; }
 
 /* Display/Postion */
 .block{ 		display:block 		!important; }
@@ -13,8 +18,3 @@
 
 /* Cursor */
 .pointer{ 		cursor:pointer 		!important; }
-
-/* Text aligns */
-.text-left{ 	text-align:left 	!important; }
-.text-center{ 	text-align:center 	!important; }
-.text-right{ 	text-align:right 	!important; }

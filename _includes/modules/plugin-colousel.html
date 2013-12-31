@@ -22,22 +22,24 @@
 				
 				<h4>Continuous Scroll</h4>
 				<p>A continuous looping carousel with autoplay.</p>
-				<code class='js block'>
-					&lt;div class='colousel' id='colousel'><br/>
-					{{ site.tab }}&lt;span class='colousel-prev'>&lt;/span&gt;<br/>
-					{{ site.tab }}&lt;span class='colousel-next'>&lt;/span&gt;<br/>
-					{{ site.tab }}&lt;div class='colousel-inner'&gt;<br/>
-					{{ site.tab }}{{ site.tab }}&lt;div&gt;&lt;/div&gt;<br/>
-					{{ site.tab }}{{ site.tab }}&lt;div&gt;&lt;/div&gt;<br/>
-					{{ site.tab }}{{ site.tab }}...<br/>
-					{{ site.tab }}&lt;/div&gt;<br/>
-					&lt;/div&gt;<br/><br/>
-					$('#colousel').Colousel({<br/>
-					{{ site.tab }}selector_class:'col-xs-6 col-sm-4 col-md-3 col-lg-2',<br/>
-					{{ site.tab }}autoplay:true,<br/>
-					{{ site.tab }}autoplay_delay:3000<br/>
-					});
-				</code>
+
+<pre><code class='xml'>&lt;div class='colousel' id='colousel'>
+	&lt;span class='colousel-prev'>&lt;/span&gt;
+	&lt;span class='colousel-next'>&lt;/span&gt;
+	&lt;div class='colousel-inner'&gt;
+		&lt;div&gt;&lt;/div&gt;
+		&lt;div&gt;&lt;/div&gt;
+		...
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+$('#colousel').Colousel({
+	selector_class:'col-xs-6 col-sm-4 col-md-3 col-lg-2',
+	autoplay:true,
+	autoplay_delay:3000
+});
+&lt;/script&gt;</code></pre>
 
 				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
 
@@ -45,20 +47,22 @@
 
 				<h4>Non Continuous Scroll</h4>
 				<p>A none continuous looping carousel.</p>
-				<code class='js block'>
-					&lt;div class='colousel' id='colousel'><br/>
-					{{ site.tab }}&lt;span class='colousel-prev'>&lt;/span&gt;<br/>
-					{{ site.tab }}&lt;span class='colousel-next'>&lt;/span&gt;<br/>
-					{{ site.tab }}&lt;div class='colousel-inner'&gt;<br/>
-					{{ site.tab }}{{ site.tab }}&lt;div class='col-xs-12 col-sm-6'&gt;&lt;/div&gt;<br/>
-					{{ site.tab }}{{ site.tab }}&lt;div class='col-xs-12 col-sm-6'&gt;&lt;/div&gt;<br/>
-					{{ site.tab }}{{ site.tab }}...<br/>
-					{{ site.tab }}&lt;/div&gt;<br/>
-					&lt;/div&gt;<br/><br/>
-					$('#colousel').Colousel({<br/>
-					{{ site.tab }}continuous:false<br/>
-					});
-				</code>
+				
+<pre><code class='xml'>&lt;div class='colousel' id='colousel'>
+	&lt;span class='colousel-prev'>&lt;/span&gt;
+	&lt;span class='colousel-next'>&lt;/span&gt;
+	&lt;div class='colousel-inner'&gt;
+		&lt;div class='col-xs-12 col-sm-6'&gt;&lt;/div&gt;
+		&lt;div class='col-xs-12 col-sm-6'&gt;&lt;/div&gt;
+		...
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+$('#colousel').Colousel({
+	continuous:false
+});
+&lt;/script&gt;</code></pre>
 
 				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
 
@@ -117,26 +121,33 @@
 		<div class="tab-pane" id="{{ module }}methods">
 			<h3 data-toggle="collapse" data-target="#{{ module }}methods>div">Methods</h3>
 			<div class='collapse'>
-				<p><code>$('#selector').Colousel('next');</code> Invokes the next method</p>
-				<p><code>$('#selector').Colousel('prev');</code> Invokes the prev method</p>
+
+				<pre><code class='javascript'>$('#selector').Colousel('next'); // Invokes the next method</code></pre>
+				<pre><code class='javascript'>$('#selector').Colousel('prev'); // Invokes the prev method</code></pre>
+
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}events">
 			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
 			<div class='collapse'>
-				<p><code class='html block'>$('#selector').on('next.sa.colousel',function(event,settings){<br/>
-				{{site.tab}} //Triggered every time the colousel moves next<br/>
-				});</code></p>
-				<p><code class='html block'>$('#selector').on('prev.sa.colousel',function(event,settings){<br/>
-				{{site.tab}} //Triggered every time the colousel moves prev<br/>
-				});</code></p>
+
+<pre><code class='javascript'>$('#selector').on('next.sa.colousel',function(event,settings){
+	// Triggered every time the colousel moves next
+});
+
+$('#selector').on('prev.sa.colousel',function(event,settings){
+	// Triggered every time the colousel moves prev
+});</code></pre>
+
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}listeners">
 			<h3 data-toggle="collapse" data-target="#{{ module }}listeners>div">Listeners</h3>
 			<div class='collapse'>
-				<p><code>&lt;a href='javascript:;' data-toggle='colousel.next' data-target='#selector'&gt;Move Next&lt;/a&gt;</code></p>
-				<p><code>&lt;a href='javascript:;' data-toggle='colousel.prev' data-target='#selector'&gt;Move Prev&lt;/a&gt;</code></p>
+
+<pre><code class='xml'>&lt;a href='javascript:;' data-toggle='colousel.next' data-target='#selector'&gt;Move Next&lt;/a&gt;
+&lt;a href='javascript:;' data-toggle='colousel.prev' data-target='#selector'&gt;Move Prev&lt;/a&gt;</code></pre>
+
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}helpers">

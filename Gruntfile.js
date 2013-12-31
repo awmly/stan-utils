@@ -18,7 +18,7 @@ module.exports = function(grunt) {
                 tasks: ['jekyll','shell:jekyll']
             },
             js: {
-                files: ['src/**/*.js','src/core.js'],
+                files: ['src/**/*.js'],
                 tasks: ['uglify']
             },
             css: {
@@ -70,7 +70,7 @@ module.exports = function(grunt) {
                     banner: '<%= banner %>',
                 },
 				files: {
-					'dist/<%= pkg.name %>.min.js': ['src/**/*.js','src/core.js']
+					'dist/<%= pkg.name %>.min.js': ['src/stan/stan.js', 'src/**/*.js']
 				}
 			}
         },

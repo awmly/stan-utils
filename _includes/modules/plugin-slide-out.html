@@ -21,14 +21,16 @@
 				
 				<h4>Left Panel</h4>
 				<p>Slide out the a left panel for all devices.</p>
-				<code class='js block pre-scrollable'>
-					&lt;div class='slideout_left'&gt;&lt;/div&gt;<br/>
-					&lt;a href='javascript:;' data-toggle='slideout.toggle' data-target='.slideout_left'&gt;TOGGLE&lt;/a&gt;<br/><br/>
-					$('.slideout_left').SlideOut({<br/>
-					{{site.tab}}pos:'left',<br/>
-					{{site.tab}}open:true<br/>
-					});
-				</code>
+				
+<pre><code class='xml'>&lt;div class='slideout_left'&gt;&lt;/div&gt;
+&lt;a href='javascript:;' data-toggle='slideout.toggle' data-target='.slideout_left'&gt;TOGGLE&lt;/a&gt;
+
+&lt;script&gt;
+$('.slideout_left').SlideOut({
+	pos:'left',
+	open:true
+});
+&lt;/script&gt;</code></pre>
 
 				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
 
@@ -36,16 +38,18 @@
 
 				<h4>Bottom Panel</h4>
 				<p>Slide out the a bottom panel for all devices except for extra small (xs).</p>
-				<code class='js block'>
-					&lt;div class='slideout_bottom'&gt;&lt;/div&gt;<br/>
-					&lt;a href='javascript:;' data-toggle='slideout.show' data-target='.slideout_bottom'&gt;SHOW&lt;/a&gt;<br/><br/>
-					$('.slideout_bottom').SlideOut({<br/>
-					{{site.tab}}pos:'bottom',<br/>
-					{{site.tab}}auto_reopen:false,<br/>
-					{{site.tab}}auto_close:5,<br/>
-					{{site.tab}}devices:{ xs:false, sm:true, md:true, lg:true }<br/>
-					});
-				</code>
+				
+<pre><code class='xml'>&lt;div class='slideout_bottom'&gt;&lt;/div&gt;
+&lt;a href='javascript:;' data-toggle='slideout.show' data-target='.slideout_bottom'&gt;SHOW&lt;/a&gt;
+
+&lt;script&gt;
+$('.slideout_bottom').SlideOut({
+	pos:'bottom',
+	auto_reopen:false,
+	auto_close:5,
+	devices:{ xs:false, sm:true, md:true, lg:true }
+});
+&lt;/script&gt;</code></pre>
 
 				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
 
@@ -99,28 +103,35 @@
 		<div class="tab-pane" id="{{ module }}methods">
 			<h3 data-toggle="collapse" data-target="#{{ module }}methods>div">Methods</h3>
 			<div class='collapse'>
-				<p><code>$('#selector').SlideOut('show');</code> Shows the slideout</p>
-				<p><code>$('#selector').SlideOut('hide');</code> Hides the slideout</p>
-				<p><code>$('#selector').SlideOut('toggle');</code> Shows/hides the slideout</p>
+
+				<pre><code class='javascript'>$('#selector').SlideOut('show'); // Shows the slideout</code></pre>
+				<pre><code class='javascript'>$('#selector').SlideOut('hide'); // Hides the slideout</code></pre>
+				<pre><code class='javascript'>$('#selector').SlideOut('toggle'); // Shows/Hides the slideout</code></pre>
+
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}events">
 			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
 			<div class='collapse'>
-				<p><code class='html block'>$('#selector').on('sa.slideout.show',function(event,settings){<br/>
-				{{site.tab}} //Triggered every time view slide-out is shown<br/>
-				});</code> </p>
-				<p><code class='html block'>$('#selector').on('sa.slideout.hide',function(event,settings){<br/>
-				{{site.tab}} //Triggered every time view slide-out is hidden<br/>
-				});</code> </p>
+
+<pre><code class='javascript'>$('#selector').on('show.sa.slideout',function(event,settings){
+	// Triggered every time view slide-out is shown
+});
+
+$('#selector').on('hide.sa.slideout',function(event,settings){
+	// Triggered every time view slide-out is hidden
+});</code></pre>
+
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}listeners">
 			<h3 data-toggle="collapse" data-target="#{{ module }}listeners>div">Listeners</h3>
 			<div class='collapse'>
-				<p><code>&lt;a href='javascript:;' data-toggle='slideout.show' data-target='#selector'&gt;Show Slideout&lt;/a&gt;</code></p>
-				<p><code>&lt;a href='javascript:;' data-toggle='slideout.hide' data-target='#selector'&gt;Hide Slideout&lt;/a&gt;</code></p>
-				<p><code>&lt;a href='javascript:;' data-toggle='slideout.toggle' data-target='#selector'&gt;Toggle Slideout&lt;/a&gt;</code></p>
+			
+<pre><code class='xml'>&lt;a href='javascript:;' data-toggle='slideout.show' data-target='#selector'&gt;Show Slideout&lt;/a&gt;
+&lt;a href='javascript:;' data-toggle='slideout.hide' data-target='#selector'&gt;Hide Slideout&lt;/a&gt;
+&lt;a href='javascript:;' data-toggle='slideout.toggle' data-target='#selector'&gt;Toggle Slideout&lt;/a&gt;</code></p>
+			
 			</div>
 		</div>
 	</div>

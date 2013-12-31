@@ -3,111 +3,121 @@
  * Author Andrew Womersley
  * ======================================================================== */
 
-var $STAN_Config = {
-    tag: 'body',
-    xs: 768,
-    sm: 992,
-    md: 1200
-};
-
 var $STAN;
 
-(function(Config) {
+(function(CustomConfig) {
 
     'use strict';
 
-    // Define breakpoints
-    var Breakpoints = [{
-        'id': 'xs',
-        'min-width': 0,
-        'max-width': Config.xs,
-        'class': 'device-xs',
-        'device': 'xs'
-    }, {
-        'id': 'sm',
-        'min-width': Config.xs,
-        'max-width': Config.sm,
-        'class': 'device-sm',
-        'device': 'sm'
-    }, {
-        'id': 'md',
-        'min-width': Config.sm,
-        'max-width': Config.md,
-        'class': 'device-md',
-        'device': 'md'
-    }, {
-        'id': 'lg',
-        'min-width': Config.md,
-        'max-width': 0,
-        'class': 'device-lg',
-        'device': 'lg'
-    }, {
-        'id': 'mobile',
-        'min-width': 0,
-        'max-width': Config.sm,
-        'class': 'mobile',
-        'mobile': true
-    }, {
-        'id': 'desktop',
-        'min-width': Config.sm,
-        'max-width': 0,
-        'class': 'desktop',
-        'mobile': false
-    }];
+    var Tag = !! CustomConfig.tag ? CustomConfig.tag : 'body';
+
+    var Config = {
+
+        xs: {
+            min_width: 0,
+            class: 'device-xs mobile',
+            data: {
+                mobile: true,
+                desktop: false
+            }
+        },
+        sm: {
+            min_width: 768,
+            class: 'device-sm mobile',
+            data: {
+                mobile: true,
+                desktop: false
+            }
+        },
+        md: {
+            min_width: 992,
+            class: 'device-md desktop',
+            data: {
+                mobile: false,
+                desktop: true
+            }
+        },
+        lg: {
+            min_width: 1200,
+            class: 'device-lg desktop',
+            data: {
+                mobile: false,
+                desktop: true
+            }
+        }
+
+    };
+
+    // Merge Config with CustomConfig
+    for (var i in Config) {
+        if (typeof CustomConfig[i] === 'object') Config[i] = $.extend(Config[i], CustomConfig[i]);
+    }
+
+    // Set Max Widths
+    Config.xs.max_width = Config.sm.min_width;
+    Config.sm.max_width = Config.md.min_width;
+    Config.md.max_width = Config.lg.min_width;
+    Config.lg.max_width = 9999;
+
 
     var _STAN = function(deferTrigger) {
 
-        var STAN = !! window.$STAN ? window.$STAN : {
-            current_ids: []
-        };
-        var current_ids = [];
-        var i;
+        var STAN = !! window.$STAN ? window.$STAN : [];
+        var device;
+        var current_device;
+        var triggers = [];
         var x;
         var bp;
         var ww;
-        var dfd = $.Deferred();
-        var triggers = [];
 
         // Loop through breakpoints - reset data
-        for (i in Breakpoints) {
+        for (device in Config) {
 
-            bp = Breakpoints[i];
+            bp = Config[device];
 
             // Remove classes
-            $(Config.tag).removeClass(bp.class);
+            $(Tag).removeClass(bp.class);
 
-            // Remove attributes
-            for (x in bp) STAN[x] = false;
+            // Remove data attributes
+            for (x in bp.data) STAN[x] = false;
 
         }
 
-        // Loop through breakpoints - set data
-        for (i in Breakpoints) {
+        current_device = STAN.device;
 
-            bp = Breakpoints[i];
+        // Loop through breakpoints - set data
+        for (device in Config) {
+
+            bp = Config[device];
 
             ww = $(window).width();
 
-            if (bp['min-width'] <= ww && ww < ((!bp['max-width']) ? 9999 : bp['max-width'])) {
+            if (bp.min_width <= ww && ww < bp.max_width) {
 
                 // Add class
-                $(Config.tag).addClass(bp.class);
+                $(Tag).addClass(bp.class);
+
+                if (current_device != device) triggers.push({
+                    type: 'active',
+                    device: device
+                });
 
                 // Add attributes
-                for (x in bp) STAN[x] = bp[x];
-
-                // Add id to current_ids
-                current_ids.push(bp.id);
+                STAN.device = device;
+                STAN.class = bp.class;
+                for (x in bp.data) STAN[x] = bp.data[x];
 
             }
-            
-            if (current_ids.indexOf(bp.id) > -1 && STAN.current_ids.indexOf(bp.id) == -1) triggers.push({ type:'active', id:bp.id });
-            if (STAN.current_ids.indexOf(bp.id) > -1 && current_ids.indexOf(bp.id) == -1) triggers.push({ type:'deactive', id:bp.id });
+            else {
+
+                if (current_device == device) triggers.push({
+                    type: 'deactive',
+                    device: device
+                });
+
+            }
 
         }
-
-        // Set current ids
-        STAN.current_ids = current_ids;
 
         // Assign STAN to $_STAN global
         window.$STAN = STAN;
@@ -128,11 +138,11 @@ var $STAN;
 
     };
 
-    var _STAN_Triggers=function(triggers){
-        
-        for(var i in triggers){
-            var trigger=triggers[i];
-            $(Config.tag).trigger(trigger.type+'.sa.stan', [trigger.id]);
+    var _STAN_Triggers = function(triggers) {
+
+        for (var i in triggers) {
+            var trigger = triggers[i];
+            $(Tag).trigger(trigger.type + '.sa.stan', [trigger.device]);
         }
 
     };
@@ -146,11 +156,4 @@ var $STAN;
     _STAN(true);
 
 
-})($.extend({
-
-    tag: 'body',
-    xs: 768,
-    sm: 992,
-    md: 1200
-
-}, ((typeof $STAN_Config === 'undefined') ? [] : $STAN_Config)));
+})( ((typeof $STAN_Config === 'undefined') ? [] : $STAN_Config) );

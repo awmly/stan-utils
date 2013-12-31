@@ -7,16 +7,94 @@ id: 	"index"
 
 <h1>Meet STAN</h1>
 
-<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. </p>
+<p>At its core STAN is a responsive framework that allows for device dependent display and functionality. It is built upon the device philosophy that Bootstrap uses but then extends upon it to allow for easy cross device management. STAN has the ability to set different classes and data variables for each differnt device making it easier to target specific devices when writing code.</p>
 
+<p>Below is a table showing the default setup for STAN.</p>
+
+<table class='table table-striped'>
+	<tr><th>Device</th><th>Width</th><th>Class</th><th>Data</th></tr>
+	<tr><td>xs</td><td>&lt; 768px</td><td>.device-xs .mobile</td><td><code>{ mobile: true,&nbsp;&nbsp;desktop: false }</code></td></tr>
+	<tr><td>sm</td><td>768px - 991px</td><td>.device-sm .mobile</td><td><code>{ mobile: true,&nbsp;&nbsp;desktop: false }</code></td></tr>
+	<tr><td>md</td><td>992px - 1199px</td><td>.device-md .desktop</td><td><code>{ mobile: false, desktop: true&nbsp; }</code></td></tr>
+	<tr><td>lg</td><td><u>&gt;</u> 1200px</td><td>.device-lg .desktop</td><td><code>{ mobile: false, desktop: true&nbsp; }</code></td></tr>
+</table>
+
+<h2>Classes</h2>
+
+<p>When a device becomes active the classes associated with it get automatically aplied to the <code>&lt;body&gt;</code> tag (this is changeable via config - see customising below). This allows for CSS code to reference explicit device types without having to use media queries, for example to make a div red on xs devices only <code>.device-xs div{ background:red; }</code>.</p>
+
+<h2>Data</h2>
+
+<p>STAN sets a global variable of <code>$STAN</code> which contains all information about the current viewport. Below is what the $STAN object looks like when the current device is md.</p>
+<pre><code class='javascript'>// Contents of $STAN
+{
+	device:	'md',
+	class:	'device-md desktop',
+	mobile:	false,
+	desktop:	true
+}</code></pre>
+
+<h2>Events</h2>
+
+<p>Each time a device is activated or deactivated the following events are triggered;</p>
+
+<pre><code class='javascript'>$('body').on('active.sa.stan',function(event,device){
+	// Triggered when a device is activated
+});
+
+$('body').on('deactive.sa.stan',function(event,device){
+	// Triggered when a device is deactivated
+});</code></pre>
+
+<h2>Customising</h2>
+<p>If you wish to modify the breakpoints at which different devices are activated, the applied classes or the data set when a device is activated or if you would like the element the classes are applied add the following code before the inclusion of the javascript file.</p>
+<pre><code class='javascript'>$STAN_Config = {
+	tag: 		'body',
+	xs:{
+		class: 		'device-xs mobile',
+		data: 		{ mobile: true,&nbsp;&nbsp;desktop: false }
+	},
+	sm:{
+		min_width: 	768,
+		class: 		'device-sm mobile',
+		data: 		{ mobile: true,&nbsp;&nbsp;desktop: false }
+	},
+	md:{
+		min_width: 	992,
+		class:		'device-md desktop',
+		data:		{ mobile: false, desktop: true&nbsp; }
+	},
+	lg:{
+		min_width: 	1200,
+		class: 		'device-lg desktop',
+		data: 		{ mobile: false, desktop: true&nbsp; }
+	}
+};</code></pre>
+
+<p>Only the values needed to be modified have to be specified in the Config object so the below will be acceptable.</p>
+
+<pre><code class='javascript'>$STAN_Config = {
+	xs:{
+		class: 		'device-xs foo-bar',
+	},
+	sm:{
+		data: 		{ foo:bar, bar:foo }
+	}
+};</code></pre>
+
+<div class='divide30'></div>
+
+<h1>Build from Source</h1>
+<p>For further customisation the full source code can be found on <a href='https://github.com/awomersley/stan-plugins' target='_blank'>GitHub</a>.</p>
 <div class='divide30'></div>
 
 <h1>Browser Support</h1>
-
-<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. </p>
-
+<p>STAN plugins has been tested on the latest version of all modern browsers and on IE back to version 8.</p>
 <div class='divide30'></div>
 
 <h1>License</h1>
+<p>STAN plugins is released under the <a href='http://apache.org/licenses/LICENSE-2.0.html' target='_blank'>Apache License v2</a>.</p>
+<div class='divide30'></div>
 
-<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. </p>
+<h1>Credits</h1>
+<p>This project has been made possible thanks to <a href='http://jquery.com/' target='_blank'>jQuery</a> and <a href='http://getbootstrap.com/' target='_blank'>Bootstrap</a>.</p>

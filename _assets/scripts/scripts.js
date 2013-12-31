@@ -2,7 +2,7 @@ $(function(){
 
 	$(window).resize(function(){
 
-		$('.site').css('margin-bottom',$('footer').height()+'px');
+		$('.site').css('margin-bottom',$('footer').outerHeight()+'px');
 
 	}).resize();
 
@@ -11,5 +11,12 @@ $(function(){
 	});
 
 	$('header').StickyFix();
+
+	hljs.tabReplace = '    ';
+	hljs.initHighlightingOnLoad();
+
+	$('pre code').each(function(i, e){ 
+		hljs.highlightBlock(e)
+	});
 
 });

@@ -21,27 +21,29 @@
 				
 				<h4>Tabs for tablets and desktop - Collapse for mobile</h4>
 				<p>The tabs/collapses on this page are also a working example.</p>
-				<code class='js block'>
-					&lt;div class="collapse-tab"&gt;<br/>
-					{{ site.tab }}&lt;ul class="nav nav-tabs hidden-xs"&gt;<br/>
-					{{ site.tab }}{{ site.tab }}&lt;li class="active"&gt;&lt;a href="#ct1" data-toggle="tab">CT1&lt;/a&gt;&lt;/li&gt;<br/>
-					{{ site.tab }}{{ site.tab }}&lt;li&gt;&lt;a href="#ct2" data-toggle="tab">CT2&lt;/a&gt;&lt;/li&gt;<br/>
-					{{ site.tab }}&lt;/ul&gt;<br/>
-					{{ site.tab }}&lt;div class="tab-content"&gt;<br/>
-					{{ site.tab }}{{ site.tab }}&lt;div class="tab-pane active" id="ct1"&gt;<br/>
-					{{ site.tab }}{{ site.tab }}{{ site.tab }}&lt;h3 data-toggle="collapse" data-target="#ct1&gt;div"&gt;CT1&lt;/h3&gt;<br/>
-					{{ site.tab }}{{ site.tab }}{{ site.tab }}&lt;div class="collapse"&gt;...&lt;/div&gt;<br/>
-					{{ site.tab }}{{ site.tab }}&lt;/div&gt;<br/>
-					{{ site.tab }}{{ site.tab }}&lt;div class="tab-pane active" id="ct2"&gt;<br/>
-					{{ site.tab }}{{ site.tab }}{{ site.tab }}&lt;h3 data-toggle="collapse" data-target="#ct2&gt;div"&gt;CT2&lt;/h3&gt;<br/>
-					{{ site.tab }}{{ site.tab }}{{ site.tab }}&lt;div class="collapse"&gt;...&lt;/div&gt;<br/>
-					{{ site.tab }}{{ site.tab }}&lt;/div&gt;<br/>
-					{{ site.tab }}&lt;/div&gt;<br/>
-					&lt;/div&gt;<br/><br/>
-					$('.collapse-tab').CollapseTab({<br/>
-					{{ site.tab }}breakpoint:768<br/>
-					});
-				</code>
+
+<pre><code class='xml'>&lt;div class="collapse-tab"&gt;
+	&lt;ul class="nav nav-tabs hidden-xs"&gt;
+		&lt;li class="active"&gt;&lt;a href="#ct1" data-toggle="tab">CT1&lt;/a&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;a href="#ct2" data-toggle="tab">CT2&lt;/a&gt;&lt;/li&gt;
+	&lt;/ul&gt;
+	&lt;div class="tab-content"&gt;
+		&lt;div class="tab-pane active" id="ct1"&gt;
+			&lt;h3 data-toggle="collapse" data-target="#ct1&gt;div"&gt;CT1&lt;/h3&gt;
+			&lt;div class="collapse"&gt;...&lt;/div&gt;
+		&lt;/div&gt;
+		&lt;div class="tab-pane active" id="ct2"&gt;
+			&lt;h3 data-toggle="collapse" data-target="#ct2&gt;div"&gt;CT2&lt;/h3&gt;
+			&lt;div class="collapse"&gt;...&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+$('.collapse-tab').CollapseTab({
+	breakpoint:768
+});
+&lt;/script&gt;</code></pre>
 
 				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
 
@@ -65,19 +67,20 @@
 		<div class="tab-pane" id="{{ module }}methods">
 			<h3 data-toggle="collapse" data-target="#{{ module }}methods>div">Methods</h3>
 			<div class='collapse'>
-				<code>$('#selector').CollapseTab('resize');</code> Invokes the resize method
+				<pre><code class='javascript'>$('#selector').CollapseTab('resize'); //Invokes the resize method</code></pre>
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}events">
 			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
 			<div class='collapse'>
-				<code class='html block'>$('#selector').on('tab.sa.collapsetab',function(event,settings){<br/>
-				{{site.tab}} //Triggered every time view switches to tabs<br/>
-				});</code> 
+				
+<pre><code class='javascript'>$('#selector').on('tab.sa.collapsetab',function(event,settings){
+	// Triggered every time view switches to tabs
+});
 
-				<code class='html block'>$('#selector').on('collapse.sa.collapsetab',function(event,settings){<br/>
-				{{site.tab}} //Triggered every time view switches to collapse<br/>
-				});</code> 
+$('#selector').on('collapse.sa.collapsetab',function(event,settings){
+	// Triggered every time view switches to collapse
+});</code></pre>
 
 				<p>Standard Bootsrap tab and collapse events are also fired.</p>
 			</div>

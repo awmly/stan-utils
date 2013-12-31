@@ -21,13 +21,15 @@
 				
 				<h4>Sticky Header</h4>
 				<p>A full width sticky header</p>
-				<code class='js block'>
-				&lt;header&gt;&lt;/header&gt;<br/><br/>
-				$('header').StickyFix({<br/>
-				{{site.tab}}top:0,<br/>
-				{{site.tab}}sticky_class:'stuck'<br/>
-				});
-				</code>
+				
+<pre><code class='xml'>&lt;header&gt;&lt;/header&gt;
+
+&lt;script&gt;
+$('header').StickyFix({
+	top:0,
+	sticky_class:'stuck'
+});
+&lt;/script&gt;</code></pre>
 
 				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
 
@@ -35,15 +37,17 @@
 
 				<h4>Sticky Right Panel</h4>
 				<p>A sticky right panel with <code>top</code> and <code>maxtop</code> values set.</p>
-				<code class='js block'>
-				&lt;div id='stickyfix'&gt;&lt;/div&gt;<br/><br/>
-				$('#stickyfix').StickyFix({<br/>
-				{{site.tab}}top:50,<br/>
-				{{site.tab}}maxtop:500,<br/>
-				{{site.tab}}stick_to:'parent',<br/>
-				{{site.tab}}devices:{ xs:true, sm:true, md:true, lg:true }<br/>
-				});
-				</code>
+				
+<pre><code class='xml'>&lt;div id='stickyfix'&gt;&lt;/div&gt;
+
+&lt;script&gt;
+$('#stickyfix').StickyFix({
+	top:50,
+	maxtop:500,
+	stick_to:'parent',
+	devices:{ xs:true, sm:true, md:true, lg:true }
+});
+&lt;/script&gt;</code></pre>
 
 				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
 
@@ -96,12 +100,15 @@
 		<div class="tab-pane" id="{{ module }}events">
 			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
 			<div class='collapse'>
-				<p><code class='html block'>$('#selector').on('sa.stickyfix.stuck',function(event,settings){<br/>
-				{{site.tab}} //Triggered every time element is stuck<br/>
-				});</code></p>
-				<p><code class='html block'>$('#selector').on('sa.stickyfix.unstuck',function(event,settings){<br/>
-				{{site.tab}} //Triggered every time element is unstuck<br/>
-				});</code></p>
+
+<pre><code class='javascript'>$('#selector').on('stuck.sa.stickyfix',function(event,settings){
+	// Triggered every time element is stuck
+});
+
+$('#selector').on('unstuck.sa.stickyfix',function(event,settings){
+	// Triggered every time element is unstuck
+});</code></pre>
+
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}listeners">

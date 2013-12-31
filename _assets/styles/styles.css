@@ -1,9 +1,9 @@
 h1{ padding:0 0 10px 0; font-weight:500; }
-h2{ }
+h2{ padding:15px 0 10px 0; }
 h3{ }
 h4{ padding:0 0 10px 0; font-weight:500; }
 p{ padding-bottom:10px; }
-code.block{ margin-bottom:10px; }
+pre{ background:#f8f8ff; }
 
 header{ background:#1a1a1a; height:50px; width:100%; }
 header .logo{ float:left; line-height:50px; padding:0 30px 0 43px; font-size:24px; color:#eee; position:relative; }
@@ -16,11 +16,13 @@ header li a{ padding:0 8px; border-radius:5px; color:#eee; display:block; }
 header li a:hover{ color:#fff; text-decoration:none; background:#333; }
 header li.active a{ background:#444; }
 
-.stan{ min-height:100%; position:relative; z-index:20; background:#fff; }
+.site{ min-height:100%; position:relative; z-index:20; background:#fff; }
 
 .jumbotron{ margin:0; }
 
-footer{ position:fixed; z-index:10; bottom:0; left:0; width:100%; height:200px; background:#eee; }
+footer{ position:fixed; z-index:10; bottom:0; left:0; width:100%; background:#eee; padding:30px 0; }
+footer .logos{ position:absolute; right:15px; bottom:0; text-align:right; }
+footer .logos img{ width:30px; display:inline-block; margin:0 5px; }
 
 .collapse-tab{ margin-top:15px; }
 .collapse-tab .tab-pane{ padding-top:15px; }
@@ -40,7 +42,7 @@ footer{ position:fixed; z-index:10; bottom:0; left:0; width:100%; height:200px; 
 
 .device-xs .tab-content>.tab-pane{ display:block; }
 .device-xs .tab-content>.tab-pane h2{ cursor:pointer; background:#eee; border-bottom:solid 1px #ccc; }
-h2{ padding:0; margin:0 0 10px 0; }
+
 
 .col{ margin-bottom:30px; }
 .col div{ background:#ccc; }

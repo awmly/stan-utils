@@ -21,21 +21,23 @@
 				
 				<h4>iFrame Popup</h4>
 				<p>A responsive youtube popup that loads youtube direct if on mobile, works great on phones with the youtube app installed.</p>
-				<code class='js block pre-scrollable'>
-					&lt;div class='popup' id='iframe'&gt;<br/>
-					{{ site.tab }}&lt;i class='fa fa-times popup-close'>&lt;/i&gt;<br/>
-					{{ site.tab }}&lt;div class='popup-display'&gt;&lt;/div&gt;<br/>
-					&lt;/div&gt;<br/>
-					&lt;a href='http://www.youtube.com/watch?v=kJuwVuP4ezc' data-toggle='popup.toggle' data-target='#iframe' data-src='http://www.youtube.com/embed/kJuwVuP4ezc'&gt;Load Video&lt;/a&gt;<br/><br/>
-					$('#iframe').PopUp({<br/>
-					{{ site.tab }}type:'iframe',<br/>
-					{{ site.tab }}width:1600,<br/>
-					{{ site.tab }}height:900,<br/>
-					{{ site.tab }}gutter:30,<br/>
-					{{ site.tab }}scroll:false,<br/>
-					{{ site.tab }}devices:{ xs:false, sm:true, md:true, lg:true }<br/>
-					});
-				</code>
+				
+<pre><code class='xml pre-scrollable'>&lt;div class='popup' id='iframe'&gt;
+	&lt;i class='fa fa-times popup-close'>&lt;/i&gt;
+	&lt;div class='popup-display'&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;a href='http://www.youtube.com/watch?v=kJuwVuP4ezc' data-toggle='popup.toggle' data-target='#iframe' data-src='http://www.youtube.com/embed/kJuwVuP4ezc'&gt;Load Video&lt;/a&gt;
+
+&lt;script&gt;
+$('#iframe').PopUp({
+	type:'iframe',
+	width:1600,
+	height:900,
+	gutter:30,
+	scroll:false,
+	devices:{ xs:false, sm:true, md:true, lg:true }
+});
+&lt;/script&gt;</code></pre>
 
 				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
 
@@ -43,19 +45,21 @@
 
 				<h4>HTML Popup</h4>
 				<p>A responsive html block popup that scales dynamically in the window.</p>
-				<code class='js block pre-scrollable'>
-					&lt;div class='popup' id='html'&gt;<br/>
-					{{ site.tab }}&lt;i class='fa fa-times popup-close'>&lt;/i&gt;<br/>
-					{{ site.tab }}&lt;div class='popup-display'&gt;&lt;/div&gt;<br/>
-					&lt;/div&gt;<br/>
-					&lt;a href='javascript:;' data-toggle='popup.show' data-target='#html'&gt;Load Popup&lt;/a&gt;<br/><br/>
-					$('#html').PopUp({<br/>
-					{{ site.tab }}type:'html',<br/>
-					{{ site.tab }}width:500,<br/>
-					{{ site.tab }}height:600,<br/>
-					{{ site.tab }}lock_aspect_ratio:false<br/>
-					});
-				</code>
+				
+<pre><code class='xml'>&lt;div class='popup' id='html'&gt;
+	&lt;i class='fa fa-times popup-close'>&lt;/i&gt;
+	&lt;div class='popup-display'&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;a href='javascript:;' data-toggle='popup.show' data-target='#html'&gt;Load Popup&lt;/a&gt;
+
+&lt;script&gt;
+$('#html').PopUp({
+	type:'html',
+	width:500,
+	height:600,
+	lock_aspect_ratio:false
+});
+&lt;/script&gt;</code></pre>
 
 				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
 
@@ -132,28 +136,35 @@
 		<div class="tab-pane" id="{{ module }}methods">
 			<h3 data-toggle="collapse" data-target="#{{ module }}methods>div">Methods</h3>
 			<div class='collapse'>
-				<p><code>$('#selector').Popup('show');</code> Shows the popup</p>
-				<p><code>$('#selector').Popup('hide');</code> Hides the popup</p>
-				<p><code>$('#selector').Popup('toggle');</code> Shows/hides the popup</p>
+
+				<pre><code class='javascript'>$('#selector').Popup('show'); // Shows the popup</code></pre>
+				<pre><code class='javascript'>$('#selector').Popup('hide'); // Hides the popup</code></pre>
+				<pre><code class='javascript'>$('#selector').Popup('toggle'); // Shows/Hides the popup</code></pre>
+
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}events">
 			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
 			<div class='collapse'>
-				<p><code class='html block'>$('#selector').on('sa.popup.show',function(event,settings){<br/>
-				{{site.tab}} //Triggered every time view popup is shown<br/>
-				});</code> </p>
-				<p><code class='html block'>$('#selector').on('sa.popup.hide',function(event,settings){<br/>
-				{{site.tab}} //Triggered every time view popup is hidden<br/>
-				});</code> </p>
+
+<pre><che colousode class='javascript'>$('#selector').on('show.sa.popup',function(event,settings){
+	// Triggered every time view popup is shown
+});
+
+$('#selector').on('hide.sa.popup',function(event,settings){
+	// Triggered every time view popup is hidden
+});</code></pre>
+
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}listeners">
 			<h3 data-toggle="collapse" data-target="#{{ module }}listeners>div">Listeners</h3>
 			<div class='collapse'>
-				<p><code>&lt;a href='javascript:;' data-toggle='popup.show' data-target='#selector'&gt;Show Popup&lt;/a&gt;</code></p>
-				<p><code>&lt;a href='javascript:;' data-toggle='popup.hide' data-target='#selector'&gt;Hide Popup&lt;/a&gt;</code></p>
-				<p><code>&lt;a href='javascript:;' data-toggle='popup.toggle' data-target='#selector'&gt;Toggle Popup&lt;/a&gt;</code></p>
+				
+<pre><code class='xml'>&lt;a href='javascript:;' data-toggle='popup.show' data-target='#selector'&gt;Show Popup&lt;/a&gt;
+&lt;a href='javascript:;' data-toggle='popup.hide' data-target='#selector'&gt;Hide Popup&lt;/a&gt;
+&lt;a href='javascript:;' data-toggle='popup.toggle' data-target='#selector'&gt;Toggle Popup&lt;/a&gt;</code></p>
+				
 				<p>If popup is an iFrame set <code>data-src='http://www...com'</code> to load in a new webpage.</p>
 			</div>
 		</div>
