@@ -8,14 +8,17 @@
         </a>
 
         <ul>
-            <li {% if page.id == 'plugins' %}class='active'{% endif %}>
+            <li {% if page.id == 'plugins' %}class='active bg-blue'{% endif %}>
                 <a href='{{ page.base }}plugins.html'>PLUGINS</a>
             </li>
-            <li {% if page.id == 'components' %}class='active'{% endif %}>
+            <li {% if page.id == 'components' %}class='active bg-yellow'{% endif %}>
                 <a href='{{ page.base }}components.html'>COMPONENTS</a>
             </li>
-            <li {% if page.id == 'css' %}class='active'{% endif %}>
+            <li {% if page.id == 'css' %}class='active bg-purple'{% endif %}>
                 <a href='{{ page.base }}css.html'>CSS</a>
+            </li>
+            <li {% if page.id == 'icons' %}class='active bg-green'{% endif %}>
+                <a href='{{ page.base }}icons.html'>ICONS</a>
             </li>
         </ul>
 

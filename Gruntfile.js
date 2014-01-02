@@ -167,6 +167,6 @@ module.exports = function(grunt) {
 
     });
     grunt.registerTask('deploy', ['jekyll', 'shell:jekyll', 'htmlmin', 'prettify', 'shell:zip', 'shell:publish']);
-    grunt.registerTask('default', ['uglify', 'cssmin', 'jekyll', 'shell:jekyll']);
+    grunt.registerTask('default', ['uglify', 'cssmin']);
 
 };

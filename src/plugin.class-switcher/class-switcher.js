@@ -7,37 +7,6 @@
 
     'use strict';
 
-    // Click listeners
-    $(window).ready(function() {
-
-        // Show
-        $("[data-toggle='popup.show']").click(function() {
-
-            methods.set_src.apply($($(this).attr('data-target')), [$(this).attr('data-src')]);
-
-            return methods.show.apply($($(this).attr('data-target')));
-
-        });
-
-        // Hide
-        $("[data-toggle='popup.hide']").click(function() {
-
-            return methods.hide.apply($($(this).attr('data-target')));
-
-        });
-
-        // Toggle
-        $("[data-toggle='popup.toggle']").click(function() {
-
-            methods.set_src.apply($($(this).attr('data-target')), [$(this).attr('data-src')]);
-
-            return methods.toggle.apply($($(this).attr('data-target')));
-
-        });
-
-    });
-
-
     // Define Methods
     var methods = {
 

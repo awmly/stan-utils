@@ -41,7 +41,6 @@
                 var settings = $.extend({
 
                     selector: 'a',
-                    scroller: 'body,html',
                     listener: 'click',
                     offset: 0,
                     scroll_speed: 300,
@@ -65,7 +64,7 @@
 
                     var vars = methods.getVars.apply(this, [this, settings]);
 
-                    if (window.location.hash.substring(2) == vars.target.substring(1)) $(settings.scroller).scrollTop(vars.position);
+                    if (window.location.hash.substring(2) == vars.target.substring(1)) $('body,html').scrollTop(vars.position);
 
                 });
 
@@ -81,7 +80,7 @@
 
             var vars = methods.getVars.apply(this, [_this, settings]);
 
-            $(settings.scroller).animate({
+            $('body,html').animate({
                 scrollTop: vars.position
             }, settings.scroll_speed, function() {
 
@@ -98,6 +97,8 @@
 
             var settings = $this.data('scrollTo');
 
+            var scrolltop;
+
             $this.find(settings.selector).removeClass('active');
 
             var st = {
@@ -108,8 +109,11 @@
             $this.find(settings.selector).each(function() {
 
                 var vars = methods.getVars.apply(this, [this, settings]);
+                
+                if($(window).scrollTop()==vars.maxscroll) scrolltop=$(document).height();
+                else scrolltop = $(window).scrollTop();
 
-                if ($(window).scrollTop() >= vars.position && vars.position >= st.position) st = {
+                if (scrolltop >= vars.position && vars.position >= st.position) st = {
                     position: vars.position,
                     element: $(this),
                     target: vars.target
@@ -132,11 +136,13 @@
             var offset = $(object).attr('data-offset') ? $(object).attr('data-offset') : settings.offset;
             var target = $(object).attr('data-target') ? $(object).attr('data-target') : $(object).attr('href');
             var position = parseInt($(target).offset().top) - parseInt(offset);
+            var maxscroll = $(document).height() - $(window).height();
 
             return {
                 offset: offset,
                 target: target,
-                position: position
+                position: position,
+                maxscroll: maxscroll
             };
 
         }

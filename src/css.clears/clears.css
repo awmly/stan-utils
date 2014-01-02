@@ -4,6 +4,7 @@
  * ======================================================================== */
 
 [class^="clear"]{ clear:both; height:0; }
+.clear1{ height:1px; }
 .clear5{ height:5px; }
 .clear10{ height:10px; }
 .clear20{ height:20px; }

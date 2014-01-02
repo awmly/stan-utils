@@ -12,6 +12,19 @@ $(function(){
 
 	$('header').StickyFix();
 
+	$('.sidebar').AnchorNav({
+		items:'.content>h1',
+		a_class:'sidebarscroll',
+		add_a_active_class:false
+	}).StickyFix({
+		top:70,
+		maxtop:100000,
+		stick_to: 'parent',
+		devices: { xs:false, sm:true, md:true, lg:true }
+	}).ScrollTo({
+	    offset:70
+	});
+
 	hljs.tabReplace = '    ';
 	hljs.initHighlightingOnLoad();
 

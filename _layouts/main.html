@@ -7,25 +7,37 @@
 
 		{% include header.html %}
 
-		{% if page.id == 'index' %}{% include hero.html %}{% endif %}
+		{% if page.id == 'index' %}			{% include title-blocks/index.html %}		{% endif %}
+		{% if page.id == 'plugins' %}		{% include title-blocks/plugins.html %}		{% endif %}
+		{% if page.id == 'components' %}	{% include title-blocks/components.html %}	{% endif %}
+		{% if page.id == 'css' %}			{% include title-blocks/css.html %}			{% endif %}
+		{% if page.id == 'icons' %}			{% include title-blocks/icons.html %}		{% endif %}
 
-		<div class='container pad-top pad-btm'>
+		<div class='container pad-top pad-btm-lrg'>
 
-			<div class='col-sm-4 col-md-3'>
+			<div class='row'>
 
-				{% include sidebar.html %}
+				<div class='col-sm-4 col-md-3'>
 
-			</div>
-			<div  class='col-sm-8 col-md-9'>
+					{% include sidebar.html %}
 
-				{{ content }}
+				</div>
+				<div  class='col-sm-8 col-md-9 content'>
+
+					{{ content }}
+
+					<p class='sml text-right'><em>STAN v{{ site.version }} &nbsp; - &nbsp; <a href='{{ site.download | replace:"[version]", site.version }}' >Download</a> &nbsp; - &nbsp; <a href='{{ site.github }}' target='_blank'>View Github Project</a></em></p>
+
+					<div class='clear30'></div>
+
+				</div>
 
 			</div>
 
 		</div>
 
 	</div>
-	<div class='clear30'></div>
+	<div class='clear1'></div>
 
 	{% include footer.html %}
 

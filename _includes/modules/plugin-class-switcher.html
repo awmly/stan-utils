@@ -1,7 +1,7 @@
 {% assign module = "cs" %}
 
 <h1>Class Switcher</h1>
-<p></p>
+<p>Easily toggle classes applied to elements.</p>
 
 <div class='collapse-tab'>
 
@@ -19,11 +19,25 @@
 			<h3 data-toggle="collapse" data-target="#{{ module }}examples>div">Examples</h3>
 			<div class='collapse'>
 				
-				<h4>AA</h4>
-				<p>bb</p>
-				<code class='js block'>
-					
-				</code>
+				<h4>Grid/List Switcher</h4>
+				<p>Switch between a grid and list layout.</p>
+
+<pre><code class='xml'>&lt;ul data-toggle="class-switcher" data-target=".switcher"&gt;
+	&lt;li class="btn btn-default active" data-class='col-sm-3 grid'&gt;Grid View&lt;/li&gt;
+	&lt;li class="btn btn-default" data-class='col-sm-12 list'&gt;List View&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class='row switcher'&gt;
+	&lt;div&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;/div&gt;
+	...
+&lt;/div&gt;
+
+&lt;script&gt;
+$('.switcher').ClassSwitcher({
+	selector:'div'
+});
+&lt;/script&gt;</code></pre>
 
 				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
 
@@ -35,33 +49,34 @@
 				<table class='table table-bordered'>
 					<tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
 					<tr>
-						<td><code>breakpoint</code></td>
-						<td>integer</td>
-						<td>768</td>
-						<td>The breakpoint for when tabs and collapse switch</td>
+						<td><code>selector</code></td>
+						<td>string</td>
+						<td>div</td>
+						<td>The selector to apply classes to</td>
 					</tr>
-					
 				</table>
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}methods">
 			<h3 data-toggle="collapse" data-target="#{{ module }}methods>div">Methods</h3>
 			<div class='collapse'>
-				<code>$('#selector').CollapseTab('resize');</code> Invokes the resize method
+				<p>This module has no methods.</p>
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}events">
 			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
 			<div class='collapse'>
-				<code class='html block'>$('#selector').on('sa.collapsetab.tab',function(event,settings){<br/>
-				{{site.tab}} //Triggered every time view switches to tabs<br/>
-				});</code> 
+
+<pre><code class='javascript'>$('#selector').on('change.sa.class-switcher',function(event,settings){
+	// Triggered every time classes are changed
+});</code></pre>
+
 			</div>
 		</div>
 		<div class="tab-pane" id="{{ module }}listeners">
 			<h3 data-toggle="collapse" data-target="#{{ module }}listeners>div">Listeners</h3>
 			<div class='collapse'>
-				<p></p>
+				<p>This module has no listeners.</p>
 			</div>
 		</div>
 	</div>

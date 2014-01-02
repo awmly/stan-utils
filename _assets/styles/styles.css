@@ -11,14 +11,23 @@ header .logo:hover{ text-decoration:none; color:#fff; }
 header .logo img{ position:absolute; top:10px; left:0; width:35px; height:30px; }
 
 header ul{ float:left; padding:10px 0; }
-header li{ height:30px; line-height:30px; float:left; padding:0 20px 0 0; }
-header li a{ padding:0 8px; border-radius:5px; color:#eee; display:block; }
-header li a:hover{ color:#fff; text-decoration:none; background:#333; }
-header li.active a{ background:#444; }
+header li{ height:30px; line-height:30px; float:left; margin:0 20px 0 0; border-radius:5px; }
+header li a{ padding:0 8px; color:#ddd; display:block; }
+header li a:hover{ color:#fff; text-decoration:none; }
+header li.active a{ color:#fff; }
 
 .site{ min-height:100%; position:relative; z-index:20; background:#fff; }
 
-.jumbotron{ margin:0; }
+.jumbotron{ margin:0; color:#fff; }
+
+.btn-black{ background:#333; border:solid 1px #111; color:#eee; }
+.btn-black:hover{ background:#111; border:solid 1px #111; color:#fff; }
+
+.bg-blue, .bg-blue .active{ background:#2C97DE; }
+.bg-red, .bg-red .active{ background:#DD4631; }
+.bg-yellow, .bg-yellow .active{ background:#F5B900; }
+.bg-purple, .bg-purple .active{ background:#9F5CBA; }
+.bg-green, .bg-green .active{ background:#15CB67; }
 
 footer{ position:fixed; z-index:10; bottom:0; left:0; width:100%; background:#eee; padding:30px 0; }
 footer .logos{ position:absolute; right:15px; bottom:0; text-align:right; }
@@ -28,6 +37,12 @@ footer .logos img{ width:30px; display:inline-block; margin:0 5px; }
 .collapse-tab .tab-pane{ padding-top:15px; }
 .collapse-tab h3{ display:none; }
 .device-xs .collapse-tab h3{ display:block; }
+
+.sidebar{ background:#eee; padding:10px 0; }
+.sidebar li{ line-height:16px; padding:0; }
+.sidebar a{ color:#666; padding:5px 15px; display:block; }
+.sidebar a:hover{ text-decoration:none; }
+.sidebar a.active{ color:#fff; }
 
 .nav-tabs li a{ font-weight:bold; }
 
