@@ -49,6 +49,7 @@
                 maxtop: false,
                 sticky_class: '',
                 stick_to: 'window',
+                zindex:1000,
                 devices: {
                     xs: true,
                     sm: true,
@@ -111,7 +112,7 @@
                     if (settings._status == 'unstuck') $(this).trigger('stuck.sa.stickyfix', [settings]);
 
                     $(this).addClass(settings.sticky_class).css({
-                        'z-index': 999,
+                        'z-index': settings.zindex,
                         top: settings.top + 'px',
                         position: 'fixed'
                     });

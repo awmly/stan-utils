@@ -18,9 +18,10 @@ $(function(){
 		add_a_active_class:false
 	}).StickyFix({
 		top:70,
-		maxtop:100000,
+		maxtop:function(){ return $('.content').height()+$('.content').offset().top-$('.sidebar').height()-70 },
 		stick_to: 'parent',
-		devices: { xs:false, sm:true, md:true, lg:true }
+		devices: { xs:false, sm:true, md:true, lg:true },
+		zindex:999
 	}).ScrollTo({
 	    offset:70
 	});

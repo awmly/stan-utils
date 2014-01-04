@@ -101,7 +101,7 @@ module.exports = function(grunt) {
                 ].join('&&')
             },
             publish: {
-                command: 'scp -P 7722 -r _site/* ftp@aw1.me:/var/www/git.aw1.me/stan-plugins/'
+                command: 'scp -i ~/.ssh/sa_rsa -r _site/* saadmin@sadev4.co.uk:/var/www/vhosts/smartarts.co.uk/stan-utils.smartarts.co.uk'
             }
         },
 

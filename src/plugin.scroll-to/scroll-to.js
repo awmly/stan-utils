@@ -110,7 +110,7 @@
 
                 var vars = methods.getVars.apply(this, [this, settings]);
                 
-                if($(window).scrollTop()==vars.maxscroll) scrolltop=$(document).height();
+                if($(window).scrollTop()>=vars.maxscroll) scrolltop=$(document).height();
                 else scrolltop = $(window).scrollTop();
 
                 if (scrolltop >= vars.position && vars.position >= st.position) st = {

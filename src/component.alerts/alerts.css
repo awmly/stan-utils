@@ -1,0 +1,60 @@
+.alert.has-icon,
+.alert.has-btn {
+    position:relative;
+}
+
+.alert.has-icon i{
+    position:absolute;
+    top:50%;
+    left:15px;
+    margin-top:-7px;
+}
+
+.alert.has-icon.icon-right i{
+    left:auto;
+    right:15px;
+}
+
+.alert.has-icon i.fa-lg{
+    margin-top:-7px;
+}
+
+.alert.has-icon i.fa-2x{
+    margin-top:-14px;
+}
+
+.alert.has-icon i.fa-3x{
+    margin-top:-21px;
+}
+
+.alert.has-icon i.fa-4x{
+    margin-top:-30px;
+}
+
+.alert.has-icon i.fa-5x{
+    margin-top:-35px;
+}
+
+.alert.has-btn .btn {
+    position:absolute;
+    top:50%;
+    margin-top:-18px;
+    left:15px;
+}
+
+.alert.has-btn.btn-right .btn{
+    left:auto;
+    right:15px;
+}
+
+.alert.has-btn .btn-lg {
+    margin-top:-22px;
+}
+
+.alert.has-btn .btn-sm {
+    margin-top:-15px;
+}
+
+.alert.has-btn .btn-xs {
+    margin-top:-11px;
+}

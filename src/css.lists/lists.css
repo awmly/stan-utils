@@ -1,0 +1,78 @@
+ul.bullet,
+ul.numeric,
+ul.alpha,
+ol.bullet,
+ol.numeric,
+ol.alpha {
+    padding:0 0 10px 20px;
+    list-style-position:inside;
+}
+
+ul.icon,
+ol.icon {
+    padding:0 0 10px 0;
+}
+
+ul.bullet ul,
+ul.numeric ul,
+ul.alpha ul,
+ul.icon ul,
+ol.bullet ol,
+ol.numeric ol,
+ol.alpha ol,
+ol.icon ol {
+    padding-bottom:0;
+}
+
+ul.icon ul,
+ol.icon ol {
+    padding-left:20px;
+}
+
+ul.bullet li,
+ul.numeric li,
+ul.alpha li,
+ul.icon li,
+ol.bullet li,
+ol.numeric li,
+ol.alpha li,
+ol.icon li {
+    line-height:16px;
+    padding:0 0 5px 0;
+}
+
+ul.bullet li,
+ol.bullet li {
+    list-style:disc;
+}
+
+ul.bullet ul li,
+ol.bullet ol li {
+    list-style:circle;
+}
+
+ul.numeric li,
+ol.numeric li {
+    list-style:decimal;
+}
+
+ul.alpha li,
+ol.alpha li {
+    list-style:lower-alpha;
+}
+
+ul.icon li,
+ol.icon li {
+    position:relative;
+    padding-left:20px;
+}
+
+ul.icon i{
+    position:absolute;
+    top:0;
+    left:0;
+    width:16px;
+    height:16px;
+    text-align:center;
+    line-height:16px;
+}

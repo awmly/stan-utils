@@ -1,7 +1,12 @@
 <h1>Image Responsive</h1>
 <p>Load images responsivly depending on window size. Start by loading the smallest image and only load larger if needed. If the <code>data-src</code> attr is not set then no image replacement happens.</p>
 
-<pre><code class='xml'>&lt;img src='img-xs.jpg' data-src='{"xs":"img-xs.jpg","sm":"img-sm.jpg","md":"img-md.jpg","lg":"img-lg.jpg"}' /&gt;</code></pre>
+<pre><code class='xml'>&lt;img src='/path/img-xs.jpg' data-src='{
+	"xs":"/path/img-xs.jpg",
+	"sm":"/path/img-sm.jpg",
+	"md":"/path/img-md.jpg",
+	"lg":"/path/img-lg.jpg"
+}' /&gt;</code></pre>
 
 <p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
 
