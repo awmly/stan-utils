@@ -1,11 +1,11 @@
 {
-  "name": "stan-plugins",
+  "name": "stan-utils",
   "version": "0.0.1",
-  "homepage": "http://www.smartarts.co.uk",
+  "homepage": "http://stan-utils.smartarts.co.uk",
   "author": "Andrew Womersley",
   "repository": {
     "type": "git",
-    "url": "https://github.com/awomersley/stan-plugins.git"
+    "url": "https://github.com/awomersley/stan-utils.git"
   },
   "licenses": [
     {

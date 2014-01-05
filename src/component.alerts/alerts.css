@@ -1,4 +1,9 @@
-.alert.has-icon,
+/* ========================================================================
+ * STAN Utils: Alerts
+ * Author: Andrew Womersley
+ * ======================================================================== */
+
+ .alert.has-icon,
 .alert.has-btn {
     position:relative;
 }

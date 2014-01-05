@@ -8,9 +8,7 @@
 	<ul class="nav nav-tabs hidden-xs">
 		<li class='active'><a href="#{{ module }}examples" data-toggle="tab">Examples</a></li>
 		<li><a href="#{{ module }}settings" data-toggle="tab">Settings</a></li>
-		<li><a href="#{{ module }}methods" data-toggle="tab">Methods</a></li>
 		<li><a href="#{{ module }}events" data-toggle="tab">Events</a></li>
-		<li><a href="#{{ module }}listeners" data-toggle="tab">Listeners</a></li>
 	</ul>
 
 	<div class="tab-content">
@@ -31,7 +29,7 @@ $('header').StickyFix({
 });
 &lt;/script&gt;</code></pre>
 
-				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
+				<p><a href='{{ page.base }}examples/plugin-sticky-fix.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 
 				<div class='clear20'></div>
 
@@ -45,11 +43,11 @@ $('#stickyfix').StickyFix({
 	top:50,
 	maxtop:500,
 	stick_to:'parent',
-	devices:{ xs:true, sm:true, md:true, lg:true }
+	devices:{ xs:false, sm:true, md:true, lg:true }
 });
 &lt;/script&gt;</code></pre>
 
-				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
+				<p><a href='{{ page.base }}examples/plugin-sticky-fix-2.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 
 			</div>
 		</div>
@@ -97,12 +95,6 @@ $('#stickyfix').StickyFix({
 				</table>
 			</div>
 		</div>
-		<div class="tab-pane" id="{{ module }}methods">
-			<h3 data-toggle="collapse" data-target="#{{ module }}methods>div">Methods</h3>
-			<div class='collapse'>
-				<p>This module has no methods.</p>
-			</div>
-		</div>
 		<div class="tab-pane" id="{{ module }}events">
 			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
 			<div class='collapse'>
@@ -115,12 +107,6 @@ $('#selector').on('unstuck.sa.stickyfix',function(event,settings){
 	// Triggered every time element is unstuck
 });</code></pre>
 
-			</div>
-		</div>
-		<div class="tab-pane" id="{{ module }}listeners">
-			<h3 data-toggle="collapse" data-target="#{{ module }}listeners>div">Listeners</h3>
-			<div class='collapse'>
-				<p>This module has no listeners.</p>
 			</div>
 		</div>
 	</div>

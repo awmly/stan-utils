@@ -1,6 +1,6 @@
 /* ========================================================================
- * STAN Plugins: StickyFix
- * Author Andrew Womersley
+ * STAN Utils: StickyFix
+ * Author: Andrew Womersley
  * ======================================================================== */
 
 (function($, $STAN) {
@@ -65,7 +65,11 @@
             }, options);
 
             // Save selector in array
-            Selectors.push(this.selector);
+            $(this.selector).each(function(){
+
+                Selectors.push( $(this) );
+
+            });
 
             // Iterate Through Selectors
             return this.each(function(index) {
@@ -96,7 +100,7 @@
 
             if (t < settings.top && settings.devices[$STAN.device]) {
 
-                if (typeof settings.maxtop === 'function') maxtop = settings.maxtop();
+                if (typeof settings.maxtop === 'function') maxtop = settings.maxtop($(this),settings);
                 else if (typeof settings.maxtop === 'number') maxtop = settings.maxtop;
                 else maxtop = 99999;
 

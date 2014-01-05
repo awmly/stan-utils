@@ -1,6 +1,6 @@
 /* ========================================================================
- * STAN Plugins: AnchorNav
- * Author Andrew Womersley
+ * STAN Utils: AnchorNav
+ * Author: Andrew Womersley
  * ======================================================================== */
 
 (function($, $STAN) {

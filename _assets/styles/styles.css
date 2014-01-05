@@ -29,7 +29,7 @@ header li.active a{ color:#fff; }
 .bg-purple, .bg-purple .active{ background:#9F5CBA; }
 .bg-green, .bg-green .active{ background:#15CB67; }
 
-footer{ position:fixed; z-index:10; bottom:0; left:0; width:100%; background:#eee; padding:30px 0; }
+footer{ width:100%; background:#eee; padding:30px 0; }
 footer .logos{ position:absolute; right:15px; bottom:0; text-align:right; }
 footer .logos img{ width:30px; display:inline-block; margin:0 5px; }
 
@@ -46,13 +46,6 @@ footer .logos img{ width:30px; display:inline-block; margin:0 5px; }
 
 .nav-tabs li a{ font-weight:bold; }
 
-.switcher div{ padding-bottom:30px; }
-.switcher .grid span{ height:300px; background:#ccc; display:block; }
-.switcher .list span{ height:100px; background:#ccc; display:block; }
-
-.switcher2 div{ padding-bottom:30px; }
-.switcher2 .grid span{ height:100px; background:#ccc; display:block; }
-.switcher2 .list span{ height:50px; background:#ccc; display:block; }
 
 
 .device-xs .tab-content>.tab-pane{ display:block; }
@@ -62,14 +55,3 @@ footer .logos img{ width:30px; display:inline-block; margin:0 5px; }
 .col{ margin-bottom:30px; }
 .col div{ background:#ccc; }
 .col span{ display:block; }
-
-.mqv{ display:none; }
-.device-xs .xs{ display:block; }
-.device-sm .sm{ display:block; }
-.device-md .md{ display:block; }
-.device-lg .lg{ display:block; }
-
-.popup .form{ background:#fff; padding:20px; }
-
-.list{ padding:0 0 10px 20px; }
-.list li{ list-style:disc; line-height:16px; padding:0 0 5px 0; }

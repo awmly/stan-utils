@@ -1,6 +1,6 @@
 /* ========================================================================
- * STAN Plugins: Popup
- * Author Andrew Womersley
+ * STAN Utils: Popup
+ * Author: Andrew Womersley
  * ======================================================================== */
 
 (function($, $STAN) {
@@ -61,7 +61,11 @@
         init: function(options) {
 
             // Save selector in array
-            Selectors.push(this.selector);
+            $(this.selector).each(function(){
+
+                Selectors.push( $(this) );
+
+            });
 
             // Iterate Through Selectors
             return this.each(function(index) {

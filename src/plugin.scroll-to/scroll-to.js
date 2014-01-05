@@ -1,6 +1,6 @@
 /* ========================================================================
- * STAN Plugins: ScrollTo
- * Author Andrew Womersley
+ * STAN Utils: ScrollTo
+ * Author: Andrew Womersley
  * ======================================================================== */
 
 (function($, $STAN) {
@@ -30,7 +30,11 @@
         init: function(options) {
 
             // Save selector in array
-            Selectors.push(this.selector);
+            $(this.selector).each(function(){
+
+                Selectors.push( $(this) );
+
+            });
 
             return this.each(function() {
 

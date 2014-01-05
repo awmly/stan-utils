@@ -1,6 +1,6 @@
 /* ========================================================================
- * STAN Plugins: Margins/Paddings
- * Author Andrew Womersley
+ * STAN Utils: Margins/Paddings
+ * Author: Andrew Womersley
  * ======================================================================== */
 
 .no-mar{ 		margin:0 			!important; }
@@ -20,7 +20,7 @@
 .mar-btm{ 		margin-bottom:30px 	!important; }
 .mar-left{ 		margin-left:30px 	!important; }
 .mar-right{ 	margin-right:30px 	!important; }
-.mar-lrg{ 		margin:60px 	!important; }
+.mar-lrg{ 		margin:60px 		!important; }
 .mar-top-lrg{ 	margin-top:60px 	!important; }
 .mar-btm-lrg{ 	margin-bottom:60px 	!important; }
 .mar-left-lrg{ 	margin-left:60px 	!important; }

@@ -1,6 +1,6 @@
 /* ========================================================================
- * STAN Plugins: PredInput
- * Author Andrew Womersley
+ * STAN Utils: PredInput
+ * Author: Andrew Womersley
  * ======================================================================== */
 
 (function($, $STAN) {

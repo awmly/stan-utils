@@ -1,6 +1,6 @@
 /* ========================================================================
- * STAN Plugins: XSCollapse
- * Author Andrew Womersley
+ * STAN Utils: XSCollapse
+ * Author: Andrew Womersley
  * ======================================================================== */
 
 $(function() {

@@ -1,6 +1,6 @@
 /* ========================================================================
- * STAN Plugins: Colousel
- * Author Andrew Womersley
+ * STAN Utils: Colousel
+ * Author: Andrew Womersley
  * ======================================================================== */
 
  .colousel,.colousel .colousel-inner{ position:relative; overflow:hidden; }

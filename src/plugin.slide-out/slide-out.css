@@ -1,6 +1,6 @@
 /* ========================================================================
- * STAN Plugins: SlideOut
- * Author Andrew Womersley
+ * STAN Utils: SlideOut
+ * Author: Andrew Womersley
  * ======================================================================== */
 
  .slideout{ display:none; position:fixed; z-index:1000;  }

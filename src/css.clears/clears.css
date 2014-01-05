@@ -1,6 +1,6 @@
 /* ========================================================================
- * STAN Plugins: Clears/Divides
- * Author Andrew Womersley
+ * STAN Utils: Clears/Divides
+ * Author: Andrew Womersley
  * ======================================================================== */
 
 [class^="clear"]{ clear:both; height:0; }

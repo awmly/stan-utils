@@ -1,6 +1,6 @@
 /* ========================================================================
- * STAN Plugins: Stan
- * Author Andrew Womersley
+ * STAN Utils: Stan
+ * Author: Andrew Womersley
  * ======================================================================== */
 
 var $STAN;

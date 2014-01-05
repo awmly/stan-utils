@@ -5,7 +5,7 @@ module.exports = function(grunt) {
         pkg:        grunt.file.readJSON('package.json'),
 
         banner:     '/*!\n' +
-                    ' * STAN Plugins <%= pkg.version %>\n' +
+                    ' * STAN Utils <%= pkg.version %>\n' +
                     ' * Copyright <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
                     ' */\n',
 	                   	
@@ -96,8 +96,8 @@ module.exports = function(grunt) {
             },
             zip: {
                 command: [
-                    'rm -f releases/stan-plugins-<%= pkg.version %>.zip',
-                    'zip -j releases/stan-plugins-<%= pkg.version %>.zip dist/*'
+                    'rm -f releases/stan-utils-<%= pkg.version %>.zip',
+                    'zip -j releases/stan-utils-<%= pkg.version %>.zip dist/*'
                 ].join('&&')
             },
             publish: {

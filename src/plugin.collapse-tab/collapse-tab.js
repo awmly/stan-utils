@@ -1,6 +1,6 @@
 /* ========================================================================
- * STAN Plugins: CollapseTab
- * Author Andrew Womersley
+ * STAN Utils: CollapseTab
+ * Author: Andrew Womersley
  * ======================================================================== */
 
 (function($, $STAN) {
@@ -31,7 +31,9 @@
         // Show
         $("[data-toggle='collapse-tab']").click(function() {
 
-            return methods.show.apply($($(this).attr('data-target')), [$(this)]);
+            methods.show.apply($($(this).attr('data-target')), [$(this)]);
+
+            return false;
 
         });
 
@@ -43,7 +45,11 @@
         init: function(options) {
 
             // Save selector in array
-            Selectors.push(this.selector);
+            $(this.selector).each(function(){
+
+                Selectors.push( $(this) );
+
+            });
 
             // Iterate Through Selectors
             return this.each(function() {

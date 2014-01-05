@@ -1,6 +1,6 @@
 /* ========================================================================
- * STAN Plugins: ImgResponsive
- * Author Andrew Womersley
+ * STAN Utils: ImgResponsive
+ * Author: Andrew Womersley
  * ======================================================================== */
 
 $(function() {

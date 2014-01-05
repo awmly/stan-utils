@@ -1,6 +1,6 @@
 /* ========================================================================
- * STAN Plugins: SlideOut
- * Author Andrew Womersley
+ * STAN Utils: SlideOut
+ * Author: Andrew Womersley
  * ======================================================================== */
 
 (function($, $STAN) {
@@ -65,7 +65,11 @@
         init: function(options) {
 
             // Save selector in array
-            Selectors.push(this.selector);
+            $(this.selector).each(function(){
+
+                Selectors.push( $(this) );
+
+            });
 
             // Iterate Through Selectors
             return this.each(function(index) {
@@ -92,7 +96,7 @@
                 // Save settings
                 $this.data('slideOut', settings);
 
-                $this.addClass('slideout-' + settings.pos);
+                $this.addClass('slideout slideout-' + settings.pos);
 
 
                 // Hide if not open or if not set for current device
@@ -230,10 +234,10 @@
 
                 });
 
-                // Return false to stop default action
-                return false;
-
             }
+
+            // Return false to stop default action
+            return false;
 
         },
 

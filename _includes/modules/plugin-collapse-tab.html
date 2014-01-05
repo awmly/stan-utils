@@ -45,7 +45,7 @@ $('.collapse-tab').CollapseTab({
 });
 &lt;/script&gt;</code></pre>
 
-				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
+				<p><a href='{{ page.base }}examples/plugin-collapse-tab.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 
 			</div>
 		</div>
@@ -88,7 +88,10 @@ $('#selector').on('collapse.sa.collapsetab',function(event,settings){
 		<div class="tab-pane" id="{{ module }}listeners">
 			<h3 data-toggle="collapse" data-target="#{{ module }}listeners>div">Listeners</h3>
 			<div class='collapse'>
-				<p>Standard Bootstrap listeners work to invoke the tab and collapse methods.</p>
+
+				<pre><code class='xml'>&lt;a href='#id_to_open' data-toggle='collapse-tab' data-target='#collapsetab'&gt;Open Tab/Collapse&lt;/a&gt;</code></pre>
+
+				<p>Standard Bootstrap listeners also work to invoke the tab and collapse methods.</p>
 			</div>
 		</div>
 	</div>

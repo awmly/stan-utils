@@ -1,0 +1,25 @@
+---
+title: 		PredInput Example
+layout:		examples
+base:		"../"
+---
+
+<h1>PredInput Example</h1>
+
+<div class='predinput'>
+    <input type='text' class='form-control' />
+    <div class='results'></div>
+    <i class='clear fa fa-times'></i>
+</div>
+
+<script>
+
+$(function(){
+
+	$('.predinput').Predinput({
+    	search_url:'/examples/plugin-predinput-results.php',
+    	data: { results_limit:10 }
+	});
+
+});
+</script>

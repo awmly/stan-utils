@@ -4,13 +4,11 @@ layout:		examples
 base:		"../"
 ---
 
-<h1>Colousel Example - Continuous Scroll</h1>
+<h1>Colousel Example - None Continuous Scroll</h1>
 
-<div class='colousel' id='colousel' style='padding:0 50px;'>
-	
+<div class='row colousel' id='colousel'>
 	<i class='fa fa-chevron-left colousel-prev'></i>
 	<i class='fa fa-chevron-right colousel-next'></i>
-	
 	<div class='colousel-inner'>
 		<div><div class='inner' style='background:#ff0000;'></div></div>
 		<div><div class='inner' style='background:#00ff00;'></div></div>
@@ -21,11 +19,7 @@ base:		"../"
 		<div><div class='inner' style='background:#cccccc;'></div></div>
 		<div><div class='inner' style='background:#666666;'></div></div>
 		<div><div class='inner' style='background:#000000;'></div></div>
-		<div><div class='inner' style='background:#cccccc;'></div></div>
-		<div><div class='inner' style='background:#666666;'></div></div>
-		<div><div class='inner' style='background:#000000;'></div></div>
 	</div>
-
 </div>
 
 <p>
@@ -45,14 +39,14 @@ base:		"../"
 $(function(){
 
 	$('#colousel').Colousel({
-		continuous:true,
+		continuous:false,
 		selector:'div',
-		selector_class:'col-xs-6 col-sm-4 col-md-3 col-lg-2',
+		selector_class:'col-xs-12 col-sm-6 col-md-4 col-lg-3',
 		autoplay:true,
-		autoplay_delay:3000,
+		autoplay_delay:2000,
 		break_autoplay_on_click:true,
-		transition_speed:200,
-		scroll_amount: {xs:2, sm:3, md:4, lg:6 }
+		transition_speed:500,
+		scroll_amount: {xs:1, sm:1, md:2, lg:2 }
 	});
 
 });

@@ -8,9 +8,7 @@
 	<ul class="nav nav-tabs hidden-xs">
 		<li class='active'><a href="#{{ module }}examples" data-toggle="tab">Examples</a></li>
 		<li><a href="#{{ module }}settings" data-toggle="tab">Settings</a></li>
-		<li><a href="#{{ module }}methods" data-toggle="tab">Methods</a></li>
 		<li><a href="#{{ module }}events" data-toggle="tab">Events</a></li>
-		<li><a href="#{{ module }}listeners" data-toggle="tab">Listeners</a></li>
 	</ul>
 
 	<div class="tab-content">
@@ -23,36 +21,37 @@
 				<p>Scrolling using <code>&lt;a&gt;</code> tags with the attribute <code>href='selector'</code>.</p>
 				
 <pre><code class='xml'>&lt;p&gt;
-	&lt;a href='#link1'&gt;Link 1&lt;/a&gt;
-	&lt;a href='#link2' data-offet='30'&gt;Link 2 with offset override&lt;/a&gt;
+	&lt;a class="scrollto" href='#link1'&gt;Link 1&lt;/a&gt;
+	&lt;a class="scrollto" href='#link2' data-offset='30'&gt;Link 2 with offset override&lt;/a&gt;
 &lt;/p&gt;
 
 &lt;script&gt;
-$('p').ScrollTo({
-	offset:70
+$('body').ScrollTo({
+	offset:70,
+	selector:'a.scrollto'
 });
 &lt;/script&gt;</code></pre>
 
-				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
+				<p><a href='{{ page.base }}examples/plugin-scroll-to.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 
 				<div class='clear20'></div>
 
 				<h4>Simple Scroll Navigation 2</h4>
 				<p>Scrolling using <code>&lt;li&gt;</code> tags with the attribute <code>data-target='selector'</code>.</p>
 				
-<pre><code class='xml'>&lt;ul&gt;
+<pre><code class='xml'>&lt;ul class="scrollto"&gt;
 	&lt;li data-target='#link1'&gt;Link 1&lt;/li&gt;
-	&lt;li data-target='#link2' data-offet='30'&gt;Link 2 with offset override&lt;/a&gt;
+	&lt;li data-target='#link2' data-offset='30'&gt;Link 2 with offset override&lt;/a&gt;
 &lt;/ul&gt;
 
 &lt;script&gt;
-$('ul').ScrollTo({
-	selector:'li'
+$('.scrollto').ScrollTo({
+	selector:'li',
 	offset:70
 });
 &lt;/script&gt;</code></pre>
 
-				<p><a href='examples/media-query-class/' target='_blank' class='btn btn-sm btn-primary'><i class='fa fa-external-link'></i> View Example</a></p>
+				<p><a href='{{ page.base }}examples/plugin-scroll-to-2.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 
 			</div>
 		</div>
@@ -94,12 +93,6 @@ $('ul').ScrollTo({
 				</table>
 			</div>
 		</div>
-		<div class="tab-pane" id="{{ module }}methods">
-			<h3 data-toggle="collapse" data-target="#{{ module }}methods>div">Methods</h3>
-			<div class='collapse'>
-				<p>This module has no methods.</p>
-			</div>
-		</div>
 		<div class="tab-pane" id="{{ module }}events">
 			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
 			<div class='collapse'>
@@ -108,12 +101,6 @@ $('ul').ScrollTo({
 	// Triggered on scroll end
 });</code></pre>
 
-			</div>
-		</div>
-		<div class="tab-pane" id="{{ module }}listeners">
-			<h3 data-toggle="collapse" data-target="#{{ module }}listeners>div">Listeners</h3>
-			<div class='collapse'>
-				<p>This module has no listeners.</p>
 			</div>
 		</div>
 	</div>

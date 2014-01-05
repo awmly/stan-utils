@@ -1,0 +1,32 @@
+---
+title: 		Slide Out Example 2
+layout:		examples
+base:		"../"
+---
+
+<h1>Slide Out Example 2</h1>
+
+<p>
+	<a href='/link/to/static/page' data-toggle='slideout.show' data-target='#bottom'>SHOW</a>
+	&nbsp; | &nbsp;
+	<a href='/link/to/static/page' data-toggle='slideout.hide' data-target='#bottom'>HIDE</a>
+</p>
+
+<div id='bottom'></div>
+
+<style>
+.slideout{ background:#333; background:rgba(33,33,33,0.7); }
+</style>
+
+<script>
+$(function(){
+
+	$('#bottom').SlideOut({
+		pos:'bottom',
+		auto_reopen:false,
+		auto_close:5,
+		devices:{ xs:false, sm:true, md:true, lg:true }
+	});
+
+});
+</script>

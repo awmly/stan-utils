@@ -1,0 +1,28 @@
+---
+title: 		Popup Example 2
+layout:		examples
+base:		"../"
+---
+
+<h1>PopUp Example 2</h1>
+
+<p><a href='javascript:;' data-toggle='popup.show' data-target='#html'>Open HTML Popup</a></p>
+
+<div class='popup' id='html'>
+	<i class='fa fa-times popup-close'></i>
+	<div class='popup-display'><div style='height:300px;background:#ccc;'>scroll..</div><div style='height:300px;background:#333;'>scroll..</div><div style='height:300px;background:#ccc;'>scroll..</div><div style='height:300px;background:#333;'>scroll..</div></div>
+</div>
+
+<script>
+$(function(){
+
+	$('#html').PopUp({
+		type:'html',
+		width:500,
+		height:600,
+		lock_aspect_ratio:false,
+		scroll:true
+	});
+
+});
+</script>

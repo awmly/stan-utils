@@ -1,15 +1,17 @@
 ---
-title: 		Scroll To Example
+title: 		Scroll To Example 2
 layout:		examples
 base:		"../"
 ---
 
-<h1>Scroll To Example</h1>
+<h1>Scroll To Example 2</h1>
 
-<p>
-    <a href='#link1' class='scrollto'>Link 1</a>
-    <a href='#link2' data-offset='50' class='scrollto'>Link 2 with offset override</a>
-</p>
+<ul class="scrollto">
+    <li data-target='#link1'><b>Link 1</b></li>
+    <li data-target='#link2' data-offset='50'><b>Link 2 with offset override</b></a>
+</ul>
+
+<div class='divide20'></div>
 
 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
@@ -35,9 +37,9 @@ base:		"../"
 
 $(function(){
 
-	$('body').ScrollTo({
-	    offset:5,
-	    selector:'a.scrollto'
+	$('.scrollto').ScrollTo({
+	    selector:'li',
+	    offset:5
 	});
 
 });

@@ -1,9 +1,9 @@
 {
-	"name": "stan-plugins",
+	"name": "stan-utils",
 	"version": "0.0.1",
 	"main": [
-		"dist/stan-plugins.min.js",
-		"dist/stan-plugins.min.css"
+		"dist/stan-utils.min.js",
+		"dist/stan-utils.min.css"
 	],
 	"dependencies": {
 		"jquery": "~1.10.2",

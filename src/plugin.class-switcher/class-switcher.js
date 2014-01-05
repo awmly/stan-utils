@@ -1,6 +1,6 @@
 /* ========================================================================
- * STAN Plugins: ClassSwitcher
- * Author Andrew Womersley
+ * STAN Utils: ClassSwitcher
+ * Author: Andrew Womersley
  * ======================================================================== */
 
 (function($, $STAN) {

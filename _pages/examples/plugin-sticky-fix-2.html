@@ -1,0 +1,40 @@
+---
+title: 		Sticky Fix Example 2
+layout:		examples
+base:		"../"
+---
+
+<h1>Sticky Fix Example 2</h1>
+
+<div class='row'>
+
+	<div class='col-sm-9'>
+		
+		<div class='content' style='height:600px;background:#ccc;'><p>Scroll down... the right column is sticky</p></div>
+
+		<div style='height:1000px;'><p>Keep scrolling down... the right column scrolls now too..</p></div>
+
+	</div>
+
+	<div class='col-sm-3'>
+		
+		<div id='stickyfix' style='height:200px;background:#ccc;'></div>
+
+	</div>
+
+</div>
+
+
+<script>
+
+$(function(){
+
+	$('#stickyfix').StickyFix({
+	    top:20,
+	    maxtop:function(_this,_settings){ return $('.content').height()+$('.content').offset().top-$(_this).height()-_settings.top;  },
+	    stick_to:'parent',
+	    devices:{ xs:false, sm:true, md:true, lg:true }
+	});
+
+});
+</script>
