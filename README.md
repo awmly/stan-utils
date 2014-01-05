@@ -41,12 +41,12 @@ Releases will be released as per the guidlines outlined by [SemVer](http://semve
 
 ## To Do
 
-** Plugins **
+##### Plugins
 - Scroller
 - Swiper
 - Slider
 
-** Components **
+##### Components
 - Select box
 
 
@@ -54,7 +54,7 @@ Releases will be released as per the guidlines outlined by [SemVer](http://semve
 
 ## Author
 
-**Andrew Womersley**
+##### Andrew Womersley
 
 - <https://plus.google.com/+AndrewWomersley>
 
