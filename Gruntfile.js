@@ -96,6 +96,7 @@ module.exports = function(grunt) {
             },
             zip: {
                 command: [
+                    'mkdir -p releases',
                     'rm -f releases/stan-utils-<%= pkg.version %>.zip',
                     'zip -j releases/stan-utils-<%= pkg.version %>.zip dist/*'
                 ].join('&&')
