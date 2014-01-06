@@ -1,4 +1,4 @@
-# [STAN Utils](http://stan-utils.smartarts.co.uk/)![Analytics](https://ga-beacon.appspot.com/UA-2775758-54/awomersley/stan-utils)](https://github.com/awomersley/stan-utils)[![Build Status](https://secure.travis-ci.org/awomersley/stan-utils.png)](http://travis-ci.org/awomersley/stan-utils) [![devDependency Status](https://david-dm.org/awomersley/stan-utils.png?theme=shields.io)](https://david-dm.org/awomersley/stan-utils#info=devDependencies)
+# [STAN Utils](http://stan-utils.smartarts.co.uk/)![Analytics](https://ga-beacon.appspot.com/UA-2775758-54/awomersley/stan-utils)](https://github.com/awomersley/stan-utils) [![Build Status](https://secure.travis-ci.org/awomersley/stan-utils.png)](http://travis-ci.org/awomersley/stan-utils) [![devDependency Status](https://david-dm.org/awomersley/stan-utils.png?theme=shields.io)](https://david-dm.org/awomersley/stan-utils#info=devDependencies)
 
 A responsive frontend utility library for easy device independent web development.
 
