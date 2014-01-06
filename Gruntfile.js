@@ -1,14 +1,14 @@
 module.exports = function(grunt) {
 
 	var config={
-		
+
         pkg:        grunt.file.readJSON('package.json'),
 
         banner:     '/*!\n' +
                     ' * STAN Utils <%= pkg.version %>\n' +
                     ' * Copyright <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
                     ' */\n',
-	                   	
+
     	watch_site: {
             options: {
                 livereload: true
@@ -74,7 +74,7 @@ module.exports = function(grunt) {
 				}
 			}
         },
-		
+
 		cssmin: {
             dist: {
                 options: {
@@ -105,9 +105,9 @@ module.exports = function(grunt) {
             }
         },
 
-        htmlmin: { 
-            dist: {                          
-                options: {                          
+        htmlmin: {
+            dist: {
+                options: {
                     removeComments: true,
                     collapseWhitespace: true,
                     removeEmptyAttributes: true
@@ -140,7 +140,7 @@ module.exports = function(grunt) {
 
     // Init grunt config
     grunt.initConfig(config);
-    
+
 
     // Load node modules
     grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -156,17 +156,18 @@ module.exports = function(grunt) {
     // Register tasks
     grunt.registerTask('site',function(){
 
-        grunt.config('watch', config.watch_site); 
-        grunt.task.run(['uglify', 'cssmin', 'jekyll', 'shell:jekyll', 'connect:dev', 'watch']); 
+        grunt.config('watch', config.watch_site);
+        grunt.task.run(['uglify', 'cssmin', 'jekyll', 'shell:jekyll', 'connect:dev', 'watch']);
 
     });
     grunt.registerTask('tests',function(){
 
-        grunt.config('watch', config.watch_tests); 
+        grunt.config('watch', config.watch_tests);
         grunt.task.run(['connect:tests', 'watch']);
 
     });
     grunt.registerTask('deploy', ['jekyll', 'shell:jekyll', 'htmlmin', 'prettify', 'shell:zip', 'shell:publish']);
+    grunt.registerTask('test', ['uglify', 'cssmin']);
     grunt.registerTask('default', ['uglify', 'cssmin']);
 
 };
