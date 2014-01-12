@@ -14,7 +14,6 @@ $(function(){
 
 	$('.sidebar').AnchorNav({
 		items:'.content>h1',
-		a_class:'sidebarscroll',
 		add_a_active_class:false
 	}).StickyFix({
 		top:70,
@@ -29,7 +28,7 @@ $(function(){
 	hljs.tabReplace = '    ';
 	hljs.initHighlightingOnLoad();
 
-	$('pre code').each(function(i, e){ 
+	$('pre code').each(function(i, e){
 		hljs.highlightBlock(e)
 	});
 

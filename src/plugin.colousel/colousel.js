@@ -64,7 +64,7 @@
 
                 // Set Options
                 var settings = $.extend({
-                    continuous: true,
+                    type:'normal',
                     selector: 'div',
                     selector_class: false,
                     transition_speed: 300,
@@ -83,8 +83,25 @@
                     max_index: 0,
                     timer: false,
                     action: false,
+                    isScroll:false
                 }, options);
 
+                if(settings.type=='normal'){
+
+                  settings.transition='slide';
+                  settings.continuous=false;
+
+                }else if(settings.type=='continuous'){
+
+                  settings.transition='slide';
+                  settings.continuous=true;
+
+                }else{
+
+                  settings.transition='fade';
+                  settings.continuous=true;
+
+                }
 
                 // Save settings
                 $this.data('Colousel', settings);
@@ -175,6 +192,8 @@
             settings.inview = 0;
 
             // Set selector width
+            $this.find('.colousel-inner').css('width','');
+            $Selectors.css('width','');
             settings.selector_width = $Selectors.outerWidth();
 
             // Loop through selectors
@@ -187,7 +206,7 @@
                 left = $(this).data('ColouselIndex') * settings.selector_width;
 
                 // Set left position
-                $(this).css('left', left + 'px');
+                $(this).css({left:left + 'px',width:$(this).css('width')});
 
                 // If left position is less than colousel width incriment in selectors in view
                 inview_check = inview_check + settings.selector_width;
@@ -205,26 +224,71 @@
             // Set max_index
             settings.max_index = settings.total - settings.inview;
 
-            if (!settings.continuous) {
+            // Check for device uses scroll
+            if(!settings.scroll_amount[$STAN.device]){
 
-                // Check current_index isnt above maximum position
-                if (settings.current_index > settings.max_index) settings.current_index = settings.max_index;
+              settings.isScroll=true;
 
-                // Move slider to current position
-                if (settings.current_index > 0) {
+              $this.addClass('scroll');
 
-                    var offset = settings.current_index * settings.selector_width;
-                    $Selectors.css('left', '-=' + offset + 'px');
+              $this.find('.colousel-inner').css('width',(settings.total*settings.selector_width)+'px');
+
+              $Selectors.each(function(index) {
+
+                  // Reset left position
+                  $(this).css('left', (index * settings.selector_width) + 'px');
+
+              });
+
+            }else{
+
+              settings.isScroll=false;
+
+              $this.removeClass('scroll');
+
+              if (settings.continuous) {
+
+                if(settings.total==settings.inview){
+
+                  $Selectors.each(function(index) {
+
+                    // Reset left position
+                    $(this).css('left', (index * settings.selector_width) + 'px');
+
+                  });
+
+                  $(this).addClass('start end');
+
+                }else{
+
+                  $(this).removeClass('start end');
 
                 }
 
-                // Check start position
-                if (settings.current_index === 0) $(this).addClass('start');
-                else $(this).removeClass('start');
+              }
 
-                // Check end position
-                if (settings.current_index >= settings.max_index) $(this).addClass('end');
-                else $(this).removeClass('end');
+              if (!settings.continuous) {
+
+                  // Check current_index isnt above maximum position
+                  if (settings.current_index > settings.max_index) settings.current_index = settings.max_index;
+
+                  // Move slider to current position
+                  if (settings.current_index > 0) {
+
+                      var offset = settings.current_index * settings.selector_width;
+                      $Selectors.css('left', '-=' + offset + 'px');
+
+                  }
+
+                  // Check start position
+                  if (settings.current_index === 0) $(this).addClass('start');
+                  else $(this).removeClass('start');
+
+                  // Check end position
+                  if (settings.current_index >= settings.max_index) $(this).addClass('end');
+                  else $(this).removeClass('end');
+
+              }
 
             }
 
@@ -334,7 +398,7 @@
             else left_modifier = '+';
 
 
-            if ((settings.continuous || (settings.current_index < settings.max_index && direction == 'next') || (settings.current_index > 0 && direction == 'prev')) && !settings.action) {
+            if (((settings.continuous && settings.total>settings.inview) || (settings.current_index < settings.max_index && direction == 'next') || (settings.current_index > 0 && direction == 'prev')) && !settings.action && !settings.isScroll) {
 
                 // Set action
                 settings.action = true;
@@ -351,28 +415,80 @@
                 // Positon checks
                 methods.pre_move_checks.apply($this, [direction]);
 
-                // Animate selectors left
-                $Selectors.animate({
-                    left: left_modifier + '=' + settings._distance + 'px'
-                }, settings._speed);
-
-                setTimeout(function() {
-
-                    // Set action
-                    settings.action = false;
-
-                    methods.resize.apply($this);
-
-                    // Reset autoplay timer
-                    methods.autoplay.apply($this);
-
-
-                }, settings._speed + 50);
+                // Call method for transition type
+                methods[settings.transition].apply($this, [left_modifier]);
 
                 // Trigger
                 $(this).trigger(direction + '.sa.colousel', [settings]);
 
             }
+
+        },
+
+        slide: function(left_modifier){
+
+          // Load settings
+          var settings = $(this).data('Colousel');
+
+          // Set this
+          var $this = $(this);
+          var $Selectors = $this.find('.colousel-inner').children(settings.selector);
+
+          // Animate selectors left
+          $Selectors.animate({
+              left: left_modifier + '=' + settings._distance + 'px'
+          }, settings._speed);
+
+          setTimeout(function() {
+
+              // Set action
+              settings.action = false;
+
+              methods.resize.apply($this);
+
+              // Reset autoplay timer
+              methods.autoplay.apply($this);
+
+
+          }, settings._speed + 50);
+
+        },
+
+        fade: function(left_modifier){
+
+          // Load settings
+          var settings = $(this).data('Colousel');
+
+          // Set this
+          var $this = $(this);
+          var $Selectors = $this.find('.colousel-inner').children(settings.selector);
+
+          $this.find('.colousel-inner').animate({
+              opacity:0
+          }, settings._speed,function(){
+
+            $Selectors.each(function(){
+              $(this).css('left',left_modifier + '=' + settings._distance + 'px');
+            });
+
+            $this.find('.colousel-inner').animate({
+              opacity:1
+            }, settings._speed);
+
+          });
+
+          setTimeout(function() {
+
+              // Set action
+              settings.action = false;
+
+              methods.resize.apply($this);
+
+              // Reset autoplay timer
+              methods.autoplay.apply($this);
+
+
+          }, (settings._speed*2) + 50);
 
         },
 

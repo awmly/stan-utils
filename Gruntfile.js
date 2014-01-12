@@ -96,13 +96,17 @@ module.exports = function(grunt) {
             },
             zip: {
                 command: [
-                    'mkdir -p releases',
-                    'rm -f releases/stan-utils-<%= pkg.version %>.zip',
-                    'zip -j releases/stan-utils-<%= pkg.version %>.zip dist/*'
+                    'mkdir -p releases/<%= pkg.version %>',
+                    'rm -f releases/<%= pkg.version %>/*',
+                    'zip -j releases/<%= pkg.version %>/stan-utils-<%= pkg.version %>.zip dist/*',
+                    'cp dist/* releases/<%= pkg.version %>/'
                 ].join('&&')
             },
             publish: {
-                command: 'scp -i ~/.ssh/sa_rsa -r _site/* saadmin@sadev4.co.uk:/var/www/vhosts/smartarts.co.uk/stan-utils.smartarts.co.uk'
+                command: [
+                  'scp -i ~/.ssh/sa_rsa -r _site/* saadmin@sadev4.co.uk:/var/www/vhosts/smartarts.co.uk/stan-utils.smartarts.co.uk',
+                  'scp -i ~/.ssh/sa_rsa -r releases/* saadmin@sadev4.co.uk:/var/www/vhosts/smartarts.co.uk/stan-utils.smartarts.co.uk/releases'
+                ].join('&&')
             }
         },
 
@@ -167,7 +171,7 @@ module.exports = function(grunt) {
         grunt.task.run(['connect:tests', 'watch']);
 
     });
-    grunt.registerTask('deploy', ['jekyll', 'shell:jekyll', 'htmlmin', 'prettify', 'shell:zip', 'shell:publish']);
+    grunt.registerTask('deploy', ['uglify', 'cssmin', 'jekyll', 'shell:jekyll', 'htmlmin', 'prettify', 'shell:zip', 'shell:publish']);
     grunt.registerTask('test', ['uglify', 'cssmin']);
     grunt.registerTask('default', ['uglify', 'cssmin']);
 

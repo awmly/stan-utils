@@ -1,0 +1,68 @@
+/* ========================================================================
+ * STAN Utils: Navigation
+ * Author: Andrew Womersley
+ * ======================================================================== */
+
+
+/** Clear Fix */
+ul[class^="nav-horizontal"]:before,
+ul[class^="nav-horizontal"]:after { 
+	content: " "; display: table;
+}
+
+ul[class^="nav-horizontal"]:after{
+	clear: both;
+}
+
+
+/** Nav */
+ul[class^="nav-horizontal"]{
+	min-height:30px;
+}
+ul[class^="nav-"] li{
+	position:relative;
+}
+
+
+/** Nav Titles */
+ul[class^="nav-"] h2{ font-size:16px; }
+.nav-horizontal li, .nav-horizontal h2, .nav-horizontal-block h2{ float:left; margin:0 15px 0 0; padding:6px 0; line-height:18px; }
+.nav-horizontal-block h2, .nav-vertical-block h2{ padding:6px 15px; background:#333; color:#fff; }
+.nav-vertical h2{ line-height:20px; padding-bottom:5px; }
+
+
+/** Horizontal Block */
+.nav-horizontal-block li{ float:left; }
+.nav-horizontal-block li a{ display:block; padding:6px 15px; line-height:18px; background:#eee; }
+.nav-horizontal-block a:hover{ background:#ddd; text-decoration:none; }
+.nav-horizontal-block li.active > a{ background:#ccc; }
+
+	/* Sub Nav */
+	.nav-horizontal-block ul{ position:absolute; top:100%; left:0; display:none; }
+	.nav-horizontal-block ul ul{ position:absolute; top:0; left:100%; display:none; }
+	.nav-horizontal-block li:hover > ul{ display:block; }
+	.nav-horizontal-block ul li{ float:none; }
+
+
+/** Vertical */
+.nav-vertical li a{ display:inline-block; padding:6px 0; line-height:18px; }
+
+	/* Vertical Icon */
+	.nav-vertical.nav-vertical-icon a{ position:relative; padding-left:19px; }
+	.nav-vertical.nav-vertical-icon i{ position:absolute; top:8px; left:0; }
+
+
+/** Vertical Block */
+.nav-vertical-block a{ display:block; padding:6px 15px; line-height:18px; background:#eee; }
+.nav-vertical-block a:hover{ background:#ddd; text-decoration:none; }
+.nav-vertical-block li.active > a{ background:#ccc; }
+
+	/* Vertical Block Icon */
+	.nav-vertical-block.nav-vertical-icon a{ position:relative; padding-left:33px; }
+	.nav-vertical-block.nav-vertical-icon i{ position:absolute; top:8px; left:15px; }
+
+	/* Sub Nav */
+	.nav-vertical-block ul a{ padding-left:30px; }
+	.nav-vertical-block ul ul a{ padding-left:45px; }
+	.nav-vertical-block ul ul ul a{ padding-left:60px; }
+
