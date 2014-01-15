@@ -1,11 +1,25 @@
 <h1>Navigation</h1>
 
-<p>Provides base styles for 4 main types of navigation. Add either xx,cc,vv or bb to any <code>ul</code> to create a navigation. Icons can be added to either of the horizontal navs without any extra classes but to use icons in a vertical nav add the class <code>nav-vertical-icon</code>.</p>
+<p>Provides base styles for 4 main types of navigation. Add either <code>nav-horizontal</code>, <code>nav-horizontal-block</code>, <code>nav-vertical</code> or <code>nav-vertical-block</code> to any <code>ul</code> to create a navigation. Icons can be added to either of the horizontal navs without any extra classes but to use icons in a vertical nav add the class <code>nav-vertical-icon</code>.</p>
 
 <p>Sub navigation can be added to either of the the block navs, just start another <code>ul</code> inside an <code>li</code>. Apply the class <code>fix-width</code> to any sub nav <code>ul</code> to enable the sub nav to be its natural width.</p>
 
-<pre><code class='css'>
+<pre><code class='xml'>&lt;ul class="nav-horizontal-block"&gt;
+  &lt;h2&gt;Nav Title&lt;/h2&gt;
+  &lt;li&gt;&lt;a href=''&gt;Link 1&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=''&gt;Link 2&lt;/a&gt;
+    &lt;ul class="fix-width"&gt;
+      &lt;li&gt;&lt;a href=''&gt;Sub Nav Link 1&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=''&gt;Sub Nav Link 2&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-</code></pre>
+&lt;ul class="nav-vertical nav-vertical-icon"&gt;
+  &lt;li&gt;&lt;a href=''&gt;&lt;i class="fa fa-check"&gt;&lt;/i&gt; Link 1&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=''&gt;&lt;i class="fa fa-check"&gt;&lt;/i&gt; Link 2&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+<p><a href='{{ page.base }}examples/css-navigation.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 
 <div class='divide40'></div>

@@ -5,27 +5,28 @@
 
 
 /** Clear Fix */
-ul[class^="nav-horizontal"]:before,
-ul[class^="nav-horizontal"]:after { 
+nav[class^="nav-horizontal"]:before,
+nav[class^="nav-horizontal"]:after {
 	content: " "; display: table;
 }
 
-ul[class^="nav-horizontal"]:after{
+nav[class^="nav-horizontal"]:after{
 	clear: both;
 }
 
 
 /** Nav */
-ul[class^="nav-horizontal"]{
+nav[class^="nav-horizontal"]{
 	min-height:30px;
 }
-ul[class^="nav-"] li{
+nav[class^="nav-"],nav[class^="nav-"] li{
 	position:relative;
 }
+nav[class^="nav-"]:hover{ z-index:1000; }
 
 
 /** Nav Titles */
-ul[class^="nav-"] h2{ font-size:16px; }
+nav[class^="nav-"] h2{ font-size:16px; }
 .nav-horizontal li, .nav-horizontal h2, .nav-horizontal-block h2{ float:left; margin:0 15px 0 0; padding:6px 0; line-height:18px; }
 .nav-horizontal-block h2, .nav-vertical-block h2{ padding:6px 15px; background:#333; color:#fff; }
 .nav-vertical h2{ line-height:20px; padding-bottom:5px; }
@@ -38,10 +39,10 @@ ul[class^="nav-"] h2{ font-size:16px; }
 .nav-horizontal-block li.active > a{ background:#ccc; }
 
 	/* Sub Nav */
-	.nav-horizontal-block ul{ position:absolute; top:100%; left:0; display:none; }
-	.nav-horizontal-block ul ul{ position:absolute; top:0; left:100%; display:none; }
+	.nav-horizontal-block ul ul{ position:absolute; top:100%; left:0; display:none; width:100%; }
+	.nav-horizontal-block ul ul ul{ position:absolute; top:0; left:100%; display:none; }
 	.nav-horizontal-block li:hover > ul{ display:block; }
-	.nav-horizontal-block ul li{ float:none; }
+	.nav-horizontal-block ul ul li{ float:none; }
 
 
 /** Vertical */
@@ -60,9 +61,14 @@ ul[class^="nav-"] h2{ font-size:16px; }
 	/* Vertical Block Icon */
 	.nav-vertical-block.nav-vertical-icon a{ position:relative; padding-left:33px; }
 	.nav-vertical-block.nav-vertical-icon i{ position:absolute; top:8px; left:15px; }
+  .nav-vertical-block.nav-vertical-icon ul ul a{ padding-left:48px; }
+  .nav-vertical-block.nav-vertical-icon ul ul i{ left:30px; }
+  .nav-vertical-block.nav-vertical-icon ul ul ul a{ padding-left:63px; }
+  .nav-vertical-block.nav-vertical-icon ul ul ul i{ left:45px; }
+
 
 	/* Sub Nav */
-	.nav-vertical-block ul a{ padding-left:30px; }
-	.nav-vertical-block ul ul a{ padding-left:45px; }
-	.nav-vertical-block ul ul ul a{ padding-left:60px; }
+	.nav-vertical-block ul ul a{ padding-left:30px; }
+	.nav-vertical-block ul ul ul a{ padding-left:45px; }
+	.nav-vertical-block ul ul ul ul a{ padding-left:60px; }
 
