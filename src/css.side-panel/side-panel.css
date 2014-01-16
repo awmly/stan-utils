@@ -1,0 +1,13 @@
+/* ========================================================================
+ * STAN Utils: Side Panel
+ * Author: Andrew Womersley
+ * ======================================================================== */
+
+*[class*="panel"]{ background:#eee; }
+*[class*="panel"] > :last-child{ margin-bottom:0; }
+*[class*="panel"] > :first-child{ margin-top:0; }
+
+.panel-block.pad-sm > :first-child{ margin:-15px -15px 15px -15px; }
+.panel-block.pad > :first-child{ margin:-30px -30px 30px -30px; }
+.panel-block.pad-lg > :first-child{ margin:-45px -45px 45px -45px; }
+.panel-block.pad-xl > :first-child{ margin:-60px -60px 60px -60px; }

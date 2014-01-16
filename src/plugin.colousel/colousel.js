@@ -77,6 +77,7 @@
                         md: 1,
                         lg: 1
                     },
+                    max_in_view:0,
                     current_index: 0,
                     autoplay_method: 'next',
                     selector_width: 0,
@@ -111,6 +112,16 @@
 
                 // Calculate total
                 settings.total = $Selectors.length;
+
+                // Duplicate selectors if not enough
+                if(settings.continuous){
+
+                  if(settings.total>settings.max_in_view && settings.total<(settings.max_in_view*2)) $this.find('.colousel-inner').append($this.find('.colousel-inner').html());
+
+                  settings.total=settings.total*2;
+                  $Selectors = $this.find('.colousel-inner').children(settings.selector);
+
+                }
 
                 // Add classes
                 if (settings.selector_class) $Selectors.addClass(settings.selector_class);

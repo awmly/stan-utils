@@ -22,3 +22,5 @@
 /* On */
 .sa-on, .active .sa-off{ display:none; }
 .active .sa-on{ display:block; }
+
+.no-bg{ background-color:none !important; }

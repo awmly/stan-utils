@@ -5,8 +5,12 @@
 
 html{ width:100%; height:100%; }
 body{ width:100%; min-height:100%; }
-body, html, h1, h2, h3, h4, p, form, ul, ol, li,a{ padding:0px; margin:0px; }
+body, html, h1, h2, h3, h4, h5, h6, p, form, ul, ol, li,a{ padding:0px; margin:0px; }
 h1,h2,h3,h4,h5,h6{ font-weight:normal; }
 ul,ol { list-style: none; }
 fieldset,img { border: none; }
 a{ outline:none; text-decoration:none; }
+
+
+h6{ font-size:16px; margin:6px 0; line-height:18px; }
+*[class*="-block"] h6{ margin:0; padding:6px 15px; background:#333; color:#fff; }
