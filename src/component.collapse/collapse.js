@@ -1,4 +1,11 @@
-$(function(){
+/* ========================================================================
+ * STAN Utils: Collapse
+ * Author: Andrew Womersley
+ * ======================================================================== */
+
+ $(function(){
+
+  'use strict';
 
 	// Add click
 	$('.sa-collapse .sa-click').click(function(){

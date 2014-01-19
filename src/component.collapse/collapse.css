@@ -1,0 +1,7 @@
+/* ========================================================================
+ * STAN Utils: Collapse
+ * Author: Andrew Womersley
+ * ======================================================================== */
+
+.sa-collapse .sa-content{ padding-top:0 !important; padding-bottom:0 !important; }
+.sa-collapse .sa-content :last-child{ margin-bottom:0 !important; }

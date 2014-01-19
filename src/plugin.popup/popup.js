@@ -103,6 +103,7 @@
                 // Set HTML/iFrame/Classes
                 if (settings.type == 'iframe') {
 
+                    $this.find('.popup-display').addClass(_class);
                     $this.find('.popup-display').html("<iframe src='about:blank' class='" + _class + "' style='width:100%;height:100%;' seamless frameborder='0' scrolling='" + _scroll + "'></iframe>");
 
                 }
@@ -153,7 +154,7 @@
                     // Display Popup
                     $(this).css('display', 'block');
 
-                    // Set open to true			
+                    // Set open to true
                     settings.open = true;
 
                     // Trigger

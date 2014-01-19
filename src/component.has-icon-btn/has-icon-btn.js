@@ -16,18 +16,20 @@ $(function() {
 
         $('.has-icon, .has-btn').each(function(){
 
-            offset=!! $(this).attr('data-offset-pos') ? $(this).attr('data-offset-pos') : 0;
+            if($(this).hasClass('has-right')) side='right';
+            else side='left';
+
+            offset=!! $(this).attr('data-offset-pos') ? $(this).attr('data-offset-pos') : parseInt($(this).css('padding-'+side));
 
             if($(this).find('.btn').length){
-                padding=$(this).find('.btn').outerWidth()+15+parseInt(offset);
+                padding=$(this).find('.btn').outerWidth()+10+parseInt(offset);
                 margin=$(this).find('.btn').outerHeight()/2;
             }else{
-                padding=$(this).find('i').outerWidth()+15+parseInt(offset);
+                padding=$(this).find('i').outerWidth()+10+parseInt(offset);
                 margin=$(this).find('i').outerHeight()/2;
             }
 
-            if($(this).hasClass('has-right')) side='right';
-            else side='left';
+
 
             if($(this).attr('data-pad-parent')){
 

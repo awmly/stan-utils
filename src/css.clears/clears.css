@@ -19,3 +19,17 @@
 .divide30{ height:30px; margin-bottom:30px; }
 .divide40{ height:40px; margin-bottom:40px; }
 .divide50{ height:50px; margin-bottom:50px; }
+
+
+[class*="spacer"] > *{ padding:0; margin:0; }
+.spacer > :not(:first-child):before{ content:""; display:block; height:30px; }
+.spacer-sm > :not(:first-child):before{ content:""; display:block; height:15px; }
+.spacer-lg > :not(:first-child):before{ content:""; display:block; height:45px; }
+.spacer-xl > :not(:first-child):before{ content:""; display:block; height:60px; }
+
+
+[class*="divider"] > *{ padding:0; margin:0; border-bottom:solid 1px #ccc; }
+.divider > :not(:first-child):before{ content:""; display:block; height:30px; margin-bottom:30px; }
+.divider-sm > :not(:first-child):before{ content:""; display:block; height:15px; margin-bottom:15px; }
+.divider-lg > :not(:first-child):before{ content:""; display:block; height:45px; margin-bottom:45px; }
+.divider-xl > :not(:first-child):before{ content:""; display:block; height:60px; margin-bottom:60px; }

@@ -3,11 +3,36 @@
  * Author: Andrew Womersley
  * ======================================================================== */
 
-*[class*="panel"]{ background:#eee; }
-*[class*="panel"] > :last-child{ margin-bottom:0; }
-*[class*="panel"] > :first-child{ margin-top:0; }
 
-.panel-block.pad-sm > :first-child{ margin:-15px -15px 15px -15px; }
-.panel-block.pad > :first-child{ margin:-30px -30px 30px -30px; }
-.panel-block.pad-lg > :first-child{ margin:-45px -45px 45px -45px; }
-.panel-block.pad-xl > :first-child{ margin:-60px -60px 60px -60px; }
+.sa-panel{ background:#eee; }
+.sa-panel.sa-block{ padding:0 !important; }
+
+
+.sa-title h6{ font-size:16px; margin:0; padding:0; line-height:18px; }
+.sa-block .sa-title{ padding:6px 15px; background:#333; color:#fff; }
+
+
+
+.sa-panel.spacing-sm{ padding:15px; }
+.sa-panel.spacing-sm .sa-spacing{ margin-top:15px; }
+.sa-panel.spacing-sm .sa-spacing:not(:last-child){ margin-bottom:15px; }
+.sa-panel.sa-block.spacing-sm .sa-title, .sa-panel.sa-block.spacing-sm .sa-spacing{ padding-left:15px; padding-right:15px; }
+.sa-panel.sa-block.spacing-sm .sa-spacing:last-child{ padding-bottom:15px; }
+
+.sa-panel.spacing{ padding:30px; }
+.sa-panel.spacing .sa-spacing{ margin-top:30px; }
+.sa-panel.spacing .sa-spacing:not(:last-child){ margin-bottom:30px; }
+.sa-panel.sa-block.spacing .sa-title, .sa-panel.sa-block.spacing .sa-spacing{ padding-left:30px; padding-right:30px; }
+.sa-panel.sa-block.spacing .sa-spacing:last-child{ padding-bottom:30px; }
+
+.sa-panel.spacing-lg{ padding:45px; }
+.sa-panel.spacing-lg .sa-spacing{ margin-top:45px; }
+.sa-panel.spacing-lg .sa-spacing:not(:last-child){ margin-bottom:45px; }
+.sa-panel.sa-block.spacing-lg .sa-title, .sa-panel.sa-block.spacing-lg .sa-spacing{ padding-left:45px; padding-right:45px; }
+.sa-panel.sa-block.spacing-lg .sa-spacing:last-child{ padding-bottom:45px; }
+
+.sa-panel.spacing-xl{ padding:60px; }
+.sa-panel.spacing-xl .sa-spacing{ margin-top:60px; }
+.sa-panel.spacing-xl .sa-spacing:not(:last-child){ margin-bottom:60px; }
+.sa-panel.sa-block.spacing-xl .sa-title, .sa-panel.sa-block.spacing-xl .sa-spacing{ padding-left:60px; padding-right:60px; }
+.sa-panel.sa-block.spacing-xl .sa-spacing:last-child{ padding-bottom:60px; }

@@ -5,7 +5,7 @@ $(function() {
 	var size;
 	var subnav;
 
-	$("nav.nav-horizontal-block li").mouseover(function(){
+	$("nav.nav-horizontal.sa-block li").mouseover(function(){
 
 		subnav=$(this).children('ul');
 

@@ -19,6 +19,8 @@
 /* Cursor */
 .pointer{ 		cursor:pointer 		!important; }
 
+.sa-click{ cursor:pointer; }
+
 /* On */
 .sa-on, .active .sa-off{ display:none; }
 .active .sa-on{ display:block; }
