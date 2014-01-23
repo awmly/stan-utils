@@ -3,18 +3,15 @@
  * Author: Andrew Womersley
  * ======================================================================== */
 
-.has-icon,
-.has-btn {
-    position:relative;
+.sa-inset,
+.sa-outset{
+  position:absolute;
+  top:50%;
+  left:0;
 }
 
-.has-icon i, .has-btn .btn {
-    position:absolute;
-    top:50%;
-    left:0;
-}
-
-.has-right .btn, .has-right i{
+.sa-inset.sa-right,
+.sa-outset.sa-right{
     left:auto;
     right:0;
 }

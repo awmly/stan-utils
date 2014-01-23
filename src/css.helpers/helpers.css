@@ -26,3 +26,17 @@
 .active .sa-on{ display:block; }
 
 .no-bg{ background-color:none !important; }
+
+/* Clear Fix - Add here all elements that have cf auto aplied */
+.sa-cf:before,
+.sa-cf:after,
+.nav-horizontal>ul:before,
+.nav-horizontal>ul:after{
+  content: " ";
+  display: table;
+}
+
+.sa-cf:after,
+.nav-horizontal>ul:after{
+  clear: both;
+}

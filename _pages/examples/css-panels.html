@@ -10,41 +10,39 @@ base:		"../"
 
   <div class='col-sm-3'>
 
-    <div class='sa-panel spacing-sm'>
+    <div class='sa-panel sa-sm'>
 
       <div class='sa-title'>
 
         <h6>Panel</h6>
 
       </div>
+      <div class='sa-content'>
 
-      <div class='sa-spacing'>
         <p>The margin of the first element is negative</p>
         <p>The margin of the first element is negative</p>
+
       </div>
-
 
     </div>
 
     <div class='clear30'></div>
 
-    <div class='sa-panel sa-block spacing-sm'>
+    <div class='sa-panel sa-sm sa-block'>
 
       <div class='sa-title'>
         <h6>Panel Block</h6>
       </div>
 
 
-        <div style='height:50px;background:#f00;'></div>
+      <div style='height:50px;background:#f00;'></div>
 
-        <div class='sa-spacing'>
-          <p>The margin of the first element is negative</p>
-          <p>The margin of the first element is negative</p>
-        </div>
+      <div class='sa-content'>
+        <p>The margin of the first element is negative</p>
+        <p>The margin of the first element is negative</p>
+      </div>
 
-        <div style='height:50px;background:#f00;'></div>
-
-
+      <div style='height:50px;background:#f00;'></div>
 
     </div>
 
@@ -55,46 +53,44 @@ base:		"../"
 
   <div class='col-sm-3'>
 
-  <div class='sa-panel sa-collapse spacing-sm'>
+  <div class='sa-panel sa-sm sa-collapse'>
 
-      <div class='sa-title has-icon sa-click'>
+      <div class='sa-title sa-click'>
         <h6>Panel</h6>
-        <i class='fa fa-minus-square sa-on'></i>
-        <i class='fa fa-plus-square sa-off'></i>
+        <i class='fa fa-minus-square sa-on sa-inset pad-right-sm'></i>
+        <i class='fa fa-plus-square sa-off sa-inset pad-right-sm'></i>
       </div>
       <div class="sa-content">
-        <div class="sa-spacing">
+
           <p>The margin of the first element is negative</p>
           <p>The margin of the first element is negative</p>
-        </div>
+
       </div>
     </div>
  <div class='clear30'></div>
 
-    <div class='sa-collapse sa-panel sa-block spacing-sm'>
+    <div class='sa-collapse sa-sm sa-panel sa-block'>
 
-      <div class='sa-title sa-click has-icon has-right' data-offset-pos="15">
+      <div class='sa-title sa-click' data-offset-pos="15">
         <h6>Panel Block</h6>
-        <i class='fa fa-minus-square sa-on'></i>
-        <i class='fa fa-plus-square sa-off'></i>
+        <i class='fa fa-minus-square sa-on sa-inset pad-left-sm sa-right'></i>
+        <i class='fa fa-plus-square sa-off sa-inset pad-left-sm sa-right'></i>
       </div>
 
       <div class="sa-content">
-        <div class="sa-spacing">
           <p>The margin of the first element is negative</p>
           <p>The margin of the first element is negative</p>
-        </div>
       </div>
 
     </div>
 
 <div class='clear30'></div>
 
-    <div class='sa-panel spacing-sm'>
+    <div class='sa-panel sa-sm'>
 
         <p>Panel no title The margin of the first element is negative</p>
         <p>The margin of the first element is negative</p>
-        <div style='height:50px;background:#f00;' class='sa-spacing'></div>
+        <div style='height:50px;background:#f00;'></div>
 
     </div>
 
@@ -103,73 +99,135 @@ base:		"../"
 
   <div class='col-sm-3'>
 
-   <nav class='nav-vertical sa-panel sa-collapse spacing-sm'>
-      <div class='has-icon has-right sa-click sa-title'>
+   <nav class='sa-nav nav-vertical sa-panel sa-sm sa-collapse'>
+      <div class='sa-click sa-title'>
         <h6 class='no-mar'>Navigation</h6>
-        <i class='fa fa-minus-square sa-on'></i>
-        <i class='fa fa-plus-square sa-off'></i>
+        <i class='fa fa-minus-square sa-on sa-inset pad-left-sm sa-right'></i>
+        <i class='fa fa-plus-square sa-off sa-inset pad-left-sm sa-right'></i>
       </div>
-      <div class="sa-content">
-        <ul class="sa-spacing">
-          <li><a href=''>Link 1</a></li>
-          <li class='active'><a href=''>Link 2</a></li>
-          <li><a href=''>Link 3<br/>On 2 lines</a></li>
-          <li><a href=''>Link 4</a></li>
-        </ul>
-      </div>
-    </nav>
-
-    <div class='clear30'></div>
-
-    <nav class='nav-vertical nav-vertical-icon sa-panel sa-collapse sa-block spacing-sm'>
-
-      <div class='sa-title has-icon sa-click' data-offset-pos="15">
-        <h6>Navigation</h6>
-        <i class='fa fa-minus-square sa-on'></i>
-        <i class='fa fa-plus-square sa-off'></i>
-      </div>
-
       <ul class="sa-content">
-        <li><a href=''><i class='fa fa-check'></i> Link 1</a></li>
-        <li class='active'><a href=''><i class='fa fa-check'></i> Link 2</a>
-          <ul>
-            <li><a href=''><i class='fa fa-check'></i> Link 1</a></li>
-            <li class='active'><a href=''><i class='fa fa-check'></i> Link 2</a></li>
-            <li><a href=''><i class='fa fa-check'></i> Link 3<br/>On 2 lines</a></li>
-            <li><a href=''><i class='fa fa-check'></i> Link 4</a></li>
-          </ul>
-        </li>
-        <li><a href=''><i class='fa fa-check'></i> Link 3<br/>On 2 lines</a></li>
-        <li><a href=''><i class='fa fa-check'></i> Link 4</a></li>
+        <li><a href=''>Link 1</a></li>
+        <li class='active'><a href=''>Link 2</a></li>
+        <li><a href=''>Link 3<br/>On 2 lines</a></li>
+        <li><a href=''>Link 4</a></li>
       </ul>
     </nav>
 
     <div class='clear30'></div>
 
-    <nav class='nav-vertical nav-vertical-icon sa-panel sa-collapse sa-block spacing-sm'>
+    <nav class='sa-nav nav-vertical sa-panel sa-sm sa-collapse sa-block'>
+
+      <div class='sa-title sa-click'>
+        <h6>Navigation</h6>
+        <i class='fa fa-minus-square sa-on sa-inset pad-right-sm'></i>
+        <i class='fa fa-plus-square sa-off sa-inset pad-right-sm'></i>
+      </div>
+
+      <ul class="sa-content">
+        <li><a href=''><i class='fa fa-check sa-inset pad-right-xs'></i> Link 1</a></li>
+        <li class='active'><a href=''><i class='fa fa-check sa-inset pad-right-xs'></i> Link 2</a>
+          <ul>
+            <li><a href=''><i class='fa fa-check sa-inset pad-right-xs'></i> Link 1</a></li>
+            <li class='active'><a href=''><i class='fa fa-check sa-inset pad-right-xs'></i> Link 2</a></li>
+            <li><a href=''><i class='fa fa-check sa-inset pad-right-xs'></i> Link 3<br/>On 2 lines</a></li>
+            <li><a href=''><i class='fa fa-check sa-inset pad-right-xs'></i> Link 4</a></li>
+          </ul>
+        </li>
+        <li><a href=''><i class='fa fa-check sa-inset pad-right-xs'></i> Link 3<br/>On 2 lines</a></li>
+        <li><a href=''><i class='fa fa-check sa-inset pad-right-xs'></i> Link 4</a></li>
+      </ul>
+    </nav>
+
+    <div class='clear30'></div>
+
+    <nav class='sa-nav nav-vertical sa-panel sa-sm sa-collapse sa-block'>
 
       <div class='sa-title sa-click'>
         <h6>Navigation</h6>
       </div>
 
       <ul class="sa-content">
-        <li><a href=''><i class='fa fa-check'></i> Link 1</a></li>
-        <li class='active'><a href=''><i class='fa fa-check'></i> Link 2</a>
+        <li><a href=''><i class='fa fa-check sa-inset pad-right-xs'></i> Link 1</a></li>
+        <li class='active'><a href=''><i class='fa fa-check sa-inset pad-right-xs'></i> Link 2</a>
           <ul>
-            <li><a href=''><i class='fa fa-check'></i> Link 1</a></li>
-            <li class='active'><a href=''><i class='fa fa-check'></i> Link 2</a></li>
-            <li><a href=''><i class='fa fa-check'></i> Link 3<br/>On 2 lines</a></li>
-            <li><a href=''><i class='fa fa-check'></i> Link 4</a></li>
+            <li><a href=''><i class='fa fa-check sa-inset pad-right-xs'></i> Link 1</a></li>
+            <li class='active'><a href=''><i class='fa fa-check sa-inset pad-right-xs'></i> Link 2</a></li>
+            <li><a href=''><i class='fa fa-check sa-inset pad-right-xs'></i> Link 3<br/>On 2 lines</a></li>
+            <li><a href=''><i class='fa fa-check sa-inset pad-right-xs'></i> Link 4</a></li>
           </ul>
         </li>
-        <li><a href=''><i class='fa fa-check'></i> Link 3<br/>On 2 lines</a></li>
-        <li><a href=''><i class='fa fa-check'></i> Link 4</a></li>
+        <li><a href=''><i class='fa fa-check sa-inset pad-right-xs'></i> Link 3<br/>On 2 lines</a></li>
+        <li><a href=''><i class='fa fa-check sa-inset pad-right-xs'></i> Link 4</a></li>
       </ul>
     </nav>
 
+  </div>
 
+  <div class='col-sm-3'>
 
+    <div class='sa-panel sa-tabs sa-sm sa-nav nav-horizontal sa-block'>
 
+      <ul>
+        <li>
+          <a href="#">AB
+            <i class='fa fa-minus-square sa-on sa-inset pad-right-xs'></i>
+            <i class='fa fa-plus-square sa-off sa-inset pad-right-xs'></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">CD
+            <i class='fa fa-minus-square sa-on sa-inset pad-right-xs'></i>
+            <i class='fa fa-plus-square sa-off sa-inset pad-right-xs'></i>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="sa-content">
+        <div class="tab-pane">
+          <h2>AB</h2>
+          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+        </div>
+        <div class="tab-pane">
+          <h2>CD</h2>
+          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+        </div>
+      </div>
+
+    </div>
+
+<div class='clear50'></div>
+
+     <div class='sa-panel sa-sm sa-nav sa-tabs nav-horizontal'>
+
+      <ul>
+        <li>
+          <a href="#">AB
+            <i class='fa fa-minus-square sa-on sa-inset pad-right-xs'></i>
+            <i class='fa fa-plus-square sa-off sa-inset pad-right-xs'></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">CD
+            <i class='fa fa-minus-square sa-on sa-inset pad-right-xs'></i>
+            <i class='fa fa-plus-square sa-off sa-inset pad-right-xs'></i>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="sa-content">
+        <div class="tab-pane">
+          <h2>AB</h2>
+          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+        </div>
+        <div class="tab-pane">
+          <h2>CD</h2>
+          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+        </div>
+      </div>
+
+    </div>
 
   </div>
 

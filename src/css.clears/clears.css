@@ -3,7 +3,7 @@
  * Author: Andrew Womersley
  * ======================================================================== */
 
-[class^="clear"]{ clear:both; height:0; }
+[class*="clear"]{ clear:both; height:0; }
 .clear1{ height:1px; }
 .clear5{ height:5px; }
 .clear10{ height:10px; }
@@ -12,7 +12,7 @@
 .clear40{ height:40px; }
 .clear50{ height:50px; }
 
-[class^="divide"]{ clear:both; border-bottom:solid 1px #ccc; }
+[class*="divide"]{ clear:both; border-bottom:solid 1px #ccc; }
 .divide5{ height:5px; margin-bottom:5px; }
 .divide10{ height:10px; margin-bottom:10px; }
 .divide20{ height:20px; margin-bottom:20px; }
@@ -33,3 +33,40 @@
 .divider-sm > :not(:first-child):before{ content:""; display:block; height:15px; margin-bottom:15px; }
 .divider-lg > :not(:first-child):before{ content:""; display:block; height:45px; margin-bottom:45px; }
 .divider-xl > :not(:first-child):before{ content:""; display:block; height:60px; margin-bottom:60px; }
+
+
+.before-xs:before,
+.after-xs:after{
+  content:"";
+  display:block;
+  height:8px;
+}
+
+.before-sm:before,
+.after-sm:after{
+  content:"";
+  display:block;
+  height:15px;
+}
+
+.before-md:before,
+.after-md:after{
+  content:"";
+  display:block;
+  height:30px;
+}
+
+.before-lg:before,
+.after-lg:after{
+  content:"";
+  display:block;
+  height:45px;
+}
+
+.before-xl:before,
+.after-xl:after{
+  content:"";
+  display:block;
+  height:60px;
+}
+

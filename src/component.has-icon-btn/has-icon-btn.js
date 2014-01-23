@@ -5,50 +5,58 @@
 
 $(function() {
 
-	'use strict';
+  'use strict';
 
-    var HasIconBtn=function(){
+    var InsetOffset=function(){
 
         var padding;
-        var margin;
+        var width;
+        var height;
         var side;
-        var offset;
+        var outset;
 
-        $('.has-icon, .has-btn').each(function(){
+        $('.sa-inset,.sa-outset').each(function(){
 
-            if($(this).hasClass('has-right')) side='right';
+            // Set side
+            if($(this).hasClass('sa-right')) side='right';
             else side='left';
 
-            offset=!! $(this).attr('data-offset-pos') ? $(this).attr('data-offset-pos') : parseInt($(this).css('padding-'+side));
+            // Reset inline css padding
+            $(this).parent().css('padding-'+side,'');
 
-            if($(this).find('.btn').length){
-                padding=$(this).find('.btn').outerWidth()+10+parseInt(offset);
-                margin=$(this).find('.btn').outerHeight()/2;
+            // Get offset
+            padding=parseInt($(this).parent().css('padding-'+side));
+
+
+            width=$(this).width();
+            height=$(this).outerHeight();
+
+            console.log(width);
+
+
+            if( $(this).hasClass('sa-outset') ){
+
+              $(this).parent().parent().css('padding-'+side,width+'px');
+              $(this).css(side,'-'+width+'px');
+
             }else{
-                padding=$(this).find('i').outerWidth()+10+parseInt(offset);
-                margin=$(this).find('i').outerHeight()/2;
+
+              $(this).parent().css('padding-'+side,(padding+width)+'px');
+              $(this).css(side,padding+'px');
+
             }
 
-
-
-            if($(this).attr('data-pad-parent')){
-
-              $(this).parent().css('padding-'+side,padding+'px');
-              $(this).find('.btn,i').css(side,'-'+padding+'px');
-
-            }else{
-
-              $(this).css('padding-'+side,padding+'px');
-              $(this).find('.btn,i').css(side,offset+'px');
-
-            }
-
-            $(this).find('.btn,i').css('margin-top','-'+margin+'px');
+            // Set margin top
+            $(this).css('margin-top','-'+(height/2)+'px');
 
         });
 
     };
 
-    $(window).on('load resize',HasIconBtn);
+    $('.sa-inset,.sa-outset').each(function(){
+      if($(this).parent().css('position')=='static') $(this).parent().addClass('relative');
+    });
+
+    $(window).on('load resize',InsetOffset);
 
 });

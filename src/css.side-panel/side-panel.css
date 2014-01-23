@@ -3,36 +3,96 @@
  * Author: Andrew Womersley
  * ======================================================================== */
 
-
-.sa-panel{ background:#eee; }
-.sa-panel.sa-block{ padding:0 !important; }
-
-
 .sa-title h6{ font-size:16px; margin:0; padding:0; line-height:18px; }
-.sa-block .sa-title{ padding:6px 15px; background:#333; color:#fff; }
+.sa-block .sa-title{ padding:6px 0; background:#333; color:#fff; margin-bottom:0 !important; }
+
+/** General */
+.sa-panel{
+  background:#eee;
+}
+
+/** Small */
+.sa-panel.sa-sm:not(.sa-block){
+  padding:15px;
+}
+
+.sa-panel.sa-sm.sa-block .sa-content,
+.sa-panel.sa-sm.sa-block .sa-title{
+  padding-left:15px;
+  padding-right:15px;
+}
+
+
+.sa-panel.sa-sm.sa-block .sa-content:last-child:after{
+  content:"";
+  display:block;
+  height:15px;
+}
+
+
+.sa-sm ul + .sa-content:before,
+.sa-sm .sa-title + .sa-content:before{
+  content:"";
+  display:block;
+  height:15px;
+}
 
 
 
-.sa-panel.spacing-sm{ padding:15px; }
-.sa-panel.spacing-sm .sa-spacing{ margin-top:15px; }
-.sa-panel.spacing-sm .sa-spacing:not(:last-child){ margin-bottom:15px; }
-.sa-panel.sa-block.spacing-sm .sa-title, .sa-panel.sa-block.spacing-sm .sa-spacing{ padding-left:15px; padding-right:15px; }
-.sa-panel.sa-block.spacing-sm .sa-spacing:last-child{ padding-bottom:15px; }
 
-.sa-panel.spacing{ padding:30px; }
-.sa-panel.spacing .sa-spacing{ margin-top:30px; }
-.sa-panel.spacing .sa-spacing:not(:last-child){ margin-bottom:30px; }
-.sa-panel.sa-block.spacing .sa-title, .sa-panel.sa-block.spacing .sa-spacing{ padding-left:30px; padding-right:30px; }
-.sa-panel.sa-block.spacing .sa-spacing:last-child{ padding-bottom:30px; }
+/** Medium */
+.sa-md:not(.sa-block){
+  padding:30px;
+}
 
-.sa-panel.spacing-lg{ padding:45px; }
-.sa-panel.spacing-lg .sa-spacing{ margin-top:45px; }
-.sa-panel.spacing-lg .sa-spacing:not(:last-child){ margin-bottom:45px; }
-.sa-panel.sa-block.spacing-lg .sa-title, .sa-panel.sa-block.spacing-lg .sa-spacing{ padding-left:45px; padding-right:45px; }
-.sa-panel.sa-block.spacing-lg .sa-spacing:last-child{ padding-bottom:45px; }
+.sa-md.sa-block .sa-content,
+.sa-md.sa-block .sa-title{
+  padding-left:30px;
+  padding-right:30px;
+}
 
-.sa-panel.spacing-xl{ padding:60px; }
-.sa-panel.spacing-xl .sa-spacing{ margin-top:60px; }
-.sa-panel.spacing-xl .sa-spacing:not(:last-child){ margin-bottom:60px; }
-.sa-panel.sa-block.spacing-xl .sa-title, .sa-panel.sa-block.spacing-xl .sa-spacing{ padding-left:60px; padding-right:60px; }
-.sa-panel.sa-block.spacing-xl .sa-spacing:last-child{ padding-bottom:60px; }
+.sa-md .sa-content:before,
+.sa-md .sa-content:after{
+  content:"";
+  display:block;
+  height:30px;
+}
+
+
+/** Large */
+.sa-lg:not(.sa-block){
+  padding:45px;
+}
+
+.sa-lg.sa-block .sa-content,
+.sa-lg.sa-block .sa-title{
+  padding-left:45px;
+  padding-right:45px;
+}
+
+.sa-lg .sa-content:before,
+.sa-lg .sa-content:after{
+  content:"";
+  display:block;
+  height:45px;
+}
+
+
+/** Extra Large */
+.sa-xl:not(.sa-block){
+  padding:60px;
+}
+
+.sa-xl.sa-block .sa-content,
+.sa-xl.sa-block .sa-title{
+  padding-left:60px;
+  padding-right:60px;
+}
+
+.sa-xl .sa-content:before,
+.sa-xl .sa-content:after{
+  content:"";
+  display:block;
+  height:60px;
+}
+

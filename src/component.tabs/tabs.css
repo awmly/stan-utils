@@ -1,0 +1,2 @@
+.sa-content .tab-pane{ display:none; }
+.sa-content .tab-pane.active{ display:block; }

@@ -30,9 +30,9 @@
         init: function(options) {
 
             // Save selector in array
-            $(this.selector).each(function(){
+            $(this.selector).each(function() {
 
-                Selectors.push( $(this) );
+                Selectors.push($(this));
 
             });
 
@@ -113,8 +113,8 @@
             $this.find(settings.selector).each(function() {
 
                 var vars = methods.getVars.apply(this, [this, settings]);
-                
-                if($(window).scrollTop()>=vars.maxscroll) scrolltop=$(document).height();
+
+                if ($(window).scrollTop() >= vars.maxscroll) scrolltop = $(document).height();
                 else scrolltop = $(window).scrollTop();
 
                 if (scrolltop >= vars.position && vars.position >= st.position) st = {
@@ -128,8 +128,7 @@
             if (st.target) {
                 $(st.element).addClass('active');
                 window.location.hash = '#/' + st.target.substring(1);
-            }
-            else {
+            } else {
                 window.location.hash = '';
             }
 
@@ -137,7 +136,12 @@
 
         getVars: function(object, settings) {
 
-            var offset = $(object).attr('data-offset') ? $(object).attr('data-offset') : settings.offset;
+            var offset;
+
+            if ($(object).attr('data-offset')) offset = $(object).attr('data-offset');
+            else if (typeof settings.offset === 'function') offset = settings.offset($(this), settings);
+            else offset = settings.offset;
+
             var target = $(object).attr('data-target') ? $(object).attr('data-target') : $(object).attr('href');
             var position = parseInt($(target).offset().top) - parseInt(offset);
             var maxscroll = $(document).height() - $(window).height();
@@ -159,13 +163,11 @@
 
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
 
-        }
-        else if (typeof method === 'object' || !method) {
+        } else if (typeof method === 'object' || !method) {
 
             return methods.init.apply(this, arguments);
 
-        }
-        else {
+        } else {
 
             $.error('Method ' + method + ' does not exist on jQuery.Datatable');
 
