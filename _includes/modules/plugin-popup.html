@@ -18,10 +18,10 @@
 		<div class="tab-pane active" id="{{ module }}examples">
 			<h3 data-toggle="collapse" data-target="#{{ module }}examples>div">Examples</h3>
 			<div class='collapse'>
-				
+
 				<h4>iFrame Popup</h4>
 				<p>A responsive youtube popup that loads youtube direct if on mobile, works great on phones with the youtube app installed.</p>
-				
+
 <pre><code class='xml pre-scrollable'>&lt;div class='popup' id='iframe'&gt;
 	&lt;i class='fa fa-times popup-close'>&lt;/i&gt;
 	&lt;div class='popup-display'&gt;&lt;/div&gt;
@@ -41,11 +41,11 @@ $('#iframe').PopUp({
 
 				<p><a href='{{ page.base }}examples/plugin-popup.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 
-				<div class='clear20'></div>
+				<div class='space-sm'></div>
 
 				<h4>HTML Popup</h4>
 				<p>A responsive html block popup that scales dynamically in the window.</p>
-				
+
 <pre><code class='xml'>&lt;div class='popup' id='html'&gt;
 	&lt;i class='fa fa-times popup-close'>&lt;/i&gt;
 	&lt;div class='popup-display'&gt;&lt;/div&gt;
@@ -160,15 +160,15 @@ $('#selector').on('hide.sa.popup',function(event,settings){
 		<div class="tab-pane" id="{{ module }}listeners">
 			<h3 data-toggle="collapse" data-target="#{{ module }}listeners>div">Listeners</h3>
 			<div class='collapse'>
-				
+
 <pre><code class='xml'>&lt;a href='javascript:;' data-toggle='popup.show' data-target='#selector'&gt;Show Popup&lt;/a&gt;
 &lt;a href='javascript:;' data-toggle='popup.hide' data-target='#selector'&gt;Hide Popup&lt;/a&gt;
 &lt;a href='javascript:;' data-toggle='popup.toggle' data-target='#selector'&gt;Toggle Popup&lt;/a&gt;</code></pre>
-				
+
 				<p>If popup is an iFrame set <code>data-src='http://www...com'</code> to load a new URL.</p>
 			</div>
 		</div>
 	</div>
 </div>
 
-<div class='divide40'></div>
+<div class='divide-lg'></div>

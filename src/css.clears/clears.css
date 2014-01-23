@@ -1,72 +1,98 @@
 /* ========================================================================
- * STAN Utils: Clears/Divides
+ * STAN Utils: Spaces/Divides
  * Author: Andrew Womersley
  * ======================================================================== */
 
-[class*="clear"]{ clear:both; height:0; }
-.clear1{ height:1px; }
-.clear5{ height:5px; }
-.clear10{ height:10px; }
-.clear20{ height:20px; }
-.clear30{ height:30px; }
-.clear40{ height:40px; }
-.clear50{ height:50px; }
+/** Space */
 
-[class*="divide"]{ clear:both; border-bottom:solid 1px #ccc; }
-.divide5{ height:5px; margin-bottom:5px; }
-.divide10{ height:10px; margin-bottom:10px; }
-.divide20{ height:20px; margin-bottom:20px; }
-.divide30{ height:30px; margin-bottom:30px; }
-.divide40{ height:40px; margin-bottom:40px; }
-.divide50{ height:50px; margin-bottom:50px; }
+*[class*="space"]{
+  clear:both; height:0;
+}
+
+.space-xs{
+  height:7px;
+}
+
+.space-sm{
+  height:15px;
+}
+
+.space-md{
+  height:30px;
+}
+
+.space-lg{
+  height:45px;
+}
+
+.space-xl{
+  height:60px;
+}
 
 
-[class*="spacer"] > *{ padding:0; margin:0; }
-.spacer > :not(:first-child):before{ content:""; display:block; height:30px; }
-.spacer-sm > :not(:first-child):before{ content:""; display:block; height:15px; }
-.spacer-lg > :not(:first-child):before{ content:""; display:block; height:45px; }
-.spacer-xl > :not(:first-child):before{ content:""; display:block; height:60px; }
+/** Divide */
+
+*[class*="divide"]{
+  clear:both;
+  border-bottom:solid 1px #ccc;
+}
+
+.divide-xs{
+  height:7px;
+  margin-bottom:7px;
+}
+
+.divide-sm{
+  height:15px;
+  margin-bottom:15px;
+}
+
+.divide-md{
+  height:30px;
+  margin-bottom:30px;
+}
+
+.divide-lg{
+  height:45px;
+  margin-bottom:45px;
+}
+
+.divide-xl{
+  height:60px;
+  margin-bottom:60px;
+}
 
 
-[class*="divider"] > *{ padding:0; margin:0; border-bottom:solid 1px #ccc; }
-.divider > :not(:first-child):before{ content:""; display:block; height:30px; margin-bottom:30px; }
-.divider-sm > :not(:first-child):before{ content:""; display:block; height:15px; margin-bottom:15px; }
-.divider-lg > :not(:first-child):before{ content:""; display:block; height:45px; margin-bottom:45px; }
-.divider-xl > :not(:first-child):before{ content:""; display:block; height:60px; margin-bottom:60px; }
+/** Before / After */
 
+*[class*="before"]:before,
+*[class*="before"]:after{
+  content:"";
+  display:block;
+}
 
 .before-xs:before,
 .after-xs:after{
-  content:"";
-  display:block;
-  height:8px;
+  height:7px;
 }
 
 .before-sm:before,
 .after-sm:after{
-  content:"";
-  display:block;
   height:15px;
 }
 
 .before-md:before,
 .after-md:after{
-  content:"";
-  display:block;
   height:30px;
 }
 
 .before-lg:before,
 .after-lg:after{
-  content:"";
-  display:block;
   height:45px;
 }
 
 .before-xl:before,
 .after-xl:after{
-  content:"";
-  display:block;
   height:60px;
 }
 

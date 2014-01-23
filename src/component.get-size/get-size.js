@@ -8,32 +8,40 @@
 	'use strict';
 
   var size={};
-  var width;
-  var display;
+  var width, display, clone;
 
-  $STAN.getSize=function(element,nativeSize){
+  var setSize=function(target){
 
-    if(typeof nativeSize=='undefined') nativeSize=false;
-
-    if(nativeSize){
-      element.parent().css('width','10000px');
-      width='auto';
-      display='inline-block';
-    }else{
-      width='100%';
-      display='block';
+    return {
+      width:target.outerWidth(),
+      height:target.outerHeight()
     }
 
-    element.css({position:'absolute', display:display, visibility:'hidden', width:width, left:0, top:0 });
+  };
 
-    size={
-      width:element.outerWidth(),
-      height:element.outerHeight()
+  $STAN.getSize=function(type,target,css){
+
+    if(typeof css=='undefined') css={};
+
+    css.visibility="hidden";
+
+    if(type=='clone'){
+
+      clone = target.clone().css(css);
+
+      $('body').append(clone);
+
+      size=setSize(clone);
+
+      clone.remove();
+
+    }else if(type=='x'){
+
+      //element.parent().css('width','10000px');
+      //width='auto';
+      //display='inline-block';
+
     }
-
-    element.css({position:'', display:'', visibility:'', width:'', left:'', top:'' });
-
-    if(nativeSize) element.parent().css('width','');
 
     return size;
 

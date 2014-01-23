@@ -9,11 +9,7 @@ $(function() {
 
     var InsetOffset=function(){
 
-        var padding;
-        var width;
-        var height;
-        var side;
-        var outset;
+        var padding, width, side, outset, clone;
 
         $('.sa-inset,.sa-outset').each(function(){
 
@@ -27,13 +23,13 @@ $(function() {
             // Get offset
             padding=parseInt($(this).parent().css('padding-'+side));
 
+            // Get width
+            width=$(this).outerWidth();
 
-            width=$(this).width();
-            height=$(this).outerHeight();
+            // If width is zero (hidden) - use getSize to find its width
+            if(!width) width=$STAN.getSize('clone',$(this)).width;
 
-            console.log(width);
-
-
+            // Apply paddings
             if( $(this).hasClass('sa-outset') ){
 
               $(this).parent().parent().css('padding-'+side,width+'px');
@@ -45,9 +41,6 @@ $(function() {
               $(this).css(side,padding+'px');
 
             }
-
-            // Set margin top
-            $(this).css('margin-top','-'+(height/2)+'px');
 
         });
 
