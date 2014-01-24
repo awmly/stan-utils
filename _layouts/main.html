@@ -1,49 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 {% include head.html %}
+
 <body>
 
-	<div class='site'>
+    <div class='site'>
 
-		{% include header.html %}
+        {% include header.html %}
+        {% if page.id == 'index' %}{% include title-blocks/index.html %} {% endif %}
+        {% if page.id == 'plugins' %} {% include title-blocks/plugins.html %} {% endif %}
+        {% if page.id == 'components' %} {% include title-blocks/components.html %} {% endif %}
+        {% if page.id == 'functions' %} {% include title-blocks/functions.html %} {% endif %}
+        {% if page.id == 'css' %} {% include title-blocks/css.html %} {% endif %}
 
-		{% if page.id == 'index' %}			{% include title-blocks/index.html %}		{% endif %}
-		{% if page.id == 'plugins' %}		{% include title-blocks/plugins.html %}		{% endif %}
-		{% if page.id == 'components' %}	{% include title-blocks/components.html %}	{% endif %}
-		{% if page.id == 'css' %}			{% include title-blocks/css.html %}			{% endif %}
-		{% if page.id == 'icons' %}			{% include title-blocks/icons.html %}		{% endif %}
 
-		<div class='container pad-top pad-btm-lrg'>
+        <div class='container pad-top pad-btm-lrg'>
 
-			<div class='row'>
+            <div class='row'>
 
-				<div class='col-sm-4 col-md-3'>
+                <div class='col-sm-4 col-md-3'>
 
-					{% include sidebar.html %}
+                    {% include sidebar.html %}
 
-				</div>
-				<div  class='col-sm-8 col-md-9 content'>
+                </div>
+                <div class='col-sm-8 col-md-9 content'>
 
-					{{ content }}
+                    {{ content }}
 
-					<p class='sml text-right'><em>STAN v{{ site.version }} &nbsp; - &nbsp; <a href='{{ site.download | replace:"[version]", site.version }}' >Download</a> &nbsp; - &nbsp; <a href='{{ site.github }}' target='_blank'>View Github Project</a></em></p>
+                    <p class='sml text-right'>
+                        <em>STAN v{{ site.version }} &nbsp; - &nbsp; <a href='{{ site.download | replace:"[version]", site.version }}'>Download</a> &nbsp; - &nbsp; <a href='{{ site.github }}' target='_blank'>View Github Project</a>
+                        </em>
+                    </p>
 
-					<div class='space-md'></div>
+                    <div class='space-md'></div>
 
-				</div>
+                </div>
 
-			</div>
+            </div>
 
-		</div>
+        </div>
 
-	</div>
-	<div class='clear'></div>
+    </div>
+    <div class='clear'></div>
 
-	{% include footer.html %}
-
-	{% include scripts.html %}
-
-  {% include analytics.html %}
+    {% include footer.html %} {% include scripts.html %} {% include analytics.html %}
 
 </body>
+
 </html>
