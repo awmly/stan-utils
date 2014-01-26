@@ -4,12 +4,12 @@
 
 <p>To remove the padding or margins from all sides use <code>.no-pad</code> or <code>.no-mar</code> to only select certain sides add either <code>-top</code>, <code>-btm</code>, <code>-left</code> or <code>-right</code> to the class name.</p>
 
-<p>To add a 30px padding or margin use <code>.mar</code> or <code>.pad</code>  to only select certain sides add either <code>-top</code>, <code>-btm</code>, <code>-left</code> or <code>-right</code> to the class name. Additionaly use a <code>-lg</code> suffix to increase the value to 45px, <code>-xl</code> to increase the value to 60px or <code>-sm</code> to decrease the value to 15px.</p>
+<p>To add padding or margin use <code>.mar</code> or <code>.pad</code>  followed by an optional side modifier of either <code>-top</code>, <code>-btm</code>, <code>-left</code>, <code>-right</code> or <code>-side</code>. To end add a size modifier of either <code>xs</code>, <code>sm</code>, <code>md</code>, <code>lg</code> and <code>xl</code>.</p>
 
-<pre><code class='xml'>&lt;div class="mar-top"&gt;&lt;/div&gt; &lt;!--30px margin on the top--&gt;
-&lt;div class="mar-top-sm"&gt;&lt;/div&gt; &lt;!--15px margin on the top--&gt;
+<pre><code class='xml'>&lt;div class="mar-top-md"&gt;&lt;/div&gt; &lt;!--30px margin on the top--&gt;
+&lt;div class="mar-side-sm"&gt;&lt;/div&gt; &lt;!--15px margin on the left and right--&gt;
 &lt;div class="mar-lg"&gt;&lt;/div&gt; &lt;!--45px margin on all sides--&gt;
-&lt;div class="pad"&gt;&lt;/div&gt; &lt;!--30px padding on all sides--&gt;
+&lt;div class="pad-xs"&gt;&lt;/div&gt; &lt;!--7px padding on all sides--&gt;
 &lt;div class="pad-btm-xl"&gt;&lt;/div&gt; &lt;!--60px padding on the bottom--&gt;
 &lt;div class="no-pad-left"&gt;&lt;/div&gt; &lt;!--No padding on the left--&gt;
 </code></pre>

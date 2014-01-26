@@ -1,5 +1,5 @@
 /* ========================================================================
- * STAN Utils: HasIconBtn
+ * STAN Utils: InsetOutset
  * Author: Andrew Womersley
  * ======================================================================== */
 
@@ -7,7 +7,7 @@ $(function() {
 
   'use strict';
 
-    var InsetOffset=function(){
+    var InsetOutset=function(){
 
         var padding, width, side, outset, clone;
 
@@ -24,10 +24,10 @@ $(function() {
             padding=parseInt($(this).parent().css('padding-'+side));
 
             // Get width
-            width=$(this).outerWidth();
+            width=$(this).outerWidth(true);
 
             // If width is zero (hidden) - use getSize to find its width
-            if(!width) width=$STAN.getSize('clone',$(this)).width;
+            if(!width) width=$STAN.getSize('clone',$(this)).outerWidthMargin;
 
             // Apply paddings
             if( $(this).hasClass('sa-outset') ){
@@ -50,6 +50,6 @@ $(function() {
       if($(this).parent().css('position')=='static') $(this).parent().addClass('relative');
     });
 
-    $(window).on('load resize',InsetOffset);
+    $(window).on('load resize',InsetOutset);
 
 });

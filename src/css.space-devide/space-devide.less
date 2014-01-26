@@ -2,31 +2,34 @@
  * STAN Utils: Spaces/Divides
  * Author: Andrew Womersley
  * ======================================================================== */
-
+@xs:  7px;
+@sm: 15px;
+@md: 30px;
+@lg: 45px;
+@xl: 60px;
 /** Space */
-
 *[class*="space"]{
   clear:both; height:0;
 }
 
 .space-xs{
-  height:7px;
+  height:@xs;
 }
 
 .space-sm{
-  height:15px;
+  height:@sm;
 }
 
 .space-md{
-  height:30px;
+  height:@md;
 }
 
 .space-lg{
-  height:45px;
+  height:@lg;
 }
 
 .space-xl{
-  height:60px;
+  height:@xl;
 }
 
 

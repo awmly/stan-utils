@@ -16,6 +16,7 @@
   z-index:1000;
 }
 
+.nav-horizontal a{ display:block; }
 
 /** Block Nav */
 .sa-nav.sa-block a{
@@ -35,7 +36,8 @@
 
 
 /** Vertical */
-.nav-vertical:not(.sa-block) a{
+.nav-vertical:not(.sa-block) a,
+.nav-horizontal:not(.sa-block) ul ul a{
   display:inline-block;
   margin:0 0 6px 0;
 }
@@ -53,24 +55,25 @@
 
 
 /** Sub Nav */
-.nav-horizontal.sa-block ul ul{
+.nav-horizontal ul ul{
   position:absolute;
   top:100%;
   left:0;
   display:none;
+  background:#eee;
 }
 
-.nav-horizontal.sa-block ul ul ul{
+.nav-horizontal ul ul ul{
   top:0;
-  left:100%;
+  left:100% !important;
 }
 
-.nav-horizontal.sa-block li:hover > ul{
+.nav-horizontal li:hover > ul{
   display:block;
 }
 
 
-/** Small sa-sm */
+/** Small */
 
   /* Nav */
   .sa-nav.sa-sm li a{
@@ -86,22 +89,39 @@
   }
 
   /* Horizontal List */
-  .nav-horizontal.sa-sm:not(.sa-block) li,
+  .nav-horizontal.sa-sm:not(.sa-block)>ul>li,
   .nav-horizontal.sa-sm:not(.sa-block) .sa-title{
     margin-right:15px;
   }
 
   /* Horizontal / Vertical Block */
   .sa-nav.sa-sm.sa-block a,
-  .sa-nav.sa-sm.sa-block .sa-title{
+  .sa-nav.sa-sm.sa-block .sa-title,
+  .nav-horizontal.sa-sm:not(.sa-block) >ul>li>ul>li,
+  .nav-horizontal.sa-sm:not(.sa-block) ul ul ul li{
     padding-left:15px;
     padding-right:15px;
   }
 
-  /* Vertical Block Sub Nav */
+  /* Horizontal Sub Nav */
+  .nav-horizontal.sa-sm:not(.sa-block) ul ul{
+    padding-top:8px;
+    padding-bottom:8px;
+    left:-15px;
+  }
+  .nav-horizontal.sa-sm:not(.sa-block) ul ul ul{
+    top:-8px;
+  }
+
+  /* Vertical Sub Nav */
+  .nav-vertical.sa-sm:not(.sa-block) ul ul li{
+    padding-left:15px;
+  }
+  .nav-vertical.sa-sm:not(.sa-block) ul ul ul li,
   .nav-vertical.sa-sm.sa-block ul ul a{
     padding-left:30px;
   }
+  .nav-vertical.sa-sm:not(.sa-block) ul ul ul ul li,
   .nav-vertical.sa-sm.sa-block ul ul ul a{
     padding-left:45px;
   }

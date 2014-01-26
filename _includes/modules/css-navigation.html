@@ -1,24 +1,32 @@
 <h1>Navigation</h1>
 
-<p>Provides base styles for 4 main types of navigation. Add either <code>nav-horizontal</code>, <code>nav-horizontal-block</code>, <code>nav-vertical</code> or <code>nav-vertical-block</code> to any <code>ul</code> to create a navigation. Icons can be added to either of the horizontal navs without any extra classes but to use icons in a vertical nav add the class <code>nav-vertical-icon</code>.</p>
+<p>Stan provides base styles for both horizontal and vertical navigations. Each must include the class of <code>sa-nav</code> and then either add <code>nav-horizontal</code> or <code>nav-vertical</code>. The navigations can then be turned in to block style by adding <code>sa-block</code>. The top level <code>ul</code> should also have the class <code>sa-content</code>.</p>
 
-<p>Sub navigation can be added to either of the the block navs, just start another <code>ul</code> inside an <code>li</code>. Apply the class <code>fix-width</code> to any sub nav <code>ul</code> to enable the sub nav to be its natural width.</p>
+<p>Sub navigation can be added to any nav, just start another <code>ul</code> inside an <code>li</code>. When inside a horizontal nav the subnav is displayed as a drop down when mouseovered, while in a vertical nav the subnav is indented.</p>
 
-<pre><code class='xml'>&lt;ul class="nav-horizontal-block"&gt;
-  &lt;h2&gt;Nav Title&lt;/h2&gt;
-  &lt;li&gt;&lt;a href=''&gt;Link 1&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=''&gt;Link 2&lt;/a&gt;
-    &lt;ul class="fix-width"&gt;
-      &lt;li&gt;&lt;a href=''&gt;Sub Nav Link 1&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=''&gt;Sub Nav Link 2&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
+<p>To add a title to a navigation use a <code>h6</code> within a div with the class <code>sa-title</code>. To add spacing/size presets to a navigation apply one of these classes <code>sa-xs</code>, <code>sa-sm</code>, <code>sa-md</code>, <code>sa-lg</code> or <code>sa-xl</code>.</p>
 
-&lt;ul class="nav-vertical nav-vertical-icon"&gt;
-  &lt;li&gt;&lt;a href=''&gt;&lt;i class="fa fa-check"&gt;&lt;/i&gt; Link 1&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=''&gt;&lt;i class="fa fa-check"&gt;&lt;/i&gt; Link 2&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</code></pre>
+<pre><code class='xml'>&lt;nav class="sa-nav nav-horizontal sa-block sa-sm"&gt;
+  &lt;div class="sa-title"&gt;
+    &lt;h6&gt;Nav Title&lt;/h6&gt;
+  &lt;/div&gt;
+  &lt;ul class="sa-title"&gt;
+    &lt;li&gt;&lt;a href=''&gt;Link 1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=''&gt;Link 2&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=''&gt;Sub Nav Link 1&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=''&gt;Sub Nav Link 2&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;nav class="sa-nav nav-vertical sa-sm"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=''&gt;&lt;i class="fa fa-check"&gt;&lt;/i&gt; Link 1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=''&gt;&lt;i class="fa fa-check"&gt;&lt;/i&gt; Link 2&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
 
 <p><a href='{{ page.base }}examples/css-navigation.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 

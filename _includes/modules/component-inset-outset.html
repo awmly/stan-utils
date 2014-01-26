@@ -1,19 +1,20 @@
 <h1>Inset/Outset</h1>
-<p>This component allows for easy adding of buttons and icons within an any element. Place any icon using the <code>&lt;i&gt;</code> tag or any button with class <code>.btn</code> inside another element and add either <code>has-icon</code> or <code>has-btn</code> classes. By default the icons and buttons will be left aligned, to make them right aligned use <code>has-right</code>.</p>
+<p>This component allows for easily insetting or outsetting an element from its parent. To inset an element add the class <code>sa-inset</code> and to ouset an element add the class <code>sa-ouset</code>. By default elements are postioned left, to move them to the right add the class <code>sa-right</code>. Spacing between the inset/ouset element and other content can be achieved by adding padding or margin to the inset/ouset elemtent.</p>
 
-<p>To inset the icon or button from the left or right use the attribute <code>data-offset-pos="10"</code>. To add the inset padding to the parent element use the attribute <code>data-pad-parent="true"</code>.</p>
+<p>When insetting an element, left or right padding is applied to its imediate parent to achieve the inset. When outsetting an element padding is applied to the imediate parents parent and then the outset element is giving a negative left or right position.</p>
 
 <pre><code class='xml'>&lt;div&gt;
-  &lt;div class='has-icon' data-pad-parent='1'&gt;
-    &lt;i class='fa fa-plus-square'>&lt;/i> &lt;h2&gt;Title with Icon - Padding parent&lt;/h2&gt;
-  &lt;/div&gt;
-  &lt;p&gt;This text will now be offset as well!&lt;/p&gt;
+  &lt;h2&gt;
+    &lt;i class='fa fa-plus-square sa-ouset'>&lt;/i&gt;
+    Title with Icon
+  &lt;/h2&gt;
+  &lt;p&gt;This text will be indented along with the title!&lt;/p&gt;
 &lt;/div&gt;
 
-&lt;div class="alert alert-success has-btn has-right"&gt;
-	&lt;a href="#" class="btn btn-success btn-lg"&gt;Click Me&lt;/a&gt; ..and so are button sizes!
+&lt;div class="alert alert-success"&gt;
+	&lt;a href="#" class="btn btn-success btn-lg sa-inset sa-right"&gt;Click Me&lt;/a&gt; Alert message...
 &lt;/div&gt;</code></pre>
 
-<p><a href='{{ page.base }}examples/component-has-icon-btn.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
+<p><a href='{{ page.base }}examples/component-inset-outset.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 
 <div class='divide-lg'></div>

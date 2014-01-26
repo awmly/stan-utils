@@ -13,8 +13,12 @@
   var setSize=function(target){
 
     return {
-      width:target.outerWidth(),
-      height:target.outerHeight()
+      outerWidthMargin:target.outerWidth(true),
+      outerHeightMargin:target.outerHeight(true),
+      outerWidth:target.outerWidth(),
+      outerHeight:target.outerHeight(),
+      width:target.width(),
+      height:target.height()
     }
 
   };

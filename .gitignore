@@ -1,5 +1,6 @@
 #Files
 .DS_Store
+src/less.less
 
 #Folder
 _site

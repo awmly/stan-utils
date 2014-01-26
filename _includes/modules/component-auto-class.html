@@ -1,0 +1,14 @@
+<h1>Auto Class</h1>
+
+<p>This component allows for classes to be automatically applied to elements. Add the attribute <code>data-auto-class</code> to any element, specify the selector and classes and this component will cascade down the DOM tree and apply the specified classes the all matched elements. Selectors and classes should be appied in the following format <code>selector{classes}</code>.</p>
+
+<pre><code class='xml'>&lt;div data-auto-class="p{red lrg} .foobar{green}"&gt;
+  &lt;p&gt;Red&lt;/p&gt;
+  &lt;p&gt;Red&lt;/p&gt;
+  &lt;p&gt;&lt;span class="foobar"&gt;Green&lt;/span&gt;&lt;/p&gt;
+  &lt;p&gt;Red&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+<p><a href='{{ page.base }}examples/component-auto-class.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
+
+<div class='divide-lg'></div>

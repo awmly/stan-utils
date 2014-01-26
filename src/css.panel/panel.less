@@ -3,13 +3,30 @@
  * Author: Andrew Womersley
  * ======================================================================== */
 
-.sa-title h6{ font-size:16px; margin:0; padding:0; line-height:18px; }
-.sa-block .sa-title{ padding:6px 0; background:#333; color:#fff; margin-bottom:0 !important; }
-
 /** General */
 .sa-panel{
   background:#eee;
 }
+
+
+/** Extra Small */
+.sa-panel.sa-xs:not(.sa-block){
+  padding:7px;
+}
+
+.sa-panel.sa-xs.sa-block .sa-content,
+.sa-panel.sa-xs.sa-block .sa-title{
+  padding-left:7px;
+  padding-right:7px;
+}
+
+
+.sa-panel.sa-xs.sa-block .sa-content:last-child:after{
+  content:"";
+  display:block;
+  height:7px;
+}
+
 
 /** Small */
 .sa-panel.sa-sm:not(.sa-block){
@@ -30,29 +47,19 @@
 }
 
 
-.sa-sm ul + .sa-content:before,
-.sa-sm .sa-title + .sa-content:before{
-  content:"";
-  display:block;
-  height:15px;
-}
-
-
-
-
 /** Medium */
-.sa-md:not(.sa-block){
+.sa-panel.sa-md:not(.sa-block){
   padding:30px;
 }
 
-.sa-md.sa-block .sa-content,
-.sa-md.sa-block .sa-title{
+.sa-panel.sa-md.sa-block .sa-content,
+.sa-panel.sa-md.sa-block .sa-title{
   padding-left:30px;
   padding-right:30px;
 }
 
-.sa-md .sa-content:before,
-.sa-md .sa-content:after{
+
+.sa-panel.sa-md.sa-block .sa-content:last-child:after{
   content:"";
   display:block;
   height:30px;
@@ -60,18 +67,18 @@
 
 
 /** Large */
-.sa-lg:not(.sa-block){
+.sa-panel.sa-lg:not(.sa-block){
   padding:45px;
 }
 
-.sa-lg.sa-block .sa-content,
-.sa-lg.sa-block .sa-title{
+.sa-panel.sa-lg.sa-block .sa-content,
+.sa-panel.sa-lg.sa-block .sa-title{
   padding-left:45px;
   padding-right:45px;
 }
 
-.sa-lg .sa-content:before,
-.sa-lg .sa-content:after{
+
+.sa-panel.sa-lg.sa-block .sa-content:last-child:after{
   content:"";
   display:block;
   height:45px;
@@ -79,20 +86,19 @@
 
 
 /** Extra Large */
-.sa-xl:not(.sa-block){
+.sa-panel.sa-xl:not(.sa-block){
   padding:60px;
 }
 
-.sa-xl.sa-block .sa-content,
-.sa-xl.sa-block .sa-title{
+.sa-panel.sa-xl.sa-block .sa-content,
+.sa-panel.sa-xl.sa-block .sa-title{
   padding-left:60px;
   padding-right:60px;
 }
 
-.sa-xl .sa-content:before,
-.sa-xl .sa-content:after{
+
+.sa-panel.sa-xl.sa-block .sa-content:last-child:after{
   content:"";
   display:block;
   height:60px;
 }
-

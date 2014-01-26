@@ -1,11 +1,19 @@
 <h1>Panels</h1>
 
-<p>Provides base styles for 4 main types of navigation. Add either <code>nav-horizontal</code>, <code>nav-horizontal-block</code>, <code>nav-vertical</code> or <code>nav-vertical-block</code> to any <code>ul</code> to create a navigation. Icons can be added to either of the horizontal navs without any extra classes but to use icons in a vertical nav add the class <code>nav-vertical-icon</code>.</p>
+<p>Panels are a great way to contain components such as collpases, tabs or navigations but also for standard text and image e.g latest blog post. To create a panel use the class <code>sa-panel</code> and to then make it a block panel add the class <code>sa-block</code>.</p>
 
-<p>Sub navigation can be added to either of the the block navs, just start another <code>ul</code> inside an <code>li</code>. Apply the class <code>fix-width</code> to any sub nav <code>ul</code> to enable the sub nav to be its natural width.</p>
+<p>Panels are based around the asumption that there will be a title and content and these should be enclosed within the classes <code>sa-title</code> and <code>sa-content</code>. Within a title use the tag <code>h6</code> to use the predefined styling.</p>
 
-<pre><code class='xml'>&lt;div class="panel"&gt;
+<p>Panels come with pre-defined spacing/size presets to apply one of these add the class <code>sa-xs</code>, <code>sa-sm</code>, <code>sa-md</code>, <code>sa-lg</code> or <code>sa-xl</code>.</p>
 
+
+<pre><code class='xml'>&lt;div class="sa-panel"&gt;
+  &lt;div class="sa-title"&gt;
+    &lt;h6&gt;Title&lt;/h6&gt;
+  &lt;/div&gt;
+  &lt;div class="sa-content"&gt;
+    Content
+  &lt;/div&gt;
 &lt;/div&gt;</code></pre>
 
 <p><a href='{{ page.base }}examples/css-panels.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>

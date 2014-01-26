@@ -43,10 +43,24 @@ base:		"../"
         <h6>Horizontal</h6>
       </div>
       <ul class='sa-content'>
-        <li><a href=''><i class='fa fa-check sa-inset pad-right-xs'></i> Link 1</a></li>
-        <li class='active'><a href=''><i class='fa fa-check sa-inset pad-right-xs'></i> Link 2</a></li>
-        <li><a href=''><i class='fa fa-check sa-inset pad-right-xs'></i> Link 3</a></li>
-        <li><a href=''><i class='fa fa-check sa-inset pad-right-xs'></i> Link 4</a></li>
+        <li><a href=''>Link 1</a></li>
+        <li class='active'><a href=''>SubNav</a>
+          <ul>
+            <li><a href=''>Link 1</a></li>
+            <li class='active'><a href=''>SubNav</a>
+              <ul class=''>
+                <li><a href=''>Link 1</a></li>
+                <li class='active'><a href=''>Link 2 which is longer!</a></li>
+                <li><a href=''>Link 3<br/>On 2 lines</a></li>
+                <li><a href=''>Link 4</a></li>
+              </ul>
+            </li>
+            <li><a href=''>Link 3<br/>On 2 lines</a></li>
+            <li><a href=''>Link 4</a></li>
+          </ul>
+        </li>
+        <li><a href=''>Link 3</a></li>
+        <li><a href=''>Link 4</a></li>
       </ul>
     </nav>
 
@@ -114,7 +128,14 @@ base:		"../"
       </div>
       <ul class='sa-content'>
         <li><a href=''>Link 1</a></li>
-        <li class='active'><a href=''>Link 2</a></li>
+        <li class='active'><a href=''>Link 2</a>
+          <ul class='sa-content'>
+            <li><a href=''>Link 1</a></li>
+            <li class='active'><a href=''>Link 2</a></li>
+            <li><a href=''>Link 3<br/>On 2 lines</a></li>
+            <li><a href=''>Link 4</a></li>
+          </ul>
+        </li>
         <li><a href=''>Link 3<br/>On 2 lines</a></li>
         <li><a href=''>Link 4</a></li>
       </ul>

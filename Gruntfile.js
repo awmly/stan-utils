@@ -1,29 +1,26 @@
 module.exports = function(grunt) {
 
-	var config={
+    var config = {
 
-        pkg:        grunt.file.readJSON('package.json'),
+        pkg: grunt.file.readJSON('package.json'),
 
-        banner:     '/*!\n' +
-                    ' * STAN Utils <%= pkg.version %>\n' +
-                    ' * Copyright <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
-                    ' */\n',
+        banner: '/*!\n' + ' * STAN Utils <%= pkg.version %>\n' + ' * Copyright <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' + ' */\n',
 
-    	watch_site: {
+        watch_site: {
             options: {
                 livereload: true
             },
             html: {
-                files: ['_assets/**/*','_layouts/*.html','_includes/*.html','_includes/**/*.html','_pages/*.html','_pages/**/*.html','dist/*'],
-                tasks: ['jekyll','shell:jekyll']
+                files: ['_assets/**/*', '_layouts/*.html', '_includes/*.html', '_includes/**/*.html', '_pages/*.html', '_pages/**/*.html', 'dist/*'],
+                tasks: ['jekyll', 'shell:jekyll']
             },
             js: {
                 files: ['src/**/*.js'],
                 tasks: ['uglify']
             },
             css: {
-                files: ['src/**/*.css'],
-                tasks: ['cssmin']
+                files: ['src/**/*.less'],
+                tasks: ['less']
             }
         },
 
@@ -32,7 +29,7 @@ module.exports = function(grunt) {
                 livereload: true
             },
             tests: {
-                files: ['tests/*','src/**/*.js','src/**/*.css','src/core.js','src/core.css']
+                files: ['tests/*', 'src/**/*.js', 'src/**/*.less']
             }
         },
 
@@ -64,26 +61,43 @@ module.exports = function(grunt) {
             }
         },
 
-		uglify: {
-			dist: {
-                options: {
-                    banner: '<%= banner %>',
-                },
-				files: {
-					'dist/<%= pkg.name %>.min.js': ['src/stan/stan.js', 'src/**/*.js']
-				}
-			}
+        uglify: {
+            dist: {
+                files: {
+                    'dist/<%= pkg.name %>.min.js': ['src/stan/stan.js', 'src/**/*.js']
+                }
+            }
         },
 
-		cssmin: {
+        concat: {
+          dist: {
+            src: ['src/stan/stan.less', 'src/**/*.less'],
+            dest: 'src/less.less',
+          },
+        },
+
+        less: {
             dist: {
                 options: {
-                    banner: '<%= banner %>',
+                    cleancss:true
                 },
-				files: {
-					'dist/<%= pkg.name %>.min.css': ['src/**/*.css']
-				}
-			}
+                files: {
+                    'dist/<%= pkg.name %>.min.css': ['src/less.less']
+                }
+            }
+        },
+
+        usebanner: {
+          dist: {
+            options: {
+              position: 'top',
+              banner: '<%= banner %>',
+              linebreak: true
+            },
+            files: {
+              src: [ 'dist/*' ]
+            }
+          }
         },
 
         shell: {
@@ -104,8 +118,8 @@ module.exports = function(grunt) {
             },
             publish: {
                 command: [
-                  'scp -i ~/.ssh/sa_rsa -r _site/* saadmin@sadev4.co.uk:/var/www/vhosts/smartarts.co.uk/stan-utils.smartarts.co.uk',
-                  'scp -i ~/.ssh/sa_rsa -r releases/* saadmin@sadev4.co.uk:/var/www/vhosts/smartarts.co.uk/stan-utils.smartarts.co.uk/releases'
+                    'scp -i ~/.ssh/sa_rsa -r _site/* saadmin@sadev4.co.uk:/var/www/vhosts/smartarts.co.uk/stan-utils.smartarts.co.uk',
+                    'scp -i ~/.ssh/sa_rsa -r releases/* saadmin@sadev4.co.uk:/var/www/vhosts/smartarts.co.uk/stan-utils.smartarts.co.uk/releases'
                 ].join('&&')
             }
         },
@@ -141,7 +155,7 @@ module.exports = function(grunt) {
             }
         }
 
-	}
+    }
 
     // Init grunt config
     grunt.initConfig(config);
@@ -149,30 +163,31 @@ module.exports = function(grunt) {
 
     // Load node modules
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-jekyll');
-    grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-prettify');
-
+    grunt.loadNpmTasks('grunt-banner');
 
     // Register tasks
-    grunt.registerTask('site',function(){
+    grunt.registerTask('site', function() {
 
         grunt.config('watch', config.watch_site);
-        grunt.task.run(['uglify', 'cssmin', 'jekyll', 'shell:jekyll', 'connect:dev', 'watch']);
+        grunt.task.run(['uglify', 'concat', 'less', 'usebanner', 'jekyll', 'shell:jekyll', 'connect:dev', 'watch']);
 
     });
-    grunt.registerTask('tests',function(){
+    grunt.registerTask('tests', function() {
 
         grunt.config('watch', config.watch_tests);
         grunt.task.run(['connect:tests', 'watch']);
 
     });
-    grunt.registerTask('deploy', ['uglify', 'cssmin', 'jekyll', 'shell:jekyll', 'htmlmin', 'prettify', 'shell:zip', 'shell:publish']);
-    grunt.registerTask('test', ['uglify', 'cssmin']);
-    grunt.registerTask('default', ['uglify', 'cssmin']);
+    grunt.registerTask('deploy', ['uglify', 'concat', 'less', 'usebanner', 'jekyll', 'shell:jekyll', 'htmlmin', 'prettify', 'shell:zip', 'shell:publish']);
+    grunt.registerTask('test', ['uglify', 'concat', 'less', 'usebanner']);
+    grunt.registerTask('default', ['uglify', 'concat', 'less', 'usebanner']);
 
 };
