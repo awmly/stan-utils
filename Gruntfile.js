@@ -72,7 +72,7 @@ module.exports = function(grunt) {
         concat: {
           dist: {
             src: ['src/stan/stan.less', 'src/**/*.less'],
-            dest: 'src/less.less',
+            dest: 'tmp/less.less',
           },
         },
 
@@ -82,7 +82,7 @@ module.exports = function(grunt) {
                     cleancss:true
                 },
                 files: {
-                    'dist/<%= pkg.name %>.min.css': ['src/less.less']
+                    'dist/<%= pkg.name %>.min.css': ['tmp/less.less']
                 }
             }
         },
@@ -121,7 +121,10 @@ module.exports = function(grunt) {
                     'scp -i ~/.ssh/sa_rsa -r _site/* saadmin@sadev4.co.uk:/var/www/vhosts/smartarts.co.uk/stan-utils.smartarts.co.uk',
                     'scp -i ~/.ssh/sa_rsa -r releases/* saadmin@sadev4.co.uk:/var/www/vhosts/smartarts.co.uk/stan-utils.smartarts.co.uk/releases'
                 ].join('&&')
-            }
+            },
+            tmp: {
+                command: 'rm -rf tmp/*'
+            },
         },
 
         htmlmin: {
@@ -174,10 +177,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-banner');
 
     // Register tasks
+    grunt.registerTask('js-less', ['uglify', 'concat', 'less', 'usebanner', 'shell:tmp']);
     grunt.registerTask('site', function() {
 
         grunt.config('watch', config.watch_site);
-        grunt.task.run(['uglify', 'concat', 'less', 'usebanner', 'jekyll', 'shell:jekyll', 'connect:dev', 'watch']);
+        grunt.task.run(['js-less', 'jekyll', 'shell:jekyll', 'connect:dev', 'watch']);
 
     });
     grunt.registerTask('tests', function() {
@@ -186,8 +190,8 @@ module.exports = function(grunt) {
         grunt.task.run(['connect:tests', 'watch']);
 
     });
-    grunt.registerTask('deploy', ['uglify', 'concat', 'less', 'usebanner', 'jekyll', 'shell:jekyll', 'htmlmin', 'prettify', 'shell:zip', 'shell:publish']);
-    grunt.registerTask('test', ['uglify', 'concat', 'less', 'usebanner']);
-    grunt.registerTask('default', ['uglify', 'concat', 'less', 'usebanner']);
+    grunt.registerTask('deploy', ['js-less', 'jekyll', 'shell:jekyll', 'htmlmin', 'prettify', 'shell:zip', 'shell:publish']);
+    grunt.registerTask('test', ['js-less']);
+    grunt.registerTask('default', ['js-less']);
 
 };
