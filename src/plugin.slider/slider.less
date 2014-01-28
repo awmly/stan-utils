@@ -1,0 +1,82 @@
+.slider{ background:#ddd; }
+
+.slider{
+	position:relative;
+  overflow:hidden;
+}
+
+.slider .bgr{
+  position:relative;
+  width:100%;
+  height:100%;
+}
+
+.slider .cell{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+}
+
+.slider.variable{ }
+
+.slider img.maxwidth{
+	width:100%;
+  height:auto;
+}
+
+.slider img.maxheight{
+  width:auto;
+  height:100%;
+}
+
+
+.slider.fixed .bgr img{
+	width:100%;
+}
+
+/** Radio */
+.slider .radio{
+  position:absolute;
+  left:50%;
+  margin-left:-100px;
+  bottom:20px;
+  width:200px;
+  text-align:center;
+}
+
+.slider .radio span{
+  display:inline-block;
+  width:12px;
+  height:12px;
+  border-radius:6px;
+  background:#666;
+  margin:0 2px;
+  cursor:pointer;
+}
+
+.slider .radio span.active{
+  background:#111;
+}
+
+/** Next / Prev */
+.slider i.slider-next,
+.slider i.slider-prev{
+	position:absolute;
+	top:50%;
+	margin-top:-15px;
+	width:30px;
+	height:30px;
+	text-align:center;
+	line-height:30px;
+  cursor:pointer;
+}
+
+.slider i.slider-next{
+	right:10px;
+}
+
+.slider i.slider-prev{
+	left:10px;
+}

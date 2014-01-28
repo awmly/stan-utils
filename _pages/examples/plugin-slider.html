@@ -1,0 +1,134 @@
+---
+title: 		Slider Example
+layout:		examples
+base:		"../"
+---
+
+<h1>Slider</h1>
+
+<h1>Fixed width - Variable height</h1>
+
+      <div class='slider' id='slider1'>
+
+        <div class='bgr'>
+          <div class='cell'>
+            <a href='/1'><img src='{{page.base}}_assets/imgs/slider_1_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_1_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_1_sm.jpg","md":"{{page.base}}_assets/imgs/slider_1_md.jpg","lg":"{{page.base}}_assets/imgs/slider_1_lg.jpg"}' /></a>
+          </div>
+          <div class='cell'>
+            <a href='/2'><img src='{{page.base}}_assets/imgs/slider_2_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_2_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_2_sm.jpg","md":"{{page.base}}_assets/imgs/slider_2_md.jpg","lg":"{{page.base}}_assets/imgs/slider_2_lg.jpg"}' /></a>
+          </div>
+        </div>
+
+        <div class='controls'>
+          <i class='fa fa-chevron-right fa-3x slider-next'></i>
+          <i class='fa fa-chevron-left fa-3x slider-prev'></i>
+          <div class='radio'></div>
+        </div>
+
+      </div>
+
+      <p>
+        <a href='#' data-toggle='slider' data-target='#slider1' data-index='0'>Load Image 1</a> |
+        <a href='#' data-toggle='slider' data-target='#slider1' data-index='1'>Load Image 2</a>
+      </p>
+
+      <div style='height:50px'></div>
+
+      <h1>Fixed width - Fixed height (Image fills space)</h1>
+
+      <div class='slider' id='slider2'>
+
+        <div class='bgr'>
+          <div class='cell'>
+            <img src='{{page.base}}_assets/imgs/slider_1_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_1_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_1_sm.jpg","md":"{{page.base}}_assets/imgs/slider_1_md.jpg","lg":"{{page.base}}_assets/imgs/slider_1_lg.jpg"}' />
+          </div>
+          <div class='cell'>
+            <img src='{{page.base}}_assets/imgs/slider_2_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_2_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_2_sm.jpg","md":"{{page.base}}_assets/imgs/slider_2_md.jpg","lg":"{{page.base}}_assets/imgs/slider_2_lg.jpg"}' />
+          </div>
+          <div class='cell'>
+            <img src='{{page.base}}_assets/imgs/slider_3_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_3_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_3_sm.jpg","md":"{{page.base}}_assets/imgs/slider_3_md.jpg","lg":"{{page.base}}_assets/imgs/slider_3_lg.jpg"}' />
+          </div>
+        </div>
+
+        <div class='controls'>
+          <i class='fa fa-chevron-right fa-3x slider-next'></i>
+          <i class='fa fa-chevron-left fa-3x slider-prev'></i>
+          <div class='radio'></div>
+        </div>
+
+      </div>
+
+      <div style='height:50px'></div>
+
+      <h1>Fixed width - Fixed height (Image fits space)</h1>
+
+      <div class='slider' id='slider3'>
+
+        <div class='bgr'>
+          <div class='cell'>
+            <img src='{{page.base}}_assets/imgs/slider_1_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_1_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_1_sm.jpg","md":"{{page.base}}_assets/imgs/slider_1_md.jpg","lg":"{{page.base}}_assets/imgs/slider_1_lg.jpg"}' />
+          </div>
+          <div class='cell'>
+            <img src='{{page.base}}_assets/imgs/slider_2_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_2_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_2_sm.jpg","md":"{{page.base}}_assets/imgs/slider_2_md.jpg","lg":"{{page.base}}_assets/imgs/slider_2_lg.jpg"}' />
+          </div>
+          <div class='cell'>
+            <img src='{{page.base}}_assets/imgs/slider_3_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_3_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_3_sm.jpg","md":"{{page.base}}_assets/imgs/slider_3_md.jpg","lg":"{{page.base}}_assets/imgs/slider_3_lg.jpg"}' />
+          </div>
+        </div>
+
+        <div class='controls'>
+          <i class='fa fa-chevron-right fa-3x slider-next'></i>
+          <i class='fa fa-chevron-left fa-3x slider-prev'></i>
+          <div class='radio'></div>
+        </div>
+
+      </div>
+
+      <div style='height:50px'></div>
+
+
+      <script>
+
+$(function(){
+
+  // Set up event listners
+  $('#slider1').on('next.sa.slider',function(event){
+    console.log(event.type+" - "+event.namespace);
+  });
+  $('#slider1').on('prev.sa.slider',function(event){
+    console.log(event.type+" - "+event.namespace);
+  });
+
+  $('#slider1').Slider({
+    aspect_ratio:'fixed',
+    activeIndex:1,
+    nextDelay:500,
+    currentDelay:0
+  });
+
+  $('#slider2').Slider({
+    aspect_ratio:'variable',
+    image_display:'fill',
+    height:{
+      xs:400,
+      sm:500,
+      md:500,
+      lg:500
+    }
+  });
+
+  $('#slider3').Slider({
+    aspect_ratio:'variable',
+    image_display:'fit',
+    height:{
+      xs:400,
+      sm:500,
+      md:500,
+      lg:500
+    },
+  });
+
+
+
+});
+</script>
