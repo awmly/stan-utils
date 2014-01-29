@@ -47,7 +47,7 @@ module.exports = function(grunt) {
                     port: 9001,
                     open: true,
                     livereload: true,
-                    base: ['_assets', 'src', 'tests']
+                    base: ['_assets', 'src', 'tests','bower_components']
                 }
             }
         },

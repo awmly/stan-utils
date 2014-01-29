@@ -70,24 +70,40 @@
                       lg:100
                     },
                     activeIndex:0,
-
-                    animationType:'fade',
+                    animationPreset:false,
                     animationDuration:300,
-                    animationEasing:'swing',
+                    animationEasing:'linear',
                     nextDelay:0,
                     currentDelay:0,
-
-                    animationTypeText:'fade',
-                    animationDurationText:300,
-                    animationEasingText:'swing',
-                    nextDelayText:0,
-                    currentDelayText:0,
-
+                    cssPreMove:false,
+                    cssActive:false,
+                    cssPostMove:false,
+                    autoplay:false,
+                    autoplay_break_on_click:true,
+                    autoplay_delay:5000,
+                    layers:[],
                     currentIndex:0,
                     nextIndex:0,
                     total:0,
-                    action:false
+                    action:false,
+                    timer:false
                 }, options);
+
+
+                // Set BGR CSS properties from Preset
+                if(settings.animationPreset=='fade'){
+
+                  settings.cssPreMove={ opacity:0 };
+                  settings.cssActive={ opacity:1 };
+                  settings.cssPostMove={ opacity:0 };
+
+                }else if(settings.animationPreset=='slide'){
+
+                  settings.cssPreMove={ left:'100%' };
+                  settings.cssActive={ left:0 };
+                  settings.cssPostMove={ left:'-100%' };
+
+                }
 
                 // Set total
                 settings.total=$this.find('.bgr img').length;
@@ -101,14 +117,8 @@
                 // Add aspect ratio class
                 $this.addClass(settings.aspect_ratio);
 
-                // Position cells
-                if(settings.animationType=='fade'){
-
-                  $this.find('.bgr .cell').css({ visibility:'hidden', opacity:0 });
-
-                  $this.find('.bgr .cell').eq(settings.activeIndex).css({ visibility:'visible', opacity:1 });
-
-                }
+                // Set active cells
+                $this.find('.cell').css({ visibility:'hidden' });
 
                 // Set radio buttons
                 for(i=0;i<settings.total;i++){
@@ -153,6 +163,15 @@
                 // Do resize
                 methods.resize.apply(this);
 
+                // Set load event
+                $(window).on('load',function(){
+                  $this.css({ visibility:'visible' });
+                  $this.find('.bgr .cell').eq(settings.activeIndex).css({ visibility:'visible' });
+                  $this.find('.layer').each(function(){
+                    $(this).find('.cell').eq(settings.activeIndex).css({ visibility:'visible' });
+                  });
+                });
+
             });
 
         },
@@ -169,6 +188,10 @@
             // Set action to true
             settings.action=true;
 
+            // Clear autoplay
+            clearTimeout(settings.timer);
+            if(settings.autoplay_break_on_click && isClick) settings.autoplay=false;
+
             // Set indexes
             if(direction=='next'){
               settings.nextIndex=settings.currentIndex+1;
@@ -179,7 +202,7 @@
             }
 
             // Animate
-            methods.animate.apply($this);
+            methods.animate.apply($this,[direction]);
 
           }
 
@@ -190,6 +213,7 @@
           // Get settings and set this
           var settings = $(this).data('Slider');
           var $this = $(this);
+          var direction;
 
           // Check slider is not currently in action
           if(!settings.action && index!=settings.currentIndex){
@@ -197,51 +221,48 @@
             // Set action to true
             settings.action=true;
 
+            // Clear autoplay
+            clearTimeout(settings.timer);
+            if(settings.autoplay_break_on_click) settings.autoplay=false;
+
+            // Set direction
+            direction=(index>settings.currentIndex) ? 'next' : 'prev';
+
             // Set nextIndex
             settings.nextIndex=parseInt(index);
 
             // Animate
-            methods.animate.apply($this);
+            methods.animate.apply($this,[direction]);
 
           }
 
         },
 
-        animate: function(){
+        animate: function(direction){
 
           // Get settings and set this
           var settings = $(this).data('Slider');
           var $this = $(this);
+          var i, layer, cssPreMove, cssPostMove;
+          var next = [];
+          var current = [];
 
-          // Get cells
+          // Get BGR cells
           var $next=$this.find('.bgr .cell').eq(settings.nextIndex);
           var $current=$this.find('.bgr .cell').eq(settings.currentIndex);
 
-          // Perform animate based on animation type
-          if(settings.animationType=='fade'){
+          // Set Pre/Post CSS dependant on direction
+          cssPreMove=(direction=='next') ? settings.cssPreMove : settings.cssPostMove;
+          cssPostMove=(direction=='next') ? settings.cssPostMove : settings.cssPreMove;
 
-            methods.animate_fade.apply($this,[$next,$current]);
+          // Set current CSS and animate
+          $current.css({ 'z-index':10 });
+          $current.delay(settings.currentDelay).animate(cssPostMove, settings.animationDuration, settings.animationEasing);
 
-          }else if(settings.animationType=='slide'){
-
-            methods.animate_slide.apply($this,[$next,$current]);
-
-          }
-
-        },
-
-        animate_fade: function($next,$current){
-
-          // Get settings and set this
-          var settings = $(this).data('Slider');
-          var $this = $(this);
-
-          // Set pre move CSS
-          $next.css('visibility','visible');
-
-          // Animate
-          $current.delay(settings.currentDelay).animate({ opacity:0 }, settings.animationDuration, settings.animationEasing);
-          $next.delay(settings.nextDelay).animate({ opacity:1 }, settings.animationDuration, settings.animationEasing, function() {
+          // Set next CSS and animate
+          $next.css({ visibility:'visible' ,'z-index':20 });
+          $next.css(cssPreMove);
+          $next.delay(settings.nextDelay).animate(settings.cssActive, settings.animationDuration, settings.animationEasing, function() {
 
             // Set post move CSS
             $current.css('visibility','hidden');
@@ -251,15 +272,34 @@
 
           });
 
-        },
+          // Animate layers
+          for(i in settings.layers){
 
-        animate_slide: function($next,$current){
+            layer=settings.layers[i];
 
-          // Get settings and set this
-          var settings = $(this).data('Slider');
-          var $this = $(this);
+            // Get layer cells
+            next[i]=$this.find('.layer'+i+' .cell').eq(settings.nextIndex);
+            current[i]=$this.find('.layer'+i+' .cell').eq(settings.currentIndex);
 
+            // Set Pre/Post CSS dependant on direction
+            cssPreMove=(direction=='next') ? layer.cssPreMove : layer.cssPostMove;
+            cssPostMove=(direction=='next') ? layer.cssPostMove : layer.cssPreMove;
 
+            // Set current CSS and animate
+            current[i].css({ 'z-index':10 });
+            current[i].delay(layer.currentDelay).animate(cssPostMove, layer.animationDuration, layer.animationEasing);
+
+            // Set next CSS and animate
+            next[i].css({ visibility:'visible' ,'z-index':20 });
+            next[i].css(cssPreMove);
+            next[i].delay(layer.nextDelay).animate(layer.cssActive, layer.animationDuration, layer.animationEasing, function() {
+
+              // Set post move CSS
+              current[i].css('visibility','hidden');
+
+            });
+
+          }
 
         },
 
@@ -279,6 +319,15 @@
           // Update any external listeners
           $("[data-toggle='slider'][data-target='"+settings.selector+"']").removeClass('active');
           $("[data-toggle='slider'][data-target='"+settings.selector+"'][data-index='"+settings.currentIndex+"']").addClass('active');
+
+          // Set Timer
+          if(settings.autoplay){
+            settings.timer = setTimeout(function() {
+
+                methods.move.apply($this, ['next', false]);
+
+            }, settings.autoplay_delay);
+          }
 
           // Set action to false
           settings.action=false;
@@ -347,7 +396,6 @@
 
           // Remove image size modifiers
           $image.removeClass('maxwidth maxheight');
-
 
           // Add image modifiers
           if(settings.image_display=='fit'){
