@@ -6,24 +6,81 @@ base:		"../"
 
 <h1>Slider</h1>
 
-<h1>Fixed width - Variable height</h1>
+<h1>Fixed width - Fixed height (Image fills space)</h1>
+
+      <div class='slider' id='slider4'>
+
+        <div class='cell'>
+          <div class='bgr' style='background:#ff00ff;'></div>
+          <div class='layer0'>
+            <img src='{{page.base}}_assets/imgs/slider_1_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_1_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_1_sm.jpg","md":"{{page.base}}_assets/imgs/slider_1_md.jpg","lg":"{{page.base}}_assets/imgs/slider_1_lg.jpg"}' />
+          </div>
+        </div>
+        <div class='cell'>
+          <div class='bgr' style='background:#00ffff;'></div>
+          <div class='layer0'>
+            <img src='{{page.base}}_assets/imgs/slider_2_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_2_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_2_sm.jpg","md":"{{page.base}}_assets/imgs/slider_2_md.jpg","lg":"{{page.base}}_assets/imgs/slider_2_lg.jpg"}' />
+          </div>
+        </div>
+        <div class='cell'>
+          <div class='bgr' style='background:#ffff00;'></div>
+          <div class='layer0'>
+            <img src='{{page.base}}_assets/imgs/slider_3_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_3_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_3_sm.jpg","md":"{{page.base}}_assets/imgs/slider_3_md.jpg","lg":"{{page.base}}_assets/imgs/slider_3_lg.jpg"}' />
+          </div>
+        </div>
+
+        <i class='fa fa-chevron-right fa-3x slider-next'></i>
+        <i class='fa fa-chevron-left fa-3x slider-prev'></i>
+        <div class='radio'></div>
+
+      </div>
+
+      <div style='height:50px'></div>
+
+
+
+  <div class='container'>
+
+      <h1>Fixed width - Variable height</h1>
 
       <div class='slider' id='slider1'>
 
-        <div class='bgr'>
-          <div class='cell'>
-            <a href='/1'><img src='{{page.base}}_assets/imgs/slider_1_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_1_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_1_sm.jpg","md":"{{page.base}}_assets/imgs/slider_1_md.jpg","lg":"{{page.base}}_assets/imgs/slider_1_lg.jpg"}' /></a>
+      <a href='/1' class='no-style'>
+        <div class='cell'>
+          <div class='bgr'>
+            <img src='{{page.base}}_assets/imgs/slider_1_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_1_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_1_sm.jpg","md":"{{page.base}}_assets/imgs/slider_1_md.jpg","lg":"{{page.base}}_assets/imgs/slider_1_lg.jpg"}' />
           </div>
-          <div class='cell'>
-            <a href='/2'><img src='{{page.base}}_assets/imgs/slider_2_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_2_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_2_sm.jpg","md":"{{page.base}}_assets/imgs/slider_2_md.jpg","lg":"{{page.base}}_assets/imgs/slider_2_lg.jpg"}' /></a>
+          <div class='layer0 hero'>
+              <h6>Lorem ipsum dolor sit amet</h6>
+              <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+          </div>
+          <div class='layer1 textbar'>
+              <h6>Lorem ipsum dolor sit amet</h6>
+              <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
           </div>
         </div>
+      </a>
 
-        <div class='controls'>
-          <i class='fa fa-chevron-right fa-3x slider-next'></i>
-          <i class='fa fa-chevron-left fa-3x slider-prev'></i>
-          <div class='radio'></div>
+      <a href='/2' class='no-style'>
+        <div class='cell'>
+          <div class='bgr'>
+            <img src='{{page.base}}_assets/imgs/slider_2_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_2_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_2_sm.jpg","md":"{{page.base}}_assets/imgs/slider_2_md.jpg","lg":"{{page.base}}_assets/imgs/slider_2_lg.jpg"}' />
+          </div>
+          <div class='layer0 hero'>
+              <h6>Lorem ipsum dolor sit amet</h6>
+              <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+          </div>
+          <div class='layer1 textbar'>
+              <h6>Lorem ipsum dolor sit amet</h6>
+              <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+          </div>
         </div>
+      </a>
+
+        <i class='fa fa-chevron-right fa-3x slider-next'></i>
+        <i class='fa fa-chevron-left fa-3x slider-prev'></i>
+        <div class='radio'></div>
+        <div class='counter'><span class='current'></span> / <span class='total'></span></div>
 
       </div>
 
@@ -38,23 +95,39 @@ base:		"../"
 
       <div class='slider' id='slider2'>
 
-        <div class='bgr'>
-          <div class='cell'>
+        <div class='cell'>
+          <div class='bgr'>
             <img src='{{page.base}}_assets/imgs/slider_1_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_1_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_1_sm.jpg","md":"{{page.base}}_assets/imgs/slider_1_md.jpg","lg":"{{page.base}}_assets/imgs/slider_1_lg.jpg"}' />
-          </div>
-          <div class='cell'>
-            <img src='{{page.base}}_assets/imgs/slider_2_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_2_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_2_sm.jpg","md":"{{page.base}}_assets/imgs/slider_2_md.jpg","lg":"{{page.base}}_assets/imgs/slider_2_lg.jpg"}' />
-          </div>
-          <div class='cell'>
-            <img src='{{page.base}}_assets/imgs/slider_3_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_3_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_3_sm.jpg","md":"{{page.base}}_assets/imgs/slider_3_md.jpg","lg":"{{page.base}}_assets/imgs/slider_3_lg.jpg"}' />
+            <div class='textbar'>
+              <h6>Lorem ipsum dolor sit amet</h6>
+              <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+            </div>
           </div>
         </div>
 
-        <div class='controls'>
-          <i class='fa fa-chevron-right fa-3x slider-next'></i>
-          <i class='fa fa-chevron-left fa-3x slider-prev'></i>
-          <div class='radio'></div>
+        <div class='cell'>
+          <div class='bgr'>
+            <img src='{{page.base}}_assets/imgs/slider_2_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_2_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_2_sm.jpg","md":"{{page.base}}_assets/imgs/slider_2_md.jpg","lg":"{{page.base}}_assets/imgs/slider_2_lg.jpg"}' />
+            <div class='textbar'>
+              <h6>Ut wisi enim ad minim veniam</h6>
+              <p>Quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat tation ullamcorper suscipit lobortis.</p>
+            </div>
+          </div>
         </div>
+
+        <div class='cell'>
+          <div class='bgr'>
+            <img src='{{page.base}}_assets/imgs/slider_3_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_3_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_3_sm.jpg","md":"{{page.base}}_assets/imgs/slider_3_md.jpg","lg":"{{page.base}}_assets/imgs/slider_3_lg.jpg"}' />
+            <div class='textbar'>
+              <h6>Suscipit lobortis nisl ut aliquip ex</h6>
+              <p>Lorem ipsum dolor sit amet wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+            </div>
+          </div>
+        </div>
+
+        <i class='fa fa-chevron-right fa-3x slider-next'></i>
+        <i class='fa fa-chevron-left fa-3x slider-prev'></i>
+        <div class='radio'></div>
 
       </div>
 
@@ -64,46 +137,89 @@ base:		"../"
 
       <div class='slider' id='slider3'>
 
-        <div class='bgr'>
-          <div class='cell'>
+        <div class='cell'>
+          <div class='bgr'>
             <img src='{{page.base}}_assets/imgs/slider_1_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_1_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_1_sm.jpg","md":"{{page.base}}_assets/imgs/slider_1_md.jpg","lg":"{{page.base}}_assets/imgs/slider_1_lg.jpg"}' />
-          </div>
-          <div class='cell'>
-            <img src='{{page.base}}_assets/imgs/slider_2_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_2_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_2_sm.jpg","md":"{{page.base}}_assets/imgs/slider_2_md.jpg","lg":"{{page.base}}_assets/imgs/slider_2_lg.jpg"}' />
-          </div>
-          <div class='cell'>
-            <img src='{{page.base}}_assets/imgs/slider_3_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_3_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_3_sm.jpg","md":"{{page.base}}_assets/imgs/slider_3_md.jpg","lg":"{{page.base}}_assets/imgs/slider_3_lg.jpg"}' />
+            <div class='textbar'>
+              <h6>Lorem ipsum dolor sit amet</h6>
+              <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+            </div>
           </div>
         </div>
 
-        <div class='controls'>
-          <i class='fa fa-chevron-right fa-3x slider-next'></i>
-          <i class='fa fa-chevron-left fa-3x slider-prev'></i>
-          <div class='radio'></div>
+        <div class='cell'>
+          <div class='bgr'>
+            <img src='{{page.base}}_assets/imgs/slider_2_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_2_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_2_sm.jpg","md":"{{page.base}}_assets/imgs/slider_2_md.jpg","lg":"{{page.base}}_assets/imgs/slider_2_lg.jpg"}' />
+            <div class='textbar'>
+              <h6>Ut wisi enim ad minim veniam</h6>
+              <p>Quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat tation ullamcorper suscipit lobortis.</p>
+            </div>
+          </div>
         </div>
+
+        <div class='cell'>
+          <div class='bgr'>
+            <img src='{{page.base}}_assets/imgs/slider_3_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_3_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_3_sm.jpg","md":"{{page.base}}_assets/imgs/slider_3_md.jpg","lg":"{{page.base}}_assets/imgs/slider_3_lg.jpg"}' />
+            <div class='textbar'>
+              <h6>Suscipit lobortis nisl ut aliquip ex</h6>
+              <p>Lorem ipsum dolor sit amet wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+            </div>
+          </div>
+        </div>
+
+        <i class='fa fa-chevron-right fa-3x slider-next'></i>
+        <i class='fa fa-chevron-left fa-3x slider-prev'></i>
 
       </div>
 
       <div style='height:50px'></div>
-
 
       <script>
 
 $(function(){
 
   // Set up event listners
-  $('#slider1').on('next.sa.slider',function(event){
+  $('#slider1').on('pre-move.sa.slider',function(event,settings){
     console.log(event.type+" - "+event.namespace);
   });
-  $('#slider1').on('prev.sa.slider',function(event){
+  $('#slider1').on('post-move.sa.slider',function(event,settings){
     console.log(event.type+" - "+event.namespace);
   });
 
   $('#slider1').Slider({
+
     aspect_ratio:'fixed',
     activeIndex:1,
-    nextDelay:500,
-    currentDelay:0
+
+    //animationPreset:'slide',
+    animationDuration:200,
+    animationEasing:'linear',
+    nextDelay:400,
+    currentDelay:400,
+    cssPreMove:{ top:'-100%' },
+    cssActive:{ top:0 },
+    cssPostMove:{ top:'100%' },
+
+    autoplay:false,
+
+    layers:[{
+      animationDuration:200,
+      animationEasing:'linear',
+      nextDelay:600,
+      currentDelay:200,
+      cssPreMove:{ opacity:0 },
+      cssActive:{ opacity:1 },
+      cssPostMove:{ opacity:0 }
+    }, {
+      animationDuration:200,
+      animationEasing:'linear',
+      nextDelay:800,
+      currentDelay:0,
+      cssPreMove:{ bottom:'-160px' },
+      cssActive:{ bottom:0 },
+      cssPostMove:{ bottom:'-160px' }
+    }]
+
   });
 
   $('#slider2').Slider({
@@ -114,7 +230,8 @@ $(function(){
       sm:500,
       md:500,
       lg:500
-    }
+    },
+    animationPreset:'slide'
   });
 
   $('#slider3').Slider({
@@ -126,7 +243,31 @@ $(function(){
       md:500,
       lg:500
     },
+    animationPreset:'fade'
   });
+
+
+  $('#slider4').Slider({
+    aspect_ratio:'variable',
+    image_display:'fit',
+    height:{
+      xs:300,
+      sm:300,
+      md:300,
+      lg:300
+    },
+    animationPreset:'fade',
+    layers:[{
+      animationDuration:200,
+      animationEasing:'linear',
+      nextDelay:0,
+      currentDelay:0,
+      cssPreMove:{ opacity:0 },
+      cssActive:{ opacity:1 },
+      cssPostMove:{ opacity:0 }
+    }]
+  });
+
 
 
 

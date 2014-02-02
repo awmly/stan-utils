@@ -20,7 +20,7 @@ module.exports = function(grunt) {
             },
             css: {
                 files: ['src/**/*.less'],
-                tasks: ['less']
+                tasks: ['concat','less']
             }
         },
 
