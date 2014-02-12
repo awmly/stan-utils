@@ -5,8 +5,7 @@
 
 /** Nav */
 .sa-nav,
-.sa-nav li,
-.sa-nav .sa-title{
+.sa-nav li{
   padding:0;
   margin:0;
   position:relative;
@@ -21,7 +20,7 @@
 /** Block Nav */
 .sa-nav.sa-block a{
   display:block;
-  padding:6px 0;
+  padding:7px 0;
   background:#eee;
 }
 
@@ -42,7 +41,7 @@
   margin:0 0 6px 0;
 }
 
-.nav-vertical:not(.sa-block) li:last-child a{
+.nav-vertical:not(.sa-block) > ul > li:last-child > a{
   margin-bottom:0;
 }
 
@@ -73,63 +72,31 @@
 }
 
 
-/** Small */
+/** Sizes */
+.sa-nav{
+  @size: xs;
+  @import (multiple) "src/css.navigation/navigation.inc.less";
+}
 
-  /* Nav */
-  .sa-nav.sa-sm li a{
-    line-height:18px;
-  }
+.sa-nav{
+  @size: sm;
+  @import (multiple) "src/css.navigation/navigation.inc.less";
+}
 
-  /* Icons */
-  .sa-nav.sa-sm i{
-    top:8px;
-  }
-  .sa-nav.sa-sm.sa-block i{
-    top:16px;
-  }
+.sa-nav{
+  @size: md;
+  @import (multiple) "src/css.navigation/navigation.inc.less";
+}
 
-  /* Horizontal List */
-  .nav-horizontal.sa-sm:not(.sa-block)>ul>li,
-  .nav-horizontal.sa-sm:not(.sa-block) .sa-title{
-    margin-right:15px;
-  }
+.sa-nav{
+  @size: lg;
+  @import (multiple) "src/css.navigation/navigation.inc.less";
+}
 
-  /* Horizontal / Vertical Block */
-  .sa-nav.sa-sm.sa-block a,
-  .sa-nav.sa-sm.sa-block .sa-title,
-  .nav-horizontal.sa-sm:not(.sa-block) >ul>li>ul>li,
-  .nav-horizontal.sa-sm:not(.sa-block) ul ul ul li{
-    padding-left:15px;
-    padding-right:15px;
-  }
-
-  /* Horizontal Sub Nav */
-  .nav-horizontal.sa-sm:not(.sa-block) ul ul{
-    padding-top:8px;
-    padding-bottom:8px;
-    left:-15px;
-  }
-  .nav-horizontal.sa-sm:not(.sa-block) ul ul ul{
-    top:-8px;
-  }
-
-  /* Vertical Sub Nav */
-  .nav-vertical.sa-sm:not(.sa-block) ul ul li{
-    padding-left:15px;
-  }
-  .nav-vertical.sa-sm:not(.sa-block) ul ul ul li,
-  .nav-vertical.sa-sm.sa-block ul ul a{
-    padding-left:30px;
-  }
-  .nav-vertical.sa-sm:not(.sa-block) ul ul ul ul li,
-  .nav-vertical.sa-sm.sa-block ul ul ul a{
-    padding-left:45px;
-  }
-  .nav-vertical.sa-sm.sa-block ul ul ul ul a{
-    padding-left:60px;
-  }
-
-
+.sa-nav{
+  @size: xl;
+  @import (multiple) "src/css.navigation/navigation.inc.less";
+}
 
 
 /** Overrides */
@@ -137,11 +104,3 @@
   padding-left:0 !important;
   padding-right:0 !important;
 }
-
-.sa-nav.sa-block ul.sa-content:before,
-.sa-nav.sa-block ul.sa-content:after,
-.sa-nav.nav-horizontal ul.sa-content:before,
-.sa-nav.nav-horizontal ul.sa-content:after{
-  height:0 !important;
-}
-

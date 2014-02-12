@@ -57,65 +57,25 @@
 
                 // Set this
                 var $this = $(this);
-                var i;
+                var i, layer;
 
                 // Set Options
                 var settings = $.extend({
-                    aspect_ratio: 'fixed',
-                    image_display: 'fit',
-                    height: {
-                        xs: 100,
-                        sm: 100,
-                        md: 100,
-                        lg: 100
-                    },
+                    height: '.layer0 img',
                     activeIndex: 0,
-                    animationPreset: false,
-                    animationDuration: 300,
-                    animationEasing: 'linear',
-                    nextDelay: 0,
-                    currentDelay: 0,
-                    cssPreMove: false,
-                    cssActive: false,
-                    cssPostMove: false,
                     autoplay: false,
                     autoplay_break_on_click: true,
                     autoplay_delay: 5000,
-                    layers: [],
-                    currentIndex: 0,
-                    nextIndex: 0,
-                    total: 0,
-                    action: false,
-                    timer: false
+                    layers: []
                 }, options);
 
+                settings.action = settings.timer = settings.animationLength = false;
 
-                // Set BGR CSS properties from Preset
-                if (settings.animationPreset == 'fade') {
+                // Save settings
+                $this.data('Slider', settings);
 
-                    settings.cssPreMove = {
-                        opacity: 0
-                    };
-                    settings.cssActive = {
-                        opacity: 1
-                    };
-                    settings.cssPostMove = {
-                        opacity: 0
-                    };
-
-                } else if (settings.animationPreset == 'slide') {
-
-                    settings.cssPreMove = {
-                        left: '100%'
-                    };
-                    settings.cssActive = {
-                        left: 0
-                    };
-                    settings.cssPostMove = {
-                        left: '-100%'
-                    };
-
-                }
+                // Set aspect ratio type
+                if(typeof settings.height==='object') settings.aspect_ratio='variable'; else settings.aspect_ratio='fixed';
 
                 // Set total
                 settings.total = $this.find('.cell').length;
@@ -124,16 +84,76 @@
                 // Set currentIndex
                 settings.currentIndex = settings.nextIndex = settings.activeIndex;
 
-                // Save settings
-                $this.data('Slider', settings);
-
-                // Add aspect ratio class
-                $this.addClass(settings.aspect_ratio);
-
                 // Hide cells
                 $this.find('.cell').css({
                     visibility: 'hidden'
                 });
+
+                // Layers
+                for (i in settings.layers) {
+
+                  layer = $.extend({
+                    animationDuration: 300,
+                    animationEasing: 'linear',
+                    nextDelay: 0,
+                    currentDelay: 0,
+                    cssPreMove: false,
+                    cssActive: false,
+                    cssPostMove: false,
+                    selector:[]
+                  }, settings.layers[i]);
+
+
+                  // set layer selector
+                  if(layer.external) {
+
+                    layer.selector = $("[data-target='" + settings.selector + "'].layer" + i);
+
+                  } else {
+
+                    layer.selector = $this.find('.layer'+i);
+
+                  }
+
+                  // set layer presets
+                  if (layer.animationPreset == 'fade') {
+
+                      layer.cssPreMove = {
+                          opacity: 0
+                      };
+                      layer.cssActive = {
+                          opacity: 1
+                      };
+                      layer.cssPostMove = {
+                          opacity: 0
+                      };
+
+                  } else if (layer.animationPreset == 'slide') {
+
+                      layer.cssPreMove = {
+                          left: '100%'
+                      };
+                      layer.cssActive = {
+                          left: 0
+                      };
+                      layer.cssPostMove = {
+                          left: '-100%'
+                      };
+
+                  }
+
+                  // set animationLength
+                  if((layer.nextDelay+layer.animationDuration)>settings.animationLength){
+                    settings.animationLength=layer.nextDelay+layer.animationDuration;
+                  }
+
+                  // apply pre move css
+                  $(layer.selector).css(layer.cssPreMove);
+
+                  // save layer data base to settings
+                  settings.layers[i]=layer;
+
+                }
 
                 // Set radio buttons
                 for (i = 0; i < settings.total; i++) {
@@ -148,13 +168,9 @@
                 });
 
                 // Add load events
-                $this.find('.bgr img').load(function() {
+                $this.find('img').load(function() {
 
-                    if (settings.aspect_ratio == 'variable') {
-                        methods.imgload.apply($this, [$(this)]);
-                    } else {
-                        methods.resize.apply($this);
-                    }
+                    methods.resize.apply($this);
 
                 });
 
@@ -180,12 +196,21 @@
 
                 // Set load event
                 $(window).on('load', function() {
+
                     $this.css({
-                        visibility: 'visible'
+                      visibility: 'visible'
                     });
+
                     $this.find('.cell').eq(settings.activeIndex).css({
-                        visibility: 'visible'
+                      visibility: 'visible'
                     });
+
+                    for (i in settings.layers) {
+
+                      $(settings.layers[i].selector).eq(settings.activeIndex).css(settings.layers[i].cssActive);
+
+                    }
+
                 });
 
             });
@@ -263,16 +288,12 @@
             var next = [];
             var current = [];
 
-            // Tigger Pre Move Event
+            // Tigger pre move event
             $(this).trigger('pre-move.sa.slider', [settings]);
 
             // Get BGR cells
             var $next = $this.find('.cell').eq(settings.nextIndex);
             var $current = $this.find('.cell').eq(settings.currentIndex);
-
-            // Set Pre/Post CSS dependant on direction
-            cssPreMove = (direction == 'next') ? settings.cssPreMove : settings.cssPostMove;
-            cssPostMove = (direction == 'next') ? settings.cssPostMove : settings.cssPreMove;
 
             // Set CSS for next/current cells
             $current.css({
@@ -281,22 +302,6 @@
             $next.css({
                 visibility: 'visible',
                 'z-index': 20
-            });
-
-            // Set next CSS and animate next/current bgr layers
-            $current.find('.bgr').delay(settings.currentDelay).animate(cssPostMove, settings.animationDuration, settings.animationEasing);
-            $next.find('.bgr').css(cssPreMove);
-            $next.find('.bgr').delay(settings.nextDelay).animate(settings.cssActive, settings.animationDuration, settings.animationEasing, function() {
-
-                // Set post move CSS
-                $current.css('visibility', 'hidden');
-
-                // Tigger Post Move Event
-                $(this).trigger('post-move.sa.slider', [settings]);
-
-                // Animate complete
-                methods.animate_complete.apply($this);
-
             });
 
             // Animate layers
@@ -308,12 +313,27 @@
                 cssPreMove = (direction == 'next') ? layer.cssPreMove : layer.cssPostMove;
                 cssPostMove = (direction == 'next') ? layer.cssPostMove : layer.cssPreMove;
 
+                // get next
+                next[i] = $(layer.selector).eq(settings.nextIndex);
+                current[i] = $(layer.selector).eq(settings.currentIndex);
+
                 // Set next CSS and animate
-                $current.find('.layer' + i).delay(layer.currentDelay).animate(cssPostMove, layer.animationDuration, layer.animationEasing);
-                $next.find('.layer' + i).css(cssPreMove);
-                $next.find('.layer' + i).delay(layer.nextDelay).animate(layer.cssActive, layer.animationDuration, layer.animationEasing);
+                current[i].delay(layer.currentDelay).animate(cssPostMove, layer.animationDuration, layer.animationEasing);
+                next[i].css(cssPreMove);
+                next[i].delay(layer.nextDelay).animate(layer.cssActive, layer.animationDuration, layer.animationEasing);
 
             }
+
+            // Set post animation timeout
+            setTimeout(function() {
+
+              // Tigger post move event
+              $this.trigger('post-move.sa.slider', [settings]);
+
+              // Animation complete
+              methods.animate_complete.apply($this);
+
+            }, settings.animationLength);
 
         },
 
@@ -370,24 +390,14 @@
             // Perform size fixes
             if (settings.aspect_ratio == 'fixed') {
 
-                // Set image width to auto to allow image to be native size
-                $this.find('.bgr img').css('width', 'auto');
-
                 // Get image max width and height
-                $this.find('.bgr img').each(function() {
-                    if ($(this).width() > iw) iw = $(this).width();
+                $this.find(settings.height).each(function() {
                     if ($(this).height() > ih) ih = $(this).height();
                 });
 
-                // Remove with auto
-                $this.find('.bgr img').css('width', '');
-
-                // Calculate new height
-                var h = ih * ($this.width() / iw);
-
                 // Set height
                 $this.css({
-                    height: h + 'px'
+                    height: ih + 'px'
                 });
 
             } else {
@@ -395,61 +405,7 @@
                 // Set slider height
                 $this.css('height', settings.height[$STAN.device] + 'px');
 
-                // Loop through images - set width, height and margins
-                $this.find('.bgr img').each(function() {
-
-                    methods.imgload.apply($this, [$(this)]);
-
-                });
-
             }
-
-        },
-
-        imgload: function($image) {
-
-            // Get settings and set this
-            var settings = $(this).data('Slider');
-            var $this = $(this);
-
-
-            // Set slider width and height
-            var sw = $this.width();
-            var sh = settings.height[$STAN.device];
-
-
-            // Remove image size modifiers
-            $image.removeClass('maxwidth maxheight');
-
-            // Add image modifiers
-            if (settings.image_display == 'fit') {
-
-                if (($image.width() / $image.height()) > (sw / sh)) {
-                    $image.addClass('maxwidth');
-                } else {
-                    $image.addClass('maxheight');
-                }
-
-            } else {
-
-                if (($image.width() / $image.height()) < (sw / sh)) {
-                    $image.addClass('maxwidth');
-                } else {
-                    $image.addClass('maxheight');
-                }
-
-            }
-
-            // Calculate margins
-            var mt = ($this.height() - $image.height()) / 2;
-            var ml = ($this.width() - $image.width()) / 2;
-
-
-            // Set margins
-            $image.css({
-                'margin-top': mt + 'px',
-                'margin-left': ml + 'px'
-            });
 
         }
 

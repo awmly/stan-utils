@@ -8,34 +8,48 @@ base:		"../"
 
 <h1>Fixed width - Fixed height (Image fills space)</h1>
 
-      <div class='slider' id='slider4'>
+      <div class='hero-1' style='position:relative;'>
 
-        <div class='cell'>
-          <div class='bgr' style='background:#ff00ff;'></div>
-          <div class='layer0'>
-            <img src='{{page.base}}_assets/imgs/slider_1_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_1_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_1_sm.jpg","md":"{{page.base}}_assets/imgs/slider_1_md.jpg","lg":"{{page.base}}_assets/imgs/slider_1_lg.jpg"}' />
+          <div class='ext-layers' style='position:absolute;top:0;left:0;width:100%;height:100%;z-index:10;'>
+            <div class='layer0' data-target='.hero-1 .slider' style='position:absolute;top:0;left:0;width:100%;background:#f0f;height:100%;'></div>
+            <div class='layer0' data-target='.hero-1 .slider' style='position:absolute;top:0;left:0;width:100%;background:#0f0;height:100%;'></div>
           </div>
-        </div>
-        <div class='cell'>
-          <div class='bgr' style='background:#00ffff;'></div>
-          <div class='layer0'>
-            <img src='{{page.base}}_assets/imgs/slider_2_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_2_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_2_sm.jpg","md":"{{page.base}}_assets/imgs/slider_2_md.jpg","lg":"{{page.base}}_assets/imgs/slider_2_lg.jpg"}' />
-          </div>
-        </div>
-        <div class='cell'>
-          <div class='bgr' style='background:#ffff00;'></div>
-          <div class='layer0'>
-            <img src='{{page.base}}_assets/imgs/slider_3_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_3_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_3_sm.jpg","md":"{{page.base}}_assets/imgs/slider_3_md.jpg","lg":"{{page.base}}_assets/imgs/slider_3_lg.jpg"}' />
-          </div>
-        </div>
 
-        <i class='fa fa-chevron-right fa-3x slider-next'></i>
-        <i class='fa fa-chevron-left fa-3x slider-prev'></i>
-        <div class='radio'></div>
+          <div style='width:600px;margin:0 auto;position:relative;z-index:20;'>
+            <div class='col-md-9'>
+
+              <div class='slider'>
+                <div class='cell'>
+                  <div class='layer1'>
+                    <img src='{{page.base}}_assets/imgs/slider_1_lg.jpg' />
+                  </div>
+                </div>
+                <div class='cell'>
+                  <div class='layer1'>
+                    <img src='{{page.base}}_assets/imgs/slider_2_lg.jpg' />
+                  </div>
+                </div>
+
+                <i class='fa fa-chevron-right fa-3x slider-next'></i>
+                <i class='fa fa-chevron-left fa-3x slider-prev'></i>
+                <div class='radio'></div>
+
+              </div>
+
+            </div>
+            <div class='col-md-3'>
+              <div style='height:100%;background:#ff0;'>a</div>
+            </div>
+          </div>
+
+          <div style='clear:both;'></div>
 
       </div>
 
+
       <div style='height:50px'></div>
+
+
 
 
 
@@ -47,14 +61,14 @@ base:		"../"
 
       <a href='/1' class='no-style'>
         <div class='cell'>
-          <div class='bgr'>
+          <div class='layer0'>
             <img src='{{page.base}}_assets/imgs/slider_1_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_1_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_1_sm.jpg","md":"{{page.base}}_assets/imgs/slider_1_md.jpg","lg":"{{page.base}}_assets/imgs/slider_1_lg.jpg"}' />
           </div>
-          <div class='layer0 hero'>
+          <div class='layer1 hero'>
               <h6>Lorem ipsum dolor sit amet</h6>
               <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
           </div>
-          <div class='layer1 textbar'>
+          <div class='layer2 textbar'>
               <h6>Lorem ipsum dolor sit amet</h6>
               <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
           </div>
@@ -63,14 +77,14 @@ base:		"../"
 
       <a href='/2' class='no-style'>
         <div class='cell'>
-          <div class='bgr'>
+          <div class='layer0'>
             <img src='{{page.base}}_assets/imgs/slider_2_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_2_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_2_sm.jpg","md":"{{page.base}}_assets/imgs/slider_2_md.jpg","lg":"{{page.base}}_assets/imgs/slider_2_lg.jpg"}' />
           </div>
-          <div class='layer0 hero'>
+          <div class='layer1 hero'>
               <h6>Lorem ipsum dolor sit amet</h6>
               <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
           </div>
-          <div class='layer1 textbar'>
+          <div class='layer2 textbar'>
               <h6>Lorem ipsum dolor sit amet</h6>
               <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
           </div>
@@ -85,8 +99,8 @@ base:		"../"
       </div>
 
       <p>
-        <a href='#' data-toggle='slider' data-target='#slider1' data-index='0'>Load Image 1</a> |
-        <a href='#' data-toggle='slider' data-target='#slider1' data-index='1'>Load Image 2</a>
+        <a href='javascript:;' data-toggle='slider' data-target='#slider1' data-index='0'>Load Image 1</a> |
+        <a href='javascript:;' data-toggle='slider' data-target='#slider1' data-index='1'>Load Image 2</a>
       </p>
 
       <div style='height:50px'></div>
@@ -96,8 +110,8 @@ base:		"../"
       <div class='slider' id='slider2'>
 
         <div class='cell'>
-          <div class='bgr'>
-            <img src='{{page.base}}_assets/imgs/slider_1_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_1_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_1_sm.jpg","md":"{{page.base}}_assets/imgs/slider_1_md.jpg","lg":"{{page.base}}_assets/imgs/slider_1_lg.jpg"}' />
+          <div class='layer0'>
+            <img src='{{page.base}}_assets/imgs/slider_1_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_1_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_1_sm.jpg","md":"{{page.base}}_assets/imgs/slider_1_md.jpg","lg":"{{page.base}}_assets/imgs/slider_1_lg.jpg"}' data-img-box="fill" />
             <div class='textbar'>
               <h6>Lorem ipsum dolor sit amet</h6>
               <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
@@ -106,8 +120,8 @@ base:		"../"
         </div>
 
         <div class='cell'>
-          <div class='bgr'>
-            <img src='{{page.base}}_assets/imgs/slider_2_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_2_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_2_sm.jpg","md":"{{page.base}}_assets/imgs/slider_2_md.jpg","lg":"{{page.base}}_assets/imgs/slider_2_lg.jpg"}' />
+          <div class='layer0'>
+            <img src='{{page.base}}_assets/imgs/slider_2_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_2_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_2_sm.jpg","md":"{{page.base}}_assets/imgs/slider_2_md.jpg","lg":"{{page.base}}_assets/imgs/slider_2_lg.jpg"}' data-img-box="fill" />
             <div class='textbar'>
               <h6>Ut wisi enim ad minim veniam</h6>
               <p>Quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat tation ullamcorper suscipit lobortis.</p>
@@ -116,8 +130,8 @@ base:		"../"
         </div>
 
         <div class='cell'>
-          <div class='bgr'>
-            <img src='{{page.base}}_assets/imgs/slider_3_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_3_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_3_sm.jpg","md":"{{page.base}}_assets/imgs/slider_3_md.jpg","lg":"{{page.base}}_assets/imgs/slider_3_lg.jpg"}' />
+          <div class='layer0'>
+            <img src='{{page.base}}_assets/imgs/slider_3_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_3_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_3_sm.jpg","md":"{{page.base}}_assets/imgs/slider_3_md.jpg","lg":"{{page.base}}_assets/imgs/slider_3_lg.jpg"}' data-img-box="fill" />
             <div class='textbar'>
               <h6>Suscipit lobortis nisl ut aliquip ex</h6>
               <p>Lorem ipsum dolor sit amet wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
@@ -138,8 +152,8 @@ base:		"../"
       <div class='slider' id='slider3'>
 
         <div class='cell'>
-          <div class='bgr'>
-            <img src='{{page.base}}_assets/imgs/slider_1_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_1_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_1_sm.jpg","md":"{{page.base}}_assets/imgs/slider_1_md.jpg","lg":"{{page.base}}_assets/imgs/slider_1_lg.jpg"}' />
+          <div class='layer0'>
+            <img src='{{page.base}}_assets/imgs/slider_1_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_1_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_1_sm.jpg","md":"{{page.base}}_assets/imgs/slider_1_md.jpg","lg":"{{page.base}}_assets/imgs/slider_1_lg.jpg"}' data-img-box="fit" />
             <div class='textbar'>
               <h6>Lorem ipsum dolor sit amet</h6>
               <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
@@ -148,8 +162,8 @@ base:		"../"
         </div>
 
         <div class='cell'>
-          <div class='bgr'>
-            <img src='{{page.base}}_assets/imgs/slider_2_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_2_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_2_sm.jpg","md":"{{page.base}}_assets/imgs/slider_2_md.jpg","lg":"{{page.base}}_assets/imgs/slider_2_lg.jpg"}' />
+          <div class='layer0'>
+            <img src='{{page.base}}_assets/imgs/slider_2_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_2_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_2_sm.jpg","md":"{{page.base}}_assets/imgs/slider_2_md.jpg","lg":"{{page.base}}_assets/imgs/slider_2_lg.jpg"}' data-img-box="fit" />
             <div class='textbar'>
               <h6>Ut wisi enim ad minim veniam</h6>
               <p>Quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat tation ullamcorper suscipit lobortis.</p>
@@ -158,8 +172,8 @@ base:		"../"
         </div>
 
         <div class='cell'>
-          <div class='bgr'>
-            <img src='{{page.base}}_assets/imgs/slider_3_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_3_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_3_sm.jpg","md":"{{page.base}}_assets/imgs/slider_3_md.jpg","lg":"{{page.base}}_assets/imgs/slider_3_lg.jpg"}' />
+          <div class='layer0'>
+            <img src='{{page.base}}_assets/imgs/slider_3_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_3_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_3_sm.jpg","md":"{{page.base}}_assets/imgs/slider_3_md.jpg","lg":"{{page.base}}_assets/imgs/slider_3_lg.jpg"}' data-img-box="fit" />
             <div class='textbar'>
               <h6>Suscipit lobortis nisl ut aliquip ex</h6>
               <p>Lorem ipsum dolor sit amet wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
@@ -187,22 +201,17 @@ $(function(){
   });
 
   $('#slider1').Slider({
-
-    aspect_ratio:'fixed',
     activeIndex:1,
-
-    //animationPreset:'slide',
-    animationDuration:200,
-    animationEasing:'linear',
-    nextDelay:400,
-    currentDelay:400,
-    cssPreMove:{ top:'-100%' },
-    cssActive:{ top:0 },
-    cssPostMove:{ top:'100%' },
-
     autoplay:false,
-
     layers:[{
+      animationDuration:200,
+      animationEasing:'linear',
+      nextDelay:400,
+      currentDelay:400,
+      cssPreMove:{ top:'-100%' },
+      cssActive:{ top:0 },
+      cssPostMove:{ top:'100%' }
+    }, {
       animationDuration:200,
       animationEasing:'linear',
       nextDelay:600,
@@ -223,48 +232,43 @@ $(function(){
   });
 
   $('#slider2').Slider({
-    aspect_ratio:'variable',
-    image_display:'fill',
     height:{
       xs:400,
       sm:500,
       md:500,
       lg:500
     },
-    animationPreset:'slide'
+    layers:[{
+      animationPreset:'slide'
+    }]
   });
 
   $('#slider3').Slider({
-    aspect_ratio:'variable',
-    image_display:'fit',
     height:{
       xs:400,
       sm:500,
       md:500,
       lg:500
     },
-    animationPreset:'fade'
+    layers:[{
+      animationPreset:'fade'
+    }]
   });
 
 
-  $('#slider4').Slider({
-    aspect_ratio:'variable',
-    image_display:'fit',
-    height:{
-      xs:300,
-      sm:300,
-      md:300,
-      lg:300
-    },
-    animationPreset:'fade',
+  $('.hero-1 .slider').Slider({
+    height: '.layer1 img',
     layers:[{
-      animationDuration:200,
-      animationEasing:'linear',
-      nextDelay:0,
+      animationPreset:'fade',
+      nextDelay:500,
+      currentDelay:200,
+      animationDuration:300,
+      external:true,
+    }, {
+      animationPreset:'fade',
+      nextDelay:800,
       currentDelay:0,
-      cssPreMove:{ opacity:0 },
-      cssActive:{ opacity:1 },
-      cssPostMove:{ opacity:0 }
+      animationDuration:200
     }]
   });
 

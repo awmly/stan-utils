@@ -39,6 +39,7 @@ module.exports = function(grunt) {
                     port: 9001,
                     open: true,
                     livereload: true,
+                    hostname:'*',
                     base: '_site'
                 }
             },
@@ -71,7 +72,7 @@ module.exports = function(grunt) {
 
         concat: {
           dist: {
-            src: ['src/stan/stan.less', 'src/**/*.less'],
+            src: ['src/stan/stan.less', 'src/**/*.less' ,'!src/**/*.inc.less'],
             dest: 'tmp/less.less',
           },
         },

@@ -16,5 +16,5 @@ version:			"0.0.1"
 tab:			  	"&nbsp;&nbsp;"
 
 # URLs
-download:			"https://github.com/awomersley/stan-plugins/releases/download/[version]/stan-plugins-[version].zip"
+download:			"http://stan-utils.smartarts.co.uk/releases/[version]/stan-plugins-[version].zip"
 github:				"https://github.com/awomersley/stan-plugins"
