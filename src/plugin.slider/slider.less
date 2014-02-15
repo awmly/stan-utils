@@ -1,11 +1,10 @@
 /** General */
 .slider{
   position:relative;
-  overflow:hidden;
   visibility:hidden;
 }
 
-.slider .cell{
+.slider .frame{
   position:absolute;
   top:0;
   left:0;
@@ -15,11 +14,6 @@
 }
 
 /** layers */
-.slider [class*="layer"]{
-  position:absolute;
-  top:0;
-  left:0;
-}
 .slider .layer0{
   z-index:10;
 }
@@ -35,10 +29,13 @@
 .slider .layer4{
   z-index:50;
 }
+.slider .layer5{
+  z-index:60;
+}
 
 
 /** Radio */
-.slider .radio{
+.slider .dots{
   position:absolute;
   left:50%;
   margin-left:-100px;
@@ -48,7 +45,7 @@
   z-index:1000;
 }
 
-.slider .radio span{
+.slider .dots span{
   display:inline-block;
   width:12px;
   height:12px;
@@ -58,13 +55,13 @@
   cursor:pointer;
 }
 
-.slider .radio span.active{
+.slider .dots span.active{
   background:#111;
 }
 
 /** Next / Prev */
-.slider i.slider-next,
-.slider i.slider-prev{
+.slider .next,
+.slider .prev{
 	position:absolute;
 	top:50%;
 	margin-top:-15px;
@@ -73,14 +70,14 @@
 	text-align:center;
 	line-height:30px;
   cursor:pointer;
-  z-index:1000;
+  z-index:100;
 }
 
-.slider i.slider-next{
+.slider .next{
 	right:10px;
 }
 
-.slider i.slider-prev{
+.slider .prev{
 	left:10px;
 }
 
@@ -93,7 +90,7 @@
   font-size:16px;
   background:#111;
   color:#fff;
-  z-index:1000;
+  z-index:100;
 }
 
 

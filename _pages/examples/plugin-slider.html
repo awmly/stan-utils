@@ -19,12 +19,12 @@ base:		"../"
             <div class='col-md-9'>
 
               <div class='slider'>
-                <div class='cell'>
+                <div class='frame'>
                   <div class='layer1'>
                     <img src='{{page.base}}_assets/imgs/slider_1_lg.jpg' />
                   </div>
                 </div>
-                <div class='cell'>
+                <div class='frame'>
                   <div class='layer1'>
                     <img src='{{page.base}}_assets/imgs/slider_2_lg.jpg' />
                   </div>
@@ -33,6 +33,11 @@ base:		"../"
                 <i class='fa fa-chevron-right fa-3x slider-next'></i>
                 <i class='fa fa-chevron-left fa-3x slider-prev'></i>
                 <div class='radio'></div>
+
+                <p style='position:absolute;top:0;left:0;z-index:1000000;'>
+        <a href='javascript:;' data-toggle='slider' data-index='0'>Load Image 1</a> |
+        <a href='javascript:;' data-toggle='slider' data-index='1'>Load Image 2</a>
+      </p>
 
               </div>
 
@@ -60,7 +65,7 @@ base:		"../"
       <div class='slider' id='slider1'>
 
       <a href='/1' class='no-style'>
-        <div class='cell'>
+        <div class='frame'>
           <div class='layer0'>
             <img src='{{page.base}}_assets/imgs/slider_1_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_1_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_1_sm.jpg","md":"{{page.base}}_assets/imgs/slider_1_md.jpg","lg":"{{page.base}}_assets/imgs/slider_1_lg.jpg"}' />
           </div>
@@ -76,7 +81,7 @@ base:		"../"
       </a>
 
       <a href='/2' class='no-style'>
-        <div class='cell'>
+        <div class='frame'>
           <div class='layer0'>
             <img src='{{page.base}}_assets/imgs/slider_2_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_2_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_2_sm.jpg","md":"{{page.base}}_assets/imgs/slider_2_md.jpg","lg":"{{page.base}}_assets/imgs/slider_2_lg.jpg"}' />
           </div>
@@ -109,7 +114,7 @@ base:		"../"
 
       <div class='slider' id='slider2'>
 
-        <div class='cell'>
+        <div class='frame'>
           <div class='layer0'>
             <img src='{{page.base}}_assets/imgs/slider_1_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_1_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_1_sm.jpg","md":"{{page.base}}_assets/imgs/slider_1_md.jpg","lg":"{{page.base}}_assets/imgs/slider_1_lg.jpg"}' data-img-box="fill" />
             <div class='textbar'>
@@ -119,7 +124,7 @@ base:		"../"
           </div>
         </div>
 
-        <div class='cell'>
+        <div class='frame'>
           <div class='layer0'>
             <img src='{{page.base}}_assets/imgs/slider_2_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_2_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_2_sm.jpg","md":"{{page.base}}_assets/imgs/slider_2_md.jpg","lg":"{{page.base}}_assets/imgs/slider_2_lg.jpg"}' data-img-box="fill" />
             <div class='textbar'>
@@ -129,7 +134,7 @@ base:		"../"
           </div>
         </div>
 
-        <div class='cell'>
+        <div class='frame'>
           <div class='layer0'>
             <img src='{{page.base}}_assets/imgs/slider_3_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_3_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_3_sm.jpg","md":"{{page.base}}_assets/imgs/slider_3_md.jpg","lg":"{{page.base}}_assets/imgs/slider_3_lg.jpg"}' data-img-box="fill" />
             <div class='textbar'>
@@ -151,7 +156,7 @@ base:		"../"
 
       <div class='slider' id='slider3'>
 
-        <div class='cell'>
+        <div class='frame'>
           <div class='layer0'>
             <img src='{{page.base}}_assets/imgs/slider_1_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_1_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_1_sm.jpg","md":"{{page.base}}_assets/imgs/slider_1_md.jpg","lg":"{{page.base}}_assets/imgs/slider_1_lg.jpg"}' data-img-box="fit" />
             <div class='textbar'>
@@ -161,7 +166,7 @@ base:		"../"
           </div>
         </div>
 
-        <div class='cell'>
+        <div class='frame'>
           <div class='layer0'>
             <img src='{{page.base}}_assets/imgs/slider_2_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_2_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_2_sm.jpg","md":"{{page.base}}_assets/imgs/slider_2_md.jpg","lg":"{{page.base}}_assets/imgs/slider_2_lg.jpg"}' data-img-box="fit" />
             <div class='textbar'>
@@ -171,7 +176,7 @@ base:		"../"
           </div>
         </div>
 
-        <div class='cell'>
+        <div class='frame'>
           <div class='layer0'>
             <img src='{{page.base}}_assets/imgs/slider_3_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_3_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_3_sm.jpg","md":"{{page.base}}_assets/imgs/slider_3_md.jpg","lg":"{{page.base}}_assets/imgs/slider_3_lg.jpg"}' data-img-box="fit" />
             <div class='textbar'>

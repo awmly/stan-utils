@@ -27,10 +27,30 @@
     // Click Listeners
     $(window).ready(function() {
 
-        // Show
-        $("[data-toggle='slider']").click(function() {
+        // Set
+        $("[data-toggle='slider.set']").click(function() {
 
-            return methods.set.apply($($(this).attr('data-target')), [$(this).attr('data-index')]);
+          var target=!! $(this).attr('data-target') ? $($(this).attr('data-target')) : $(this).parents('.slider');
+
+          return methods.set.apply(target, [$(this).attr('data-index')]);
+
+        });
+
+        // Next
+        $("[data-toggle='slider.next']").click(function(event) {
+
+          var target=!! $(this).attr('data-target') ? $($(this).attr('data-target')) : $(this).parents('.slider');
+
+          methods.move.apply(target, ['next', true]);
+
+        });
+
+        // Prev
+        $("[data-toggle='slider.prev']").click(function(event) {
+
+          var target=!! $(this).attr('data-target') ? $($(this).attr('data-target')) : $(this).parents('.slider');
+
+          methods.move.apply(target, ['prev', true]);
 
         });
 
@@ -78,14 +98,18 @@
                 if(typeof settings.height==='object') settings.aspect_ratio='variable'; else settings.aspect_ratio='fixed';
 
                 // Set total
-                settings.total = $this.find('.cell').length;
+                settings.total = $this.find('.frame').length;
                 $this.find('.counter .total').text(settings.total);
+
+                // Hide controls if less than 2 frames
+                if(settings.total<2) $this.find('.next, .prev, .dots').css('display','none');
+
 
                 // Set currentIndex
                 settings.currentIndex = settings.nextIndex = settings.activeIndex;
 
-                // Hide cells
-                $this.find('.cell').css({
+                // Hide frames
+                $this.find('.frame').css({
                     visibility: 'hidden'
                 });
 
@@ -155,13 +179,13 @@
 
                 }
 
-                // Set radio buttons
+                // Set dots buttons
                 for (i = 0; i < settings.total; i++) {
-                    $this.find('.radio').append('<span></span>');
+                    $this.find('.dots').append('<span></span>');
                 }
 
-                // Set radio button listener
-                $this.find('.radio span').click(function(event) {
+                // Set dots button listener
+                $this.find('.dots span').click(function(event) {
 
                     methods.set.apply($this, [$(this).index()]);
 
@@ -174,19 +198,19 @@
 
                 });
 
-                // Click handler for next
-                $this.find('.slider-next').click(function(event) {
+                /* Click handler for next
+                $this.find('.next').click(function(event) {
 
                     methods.move.apply($this, ['next', true]);
 
                 });
 
                 // Click handler for prev
-                $this.find('.slider-prev').click(function(event) {
+                $this.find('.prev').click(function(event) {
 
                     methods.move.apply($this, ['prev', true]);
 
-                });
+                });*/
 
                 // Update active indexes
                 methods.animate_complete.apply($this);
@@ -201,7 +225,7 @@
                       visibility: 'visible'
                     });
 
-                    $this.find('.cell').eq(settings.activeIndex).css({
+                    $this.find('.frame').eq(settings.activeIndex).css({
                       visibility: 'visible'
                     });
 
@@ -291,11 +315,11 @@
             // Tigger pre move event
             $(this).trigger('pre-move.sa.slider', [settings]);
 
-            // Get BGR cells
-            var $next = $this.find('.cell').eq(settings.nextIndex);
-            var $current = $this.find('.cell').eq(settings.currentIndex);
+            // Get frames
+            var $next = $this.find('.frame').eq(settings.nextIndex);
+            var $current = $this.find('.frame').eq(settings.currentIndex);
 
-            // Set CSS for next/current cells
+            // Set CSS for next/current frames
             $current.css({
                 'z-index': 10
             });
@@ -347,23 +371,27 @@
             settings.currentIndex = settings.nextIndex;
 
             // Add/remove active classes
-            $this.find('.cell')
+            $this.find('.frame')
                 .removeClass('active')
                 .eq(settings.nextIndex).addClass('active');
 
             // Update counter
             $this.find('.counter .current').text(settings.currentIndex + 1);
 
-            // Update radio buttons
-            $this.find('.radio span').removeClass('active');
-            $this.find('.radio span').eq(settings.currentIndex).addClass('active');
+            // Update dots
+            $this.find('.dots span').removeClass('active');
+            $this.find('.dots span').eq(settings.currentIndex).addClass('active');
+
+            // Update any internal listeners
+            $this.find("[data-toggle='slider.set']").removeClass('active');
+            $this.find("[data-toggle='slider.set'][data-index='" + settings.currentIndex + "']").addClass('active');
 
             // Update any external listeners
-            $("[data-toggle='slider'][data-target='" + settings.selector + "']").removeClass('slider-active');
-            $("[data-toggle='slider'][data-target='" + settings.selector + "'][data-index='" + settings.currentIndex + "']").addClass('slider-active');
+            $("[data-target='" + settings.selector + "'][data-toggle='slider.set']").removeClass('active');
+            $("[data-target='" + settings.selector + "'][data-toggle='slider.set'][data-index='" + settings.currentIndex + "']").addClass('active');
 
             // Set Timer
-            if (settings.autoplay) {
+            if (settings.autoplay && settings.total>1) {
                 settings.timer = setTimeout(function() {
 
                     methods.move.apply($this, ['next', false]);
