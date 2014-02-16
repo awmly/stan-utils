@@ -181,7 +181,7 @@
 
                 // Set dots buttons
                 for (i = 0; i < settings.total; i++) {
-                    $this.find('.dots').append('<span></span>');
+                    $this.find('.dots').append('<span data-toggle="slider.set"></span>');
                 }
 
                 // Set dots button listener
@@ -197,20 +197,6 @@
                     methods.resize.apply($this);
 
                 });
-
-                /* Click handler for next
-                $this.find('.next').click(function(event) {
-
-                    methods.move.apply($this, ['next', true]);
-
-                });
-
-                // Click handler for prev
-                $this.find('.prev').click(function(event) {
-
-                    methods.move.apply($this, ['prev', true]);
-
-                });*/
 
                 // Update active indexes
                 methods.animate_complete.apply($this);

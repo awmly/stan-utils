@@ -54,6 +54,12 @@ $(function() {
 
 	}
 
+  $("img[data-img-box]").each(function() {
+
+    $(this).parent().css('overflow','hidden');
+
+  });
+
 	$(window).on('resize', imgBox);
 
 	$("img[data-img-box]").on('load', imgBox);
