@@ -15,7 +15,7 @@ var $STAN;
 
         xs: {
             min_width: 0,
-            class: 'device-xs mobile',
+            classes: 'device-xs mobile',
             data: {
                 mobile: true,
                 desktop: false
@@ -23,7 +23,7 @@ var $STAN;
         },
         sm: {
             min_width: 768,
-            class: 'device-sm mobile',
+            classes: 'device-sm mobile',
             data: {
                 mobile: true,
                 desktop: false
@@ -31,7 +31,7 @@ var $STAN;
         },
         md: {
             min_width: 992,
-            class: 'device-md desktop',
+            classes: 'device-md desktop',
             data: {
                 mobile: false,
                 desktop: true
@@ -39,7 +39,7 @@ var $STAN;
         },
         lg: {
             min_width: 1200,
-            class: 'device-lg desktop',
+            classes: 'device-lg desktop',
             data: {
                 mobile: false,
                 desktop: true
@@ -76,7 +76,7 @@ var $STAN;
             bp = Config[device];
 
             // Remove classes
-            $(Tag).removeClass(bp.class);
+            $(Tag).removeClass(bp.classes);
 
             // Remove data attributes
             for (x in bp.data) STAN[x] = false;
@@ -95,7 +95,7 @@ var $STAN;
             if (bp.min_width <= ww && ww < bp.max_width) {
 
                 // Add class
-                $(Tag).addClass(bp.class);
+                $(Tag).addClass(bp.classes);
 
                 if (current_device != device) triggers.push({
                     type: 'active',
@@ -104,7 +104,7 @@ var $STAN;
 
                 // Add attributes
                 STAN.device = device;
-                STAN.class = bp.class;
+                STAN.classes = bp.classes;
                 for (x in bp.data) STAN[x] = bp.data[x];
 
             }

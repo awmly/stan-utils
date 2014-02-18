@@ -28,7 +28,7 @@
     $(window).ready(function() {
 
         // Set
-        $("[data-toggle='slider.set']").click(function() {
+        $("body").on("click","[data-toggle='slider.set']",function() {
 
           var target=!! $(this).attr('data-target') ? $($(this).attr('data-target')) : $(this).parents('.slider');
 
@@ -37,7 +37,7 @@
         });
 
         // Next
-        $("[data-toggle='slider.next']").click(function(event) {
+        $("body").on("click","[data-toggle='slider.next']",function() {
 
           var target=!! $(this).attr('data-target') ? $($(this).attr('data-target')) : $(this).parents('.slider');
 
@@ -46,7 +46,7 @@
         });
 
         // Prev
-        $("[data-toggle='slider.prev']").click(function(event) {
+        $("body").on("click","[data-toggle='slider.prev']",function() {
 
           var target=!! $(this).attr('data-target') ? $($(this).attr('data-target')) : $(this).parents('.slider');
 
@@ -117,13 +117,16 @@
                 for (i in settings.layers) {
 
                   layer = $.extend({
-                    animationDuration: 300,
-                    animationEasing: 'linear',
-                    nextDelay: 0,
-                    currentDelay: 0,
-                    cssPreMove: false,
-                    cssActive: false,
-                    cssPostMove: false,
+                    baseCSS: false,
+                    inCSS: false,
+                    inDelay: 0,
+                    inDuration: 300,
+                    inEasing: 'linear',
+                    outCSS: false,
+                    outDelay: 0,
+                    outDuration: 300,
+                    outEasing: 'linear',
+                    external: false,
                     selector:[]
                   }, settings.layers[i]);
 
@@ -140,39 +143,41 @@
                   }
 
                   // set layer presets
-                  if (layer.animationPreset == 'fade') {
+                  if (layer.presetCSS == 'fade') {
 
-                      layer.cssPreMove = {
+                      layer.baseCSS = {
                           opacity: 0
                       };
-                      layer.cssActive = {
+                      layer.inCSS = {
                           opacity: 1
                       };
-                      layer.cssPostMove = {
+                      layer.outCSS = {
                           opacity: 0
                       };
 
-                  } else if (layer.animationPreset == 'slide') {
+                  } else if (layer.presetCSS == 'slide') {
 
-                      layer.cssPreMove = {
+                      layer.baseCSS = {
                           left: '100%'
                       };
-                      layer.cssActive = {
+                      layer.inCSS = {
                           left: 0
                       };
-                      layer.cssPostMove = {
+                      layer.outCSS = {
                           left: '-100%'
                       };
+
+                      layer.selector.addClass('absolute');
 
                   }
 
                   // set animationLength
-                  if((layer.nextDelay+layer.animationDuration)>settings.animationLength){
-                    settings.animationLength=layer.nextDelay+layer.animationDuration;
+                  if((layer.inDelay+layer.inDuration)>settings.animationLength){
+                    settings.animationLength=layer.inDelay+layer.inDuration;
                   }
 
-                  // apply pre move css
-                  $(layer.selector).css(layer.cssPreMove);
+                  // apply base css
+                  $(layer.selector).css(layer.baseCSS);
 
                   // save layer data base to settings
                   settings.layers[i]=layer;
@@ -181,15 +186,8 @@
 
                 // Set dots buttons
                 for (i = 0; i < settings.total; i++) {
-                    $this.find('.dots').append('<span data-toggle="slider.set"></span>');
+                    $this.find('.dots').append('<span data-toggle="slider.set" data-index="'+i+'"></span>');
                 }
-
-                // Set dots button listener
-                $this.find('.dots span').click(function(event) {
-
-                    methods.set.apply($this, [$(this).index()]);
-
-                });
 
                 // Add load events
                 $this.find('img').load(function() {
@@ -217,7 +215,7 @@
 
                     for (i in settings.layers) {
 
-                      $(settings.layers[i].selector).eq(settings.activeIndex).css(settings.layers[i].cssActive);
+                      $(settings.layers[i].selector).eq(settings.activeIndex).css(settings.layers[i].inCSS);
 
                     }
 
@@ -320,17 +318,17 @@
                 layer = settings.layers[i];
 
                 // Set Pre/Post CSS dependant on direction
-                cssPreMove = (direction == 'next') ? layer.cssPreMove : layer.cssPostMove;
-                cssPostMove = (direction == 'next') ? layer.cssPostMove : layer.cssPreMove;
+                cssPreMove = (direction == 'next') ? layer.baseCSS : layer.outCSS;
+                cssPostMove = (direction == 'next') ? layer.outCSS : layer.baseCSS;
 
                 // get next
                 next[i] = $(layer.selector).eq(settings.nextIndex);
                 current[i] = $(layer.selector).eq(settings.currentIndex);
 
                 // Set next CSS and animate
-                current[i].delay(layer.currentDelay).animate(cssPostMove, layer.animationDuration, layer.animationEasing);
+                current[i].delay(layer.outDelay).animate(cssPostMove, layer.outDuration, layer.outEasing);
                 next[i].css(cssPreMove);
-                next[i].delay(layer.nextDelay).animate(layer.cssActive, layer.animationDuration, layer.animationEasing);
+                next[i].delay(layer.inDelay).animate(layer.inCSS, layer.inDuration, layer.inEasing);
 
             }
 
@@ -363,10 +361,6 @@
 
             // Update counter
             $this.find('.counter .current').text(settings.currentIndex + 1);
-
-            // Update dots
-            $this.find('.dots span').removeClass('active');
-            $this.find('.dots span').eq(settings.currentIndex).addClass('active');
 
             // Update any internal listeners
             $this.find("[data-toggle='slider.set']").removeClass('active');
