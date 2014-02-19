@@ -36,7 +36,7 @@ $(function() {
 
     $('html').on("click touchend", ":not(.touch-hover)", function(event) {
         $('*').removeClass('hover');
-        event.stopPropagation();
+        //event.stopPropagation();
     });
 
 });

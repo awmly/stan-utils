@@ -127,6 +127,7 @@
                     outDuration: 300,
                     outEasing: 'linear',
                     external: false,
+                    reverse_for_prev: false,
                     selector:[]
                   }, settings.layers[i]);
 
@@ -184,9 +185,11 @@
 
                 }
 
-                // Set dots buttons
-                for (i = 0; i < settings.total; i++) {
-                    $this.find('.dots').append('<span data-toggle="slider.set" data-index="'+i+'"></span>');
+                // Set dots buttons if dots container is empty
+                if(!$this.find('.dots').html()){
+                    for (i = 0; i < settings.total; i++) {
+                        $this.find('.dots').append('<span data-toggle="slider.set" data-index="'+i+'"></span>');
+                    }
                 }
 
                 // Add load events
@@ -318,8 +321,13 @@
                 layer = settings.layers[i];
 
                 // Set Pre/Post CSS dependant on direction
-                cssPreMove = (direction == 'next') ? layer.baseCSS : layer.outCSS;
-                cssPostMove = (direction == 'next') ? layer.outCSS : layer.baseCSS;
+                if(layer.reverse_for_prev){
+                    cssPreMove = (direction == 'next') ? layer.baseCSS : layer.outCSS;
+                    cssPostMove = (direction == 'next') ? layer.outCSS : layer.baseCSS;
+                }else{
+                    cssPreMove = layer.baseCSS;
+                    cssPostMove = layer.outCSS;
+                }
 
                 // get next
                 next[i] = $(layer.selector).eq(settings.nextIndex);
