@@ -329,6 +329,7 @@
                     cssPostMove = layer.outCSS;
                 }
 
+
                 // get next
                 next[i] = $(layer.selector).eq(settings.nextIndex);
                 current[i] = $(layer.selector).eq(settings.currentIndex);
@@ -419,7 +420,7 @@
             } else {
 
                 // Set slider height
-                $this.css('height', settings.height[$STAN.device] + 'px');
+                $this.css('height', settings.height[$STAN.device]);
 
             }
 
