@@ -7,26 +7,41 @@
 
   'use strict';
 
-    $('.sa-checkbox').click(function(){
+    $('.sa-checkbox, .sa-radio').click(function(){
+
+      var $input=$(this).find('input');
+
+      if($input.attr('type')=='radio'){
+
+        $("[name='"+$input.attr('name')+"']").each(function(){
+
+          $(this) .prop('checked',false)
+                  .parents('.sa-radio').removeClass('active');
+
+        });
+
+      }
 
       if($(this).hasClass('active')){
 
-        $(this).removeClass('active');
-        $(this).find('input').val(0);
+        $(this) .removeClass('active')
+                .find('input').prop('checked',false);
 
       }else{
 
-        $(this).addClass('active');
-        $(this).find('input').val(1);
+        $(this) .addClass('active')
+                .find('input').prop('checked',true);
 
       }
 
     });
 
-    $('.sa-checkbox').each(function(){
+    $('.sa-checkbox, .sa-radio').each(function(){
 
-      if($(this).find('input').val()==1){
+      if($(this).find('input').prop('checked')){
+
         $(this).addClass('active');
+
       }
 
    });

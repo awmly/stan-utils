@@ -4,13 +4,16 @@ layout:		examples
 base:		"../"
 ---
 
-<h1>Checkbox</h1>
+<h1>Form Elements</h1>
+
+<h2>Checkbox</h2>
+
 
 <div class='sa-checkbox form-group'>
   <i class='fa fa-square-o sa-off sa-inset pad-right-xs'></i>
   <i class='fa fa-check-square-o sa-on sa-inset pad-right-xs'></i>
   <label>An icon based checkbox</label>
-  <input type='hidden' name='cbox' value='0' />
+  <input type='checkbox' name='zzz' value='1' />
 </div>
 
 <div class='row'>
@@ -18,6 +21,85 @@ base:		"../"
     <i class='fa fa-2x fa-square-o sa-off sa-inset pad-right-xs'></i>
     <i class='fa fa-2x fa-check-square-o sa-on sa-inset pad-right-xs'></i>
     <label>An icon based checkbox that goes on to multi line</label>
-    <input type='hidden' name='cbox' value='1' />
+    <input type='checkbox' name='aaa' value='1' checked />
+  </div>
+  <div class='sa-checkbox form-group col-sm-3'>
+    <i class='fa fa-2x fa-square-o sa-off sa-inset pad-right-xs'></i>
+    <i class='fa fa-2x fa-check-square-o sa-on sa-inset pad-right-xs'></i>
+    <label>An icon based checkbox that goes on to multi line</label>
+    <input type='checkbox' name='bbb' value='1' />
+  </div>
+  <div class='sa-checkbox form-group col-sm-3'>
+    <i class='fa fa-2x fa-square-o sa-off sa-inset pad-right-xs'></i>
+    <i class='fa fa-2x fa-check-square-o sa-on sa-inset pad-right-xs'></i>
+    <label>An icon based checkbox that goes on to multi line</label>
+    <input type='checkbox' name='ccc' value='1' checked />
+  </div>
+</div>
+
+
+<h2>Radio Buttons</h2>
+
+<div class='sa-radio form-group'>
+  <i class='fa fa-circle-o sa-off sa-inset pad-right-xs'></i>
+  <i class='fa fa-circle sa-on sa-inset pad-right-xs'></i>
+  <label>An icon based radio button</label>
+  <input type='radio' name='radio1' value='zzz' />
+</div>
+
+<div class='sa-radio form-group'>
+  <i class='fa fa-circle-o sa-off sa-inset pad-right-xs'></i>
+  <i class='fa fa-circle sa-on sa-inset pad-right-xs'></i>
+  <label>An icon based radio button</label>
+  <input type='radio' name='radio1' value='yyy' checked />
+</div>
+
+<div class='sa-radio form-group'>
+  <i class='fa fa-circle-o sa-off sa-inset pad-right-xs'></i>
+  <i class='fa fa-circle sa-on sa-inset pad-right-xs'></i>
+  <label>An icon based radio button</label>
+  <input type='radio' name='radio1' value='xxx' />
+</div>
+
+<div class='row'>
+  <div class='sa-radio form-group col-sm-3'>
+    <i class='fa fa-2x fa-circle-o sa-off sa-inset pad-right-xs'></i>
+    <i class='fa fa-2x fa-circle sa-on sa-inset pad-right-xs'></i>
+    <label>An icon based radio button that goes on to multi line</label>
+    <input type='radio' name='radio2' value='aaa' checked />
+  </div>
+  <div class='sa-radio form-group col-sm-3'>
+    <i class='fa fa-2x fa-circle-o sa-off sa-inset pad-right-xs'></i>
+    <i class='fa fa-2x fa-circle sa-on sa-inset pad-right-xs'></i>
+    <label>An icon based radio button that goes on to multi line</label>
+    <input type='radio' name='radio2' value='bbb' checked />
+  </div>
+  <div class='sa-radio form-group col-sm-3'>
+    <i class='fa fa-2x fa-circle-o sa-off sa-inset pad-right-xs'></i>
+    <i class='fa fa-2x fa-circle sa-on sa-inset pad-right-xs'></i>
+    <label>An icon based radio button that goes on to multi line</label>
+    <input type='radio' name='radio2' value='ccc' />
+  </div>
+</div>
+
+<h2>Select Box</h2>
+
+<div class='row'>
+  <div class='col-sm-3'>
+    <div class='sa-select form-group'>
+      <i class='fa fa-caret-down valign-mid'></i>
+      <select name='' class='form-control'>
+        <option>Please select...</option>
+        <option>Option 1</option>
+        <option>Option 2</option>
+        <option>Option 3</option>
+        <option>Option 4</option>
+      </select>
+    </div>
+  </div>
+  <div class='col-sm-3'>
+    <div class='form-group'>
+      <input type='text' class='form-control' />
+    </div>
   </div>
 </div>

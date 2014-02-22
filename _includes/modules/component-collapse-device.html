@@ -1,9 +1,10 @@
 <h1>Collapse Device</h1>
 
-<p>A module that acts as a collapse on XS devices and displays the content as normal on SM and up.</p>
+<p>A module that acts as a collapse only on specified devices. Use the exact same code as the Bootstrap spec just add the following attribute <code>data-collapse-devices='xs,sm'</code>.</p>
 
-<pre><code class='xml'>&lt;div class='xscollapse' data-toggle='collapse' data-target='#xscollapse'&gt;Collapse&lt;/div&gt;
-&lt;div id='xscollapse' class='collapse in'&gt;...&lt;/div&gt;</code></pre>
+<pre><code class='xml'>&lt;div data-collapse-devices='xs,sm' data-toggle='collapse' data-target='#foo'&gt;Collapse&lt;/div&gt;
+
+&lt;div id='foo'&gt;This content is collapsable on XS and SM devices&lt;/div&gt;</code></pre>
 
 <p><a href='{{ page.base }}examples/component-collapse-device.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 

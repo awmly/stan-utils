@@ -3,6 +3,44 @@
  * Author: Andrew Womersley
  * ======================================================================== */
 
-.sa-checkbox, .sa-checkbox label{ cursor:pointer; }
-.sa-checkbox label{ margin:0; }
-.sa-checkbox i{ top: 10px; }
+.sa-checkbox,
+.sa-checkbox label,
+.sa-radio,
+.sa-radio label,
+.sa-select,
+.sa-select select{
+  cursor:pointer;
+}
+
+.sa-checkbox,
+.sa-radio,
+.sa-select{
+  position:relative;
+}
+
+.sa-checkbox input,
+.sa-radio input{
+  display:none;
+}
+
+.sa-select select{
+  -webkit-appearance:none;
+  -moz-appearance:none;
+}
+
+.sa-checkbox label,
+.sa-radio label{
+  margin:0;
+}
+
+.sa-checkbox i,
+.sa-radio i{
+  top: 10px;
+}
+
+.sa-select i{
+  position:absolute;
+  right:10px;
+  z-index:20;
+  color:#aaa;
+}

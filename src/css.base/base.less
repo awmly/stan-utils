@@ -11,8 +11,144 @@ ul,ol { list-style: none; }
 fieldset,img { border: none; }
 a{ outline:none; text-decoration:none; }
 
+body, input, textarea{
+  font:400 14px/19px 'Open Sans', Arial, sans-serif;
+  color:#2a2a2a;
+}
 
-a.no-style,a.no-style:hover{ color:inherit !important; text-decoration:none !important; }
+h1{
+  font-size:34px;
+  line-height:36px;
+  font-weight:700;
+  margin:0 0 10px 0;
+}
+h2{
+  font-size:26px;
+  line-height:28px;
+  font-weight:700;
+  margin:0 0 10px 0;
+}
+h3{
+  font-size:20px;
+  line-height:22px;
+  font-weight:700;
+  margin:0 0 10px 0;
+}
+h4{
+  font-size:16px;
+  line-height:18px;
+  font-weight:700;
+  margin:0 0 10px 0;
+}
+h5{
+  font-size:14px;
+  line-height:16px;
+  font-weight:700;
+  margin:0 0 5px 0;
+}
+h6{
+  font-size:12px;
+  line-height:14px;
+  font-weight:700;
+  margin:0 0 5px 0;
+}
 
-p{ margin-bottom:10px; }
-p:last-child{ margin-bottom:0; }
+/** Block titles */
+.block-title{
+  padding:0 15px;
+  background:#333;
+  color:#fff;
+  position:relative;
+}
+
+.block-title h1{
+  padding: 14px 0;
+  margin:0;
+}
+.block-title h2{
+  padding: 12px 0;
+  margin:0;
+}
+.block-title h3{
+  padding: 8px 0;
+  margin:0;
+}
+.block-title h4{
+  padding: 6px 0;
+  margin:0;
+}
+.block-title h5{
+  padding: 5px 0;
+  margin:0;
+}
+.block-title h6{
+  padding: 5px 0;
+  margin:0;
+}
+
+/** Paragraphs */
+p{
+  margin:0 0 10px 0;
+}
+p:last-child{
+  margin-bottom:0;
+}
+
+/** Links */
+a{
+  border:0px;
+  color:#7F00FF;
+}
+a:hover{
+  text-decoration:underline;
+  color:#551A8B;
+}
+
+a.no-style,
+a.no-style:hover{
+  color:inherit !important;
+  text-decoration:none !important;
+}
+
+/** Font size modifiers */
+.font-xxs{
+  font-size:10px;
+}
+.font-xs{
+  font-size:12px;
+}
+.font-sm{
+  font-size:14px;
+}
+.font-md{
+  font-size:16px;
+}
+.font-lg{
+  font-size: 20px;
+}
+.font-xl{
+  font-size: 26px;
+}
+.font-xxl{
+  font-size: 34px;
+}
+
+/** Font weight modifiers */
+.font-thin{
+  font-weight:100;
+}
+.font-light{
+  font-weight:300;
+}
+.font-normal{
+  font-weight:400;
+}
+.font-semi-bold{
+  font-weight:600;
+}
+.font-bold{
+  font-weight:700;
+}
+.font-extra-bold{
+  font-weight:800;
+}
