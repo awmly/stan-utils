@@ -63,7 +63,7 @@
 .@{device}mar-right-xs{
   margin-right:@xs;
 }
-.@{device}mar-side-xs{
+.@{device}mar-sides-xs{
   margin-left:@xs;
   margin-right:@xs;
 }
@@ -85,7 +85,7 @@
 .@{device}mar-right-sm{
   margin-right:@sm;
 }
-.@{device}mar-side-sm{
+.@{device}mar-sides-sm{
   margin-left:@sm;
   margin-right:@sm;
 }
@@ -107,7 +107,7 @@
 .@{device}mar-right-md{
   margin-right:@md;
 }
-.@{device}mar-side-md{
+.@{device}mar-sides-md{
   margin-left:@md;
   margin-right:@md;
 }
@@ -129,7 +129,7 @@
 .@{device}mar-right-lg{
   margin-right:@lg;
 }
-.@{device}mar-side-lg{
+.@{device}mar-sides-lg{
   margin-left:@lg;
   margin-right:@lg;
 }
@@ -151,7 +151,7 @@
 .@{device}mar-right-xl{
   margin-right:@xl;
 }
-.@{device}mar-side-xl{
+.@{device}mar-sides-xl{
   margin-left:@xl;
   margin-right:@xl;
 }
@@ -174,7 +174,7 @@
 .@{device}pad-right-xs{
   padding-right:@xs;
 }
-.@{device}pad-side-xs{
+.@{device}pad-sides-xs{
   padding-left:@xs;
   padding-right:@xs;
 }
@@ -196,7 +196,7 @@
 .@{device}pad-right-sm{
   padding-right:@sm;
 }
-.@{device}pad-side-sm{
+.@{device}pad-sides-sm{
   padding-left:@sm;
   padding-right:@sm;
 }
@@ -218,7 +218,7 @@
 .@{device}pad-right-md{
   padding-right:@md;
 }
-.@{device}pad-side-md{
+.@{device}pad-sides-md{
   padding-left:@md;
   padding-right:@md;
 }
@@ -240,7 +240,7 @@
 .@{device}pad-right-lg{
   padding-right:@lg;
 }
-.@{device}pad-side-lg{
+.@{device}pad-sides-lg{
   padding-left:@lg;
   padding-right:@lg;
 }
@@ -262,60 +262,48 @@
 .@{device}pad-right-xl{
   padding-right:@xl;
 }
-.@{device}pad-side-xl{
+.@{device}pad-sides-xl{
   padding-left:@xl;
   padding-right:@xl;
 }
 
 
-/** Befores */
-.@{device}before-xs:before{
-  content:"";
-  display:block;
-  height:@xs;
-}
-.@{device}before-sm:before{
-  content:"";
-  display:block;
-  height:@sm;
-}
-.@{device}before-md:before{
-  content:"";
-  display:block;
-  height:@md;
-}
-.@{device}before-lg:before{
-  content:"";
-  display:block;
-  height:@lg;
-}
-.@{device}before-xl:before{
-  content:"";
-  display:block;
-  height:@xl;
-}
-
-/** Afters */
+/** Befores / Afters */
+.@{device}inner-xs:before,
+.@{device}inner-xs:after,
+.@{device}before-xs:before,
 .@{device}after-xs:after{
   content:"";
   display:block;
   height:@xs;
 }
+.@{device}inner-sm:before,
+.@{device}inner-sm:after,
+.@{device}before-sm:before,
 .@{device}after-sm:after{
   content:"";
   display:block;
   height:@sm;
 }
+.@{device}inner-md:before,
+.@{device}inner-md:after,
+.@{device}before-md:before,
 .@{device}after-md:after{
   content:"";
   display:block;
   height:@md;
 }
+.@{device}inner-lg:before,
+.@{device}inner-lg:after,
+.@{device}before-lg:before,
 .@{device}after-lg:after{
   content:"";
   display:block;
   height:@lg;
 }
+.@{device}inner-xl:before,
+.@{device}inner-xl:after,
+.@{device}before-xl:before,
 .@{device}after-xl:after{
   content:"";
   display:block;

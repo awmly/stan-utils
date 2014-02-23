@@ -3,13 +3,11 @@
  * Author: Andrew Womersley
  * ======================================================================== */
 
-.sa-collapse .sa-click{ cursor:pointer; }
+.sa-collapse .sa-click{ cursor:pointer; margin-bottom:0 !important; }
+.sa-collapse .sa-click :last-child{ margin-bottom:0 !important; }
 .sa-collapse .sa-content{ padding-top:0 !important; padding-bottom:0 !important; }
 .sa-collapse .sa-content > :last-child{ margin-bottom:0 !important; }
-.sa-collapse.hide-click .sa-click{ display:none; }
+.sa-collapse.hide-click > .sa-click{ display:none; }
 
-.sa-collapse:not(.active) .sa-on{ display:none; }
-.sa-collapse:not(.active) .sa-off{ display:block; }
-
-.sa-collapse:not(.active) .active .sa-on{ display:block; }
-.sa-collapse:not(.active) .active .sa-off{ display:none; }
+.sa-collapse:not(.active)>.sa-click>.sa-on{ display:none; }
+.sa-collapse:not(.active)>.sa-click>.sa-off{ display:block; }

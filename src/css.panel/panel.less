@@ -8,27 +8,6 @@
   background:#eee;
 }
 
-.sa-panel{
-  @size: xs;
-  @import (multiple) "src/css.panel/panel.inc.less";
-}
-
-.sa-panel{
-  @size: sm;
-  @import (multiple) "src/css.panel/panel.inc.less";
-}
-
-.sa-panel{
-  @size: md;
-  @import (multiple) "src/css.panel/panel.inc.less";
-}
-
-.sa-panel{
-  @size: lg;
-  @import (multiple) "src/css.panel/panel.inc.less";
-}
-
-.sa-panel{
-  @size: xl;
-  @import (multiple) "src/css.panel/panel.inc.less";
+.sa-panel:not(.panel-block){
+  padding:@sm;
 }

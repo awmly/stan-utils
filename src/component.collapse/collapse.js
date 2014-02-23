@@ -35,7 +35,7 @@
 	});
 
   // Check for collapses starting open
-  $('.sa-collapse.active .sa-content').each(function(){
+  $('.sa-collapse.active').find('.sa-content').first().each(function(){
 
     $(this).addClass('in');
 
@@ -50,9 +50,11 @@
 
               $(this).removeClass('hide-click');
 
-              if ($(this).attr('data-collapse-devices-open').indexOf($STAN.device) >= 0) {
+              if ($(this).attr('data-collapse-devices-open')) {
 
-                $(this).find('.sa-content').first().addClass('in').css('height','');
+                if($(this).attr('data-collapse-devices-open').indexOf($STAN.device) >= 0){
+                  $(this).find('.sa-content').first().addClass('in').css('height','');
+                }
 
               }else{
 

@@ -18,37 +18,36 @@
 .nav-horizontal a{ display:block; }
 
 /** Block Nav */
-.sa-nav.sa-block a{
+.sa-nav.nav-block a{
   display:block;
   padding:7px 0;
   background:#eee;
 }
 
-.sa-nav.sa-block a:hover{
+.sa-nav.nav-block a:hover{
   background:#ddd;
   text-decoration:none;
 }
 
-.sa-nav.sa-block li.active > a{
+.sa-nav.nav-block li.active > a{
   background:#ccc;
 }
 
 
 /** Vertical */
-.nav-vertical:not(.sa-block) a,
-.nav-horizontal:not(.sa-block) ul ul a{
+.nav-vertical:not(.nav-block) a,
+.nav-horizontal:not(.nav-block) ul ul a{
   display:inline-block;
   margin:0 0 6px 0;
 }
 
-.nav-vertical:not(.sa-block) > ul > li:last-child > a{
+.nav-vertical:not(.nav-block) > ul > li:last-child > a{
   margin-bottom:0;
 }
 
 
 /** Horizontal List */
-.nav-horizontal > ul > li,
-.nav-horizontal .sa-title{
+.nav-horizontal > ul > li{
   float:left;
 }
 
@@ -72,35 +71,59 @@
 }
 
 
-/** Sizes */
-.sa-nav{
-  @size: xs;
-  @import (multiple) "src/css.navigation/navigation.inc.less";
+/* Nav */
+.sa-nav ul a{
+  line-height:16px;
 }
 
-.sa-nav{
-  @size: sm;
-  @import (multiple) "src/css.navigation/navigation.inc.less";
+/* Icons */
+.sa-nav ul i{
+  top:8px;
+}
+.sa-nav.nav-block ul i{
+  top:15px;
 }
 
-.sa-nav{
-  @size: md;
-  @import (multiple) "src/css.navigation/navigation.inc.less";
+/* Horizontal List */
+.sa-nav.nav-horizontal:not(.nav-block)>ul>li{
+  margin-right:15px;
 }
 
-.sa-nav{
-  @size: lg;
-  @import (multiple) "src/css.navigation/navigation.inc.less";
+/* Horizontal / Vertical Block */
+.sa-nav.nav-block a,
+.sa-nav.nav-horizontal:not(.nav-block) ul ul li{
+  padding-left:15px;
+  padding-right:15px;
 }
 
-.sa-nav{
-  @size: xl;
-  @import (multiple) "src/css.navigation/navigation.inc.less";
+/* Horizontal Sub Nav */
+.sa-nav.nav-horizontal:not(.nav-block) ul ul{
+  padding-top:8px;
+  padding-bottom:8px;
+  left:-15px;
+}
+.sa-nav.nav-horizontal:not(.nav-block) ul ul ul{
+  top:-8px;
+}
+
+/* Vertical Sub Nav */
+.sa-nav.nav-vertical:not(.nav-block) ul ul li{
+  padding-left:15px;
+}
+.sa-nav.nav-vertical:not(.nav-block) ul ul ul li,
+.sa-nav.nav-vertical.nav-block ul ul a{
+  padding-left:30px;
+}
+.sa-nav.nav-vertical:not(.nav-block) ul ul ul ul li,
+.sa-nav.nav-vertical.nav-block ul ul ul a{
+  padding-left:45px;
+}
+.sa-nav.nav-vertical.nav-block ul ul ul ul a{
+  padding-left:60px;
 }
 
 
 /** Overrides */
-.sa-nav.sa-block ul.sa-content{
-  padding-left:0 !important;
-  padding-right:0 !important;
+.sa-nav.nav-block.sa-panel{
+  xadding:0 !important;
 }
