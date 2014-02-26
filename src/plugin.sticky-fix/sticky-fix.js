@@ -47,6 +47,7 @@
             var settings = $.extend({
                 top: 0,
                 maxtop: false,
+                maxscroll: 99999,
                 sticky_class: '',
                 stick_to: 'window',
                 zindex:1000,
@@ -96,6 +97,8 @@
             var t = settings.offset.top - $(window).scrollTop();
 
             var maxtop;
+            var maxscroll;
+            var topscroll;
             var pos;
 
             if (t < settings.top && settings.devices[$STAN.device]) {
@@ -104,9 +107,16 @@
                 else if (typeof settings.maxtop === 'number') maxtop = settings.maxtop;
                 else maxtop = 99999;
 
+                maxscroll = settings.maxscroll + maxtop;
+
                 if ($(window).scrollTop() > maxtop) {
 
-                    pos = settings.top - ($(window).scrollTop() - maxtop);
+                    if( $(window).scrollTop()>maxscroll ){
+                      pos = settings.top - ( maxscroll - maxtop );
+                    }else{
+                      pos = settings.top - ($(window).scrollTop() - maxtop);
+                    }
+
                     $(this).css('top', pos + 'px');
 
                 }
@@ -115,20 +125,22 @@
                     // Trigger
                     if (settings._status == 'unstuck') $(this).trigger('stuck.sa.stickyfix', [settings]);
 
-                    $(this).addClass(settings.sticky_class).css({
-                        'z-index': settings.zindex,
-                        top: settings.top + 'px',
-                        position: 'fixed'
-                    });
+                      $(this).addClass(settings.sticky_class).css({
+                          'z-index': settings.zindex,
+                          top: settings.top + 'px',
+                          position: 'fixed'
+                      });
 
-                    settings._status='stuck';
+                      settings._status='stuck';
 
-                    $(settings.placeholder).css('display', 'block');
+                      $(settings.placeholder).css('display', 'block');
 
-                    if (settings.stick_to == 'parent') $(this).css({
-                        width: $(settings.placeholder).width() + 'px',
-                        left: $(settings.placeholder).offset().left + 'px'
-                    });
+                      if (settings.stick_to == 'parent') $(this).css({
+                          width: $(settings.placeholder).width() + 'px',
+                          left: $(settings.placeholder).offset().left + 'px'
+                      });
+
+
 
                 }
 
@@ -138,20 +150,22 @@
                 // Trigger
                 if (settings._status == 'stuck') $(this).trigger('unstuck.sa.stickyfix', [settings]);
 
-                $(this).removeClass(settings.sticky_class).css({
-                    top: settings._css.top,
-                    position: settings._css.position,
-                    'z-index': settings._css.zindex
-                });
+                  $(this).removeClass(settings.sticky_class).css({
+                      top: settings._css.top,
+                      position: settings._css.position,
+                      'z-index': settings._css.zindex
+                  });
 
-                settings._status='unstuck';
+                  settings._status='unstuck';
 
-                $(settings.placeholder).css('display', 'none');
+                  $(settings.placeholder).css('display', 'none');
 
-                if (settings.stick_to == 'parent') $(this).css({
-                    width: 'auto',
-                    left: 'auto'
-                });
+                  if (settings.stick_to == 'parent') $(this).css({
+                      width: 'auto',
+                      left: 'auto'
+                  });
+
+
 
             }
 

@@ -412,15 +412,23 @@
                     if ($(this).height() > ih) ih = $(this).height();
                 });
 
-                // Set height
+                // Set height of main slider
                 $this.css({
+                    height: ih + 'px'
+                });
+
+                // Set height of specified elements
+                $this.find('.slider-full-height').css({
                     height: ih + 'px'
                 });
 
             } else {
 
-                // Set slider height
+                // Set height of main slider
                 $this.css('height', settings.height[$STAN.device]);
+
+                // Set height of specified elements
+                $this.find('.slider-full-height').css('height', settings.height[$STAN.device]);
 
             }
 

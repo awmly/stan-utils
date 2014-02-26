@@ -4,8 +4,13 @@
  * ======================================================================== */
 
 /** Space */
-*[class*="space"]{
-  clear:both; height:0;
+.space-xs,
+.space-sm,
+.space-md,
+.space-lg,
+.space-xl{
+  clear:both;
+  height:0;
 }
 
 .space-xs{
@@ -30,8 +35,11 @@
 
 
 /** Divide */
-
-*[class*="divide"]{
+.divide-xs,
+.divide-sm,
+.divide-md,
+.divide-lg,
+.divide-xl{
   clear:both;
   border-bottom:solid 1px #ccc;
 }
@@ -59,39 +67,5 @@
 .divide-xl{
   height:@xl;
   margin-bottom:@xl;
-}
-
-
-/** Before / After */
-
-*[class*="before"]:before,
-*[class*="before"]:after{
-  content:"";
-  display:block;
-}
-
-.before-xs:before,
-.after-xs:after{
-  height:@xs;
-}
-
-.before-sm:before,
-.after-sm:after{
-  height:@sm;
-}
-
-.before-md:before,
-.after-md:after{
-  height:@md;
-}
-
-.before-lg:before,
-.after-lg:after{
-  height:@lg;
-}
-
-.before-xl:before,
-.after-xl:after{
-  height:@xl;
 }
 
