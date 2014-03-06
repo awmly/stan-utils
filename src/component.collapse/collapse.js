@@ -35,9 +35,9 @@
 	});
 
   // Check for collapses starting open
-  $('.sa-collapse.active').find('.sa-content').first().each(function(){
+  $('.sa-collapse.active').each(function(){
 
-    $(this).addClass('in');
+    $(this).find('.sa-content').first().addClass('in');
 
   });
 
@@ -54,6 +54,8 @@
 
                 if($(this).attr('data-collapse-devices-open').indexOf($STAN.device) >= 0){
                   $(this).find('.sa-content').first().addClass('in').css('height','');
+                }else{
+                  $(this).find('.sa-content').first().removeClass('in').addClass('collapse');
                 }
 
               }else{

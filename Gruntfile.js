@@ -72,7 +72,7 @@ module.exports = function(grunt) {
 
         concat: {
           dist: {
-            src: ['src/stan/stan.less', 'src/**/*.less' ,'!src/**/*.inc.less'],
+            src: ['bower_components/less-prefixer/prefixer.less','src/stan/stan.less', 'src/**/*.less' ,'!src/**/*.inc.less'],
             dest: 'tmp/less.less',
           },
         },

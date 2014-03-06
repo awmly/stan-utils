@@ -1,13 +1,27 @@
 {
-	"name": "stan-utils",
-	"version": "0.0.1",
-	"main": [
-		"dist/stan-utils.min.js",
-		"dist/stan-utils.min.css"
-	],
-	"dependencies": {
-		"jquery": "~1.10.2",
-		"bootstrap": "~3.0.2",
-    "less": "~1.6.1"
-	}
+  "name": "stan-utils",
+  "version": "0.0.1",
+  "keywords": [
+    "css",
+    "js",
+    "front end",
+    "framework"
+  ],
+  "main": [
+    "./dist/stan-utils.min.js",
+    "./dist/stan-utils.min.css"
+  ],
+  "ignore": [
+    "**/.*",
+    "_config.yml",
+    "releases",
+    "tests/*",
+    "install",
+    "_*"
+  ],
+  "dependencies": {
+    "jquery": "~1.10.2",
+    "bootstrap": "~3.1.0",
+    "less-prefixer": "*"
+  }
 }

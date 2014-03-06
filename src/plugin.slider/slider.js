@@ -302,6 +302,10 @@
             // Tigger pre move event
             $(this).trigger('pre-move.sa.slider', [settings]);
 
+            // Remove active classes
+            $this.find("[data-toggle='slider.set']").removeClass('active');
+            $("[data-target='" + settings.selector + "'][data-toggle='slider.set']").removeClass('active');
+
             // Get frames
             var $next = $this.find('.frame').eq(settings.nextIndex);
             var $current = $this.find('.frame').eq(settings.currentIndex);
@@ -371,12 +375,8 @@
             // Update counter
             $this.find('.counter .current').text(settings.currentIndex + 1);
 
-            // Update any internal listeners
-            $this.find("[data-toggle='slider.set']").removeClass('active');
+            // Add active classes
             $this.find("[data-toggle='slider.set'][data-index='" + settings.currentIndex + "']").addClass('active');
-
-            // Update any external listeners
-            $("[data-target='" + settings.selector + "'][data-toggle='slider.set']").removeClass('active');
             $("[data-target='" + settings.selector + "'][data-toggle='slider.set'][data-index='" + settings.currentIndex + "']").addClass('active');
 
             // Set Timer
