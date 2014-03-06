@@ -12,11 +12,12 @@
     "./dist/stan-utils.min.css"
   ],
   "ignore": [
-    "**/.*",
+    "examples",
     "_config.yml",
     "releases",
     "tests/*",
     "install",
+    "index.html",
     "_*"
   ],
   "dependencies": {
