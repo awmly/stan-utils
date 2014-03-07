@@ -18,7 +18,9 @@
     "tests/*",
     "install",
     "index.html",
-    "_*"
+    "tests",
+    "_*",
+    ".*"
   ],
   "dependencies": {
     "jquery": "~1.10.2",

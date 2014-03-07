@@ -108,11 +108,6 @@
                 // Set currentIndex
                 settings.currentIndex = settings.nextIndex = settings.activeIndex;
 
-                // Hide frames
-                $this.find('.frame').css({
-                    visibility: 'hidden'
-                });
-
                 // Layers
                 for (i in settings.layers) {
 
@@ -142,6 +137,9 @@
                     layer.selector = $this.find('.layer'+i);
 
                   }
+
+                  // set layer to full width and height if slide show is fixed height
+                  if(settings.aspect_ratio=='variable') layer.selector.addClass('fill-frame');
 
                   // set layer presets
                   if (layer.presetCSS == 'fade') {
@@ -213,7 +211,7 @@
                     });
 
                     $this.find('.frame').eq(settings.activeIndex).css({
-                      visibility: 'visible'
+                      'z-index':20
                     });
 
                     for (i in settings.layers) {
@@ -315,7 +313,6 @@
                 'z-index': 10
             });
             $next.css({
-                visibility: 'visible',
                 'z-index': 20
             });
 
@@ -400,26 +397,22 @@
             var $this = $(this);
 
 
-            // Set vars to hold image with and height
-            var iw = 0;
-            var ih = 0;
+            // Set vars to hold frame height
+            var fh = 0;
 
             // Perform size fixes
             if (settings.aspect_ratio == 'fixed') {
 
-                // Get image max width and height
-                $this.find(settings.height).each(function() {
-                    if ($(this).height() > ih) ih = $(this).height();
+                // Get height of frames
+                $this.find('.frame').each(function() {
+                    if ($(this).children().height() > fh) fh = $(this).children().height();
                 });
 
-                // Set height of main slider
-                $this.css({
-                    height: ih + 'px'
-                });
-
-                // Set height of specified elements
-                $this.find('.slider-full-height').css({
-                    height: ih + 'px'
+                // Set height of frames
+                $this.find('.frame').css({
+                    height: fh + 'px'
+                }).parents('div').css({
+                    height: fh + 'px'
                 });
 
             } else {
@@ -427,8 +420,12 @@
                 // Set height of main slider
                 $this.css('height', settings.height[$STAN.device]);
 
-                // Set height of specified elements
-                $this.find('.slider-full-height').css('height', settings.height[$STAN.device]);
+                // Set height of frames
+                $this.find('.frame').css({
+                  height: settings.height[$STAN.device]
+                }).parents('div').css({
+                  height: settings.height[$STAN.device]
+                });
 
             }
 

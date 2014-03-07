@@ -157,6 +157,27 @@
 }
 
 
+/** Extra Extra Large margin */
+.@{device}mar-xxl{
+  margin:@xxl;
+}
+.@{device}mar-top-xxl{
+  margin-top:@xxl;
+}
+.@{device}mar-btm-xxl{
+  margin-bottom:@xxl;
+}
+.@{device}mar-left-xxl{
+  margin-left:@xxl;
+}
+.@{device}mar-right-xxl{
+  margin-right:@xxl;
+}
+.@{device}mar-sides-xxl{
+  margin-left:@xxl;
+  margin-right:@xxl;
+}
+
 
 /** Extra Small Padding */
 .@{device}pad-xs{
@@ -267,6 +288,26 @@
   padding-right:@xl;
 }
 
+/** Extra Extra Large Padding */
+.@{device}pad-xxl{
+  padding:@xxl;
+}
+.@{device}pad-top-xxl{
+  padding-top:@xxl;
+}
+.@{device}pad-btm-xxl{
+  padding-bottom:@xxl;
+}
+.@{device}pad-left-xxl{
+  padding-left:@xxl;
+}
+.@{device}pad-right-xxl{
+  padding-right:@xxl;
+}
+.@{device}pad-sides-xxl{
+  padding-left:@xxl;
+  padding-right:@xxl;
+}
 
 /** Befores / Afters */
 .@{device}inner-xs:before,
@@ -308,4 +349,12 @@
   content:"";
   display:block;
   height:@xl;
+}
+.@{device}inner-xxl:before,
+.@{device}inner-xxl:after,
+.@{device}before-xxl:before,
+.@{device}after-xxl:after{
+  content:"";
+  display:block;
+  height:@xxl;
 }
