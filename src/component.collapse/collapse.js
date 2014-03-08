@@ -10,17 +10,21 @@
 	// Add click
 	$('.sa-collapse .sa-click').click(function(){
 
-    $(this).closest('.sa-collapse') .toggleClass('active')
-                                    .find('.sa-content').first().collapse('toggle');
+    if( !$(this).parents('.sa-collapse').hasClass('inactive') ){
 
-    if( $(this).parents('.sa-accordion').length ){
+      $(this).closest('.sa-collapse') .toggleClass('active')
+                                      .find('.sa-content').first().collapse('toggle');
 
-      $(this).closest('.sa-collapse').siblings('.sa-collapse.active').each(function(){
+      if( $(this).parents('.sa-accordion').length ){
 
-        $(this) .removeClass('active')
-                .find('.sa-content').first().collapse('hide');
+        $(this).closest('.sa-collapse').siblings('.sa-collapse.active').each(function(){
 
-      });
+          $(this) .removeClass('active')
+                  .find('.sa-content').first().collapse('hide');
+
+        });
+
+      }
 
     }
 
@@ -48,7 +52,7 @@
 
           if ($(this).attr('data-collapse-devices').indexOf($STAN.device) >= 0) {
 
-              $(this).removeClass('hide-click');
+              $(this).removeClass('inactive');
 
               if ($(this).attr('data-collapse-devices-open')) {
 
@@ -66,7 +70,7 @@
 
           } else {
 
-              $(this).addClass('hide-click');
+              $(this).addClass('inactive');
               $(this).find('.sa-content').first().addClass('in').removeClass('collapse').css('height','');
 
           }

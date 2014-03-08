@@ -41,6 +41,13 @@
 
         });
 
+        // Set Index
+        $("[data-toggle='colousel.set']").click(function() {
+
+            return methods.set_index.apply($($(this).attr('data-target')), [parseInt($(this).attr('data-index')), true]);
+
+        });
+
     });
 
 
@@ -84,7 +91,8 @@
                     max_index: 0,
                     timer: false,
                     action: false,
-                    isScroll:false
+                    isScroll:false,
+                    _inc_value:false,
                 }, options);
 
                 if(settings.type=='normal'){
@@ -305,6 +313,24 @@
 
         },
 
+        set_index: function(index){
+
+          var settings = $(this).data('Colousel');
+          var direction = false;
+          var inc_value = 0;
+
+          if(index>settings.current_index){
+            direction='next';
+            settings._inc_value=index-settings.current_index;
+          }else if(index<settings.current_index){
+            direction='prev';
+            settings._inc_value=settings.current_index-index;
+          }
+
+          if(direction) methods.move.apply($(this), [direction, true]);
+
+        },
+
         pre_move_checks: function(direction) {
 
             // Load settings
@@ -316,7 +342,7 @@
 
             var inc_value = settings.scroll_amount[$STAN.device];
             if (!inc_value) inc_value=1;
-
+            if(settings._inc_value) inc_value=settings._inc_value;
 
             if (!settings.continuous) {
 
@@ -390,6 +416,7 @@
 
                 settings._distance = inc_value * settings.selector_width;
                 settings._speed = inc_value * settings.transition_speed;
+                settings._inc_value=false;
 
             }
 

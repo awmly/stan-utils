@@ -8,7 +8,7 @@ base:		"../"
 
 <h1>Fixed width - Fixed height (Image fills space)</h1>
 
-      <div class='hero-1' style='position:relative;'>
+      <div class='hero-1 slider' style='position:relative;'>
 
           <div class='ext-layers' style='position:absolute;top:0;left:0;width:100%;height:100%;z-index:10;'>
             <div class='layer0' data-target='.hero-1 .slider' style='position:absolute;top:0;left:0;width:100%;background:#f0f;height:100%;'></div>
@@ -18,7 +18,7 @@ base:		"../"
           <div style='width:600px;margin:0 auto;position:relative;z-index:20;'>
             <div class='col-md-9'>
 
-              <div class='slider'>
+              <div class=''>
                 <div class='frame'>
                   <div class='layer1'>
                     <img src='{{page.base}}_assets/imgs/slider_1_lg.jpg' />
@@ -105,7 +105,9 @@ base:		"../"
 
       <p>
         <a href='javascript:;' data-toggle='slider.set' data-target='#slider1' data-index='0'>Load Image 1</a> |
-        <a href='javascript:;' data-toggle='slider.set' data-target='#slider1' data-index='1'>Load Image 2</a>
+        <a href='javascript:;' data-toggle='slider.set' data-target='#slider1' data-index='1'>Load Image 2</a> |
+        <a href='javascript:;' data-toggle='slider.autoplay.set' data-target='#slider1'>Set Autoplay</a> |
+        <a href='javascript:;' data-toggle='slider.autoplay.clear' data-target='#slider1'>Clear Autoplay</a> |
       </p>
 
       <div style='height:50px'></div>
@@ -204,10 +206,16 @@ $(function(){
   $('#slider1').on('post-move.sa.slider',function(event,settings){
     console.log(event.type+" - "+event.namespace);
   });
+  $('#slider1').on('autoplay-set.sa.slider',function(event,settings){
+    console.log(event.type+" - "+event.namespace);
+  });
+  $('#slider1').on('autoplay-clear.sa.slider',function(event,settings){
+    console.log(event.type+" - "+event.namespace);
+  });
 
   $('#slider1').Slider({
     activeIndex:1,
-    autoplay:false,
+    autoplay:true,
     layers:[{
       baseCSS:{ position:'absolute', left:0, top:'-100%' },
       inCSS:{ top:0 },
@@ -267,7 +275,7 @@ $(function(){
   });
 
 
-  $('.hero-1 .slider').Slider({
+  $('.hero-1.slider').Slider({
     height: '.layer1 img',
     layers:[{
       presetCSS:'fade',

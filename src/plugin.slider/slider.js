@@ -54,6 +54,24 @@
 
         });
 
+        // Autoplay set
+        $("body").on("click","[data-toggle='slider.autoplay.set']",function() {
+
+          var target=!! $(this).attr('data-target') ? $($(this).attr('data-target')) : $(this).parents('.slider');
+
+          methods.setAutoplay.apply(target, [true]);
+
+        });
+
+        // Autoplay clear
+        $("body").on("click","[data-toggle='slider.autoplay.clear']",function() {
+
+          var target=!! $(this).attr('data-target') ? $($(this).attr('data-target')) : $(this).parents('.slider');
+
+          methods.clearAutoplay.apply(target);
+
+        });
+
     });
 
 
@@ -240,7 +258,7 @@
 
                 // Clear autoplay
                 clearTimeout(settings.timer);
-                if (settings.autoplay_break_on_click && isClick) settings.autoplay = false;
+                if (settings.autoplay_break_on_click && isClick) methods.clearAutoplay.apply($this);
 
                 // Set indexes
                 if (direction == 'next') {
@@ -273,7 +291,7 @@
 
                 // Clear autoplay
                 clearTimeout(settings.timer);
-                if (settings.autoplay_break_on_click) settings.autoplay = false;
+                if (settings.autoplay_break_on_click) methods.clearAutoplay.apply($this);
 
                 // Set direction
                 direction = (index > settings.currentIndex) ? 'next' : 'prev';
@@ -345,11 +363,11 @@
             // Set post animation timeout
             setTimeout(function() {
 
-              // Tigger post move event
-              $this.trigger('post-move.sa.slider', [settings]);
-
               // Animation complete
               methods.animate_complete.apply($this);
+
+              // Tigger post move event
+              $this.trigger('post-move.sa.slider', [settings]);
 
             }, settings.animationLength);
 
@@ -377,16 +395,47 @@
             $("[data-target='" + settings.selector + "'][data-toggle='slider.set'][data-index='" + settings.currentIndex + "']").addClass('active');
 
             // Set Timer
-            if (settings.autoplay && settings.total>1) {
-                settings.timer = setTimeout(function() {
-
-                    methods.move.apply($this, ['next', false]);
-
-                }, settings.autoplay_delay);
-            }
+            methods.setAutoplay.apply($this,[false]);
 
             // Set action to false
             settings.action = false;
+
+        },
+
+        setAutoplay: function(setAutoPlay){
+
+          var settings = $(this).data('Slider');
+          var $this = $(this);
+          var delay=1;
+
+          if(setAutoPlay && !settings.autoplay){
+            settings.autoplay = true;
+            $(this).trigger('autoplay-set.sa.slider', [settings]);
+          }else{
+            delay=settings.autoplay_delay
+          }
+
+          if (settings.autoplay && settings.total>1) {
+              settings.timer = setTimeout(function() {
+
+                  methods.move.apply($this, ['next', false]);
+
+              }, delay);
+          }
+
+
+
+        },
+
+        clearAutoplay: function(){
+
+          var settings = $(this).data('Slider');
+
+          if(settings.autoplay) $(this).trigger('autoplay-clear.sa.slider', [settings]);
+
+          settings.autoplay = false;
+
+          clearTimeout(settings.timer);
 
         },
 
@@ -411,7 +460,7 @@
                 // Set height of frames
                 $this.find('.frame').css({
                     height: fh + 'px'
-                }).parents('div').css({
+                }).parent().closest('div').css({
                     height: fh + 'px'
                 });
 
@@ -423,7 +472,7 @@
                 // Set height of frames
                 $this.find('.frame').css({
                   height: settings.height[$STAN.device]
-                }).parents('div').css({
+                }).parent().closest('div').css({
                   height: settings.height[$STAN.device]
                 });
 
