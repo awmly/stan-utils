@@ -321,13 +321,16 @@
 
           if(index>settings.current_index){
             direction='next';
-            settings._inc_value=index-settings.current_index;
+            inc_value=index-settings.current_index;
           }else if(index<settings.current_index){
             direction='prev';
-            settings._inc_value=settings.current_index-index;
+            inc_value=settings.current_index-index;
           }
 
-          if(direction) methods.move.apply($(this), [direction, true]);
+          if(direction){
+            settings._inc_value=inc_value;
+            methods.move.apply($(this), [direction, true]);
+          }
 
         },
 
@@ -340,9 +343,16 @@
             var $this = $(this);
             var $Selectors = $this.find('.colousel-inner').children(settings.selector);
 
-            var inc_value = settings.scroll_amount[$STAN.device];
+            var inc_value;
+
+            if(settings._inc_value){
+              inc_value=settings._inc_value;
+              settings._inc_value=false;
+            }else{
+              inc_value = settings.scroll_amount[$STAN.device];
+            }
+
             if (!inc_value) inc_value=1;
-            if(settings._inc_value) inc_value=settings._inc_value;
 
             if (!settings.continuous) {
 
@@ -416,7 +426,6 @@
 
                 settings._distance = inc_value * settings.selector_width;
                 settings._speed = inc_value * settings.transition_speed;
-                settings._inc_value=false;
 
             }
 

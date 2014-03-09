@@ -98,17 +98,25 @@ base:		"../"
 
         <i class='fa fa-chevron-right fa-3x next' data-toggle='slider.next'></i>
         <i class='fa fa-chevron-left fa-3x prev' data-toggle='slider.prev'></i>
-        <div class='dots'></div>
-        <div class='counter'><span class='current'></span> / <span class='total'></span></div>
+        <div class='dots' data-role='slider.navigation'></div>
+        <div class='counter' data-role='slider.counter'><span class='current'></span> / <span class='total'></span></div>
 
       </div>
 
       <p>
         <a href='javascript:;' data-toggle='slider.set' data-target='#slider1' data-index='0'>Load Image 1</a> |
         <a href='javascript:;' data-toggle='slider.set' data-target='#slider1' data-index='1'>Load Image 2</a> |
-        <a href='javascript:;' data-toggle='slider.autoplay.set' data-target='#slider1'>Set Autoplay</a> |
-        <a href='javascript:;' data-toggle='slider.autoplay.clear' data-target='#slider1'>Clear Autoplay</a> |
+        <a href='javascript:;' class='autoplay' data-toggle='slider.autoplay-set' data-target='#slider1'>Set Autoplay</a> |
+        <a href='javascript:;' class='autoplay' data-toggle='slider.autoplay-clear' data-target='#slider1'>Clear Autoplay</a> |
       </p>
+      <style>
+      .autoplay{
+  display:none;
+}
+.autoplay.active{
+  display:block;
+}
+</style>
 
       <div style='height:50px'></div>
 

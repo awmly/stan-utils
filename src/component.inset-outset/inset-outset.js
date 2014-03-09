@@ -27,7 +27,7 @@ $(function() {
             width=$(this).outerWidth(true);
 
             // If width is zero (hidden) - use getSize to find its width
-            if(!width) width=$STAN.getSize('clone',$(this)).outerWidthMargin;
+            if(!width) width=$STAN.getSize($(this)).outerWidthMargin;
 
             // Apply paddings
             if( $(this).hasClass('sa-outset') ){

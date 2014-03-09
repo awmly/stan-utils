@@ -10,7 +10,7 @@
 	// Add click
 	$('.sa-collapse .sa-click').click(function(){
 
-    if( !$(this).parents('.sa-collapse').hasClass('inactive') ){
+    if( !$(this).closest('.sa-collapse').hasClass('inactive') ){
 
       $(this).closest('.sa-collapse') .toggleClass('active')
                                       .find('.sa-content').first().collapse('toggle');

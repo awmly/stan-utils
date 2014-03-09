@@ -1,0 +1,20 @@
+<h1>Over Out Delay</h1>
+
+<p>Add mouse over and mouse out events to an element - but with the option to delay the mouse out event.</p>
+
+<p><b>.overOutDelay(element,over,out,delay);</b></p>
+<ul class='bullet'>
+  <li><code>element</code> <i>string</i><br/>A jQuery selector to match elements
+  <li><code>over</code> <i>function</i><br/>Code to run on mouse over event
+  <li><code>out</code> <i>function</i><br/>Code to run on mouse out event
+  <li><code>delay</code> <i>integer</i><br/>Delay in micro seconds to execute out function
+</ul>
+
+<pre><code class='javascript'>$STAN.overOutDelay('.foo',function(){
+  // code to execute on over
+},function(){
+  // code to execute on out
+},2000);
+</code></pre>
+
+<div class='divide-lg'></div>

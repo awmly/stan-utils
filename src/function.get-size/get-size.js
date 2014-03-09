@@ -23,29 +23,19 @@
 
   };
 
-  $STAN.getSize=function(type,target,css){
+  $STAN.getSize=function(target,css){
 
     if(typeof css=='undefined') css={};
 
     css.visibility="hidden";
 
-    if(type=='clone'){
+    clone = target.clone().css(css);
 
-      clone = target.clone().css(css);
+    $('body').append(clone);
 
-      $('body').append(clone);
+    size=setSize(clone);
 
-      size=setSize(clone);
-
-      clone.remove();
-
-    }else if(type=='x'){
-
-      //element.parent().css('width','10000px');
-      //width='auto';
-      //display='inline-block';
-
-    }
+    clone.remove();
 
     return size;
 

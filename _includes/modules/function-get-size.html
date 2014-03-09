@@ -1,9 +1,27 @@
 <h1>Get Size</h1>
 
-<p></p>
+<p>Get the width/height of an element even if it is currently hidden.</p>
 
-<pre><code class='javascript'></code></pre>
+<p><b>.getSize(element[,css]);</b></p>
+<ul class='bullet'>
+  <li><code>element</code> <i>string</i><br/>A jQuery selector to match elements</li>
+  <li><code>css</code> <i>object</i><br/>CSS properties to apply to the element before getting its size</li>
+</ul>
 
-<p><a href='{{ page.base }}examples/function-get-size.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
+<p><b>Returns <i>object</i></b></p>
+<ul class='bullet'>
+  <li><code>width</code> <i>integer</i><br/>Width of element</li>
+  <li><code>height</code> <i>integer</i><br/>Height of element</li>
+  <li><code>outerWidth</code> <i>integer</i><br/>Outer width of element</li>
+  <li><code>outerHeight</code> <i>integer</i><br/>Outer height of element</li>
+  <li><code>outerWidthMargin</code> <i>integer</i><br/>Outer width of element including margin</li>
+  <li><code>outerHeightMargin</code> <i>integer</i><br/>Outer height of element including margin</li>
+</ul>
+
+<pre><code class='javascript'>// Get size
+var Size=$STAN.getSize('.foo');
+
+// Set the outerWidth value from Size object
+var outerWidth=Size.outerWidth;</code></pre>
 
 <div class='divide-lg'></div>

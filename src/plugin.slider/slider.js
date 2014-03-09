@@ -55,7 +55,7 @@
         });
 
         // Autoplay set
-        $("body").on("click","[data-toggle='slider.autoplay.set']",function() {
+        $("body").on("click","[data-toggle='slider.autoplay-set']",function() {
 
           var target=!! $(this).attr('data-target') ? $($(this).attr('data-target')) : $(this).parents('.slider');
 
@@ -64,7 +64,7 @@
         });
 
         // Autoplay clear
-        $("body").on("click","[data-toggle='slider.autoplay.clear']",function() {
+        $("body").on("click","[data-toggle='slider.autoplay-clear']",function() {
 
           var target=!! $(this).attr('data-target') ? $($(this).attr('data-target')) : $(this).parents('.slider');
 
@@ -117,10 +117,24 @@
 
                 // Set total
                 settings.total = $this.find('.frame').length;
-                $this.find('.counter .total').text(settings.total);
+                $this.find("[data-role='slider.counter'] .total").text(settings.total);
 
                 // Hide controls if less than 2 frames
-                if(settings.total<2) $this.find('.next, .prev, .dots').css('display','none');
+                if(settings.total<2){
+
+                  $this.find("[data-toggle='slider.next']").css('display','none');
+                  $("[data-target='" + settings.selector + "'][data-toggle='slider.next']").css('display','none');
+
+                  $this.find("[data-toggle='slider.prev']").css('display','none');
+                  $("[data-target='" + settings.selector + "'][data-toggle='slider.prev']").css('display','none');
+
+                  $this.find("[data-role='slider.navigation']").css('display','none');
+                  $("[data-target='" + settings.selector + "'][data-role='slider.navigation']").css('display','none');
+
+                  $this.find("[data-role='slider.counter']").css('display','none');
+                  $("[data-target='" + settings.selector + "'][data-role='slider.counter']").css('display','none');
+
+                }
 
 
                 // Set currentIndex
@@ -201,10 +215,10 @@
 
                 }
 
-                // Set dots buttons if dots container is empty
-                if(!$this.find('.dots').html()){
+                // Set dot buttons if navigation container is empty
+                if(!$this.find("[data-role='slider.navigation']").html()){
                     for (i = 0; i < settings.total; i++) {
-                        $this.find('.dots').append('<span data-toggle="slider.set" data-index="'+i+'"></span>');
+                        $this.find("[data-role='slider.navigation']").append('<span data-toggle="slider.set" data-index="'+i+'"></span>');
                     }
                 }
 
@@ -388,7 +402,7 @@
                 .eq(settings.nextIndex).addClass('active');
 
             // Update counter
-            $this.find('.counter .current').text(settings.currentIndex + 1);
+            $this.find("[data-role='slider.counter'] .current").text(settings.currentIndex + 1);
 
             // Add active classes
             $this.find("[data-toggle='slider.set'][data-index='" + settings.currentIndex + "']").addClass('active');
@@ -409,29 +423,64 @@
           var delay=1;
 
           if(setAutoPlay && !settings.autoplay){
+
+            // Turn autoplay on
             settings.autoplay = true;
+
+            // Trigger event
             $(this).trigger('autoplay-set.sa.slider', [settings]);
+
           }else{
             delay=settings.autoplay_delay
           }
 
           if (settings.autoplay && settings.total>1) {
+
+              // Set active class on clear
+              $this.find("[data-toggle='slider.autoplay-clear']").addClass('active');
+              $("[data-target='" + settings.selector + "'][data-toggle='slider.autoplay-clear']").addClass('active');
+
+              // Remove active classes from set
+              $this.find("[data-toggle='slider.autoplay-set']").removeClass('active');
+              $("[data-target='" + settings.selector + "'][data-toggle='slider.autoplay-set']").removeClass('active');
+
               settings.timer = setTimeout(function() {
 
                   methods.move.apply($this, ['next', false]);
 
               }, delay);
+
+          }else{
+
+            methods.clearAutoplay.apply($this);
+
           }
-
-
 
         },
 
         clearAutoplay: function(){
 
           var settings = $(this).data('Slider');
+          var $this = $(this);
 
-          if(settings.autoplay) $(this).trigger('autoplay-clear.sa.slider', [settings]);
+          if(settings.autoplay){
+
+            // Trigger event
+            $(this).trigger('autoplay-clear.sa.slider', [settings]);
+
+          }
+
+          if(settings.total > 1){
+
+            // Set active class on set
+            $this.find("[data-toggle='slider.autoplay-set']").addClass('active');
+            $("[data-target='" + settings.selector + "'][data-toggle='slider.autoplay-set']").addClass('active');
+
+            // Remove active classes from clear
+            $this.find("[data-toggle='slider.autoplay-clear']").removeClass('active');
+            $("[data-target='" + settings.selector + "'][data-toggle='slider.autoplay-clear']").removeClass('active');
+
+          }
 
           settings.autoplay = false;
 
