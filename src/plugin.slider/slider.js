@@ -80,18 +80,14 @@
 
         init: function(options) {
 
-            // Save selector in array
-            $(this.selector).each(function() {
-
-                Selectors.push($(this));
-
-            });
-
             // Add selector to options
             options.selector = this.selector;
 
             // Iterate Through Selectors
             return this.each(function(index) {
+
+                // Save selector in array
+                Selectors.push($(this));
 
                 // Set this
                 var $this = $(this);

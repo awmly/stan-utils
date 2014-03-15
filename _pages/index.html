@@ -1,22 +1,22 @@
 ---
 title: STAN Utils
-layout:	main
-base:	"./"
-id: 	"index"
+layout: main
+base: "./"
+id:   "index"
 ---
 
-<h1>Meet STAN</h1>
+<h1>Meet STAN!</h1>
 
 <p>At its core STAN is a responsive framework that allows for device dependent display and functionality. It is built upon the device philosophy that Bootstrap uses but then extends upon it to allow for easy cross device management. STAN has the ability to set different classes and data variables for each differnt device making it easier to target specific devices when writing code.</p>
 
 <p>Below is a table showing the default setup for STAN.</p>
 
 <table class='table table-striped'>
-	<tr><th>Device</th><th>Width</th><th>Class</th><th>Data</th></tr>
-	<tr><td>xs</td><td>&lt; 768px</td><td>.device-xs .mobile</td><td><code>{ mobile: true,&nbsp;&nbsp;desktop: false }</code></td></tr>
-	<tr><td>sm</td><td>768px - 991px</td><td>.device-sm .mobile</td><td><code>{ mobile: true,&nbsp;&nbsp;desktop: false }</code></td></tr>
-	<tr><td>md</td><td>992px - 1199px</td><td>.device-md .desktop</td><td><code>{ mobile: false, desktop: true&nbsp; }</code></td></tr>
-	<tr><td>lg</td><td><u>&gt;</u> 1200px</td><td>.device-lg .desktop</td><td><code>{ mobile: false, desktop: true&nbsp; }</code></td></tr>
+  <tr><th>Device</th><th>Width</th><th>Class</th><th>Data</th></tr>
+  <tr><td>xs</td><td>&lt; 768px</td><td>.device-xs .mobile</td><td><code>{ mobile: true,&nbsp;&nbsp;desktop: false }</code></td></tr>
+  <tr><td>sm</td><td>768px - 991px</td><td>.device-sm .mobile</td><td><code>{ mobile: true,&nbsp;&nbsp;desktop: false }</code></td></tr>
+  <tr><td>md</td><td>992px - 1199px</td><td>.device-md .desktop</td><td><code>{ mobile: false, desktop: true&nbsp; }</code></td></tr>
+  <tr><td>lg</td><td><u>&gt;</u> 1200px</td><td>.device-lg .desktop</td><td><code>{ mobile: false, desktop: true&nbsp; }</code></td></tr>
 </table>
 
 <h2>Classes</h2>
@@ -28,10 +28,10 @@ id: 	"index"
 <p>STAN sets a global variable of <code>$STAN</code> which contains all information about the current viewport. Below is what the $STAN object looks like when the current device is md.</p>
 <pre><code class='javascript'>// Contents of $STAN
 {
-	device:	'md',
-	class:	'device-md desktop',
-	mobile:	false,
-	desktop:	true
+  device: 'md',
+  class:  'device-md desktop',
+  mobile: false,
+  desktop:  true
 }</code></pre>
 
 <h2>Events</h2>
@@ -39,11 +39,11 @@ id: 	"index"
 <p>Each time a device is activated or deactivated the following events are triggered;</p>
 
 <pre><code class='javascript'>$('body').on('active.sa.stan',function(event,device){
-	// Triggered when a device is activated
+  // Triggered when a device is activated
 });
 
 $('body').on('deactive.sa.stan',function(event,device){
-	// Triggered when a device is deactivated
+  // Triggered when a device is deactivated
 });</code></pre>
 
 <div class='divide-lg'></div>
@@ -51,37 +51,37 @@ $('body').on('deactive.sa.stan',function(event,device){
 <h1>Customising</h1>
 <p>If you wish to modify the breakpoints at which different devices are activated, the applied classes or the data set when a device is activated or if you would like the element the classes are applied add the following code before the inclusion of the javascript file.</p>
 <pre><code class='javascript'>$STAN_Config = {
-	tag: 		'body',
-	xs:{
-		class: 		'device-xs mobile',
-		data: 		{ mobile: true,&nbsp;&nbsp;desktop: false }
-	},
-	sm:{
-		min_width: 	768,
-		class: 		'device-sm mobile',
-		data: 		{ mobile: true,&nbsp;&nbsp;desktop: false }
-	},
-	md:{
-		min_width: 	992,
-		class:		'device-md desktop',
-		data:		{ mobile: false, desktop: true&nbsp; }
-	},
-	lg:{
-		min_width: 	1200,
-		class: 		'device-lg desktop',
-		data: 		{ mobile: false, desktop: true&nbsp; }
-	}
+  tag:    'body',
+  xs:{
+    class:    'device-xs mobile',
+    data:     { mobile: true,&nbsp;&nbsp;desktop: false }
+  },
+  sm:{
+    min_width:  768,
+    class:    'device-sm mobile',
+    data:     { mobile: true,&nbsp;&nbsp;desktop: false }
+  },
+  md:{
+    min_width:  992,
+    class:    'device-md desktop',
+    data:   { mobile: false, desktop: true&nbsp; }
+  },
+  lg:{
+    min_width:  1200,
+    class:    'device-lg desktop',
+    data:     { mobile: false, desktop: true&nbsp; }
+  }
 };</code></pre>
 
 <p>Only the values needed to be modified have to be specified in the Config object so the below will be acceptable.</p>
 
 <pre><code class='javascript'>$STAN_Config = {
-	xs:{
-		class: 		'device-xs foo-bar',
-	},
-	sm:{
-		data: 		{ foo:bar, bar:foo }
-	}
+  xs:{
+    class:    'device-xs foo-bar',
+  },
+  sm:{
+    data:     { foo:bar, bar:foo }
+  }
 };</code></pre>
 
 <div class='divide-lg'></div>
@@ -104,35 +104,35 @@ grunt</code></pre>
 &lt;html lang="en"&gt;
 &lt;head&gt;
 
-	&lt;title&gt;Anchor Nav Example&lt;/title&gt;
-	&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"&gt;
+  &lt;title&gt;Anchor Nav Example&lt;/title&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"&gt;
 
-	&lt;!-- Bootstrap CSS --&gt;
-	&lt;link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css"&gt;
+  &lt;!-- Bootstrap CSS --&gt;
+  &lt;link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css"&gt;
 
-	&lt;!-- STAN CSS --&gt;
-	&lt;link rel="stylesheet" href="/path/to/stan-utils.min.css"&gt;
+  &lt;!-- STAN CSS --&gt;
+  &lt;link rel="stylesheet" href="/path/to/stan-utils.min.css"&gt;
 
-	&lt;!-- Your CSS --&gt;
-	&lt;link rel="stylesheet" href="/path/to/styles.css"&gt;
+  &lt;!-- Your CSS --&gt;
+  &lt;link rel="stylesheet" href="/path/to/styles.css"&gt;
 
 &lt;/head&gt;
 &lt;body&gt;
 
-	&lt;!-- Page Content --&gt;
-	...
+  &lt;!-- Page Content --&gt;
+  ...
 
-	&lt;!-- jQuery JS --&gt;
-	&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"&gt;&lt;/script&gt;
+  &lt;!-- jQuery JS --&gt;
+  &lt;script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"&gt;&lt;/script&gt;
 
-	&lt;!-- Bootstrap JS --&gt;
+  &lt;!-- Bootstrap JS --&gt;
     &lt;script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"&gt;&lt;/script&gt;
 
     &lt;!-- STAN JS --&gt;
     &lt;script src="/path/to/stan-utils.min.js"&gt;&lt;/script&gt;
 
     &lt;!-- Your JS --&gt;
-	&lt;script src="/path/to/scripts.js"&gt;&lt;/script&gt;
+  &lt;script src="/path/to/scripts.js"&gt;&lt;/script&gt;
 
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
@@ -160,15 +160,15 @@ grunt</code></pre>
 <h1>Credits</h1>
 <p>This project has been made possible thanks to;</p>
 <ul class='bullet'>
-	<li><a href='http://jquery.com/' target='_blank'>jQuery</a> - Javascript library powering all plugins</li>
-	<li><a href='http://getbootstrap.com/' target='_blank'>Bootstrap</a> - Base CSS framework</li>
-	<li><a href='http://nodejs.org/' target='_blank'>Node.js</a> - Server based Javascript engine</li>
-	<li><a href='http://bower.io/' target='_blank'>Bower</a> - Dependency management</li>
-	<li><a href='http://gruntjs.com/' target='_blank'>Grunt</a> - Task runner</li>
-	<li><a href='http://fontforge.org/' target='_blank'>Fontforge</a> - Icon creation</li>
-	<li><a href='http://jekyllrb.com/' target='_blank'>Jekyll</a> - Site template engine</li>
-	<li><a href='http://www.github.com/' target='_blank'>GitHub</a> - Project hosting</li>
-	<li>All the fantastic open source Grunt plugins!</li>
+  <li><a href='http://jquery.com/' target='_blank'>jQuery</a> - Javascript library powering all plugins</li>
+  <li><a href='http://getbootstrap.com/' target='_blank'>Bootstrap</a> - Base CSS framework</li>
+  <li><a href='http://nodejs.org/' target='_blank'>Node.js</a> - Server based Javascript engine</li>
+  <li><a href='http://bower.io/' target='_blank'>Bower</a> - Dependency management</li>
+  <li><a href='http://gruntjs.com/' target='_blank'>Grunt</a> - Task runner</li>
+  <li><a href='http://fontforge.org/' target='_blank'>Fontforge</a> - Icon creation</li>
+  <li><a href='http://jekyllrb.com/' target='_blank'>Jekyll</a> - Site template engine</li>
+  <li><a href='http://www.github.com/' target='_blank'>GitHub</a> - Project hosting</li>
+  <li>All the fantastic open source Grunt plugins!</li>
 </ul>
 
 <div class='divide-lg'></div>

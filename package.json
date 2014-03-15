@@ -1,6 +1,6 @@
 {
   "name": "stan-utils",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "http://stan-utils.smartarts.co.uk",
   "author": "Andrew Womersley",
   "scripts": {
@@ -27,6 +27,7 @@
     "grunt-contrib-htmlmin": "~0.2.0",
     "grunt-contrib-less": "~0.10.0",
     "grunt-banner": "~0.2.0",
-    "grunt-contrib-concat": "~0.3.0"
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-less-imports": "~0.9.1"
   }
 }

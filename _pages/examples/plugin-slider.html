@@ -15,18 +15,18 @@ base:		"../"
             <div class='layer0' data-target='.hero-1 .slider' style='position:absolute;top:0;left:0;width:100%;background:#0f0;height:100%;'></div>
           </div>
 
-          <div style='width:600px;margin:0 auto;position:relative;z-index:20;'>
+          <div style='max-width:600px;margin:0 auto;position:relative;z-index:20;'>
             <div class='col-md-9'>
 
               <div class=''>
                 <div class='frame'>
                   <div class='layer1'>
-                    <img src='{{page.base}}_assets/imgs/slider_1_lg.jpg' />
+                    <img src='{{page.base}}_assets/imgs/slider_1_lg.jpg' class='img-fullwidth' />
                   </div>
                 </div>
                 <div class='frame'>
                   <div class='layer1'>
-                    <img src='{{page.base}}_assets/imgs/slider_2_lg.jpg' />
+                    <img src='{{page.base}}_assets/imgs/slider_2_lg.jpg' class='img-fullwidth' />
                   </div>
                 </div>
 
@@ -67,7 +67,7 @@ base:		"../"
       <a href='/1' class='no-style'>
         <div class='frame'>
           <div class='layer0'>
-            <img src='{{page.base}}_assets/imgs/slider_1_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_1_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_1_sm.jpg","md":"{{page.base}}_assets/imgs/slider_1_md.jpg","lg":"{{page.base}}_assets/imgs/slider_1_lg.jpg"}' />
+            <img src='{{page.base}}_assets/imgs/slider_1_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_1_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_1_sm.jpg","md":"{{page.base}}_assets/imgs/slider_1_md.jpg","lg":"{{page.base}}_assets/imgs/slider_1_lg.jpg"}' class='img-fullwidth' />
           </div>
           <div class='layer1 hero'>
               <h6>Lorem ipsum dolor sit amet</h6>
@@ -83,7 +83,7 @@ base:		"../"
       <a href='/2' class='no-style'>
         <div class='frame'>
           <div class='layer0'>
-            <img src='{{page.base}}_assets/imgs/slider_2_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_2_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_2_sm.jpg","md":"{{page.base}}_assets/imgs/slider_2_md.jpg","lg":"{{page.base}}_assets/imgs/slider_2_lg.jpg"}' />
+            <img src='{{page.base}}_assets/imgs/slider_2_xs.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/slider_2_xs.jpg","sm":"{{page.base}}_assets/imgs/slider_2_sm.jpg","md":"{{page.base}}_assets/imgs/slider_2_md.jpg","lg":"{{page.base}}_assets/imgs/slider_2_lg.jpg"}' class='img-fullwidth' />
           </div>
           <div class='layer1 hero'>
               <h6>Lorem ipsum dolor sit amet</h6>
@@ -224,7 +224,8 @@ $(function(){
   $('#slider1').Slider({
     activeIndex:1,
     autoplay:true,
-    layers:[{
+    layers:[{presetCSS:'slide' }]
+    /*layers:[{
       baseCSS:{ position:'absolute', left:0, top:'-100%' },
       inCSS:{ top:0 },
       inDelay:400,
@@ -254,7 +255,7 @@ $(function(){
       outDelay:0,
       outDuration:200,
       outEasing:'linear'
-    }]
+    }]*/
 
   });
 

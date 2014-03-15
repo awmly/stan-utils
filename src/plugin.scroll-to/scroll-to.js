@@ -22,19 +22,14 @@
 
         });
 
+        return true;
+
     });
 
     // Define Methods
     var methods = {
 
         init: function(options) {
-
-            // Save selector in array
-            $(this.selector).each(function() {
-
-                Selectors.push($(this));
-
-            });
 
             return this.each(function() {
 
@@ -63,6 +58,12 @@
                     return false;
 
                 });
+
+                if( $this.find(settings.selector).length ){
+
+                  Selectors.push($this);
+
+                }
 
                 $this.find(settings.selector).each(function() {
 
@@ -129,7 +130,9 @@
                 $(st.element).addClass('active');
                 window.location.hash = '#/' + st.target.substring(1);
             } else {
-                window.location.hash = '';
+                if(window.location.hash!='/'){
+                    window.location.hash = '/';
+                }
             }
 
         },

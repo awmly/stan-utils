@@ -8,22 +8,22 @@ $(function() {
     'use strict';
 
     // Stop parent scroll
-    $('.stop-parent-scroll').on('mousewheel, touchend', function(event) {
+    $('.stop-parent-scroll').on('mousewheel touchend', function(event) {
 
-  		var dir = event.originalEvent.wheelDelta;
-  		var $t = $(this);
+      var dir = event.originalEvent.wheelDelta;
+      var $t = $(this);
 
-  		if (dir > 0 && $t.scrollTop() === 0) {
-  		    event.preventDefault();
-  		}
+      if (dir > 0 && $t.scrollTop() === 0) {
+          event.preventDefault();
+      }
 
-  		if (dir < 0 && ($t.scrollTop() == $t.get(0).scrollHeight - $t.innerHeight())) {
-  		    event.preventDefault();
-  		}
+      if (dir < 0 && ($t.scrollTop() == $t.get(0).scrollHeight - $t.innerHeight())) {
+          event.preventDefault();
+      }
 
-  		event.stopPropagation();
+      event.stopPropagation();
 
-  	});
+    });
 
     $('.stop-parent-scroll').on('touchstart', function(event) {
 

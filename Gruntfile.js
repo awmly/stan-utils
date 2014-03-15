@@ -77,6 +77,14 @@ module.exports = function(grunt) {
           },
         },
 
+        less_imports: {
+            your_target: {
+                files: {
+                'src/stan/stan.less': ['bower_components/less-prefixer/prefixer.less', 'src/**/*.less' ,'!src/stan/stan.less', '!src/**/*.inc.less']
+                }
+            }
+          },
+
         less: {
             dist: {
                 options: {
@@ -172,6 +180,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
+    grunt.loadNpmTasks('grunt-less-imports');
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-jekyll');
     grunt.loadNpmTasks('grunt-prettify');

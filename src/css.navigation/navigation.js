@@ -1,32 +1,32 @@
 $(function() {
 
-	'use strict';
+    'use strict';
 
-	var width, subnav;
+    var width, subnav;
 
-	$(".sa-nav.nav-horizontal li").mouseover(function(){
+    $(".sa-nav.nav-horizontal li").mouseover(function() {
 
-    width=0;
-		subnav=$(this).children('ul');
+        width = 0;
+        subnav = $(this).children('ul');
 
-		if(subnav.length){
+        if (subnav.length) {
 
-      subnav.css('width','1000px')
-            .children('li').css('display','inline-block');
+            subnav.css('width', '1000px')
+                .children('li').css('display', 'inline-block');
 
-      subnav.children('li').each(function(){
+            subnav.children('li').each(function() {
 
-        if($(this).outerWidth()>width) width=$(this).outerWidth();
+                if ($(this).outerWidth() > width) width = $(this).outerWidth();
 
-      });
+            });
 
-      subnav.css('width','')
-            .children('li').css('display','');
+            subnav.css('width', '')
+                .children('li').css('display', '');
 
-			if(width>$(this).outerWidth()) subnav.css('width',width+'px');
+            if (width > subnav.outerWidth()) subnav.css('width', width + 'px');
 
-		}
+        }
 
-	});
+    });
 
 });
