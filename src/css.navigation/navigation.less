@@ -6,8 +6,6 @@
 /** Nav */
 .sa-nav,
 .sa-nav li{
-  padding:0;
-  margin:0;
   position:relative;
 }
 
@@ -18,18 +16,17 @@
 .nav-horizontal a{ display:block; }
 
 /** Block Nav */
-.sa-nav.nav-block a{
+.nav-block a{
   display:block;
-  padding:7px 0;
   background:@bg-normal;
 }
 
-.sa-nav.nav-block a:hover{
+.nav-block a:hover{
   background:@bg-hover;
   text-decoration:none;
 }
 
-.sa-nav.nav-block li.active > a{
+.nav-block li.active > a{
   background:@bg-active;
 }
 
@@ -38,7 +35,6 @@
 .nav-vertical:not(.nav-block) a,
 .nav-horizontal:not(.nav-block) ul ul a{
   display:inline-block;
-  margin:0 0 6px 0;
 }
 
 .nav-vertical:not(.nav-block) > ul > li:last-child > a{
@@ -68,62 +64,4 @@
 
 .nav-horizontal li:hover > ul{
   display:block;
-}
-
-
-/* Nav */
-.sa-nav ul a{
-  line-height:16px;
-}
-
-/* Icons */
-.sa-nav ul i{
-  top:8px;
-}
-.sa-nav.nav-block ul i{
-  top:15px;
-}
-
-/* Horizontal List */
-.sa-nav.nav-horizontal:not(.nav-block)>ul>li{
-  margin-right:15px;
-}
-
-/* Horizontal / Vertical Block */
-.sa-nav.nav-block a,
-.sa-nav.nav-horizontal:not(.nav-block) ul ul li{
-  padding-left:15px;
-  padding-right:15px;
-}
-
-/* Horizontal Sub Nav */
-.sa-nav.nav-horizontal:not(.nav-block) ul ul{
-  padding-top:8px;
-  padding-bottom:8px;
-  left:-15px;
-}
-.sa-nav.nav-horizontal:not(.nav-block) ul ul ul{
-  top:-8px;
-}
-
-/* Vertical Sub Nav */
-.sa-nav.nav-vertical:not(.nav-block) ul ul li{
-  padding-left:15px;
-}
-.sa-nav.nav-vertical:not(.nav-block) ul ul ul li,
-.sa-nav.nav-vertical.nav-block ul ul a{
-  padding-left:30px;
-}
-.sa-nav.nav-vertical:not(.nav-block) ul ul ul ul li,
-.sa-nav.nav-vertical.nav-block ul ul ul a{
-  padding-left:45px;
-}
-.sa-nav.nav-vertical.nav-block ul ul ul ul a{
-  padding-left:60px;
-}
-
-
-/** Overrides */
-.sa-nav.nav-block.sa-panel{
-  xadding:0 !important;
 }

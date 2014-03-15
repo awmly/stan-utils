@@ -16,11 +16,11 @@ module.exports = function(grunt) {
             },
             js: {
                 files: ['src/**/*.js'],
-                tasks: ['uglify']
+                tasks: ['concat_sourcemap', 'uglify']
             },
             css: {
                 files: ['src/**/*.less'],
-                tasks: ['concat','less']
+                tasks: ['less_imports', 'less']
             }
         },
 
@@ -39,7 +39,7 @@ module.exports = function(grunt) {
                     port: 9001,
                     open: true,
                     livereload: true,
-                    hostname:'*',
+                    hostname: '*',
                     base: '_site'
                 }
             },
@@ -48,7 +48,7 @@ module.exports = function(grunt) {
                     port: 9001,
                     open: true,
                     livereload: true,
-                    base: ['_assets', 'src', 'tests','bower_components']
+                    base: ['_assets', 'src', 'tests', 'bower_components']
                 }
             }
         },
@@ -62,6 +62,17 @@ module.exports = function(grunt) {
             }
         },
 
+        concat_sourcemap: {
+          options: {
+            sourcesContent: true
+          },
+          target: {
+            files: {
+              'dist/<%= pkg.name %>.js': ['src/stan/stan.js', 'src/**/*.js']
+            }
+          }
+        },
+
         uglify: {
             dist: {
                 files: {
@@ -70,43 +81,48 @@ module.exports = function(grunt) {
             }
         },
 
-        concat: {
-          dist: {
-            src: ['bower_components/less-prefixer/prefixer.less','src/stan/stan.less', 'src/**/*.less' ,'!src/**/*.inc.less'],
-            dest: 'tmp/less.less',
-          },
-        },
-
         less_imports: {
-            your_target: {
+            stan: {
                 files: {
-                'src/stan/stan.less': ['bower_components/less-prefixer/prefixer.less', 'src/**/*.less' ,'!src/stan/stan.less', '!src/**/*.inc.less']
+                    'src/stan/stan.less': ['bower_components/less-prefixer/prefixer.less', 'src/**/*.less', '!src/stan/stan.less', '!src/**/*.inc.less']
                 }
             }
-          },
+        },
 
         less: {
-            dist: {
+            main: {
                 options: {
-                    cleancss:true
+                    sourceMap: true,
+                    outputSourceFiles: true,
+                    sourceMapFilename: "dist/<%= pkg.name %>.css.map",
+                    sourceMapURL: "<%= pkg.name %>.css.map"
                 },
                 files: {
-                    'dist/<%= pkg.name %>.min.css': ['tmp/less.less']
+                    'dist/<%= pkg.name %>.css': ['src/stan/stan.less']
+                }
+            },
+            minify: {
+                options: {
+                    cleancss: true,
+                    report: 'min,'
+                },
+                files: {
+                    'dist/<%= pkg.name %>.min.css': ['src/stan/stan.less']
                 }
             }
         },
 
         usebanner: {
-          dist: {
-            options: {
-              position: 'top',
-              banner: '<%= banner %>',
-              linebreak: true
-            },
-            files: {
-              src: [ 'dist/*' ]
+            dist: {
+                options: {
+                    position: 'top',
+                    banner: '<%= banner %>',
+                    linebreak: true
+                },
+                files: {
+                    src: ['dist/*.js', 'dist/*.css', '!dist/*.map']
+                }
             }
-          }
         },
 
         shell: {
@@ -178,8 +194,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-concat-sourcemap');
     grunt.loadNpmTasks('grunt-less-imports');
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-jekyll');
@@ -187,7 +204,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-banner');
 
     // Register tasks
-    grunt.registerTask('js-less', ['uglify', 'concat', 'less', 'usebanner', 'shell:tmp']);
+    grunt.registerTask('js-less', ['concat_sourcemap', 'uglify', 'less_imports', 'less', 'usebanner', 'shell:tmp']);
     grunt.registerTask('site', function() {
 
         grunt.config('watch', config.watch_site);

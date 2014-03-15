@@ -1,0 +1,21 @@
+<h1>Responsive Nav</h1>
+
+<p>A responsive navigation that acts as a standard dropdown navigation on desktop devices and as a pop out slider navigation on mobile devices. By default the breakpoint between devices is 992px, to modify this add the attribute <code>data-breakpoint="728"</code> on to the main resp-nav element.</p>
+
+<p>To only show certian elements on each viewport add the classes <code>.desktop-only</code> and <code>.mobile-only</code>.</p>
+
+<pre><code class='xml'>&lt;!-- Navigation holder --&gt;
+&lt;div class="resp-nav" data-breakpoint="728"&gt;
+  ...
+&lt;/div&gt;
+
+&lt;!-- Navigation loader for mobile --&gt;
+&lt;i class="fa fa-bars fa-2x resp-nav-load"&gt;&lt;/i&gt;
+
+&lt;!-- Navigation mask when on mobile --&gt;
+&lt;div class="resp-nav-mask">&lt;/div&gt;
+</code></pre>
+
+<p><a href='{{ page.base }}examples/component-responsive-nav.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
+
+<div class='divide-lg'></div>
