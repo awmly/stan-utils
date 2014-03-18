@@ -1,3 +1,8 @@
+/*!
+ * STAN Utils 0.0.3
+ * Copyright 2014 Andrew Womersley
+ */
+
 /* ========================================================================
  * STAN Utils: Stan
  * Author: Andrew Womersley
@@ -1069,6 +1074,7 @@ $(function() {
                 // Set Options
                 var settings = $.extend({
                     selector:'div',
+                    activeClass:'active',
                     animate:false,
                     cardsPerRow: { xs:1, sm:1, md:1, lg:1 }
                 }, options);
@@ -1088,6 +1094,10 @@ $(function() {
                 // Do position
                 methods.position.apply(this);
 
+                setTimeout(function(){ $this.css('visibility','visible'); },500);
+
+
+
             });
 
         },
@@ -1106,7 +1116,7 @@ $(function() {
 
             var x, col, left, top;
 
-            $this.find(settings.selector).each(function(){
+            $this.find(settings.selector+"."+settings.activeClass).each(function(){
 
               top=99999;
 
@@ -2191,8 +2201,8 @@ $(function() {
                     navHolder:'.filternav',
                     navHTML: '<li data-tag="{tag}">{tag} <span>{matches}</span><i class="sa-on fa fa-times"></i><i class="sa-off fa fa-check"></i></li>',
                     loadMore: '.sa-filter-load',
-                    inactiveClass: false,
-                    activeClass:false,
+                    inactiveClass: 'inactive',
+                    activeClass:'active',
                     resultsPerPage:{ xs:4, sm:6, md:8, lg:10 },
                     currentTags:[],
                     currentPage:1,
@@ -2213,6 +2223,7 @@ $(function() {
 
                 });
 
+                $(settings.loadMore).addClass('sa-filter-load');
                 $(settings.loadMore).click(function(){
 
                     settings.currentPage++;
@@ -2329,7 +2340,7 @@ $(function() {
 
             $(settings.navHolder).find('[data-tag]').each(function(){
 
-                $(this).find('span').text( $this.find('[data-tags*="'+$(this).attr('data-tag')+'"].active').length );
+                $(this).find('span').text( $this.find('[data-tags*="'+$(this).attr('data-tag')+'"]').length );
 
             });
 

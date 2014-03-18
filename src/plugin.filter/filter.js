@@ -49,8 +49,8 @@
                     navHolder:'.filternav',
                     navHTML: '<li data-tag="{tag}">{tag} <span>{matches}</span><i class="sa-on fa fa-times"></i><i class="sa-off fa fa-check"></i></li>',
                     loadMore: '.sa-filter-load',
-                    inactiveClass: false,
-                    activeClass:false,
+                    inactiveClass: 'inactive',
+                    activeClass:'active',
                     resultsPerPage:{ xs:4, sm:6, md:8, lg:10 },
                     currentTags:[],
                     currentPage:1,
@@ -71,6 +71,7 @@
 
                 });
 
+                $(settings.loadMore).addClass('sa-filter-load');
                 $(settings.loadMore).click(function(){
 
                     settings.currentPage++;
@@ -187,7 +188,7 @@
 
             $(settings.navHolder).find('[data-tag]').each(function(){
 
-                $(this).find('span').text( $this.find('[data-tags*="'+$(this).attr('data-tag')+'"].active').length );
+                $(this).find('span').text( $this.find('[data-tags*="'+$(this).attr('data-tag')+'"]').length );
 
             });
 

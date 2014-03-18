@@ -9,6 +9,12 @@ base:   "../"
 .sidenav li:hover{ background:#ddd; }
 .sidenav li.active{ background:#333; color:#fff; }
 .sidenav i{ position:absolute; top:8px; left:15px; }
+
+.sa-filter .inactive{
+  display:block;
+  filter: alpha(opacity=0);
+  opacity:0;
+}
 </style>
 <h1>Filter Example</h1>
 
@@ -23,53 +29,53 @@ base:   "../"
 
     <div class='sa-cards'>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>1</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>1</div></div>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:240px;'>2</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:240px;'>2</div></div>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='blue'><div style='background:#0000ff;height:110px;'>C</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='blue'><div style='background:#0000ff;height:110px;'>C</div></div>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='yellow'><div style='background:#ffff00;height:50px;'>D</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='yellow'><div style='background:#ffff00;height:50px;'>D</div></div>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:120px;'>5</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:120px;'>5</div></div>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>6</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>6</div></div>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='purple'><div style='background:#ff00ff;height:160px;'>G</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='purple'><div style='background:#ff00ff;height:160px;'>G</div></div>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:140px;'>8</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:140px;'>8</div></div>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='blue'><div style='background:#0000ff;height:110px;'>I</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='blue'><div style='background:#0000ff;height:110px;'>I</div></div>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='yellow'><div style='background:#ffff00;height:50px;'>J</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='yellow'><div style='background:#ffff00;height:50px;'>J</div></div>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:120px;'>11</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:120px;'>11</div></div>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>12</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>12</div></div>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>1</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>1</div></div>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:240px;'>2</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:240px;'>2</div></div>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='blue'><div style='background:#0000ff;height:110px;'>C</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='blue'><div style='background:#0000ff;height:110px;'>C</div></div>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='yellow'><div style='background:#ffff00;height:50px;'>D</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='yellow'><div style='background:#ffff00;height:50px;'>D</div></div>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:120px;'>5</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:120px;'>5</div></div>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>6</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>6</div></div>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='purple'><div style='background:#ff00ff;height:160px;'>G</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='purple'><div style='background:#ff00ff;height:160px;'>G</div></div>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:140px;'>8</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:140px;'>8</div></div>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='blue'><div style='background:#0000ff;height:110px;'>I</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='blue'><div style='background:#0000ff;height:110px;'>I</div></div>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='yellow'><div style='background:#ffff00;height:50px;'>J</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='yellow'><div style='background:#ffff00;height:50px;'>J</div></div>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:120px;'>11</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:120px;'>11</div></div>
 
-      <div class='card active filter col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>12</div></div>
+      <div class='card col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>12</div></div>
 
     </div>
 
@@ -85,11 +91,7 @@ base:   "../"
 
 $(function(){
 
-  $('.sa-cards').CardUI({
-    selector:'.card.active',
-    animate:true,
-    cardsPerRow:{ xs:2, sm:3, md:4, lg:4 }
-  });
+
 
   $('.sa-cards').Filter({
     selector:'.card',
@@ -97,9 +99,16 @@ $(function(){
     navHolder:'.sidenav',
     navHTML: '<li data-tag="{tag}">{tag} <span>{matches}</span><i class="sa-on fa fa-times"></i><i class="sa-off fa fa-check"></i></li>',
     loadMore: '.sa-cards-load',
-    inactiveClass: 'filter-display',
+    inactiveClass: 'inactive',
     activeClass:'active',
     resultsPerPage:{ xs:4, sm:6, md:8, lg:8 }
+  });
+
+  $('.sa-cards').CardUI({
+    selector:'.card',
+    activeClass:'active',
+    animate:true,
+    cardsPerRow:{ xs:2, sm:3, md:4, lg:4 }
   });
 
   $('.sa-cards').on('post.sa.filter',function(){

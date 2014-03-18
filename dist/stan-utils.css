@@ -1,3 +1,8 @@
+/*!
+ * STAN Utils 0.0.3
+ * Copyright 2014 Andrew Womersley
+ */
+
 /* ========================================================================
  * STAN Utils: Collapse
  * Author: Andrew Womersley
@@ -2950,19 +2955,24 @@ ul.icon i {
  * STAN Utils: Card UI
  * Author: Andrew Womersley
  * ======================================================================== */
+.sa-cards {
+  visibility: hidden;
+  position: relative;
+  z-index: 10;
+}
 .sa-cards .animate-card {
-  -webkit-transition-property: top,left;
-  -webkit-transition-duration: 0.3s, 0.3s;
-  -webkit-transition-timing-function: linear, linear;
-  -mox-transition-property: top,left;
-  -moz-transition-duration: 0.3s, 0.3s;
-  -moz-transition-timing-function: linear, linear;
-  -o-transition-property: top,left;
-  -o-transition-duration: 0.3s, 0.3s;
-  -o-transition-timing-function: linear, linear;
-  transition-property: top,left;
+  -webkit-transition-property: opacity, top,left;
+  -webkit-transition-duration: 0.3s, 0.3s, 0.3s;
+  -webkit-transition-timing-function: linear, linear, linear;
+  -mox-transition-property: opacity, top,left;
+  -moz-transition-duration: 0.3s, 0.3s, 0.3s;
+  -moz-transition-timing-function: linear, linear, linear;
+  -o-transition-property: opacity, top,left;
+  -o-transition-duration: 0.3s, 0.3s, 0.3s;
+  -o-transition-timing-function: linear, linear, linear;
+  transition-property: opacity, top,left;
   transition-duration: 0.3s, 0.3s;
-  transition-timing-function: linear, linear;
+  transition-timing-function: linear, linear, linear;
 }
 /* ========================================================================
  * STAN Utils: Colousel
@@ -3004,24 +3014,12 @@ ul.icon i {
  * STAN Utils: Filter
  * Author: Andrew Womersley
  * ======================================================================== */
-.sa-filter .filter-display {
+.sa-filter .inactive {
   display: none;
 }
-.sa-filter .filter-opacity {
-  filter: alpha(opacity=0);
-  opacity: 0;
-  -webkit-transition-property: opacity;
-  -webkit-transition-duration: 0.3s;
-  -webkit-transition-timing-function: linear;
-  -mox-transition-property: opacity;
-  -moz-transition-duration: 0.3s;
-  -moz-transition-timing-function: linear;
-  -o-transition-property: opacity;
-  -o-transition-duration: 0.3s;
-  -o-transition-timing-function: linear;
-  transition-property: opacity;
-  transition-duration: 0.3s;
-  transition-timing-function: linear;
+.sa-filter-load {
+  position: relative;
+  z-index: 20;
 }
 /* ========================================================================
  * STAN Utils: Popup

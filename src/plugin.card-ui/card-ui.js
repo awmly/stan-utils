@@ -45,6 +45,7 @@
                 // Set Options
                 var settings = $.extend({
                     selector:'div',
+                    activeClass:'active',
                     animate:false,
                     cardsPerRow: { xs:1, sm:1, md:1, lg:1 }
                 }, options);
@@ -64,6 +65,10 @@
                 // Do position
                 methods.position.apply(this);
 
+                setTimeout(function(){ $this.css('visibility','visible'); },500);
+
+
+
             });
 
         },
@@ -82,7 +87,7 @@
 
             var x, col, left, top;
 
-            $this.find(settings.selector).each(function(){
+            $this.find(settings.selector+"."+settings.activeClass).each(function(){
 
               top=99999;
 
