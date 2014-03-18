@@ -2956,23 +2956,7 @@ ul.icon i {
  * Author: Andrew Womersley
  * ======================================================================== */
 .sa-cards {
-  visibility: hidden;
   position: relative;
-  z-index: 10;
-}
-.sa-cards .animate-card {
-  -webkit-transition-property: opacity, top,left;
-  -webkit-transition-duration: 0.3s, 0.3s, 0.3s;
-  -webkit-transition-timing-function: linear, linear, linear;
-  -mox-transition-property: opacity, top,left;
-  -moz-transition-duration: 0.3s, 0.3s, 0.3s;
-  -moz-transition-timing-function: linear, linear, linear;
-  -o-transition-property: opacity, top,left;
-  -o-transition-duration: 0.3s, 0.3s, 0.3s;
-  -o-transition-timing-function: linear, linear, linear;
-  transition-property: opacity, top,left;
-  transition-duration: 0.3s, 0.3s;
-  transition-timing-function: linear, linear, linear;
 }
 /* ========================================================================
  * STAN Utils: Colousel
@@ -3014,10 +2998,15 @@ ul.icon i {
  * STAN Utils: Filter
  * Author: Andrew Womersley
  * ======================================================================== */
+.sa-filter {
+  position: relative;
+  z-index: 10;
+  visibility: hidden;
+}
 .sa-filter .inactive {
   display: none;
 }
-.sa-filter-load {
+.sa-filter .sa-load {
   position: relative;
   z-index: 20;
 }

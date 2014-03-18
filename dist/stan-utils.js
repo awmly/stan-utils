@@ -1,8 +1,3 @@
-/*!
- * STAN Utils 0.0.3
- * Copyright 2014 Andrew Womersley
- */
-
 /* ========================================================================
  * STAN Utils: Stan
  * Author: Andrew Womersley
@@ -1069,34 +1064,26 @@ $(function() {
 
                 // Set this
                 var $this = $(this);
-                var i, layer;
 
                 // Set Options
                 var settings = $.extend({
-                    selector:'div',
-                    activeClass:'active',
-                    animate:false,
-                    cardsPerRow: { xs:1, sm:1, md:1, lg:1 }
+                    selector: 'div',
+                    cardsPerRow: {
+                        xs: 1,
+                        sm: 1,
+                        md: 1,
+                        lg: 1
+                    }
                 }, options);
 
                 // Save settings
                 $this.data('CardUI', settings);
 
-
-                $this.find(settings.selector).each(function(){
-
-                  $(this).css('position','absolute');
-
-                  if(settings.animate) $(this).addClass('animate-card');
-
-                });
+                // Make sure the selector is positon absolute
+                $this.find(settings.selector).css('position', 'absolute');
 
                 // Do position
                 methods.position.apply(this);
-
-                setTimeout(function(){ $this.css('visibility','visible'); },500);
-
-
 
             });
 
@@ -1108,42 +1095,53 @@ $(function() {
             var settings = $(this).data('CardUI');
             var $this = $(this);
 
-            var NumCols=settings.cardsPerRow[$STAN.device];
+            // Get the width of the selector
+            var width = $this.find(settings.selector).outerWidth();
 
-            var Cols=[0,0,0,0,0,0,0,0,0,0,0,0];
+            // Set number of cols based on current view
+            var NumCols = Math.round($this.parent().width() / width) - 1;
 
-            var width=$this.find(settings.selector).outerWidth();
+            // Set our cols array which will hold the height of each column - presume a max of 12
+            var Cols = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-            var x, col, left, top;
+            // Define som evars
+            var x, col, left, max, min;
 
-            $this.find(settings.selector+"."+settings.activeClass).each(function(){
+            $this.find(settings.selector).each(function() {
 
-              top=99999;
+                min = Cols[0];
+                col = 0;
 
-              for(x=0;x<NumCols;x++){
+                // Get shortest column
+                for (x = NumCols; x >= 0; x--) {
 
-                if(Cols[x]<top){
-                  top=Cols[x];
-                  left=width*x;
-                  col=x;
+                    if (Cols[x] < min) col = x;
+
                 }
 
-              }
+                // Set top and left position for card
+                $(this).css({
+                    left: (width * col) + 'px',
+                    top: Cols[col] + 'px'
+                });
 
-              $(this).css({ left:left+'px', top:top+'px' });
-              Cols[col]+=$(this).outerHeight(true);
+                // Update column height
+                Cols[col] += $(this).outerHeight(true);
 
             });
 
-            for(x=0;x<NumCols;x++){
 
-              if(Cols[x]>top){
-                top=Cols[x];
-              }
+            max = 0;
+
+            // Find highest column
+            for (x = 0; x < NumCols; x++) {
+
+                if (Cols[x] > max) max = Cols[x];
 
             }
 
-            $(this).css('height',top+'px');
+            // Set holder height to match highest column
+            $(this).css('height', max + 'px');
 
         }
 
@@ -2170,7 +2168,7 @@ $(function() {
         $(Selectors).each(function() {
 
             // Resize check
-            methods.filter.apply(this,[false]);
+            methods.filter.apply(this, [false]);
 
         });
 
@@ -2196,101 +2194,178 @@ $(function() {
 
                 // Set Options
                 var settings = $.extend({
-                    selector:'div',
-                    setNav:false,
-                    navHolder:'.filternav',
-                    navHTML: '<li data-tag="{tag}">{tag} <span>{matches}</span><i class="sa-on fa fa-times"></i><i class="sa-off fa fa-check"></i></li>',
-                    loadMore: '.sa-filter-load',
+                    selector: 'div',
+                    activeClass: 'active',
                     inactiveClass: 'inactive',
-                    activeClass:'active',
-                    resultsPerPage:{ xs:4, sm:6, md:8, lg:10 },
-                    currentTags:[],
-                    currentPage:1,
+                    setNav: false,
+                    navHolder: '.filternav',
+                    navHTML: '<li data-tag="{tag}">{tag} <span>{matches}</span><i class="sa-on fa fa-times"></i><i class="sa-off fa fa-check"></i></li>',
+                    resultsPerPage: {
+                        xs: 4,
+                        sm: 6,
+                        md: 8,
+                        lg: 10
+                    },
+                    currentTags: [],
+                    currentPage: 1,
                 }, options);
 
                 // Save settings
                 $this.data('Filter', settings);
 
                 // set Navigation
-                if( settings.setNav ) methods.setNav.apply(this);
+                if (settings.setNav) methods.setNav.apply(this);
 
+                // Update matches
                 methods.getMatches.apply(this);
 
-                $(settings.navHolder).find('[data-tag]').click(function(){
+                // Set active classes from hash
+                methods.getHash.apply(this);
 
-                    settings.currentPage=1;
-                    methods.filter.apply($this,[$(this)]);
+                // Do filter
+                methods.filter.apply($this);
+
+                // Add click listeners to navigation
+                $(settings.navHolder).find('[data-tag]').click(function() {
+
+                    // Reset pages to 1
+                    settings.currentPage = 1;
+
+                    // Update filter
+                    methods.updateTags.apply($this, [$(this)]);
 
                 });
 
-                $(settings.loadMore).addClass('sa-filter-load');
-                $(settings.loadMore).click(function(){
+                // Add click listeners to load more
+                $this.find('.sa-load').click(function() {
 
+                    // Incriment current page
                     settings.currentPage++;
-                    methods.filter.apply($this,[false]);
+
+                    // Update filter
+                    methods.filter.apply($this);
+
+                    // Remove focus from button
                     $(this).blur();
 
                 });
 
-                methods.filter.apply($this,[false]);
+                // Show filter holder
+                setTimeout(function() {
+                    $this.css('visibility', 'visible');
+                }, 500);
 
             });
 
         },
 
-        filter:function(tag){
+        updateTags: function(tag) {
 
             // Get settings and set this
             var settings = $(this).data('Filter');
             var $this = $(this);
 
-            var index, display, tags, x;
-
             // Tigger pre filter event
             $(this).trigger('post.sa.filter', [settings]);
 
-            if(tag){
+            // Add/remove active class from navigation and update currentTags array
+            if (tag.hasClass('active')) {
+                tag.removeClass('active');
+                var index = settings.currentTags.indexOf(tag.attr('data-tag'));
+                settings.currentTags.splice(index, 1);
+            } else {
+                tag.addClass('active');
+                settings.currentTags.push(tag.attr('data-tag'));
+            }
 
-                if(tag.hasClass('active')){
-                    tag.removeClass('active');
-                    index = settings.currentTags.indexOf(tag.attr('data-tag'));
-                    settings.currentTags.splice(index,1);
-                }else{
-                    tag.addClass('active');
-                    settings.currentTags.push(tag.attr('data-tag'));
+            // Update hash
+            window.location.hash=settings.currentTags.join('|').replace(/ /g,'+');
+
+            // Update filter
+            methods.filter.apply($this);
+
+        },
+
+        getHash:function(){
+
+            // Get settings and set this
+            var settings = $(this).data('Filter');
+            var $this = $(this);
+
+            // Declare some vars
+            var x;
+
+            // Get tags from hash and explode at pipes
+            var tags=window.location.hash.substring(1).replace(/\+/g,' ').split("|");
+
+            // If tags is set
+            if(tags[0]){
+
+                for(x in tags){
+
+                    // Add active class to nav element
+                    $(settings.navHolder).find("[data-tag='"+tags[x]+"']").addClass('active');
+
+                    // Add tag to currentTags array
+                    settings.currentTags.push(tags[x]);
+
                 }
 
             }
 
-            var Results=settings.resultsPerPage[$STAN.device]*settings.currentPage;
-            var matches=0;
+        },
 
-            $this.find(settings.selector).each(function(index){
+        filter: function() {
 
-                tags=$(this).attr('data-tags').split(",");
-                display=false;
+            // Get settings and set this
+            var settings = $(this).data('Filter');
+            var $this = $(this);
 
-                if( !settings.currentTags.length ) display=true;
-                for(x in tags){
-                    if( settings.currentTags.indexOf(tags[x]) >= 0) display=true;
+            // Declare some vars
+            var display, tags, x;
+
+            // Set maximum results
+            var Results = settings.resultsPerPage[$STAN.device] * settings.currentPage;
+
+            // Set matches to zero
+            var matches = 0;
+
+            // Loop through selectors
+            $this.find(settings.selector).each(function(index) {
+
+                // Get selectors tags
+                tags = $(this).attr('data-tags').split(",");
+
+                // Set display to false
+                display = false;
+
+                // If no filters are set - set display to true
+                if (!settings.currentTags.length) display = true;
+
+                for (x in tags) {
+
+                    // If selector has active filter - set display to true
+                    if (settings.currentTags.indexOf(tags[x]) >= 0) display = true;
+
                 }
 
-                if(display) matches++;
+                // Incriment matches if display=true
+                if (display) matches++;
 
-                if(display && matches<=Results){
-                    if(settings.activeClass)    $(this).addClass(settings.activeClass);
-                    if(settings.inactiveClass)  $(this).removeClass(settings.inactiveClass);
-                }else{
-                    if(settings.activeClass)    $(this).removeClass(settings.activeClass);
-                    if(settings.inactiveClass)  $(this).addClass(settings.inactiveClass);
+                // Add/remove activate and inactive classes from filters depending on display
+                if (display && matches <= Results) {
+                    $(this).addClass(settings.activeClass).removeClass(settings.inactiveClass);
+                } else {
+                    $(this).removeClass(settings.activeClass).addClass(settings.inactiveClass);
                 }
 
             });
 
-            if(matches<=Results){
-                $(settings.loadMore).css('display','none');
-            }else{
-                $(settings.loadMore).css('display','block');
+            // Show/hide load more button depending on number of results
+            if (matches <= Results) {
+                $this.find('.sa-load').css('display', 'none');
+            } else {
+                $this.find('.sa-load').css('display', 'block');
             }
 
             // Tigger post filter event
@@ -2298,49 +2373,62 @@ $(function() {
 
         },
 
-        setNav:function(){
+        setNav: function() {
 
             // Get settings and set this
             var settings = $(this).data('Filter');
             var $this = $(this);
 
+            // Set tags array
+            var Tags = [];
+
+            // Declare some vars
             var html, tags, regexp, x;
 
-            var Tags=[];
+            // Loop through selectors and get all tags
+            $this.find(settings.selector).each(function() {
 
-            $this.find(settings.selector).each(function(){
+                // Get tags from attribute
+                tags = $(this).attr('data-tags').split(",");
 
-                tags=$(this).attr('data-tags').split(",");
+                for (x in tags) {
 
-                for(x in tags){
-                    if( Tags.indexOf(tags[x]) < 0) Tags.push(tags[x]);
+                    // Add tag to array if not already added
+                    if (Tags.indexOf(tags[x]) < 0) Tags.push(tags[x]);
+
                 }
 
             });
 
+            // Sort tags in alphabetical order
             Tags.sort();
 
-            for( x in Tags ){
+            // Set regexp for html tag replace
+            regexp = new RegExp('{tag}', 'g');
 
-                regexp = new RegExp('{tag}', 'g');
+            // Loop though tags
+            for (x in Tags) {
 
+                // Replace tag name in HTML string
                 html = settings.navHTML.replace(regexp, Tags[x]);
 
+                // Add HTML to nav
                 $(settings.navHolder).append(html);
+
             }
 
         },
 
-        getMatches:function(){
+        getMatches: function() {
 
-             // Get settings and set this
+            // Get settings and set this
             var settings = $(this).data('Filter');
             var $this = $(this);
 
+            // Loop through navigation and update matches totals
+            $(settings.navHolder).find('[data-tag]').each(function() {
 
-            $(settings.navHolder).find('[data-tag]').each(function(){
-
-                $(this).find('span').text( $this.find('[data-tags*="'+$(this).attr('data-tag')+'"]').length );
+                $(this).find('span').text($this.find('[data-tags*="' + $(this).attr('data-tag') + '"]').length);
 
             });
 

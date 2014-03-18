@@ -40,34 +40,26 @@
 
                 // Set this
                 var $this = $(this);
-                var i, layer;
 
                 // Set Options
                 var settings = $.extend({
-                    selector:'div',
-                    activeClass:'active',
-                    animate:false,
-                    cardsPerRow: { xs:1, sm:1, md:1, lg:1 }
+                    selector: 'div',
+                    cardsPerRow: {
+                        xs: 1,
+                        sm: 1,
+                        md: 1,
+                        lg: 1
+                    }
                 }, options);
 
                 // Save settings
                 $this.data('CardUI', settings);
 
-
-                $this.find(settings.selector).each(function(){
-
-                  $(this).css('position','absolute');
-
-                  if(settings.animate) $(this).addClass('animate-card');
-
-                });
+                // Make sure the selector is positon absolute
+                $this.find(settings.selector).css('position', 'absolute');
 
                 // Do position
                 methods.position.apply(this);
-
-                setTimeout(function(){ $this.css('visibility','visible'); },500);
-
-
 
             });
 
@@ -79,42 +71,53 @@
             var settings = $(this).data('CardUI');
             var $this = $(this);
 
-            var NumCols=settings.cardsPerRow[$STAN.device];
+            // Get the width of the selector
+            var width = $this.find(settings.selector).outerWidth();
 
-            var Cols=[0,0,0,0,0,0,0,0,0,0,0,0];
+            // Set number of cols based on current view
+            var NumCols = Math.round($this.parent().width() / width) - 1;
 
-            var width=$this.find(settings.selector).outerWidth();
+            // Set our cols array which will hold the height of each column - presume a max of 12
+            var Cols = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-            var x, col, left, top;
+            // Define som evars
+            var x, col, left, max, min;
 
-            $this.find(settings.selector+"."+settings.activeClass).each(function(){
+            $this.find(settings.selector).each(function() {
 
-              top=99999;
+                min = Cols[0];
+                col = 0;
 
-              for(x=0;x<NumCols;x++){
+                // Get shortest column
+                for (x = NumCols; x >= 0; x--) {
 
-                if(Cols[x]<top){
-                  top=Cols[x];
-                  left=width*x;
-                  col=x;
+                    if (Cols[x] < min) col = x;
+
                 }
 
-              }
+                // Set top and left position for card
+                $(this).css({
+                    left: (width * col) + 'px',
+                    top: Cols[col] + 'px'
+                });
 
-              $(this).css({ left:left+'px', top:top+'px' });
-              Cols[col]+=$(this).outerHeight(true);
+                // Update column height
+                Cols[col] += $(this).outerHeight(true);
 
             });
 
-            for(x=0;x<NumCols;x++){
 
-              if(Cols[x]>top){
-                top=Cols[x];
-              }
+            max = 0;
+
+            // Find highest column
+            for (x = 0; x < NumCols; x++) {
+
+                if (Cols[x] > max) max = Cols[x];
 
             }
 
-            $(this).css('height',top+'px');
+            // Set holder height to match highest column
+            $(this).css('height', max + 'px');
 
         }
 
