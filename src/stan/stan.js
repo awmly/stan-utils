@@ -152,6 +152,10 @@ var $STAN;
         _STAN(false);
     });
 
+    $(window).load(function(){
+      $(window).resize();
+    });
+
     // Run
     _STAN(true);
 
