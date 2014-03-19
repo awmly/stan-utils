@@ -1,8 +1,49 @@
-/*!
- * STAN Utils 0.0.3
- * Copyright 2014 Andrew Womersley
- */
-
+/* ========================================================================
+ * STAN Utils: Card UI
+ * Author: Andrew Womersley
+ * ======================================================================== */
+.sa-cards {
+  position: relative;
+}
+.sa-cards .card {
+  position: absolute;
+}
+.sa-cards .animate {
+  -webkit-transition-property: opacity, top,left;
+  -webkit-transition-duration: 0.3s, 0.3s, 0.3s;
+  -webkit-transition-timing-function: linear, linear, linear;
+  -mox-transition-property: opacity, top,left;
+  -moz-transition-duration: 0.3s, 0.3s, 0.3s;
+  -moz-transition-timing-function: linear, linear, linear;
+  -o-transition-property: opacity, top,left;
+  -o-transition-duration: 0.3s, 0.3s, 0.3s;
+  -o-transition-timing-function: linear, linear, linear;
+  transition-property: opacity, top,left;
+  transition-duration: 0.3s, 0.3s;
+  transition-timing-function: linear, linear, linear;
+}
+/* ========================================================================
+ * STAN Utils: Collapse Tabs
+ * Author: Andrew Womersley
+ * ======================================================================== */
+.sa-collapse-tabs .desktop-only,
+.sa-collapse-tabs .mobile-only {
+  display: none;
+}
+.sa-collapse-tabs.desktop .desktop-only,
+.sa-collapse-tabs.mobile .mobile-only {
+  display: block;
+}
+.sa-collapse-tabs.mobile .tab-pane {
+  display: block;
+}
+.sa-collapse-tabs.desktop .sa-collapse .sa-click {
+  cursor: auto;
+}
+.sa-collapse-tabs.desktop .sa-collapse .sa-content {
+  height: auto !important;
+  display: block !important;
+}
 /* ========================================================================
  * STAN Utils: Collapse
  * Author: Andrew Womersley
@@ -2731,7 +2772,7 @@ ul.icon i {
   text-decoration: none;
 }
 .nav-block li.active > a {
-  background: #eeeeee;
+  background: #cccccc;
 }
 /** Vertical */
 .nav-vertical.nav-list a,
@@ -2950,13 +2991,6 @@ ul.icon i {
   -webkit-transform: translateY(-100%);
   -ms-transform: translateY(-100%);
   transform: translateY(-100%);
-}
-/* ========================================================================
- * STAN Utils: Card UI
- * Author: Andrew Womersley
- * ======================================================================== */
-.sa-cards {
-  position: relative;
 }
 /* ========================================================================
  * STAN Utils: Colousel

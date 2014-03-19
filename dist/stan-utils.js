@@ -1,3 +1,8 @@
+/*!
+ * STAN Utils 0.0.3
+ * Copyright 2014 Andrew Womersley
+ */
+
 /* ========================================================================
  * STAN Utils: Stan
  * Author: Andrew Womersley
@@ -205,6 +210,171 @@ $(function() {
 });
 
 /* ========================================================================
+ * STAN Utils: Card UI
+ * Author: Andrew Womersley
+ * ======================================================================== */
+
+$(function() {
+
+  'use strict';
+
+  var CardUI=function(){
+
+    $(".sa-cards").each(function() {
+
+      var $this = $(this);
+
+      var selector = (typeof $(this).attr('data-selector')!=='undefined') ? $(this).attr('data-selector') : '.card';
+
+      if( $(this).find(selector).length ){
+
+        // Get the width of the selector
+        var width = $this.find(selector).outerWidth();
+
+        // Set number of cols based on current view
+        var NumCols = Math.round($this.width() / width) - 1;
+
+        // Set our cols array which will hold the height of each column - presume a max of 12
+        var Cols = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+        // Define som evars
+        var x, col, left, max, min;
+
+        $this.find(selector).each(function() {
+
+            min = 99999;
+
+            // Get shortest column
+            for (x = 0; x <= NumCols; x++) {
+
+                if (Cols[x] < min){
+                    col = x;
+                    min = Cols[x];
+                }
+
+            }
+
+            // Set top and left position for card
+            $(this).css({
+                left: (width * col) + 'px',
+                top: Cols[col] + 'px'
+            });
+
+            // Update column height
+            Cols[col] += $(this).outerHeight(true);
+
+        });
+
+
+        max = 0;
+
+        // Find highest column
+        for (x = 0; x < NumCols; x++) {
+
+            if (Cols[x] > max) max = Cols[x];
+
+        }
+
+        // Set holder height to match highest column
+        $(this).css('height', max + 'px');
+
+      }
+
+    });
+
+  }
+
+  $(window).on('resize', CardUI);
+
+  $('.sa-cards').on('position.sa.cards', CardUI);
+
+});
+
+/* ========================================================================
+ * STAN Utils: Collapse Tabs
+ * Author: Andrew Womersley
+ * ======================================================================== */
+
+ $(function(){
+
+  'use strict';
+
+  var CollapseTab=function(){
+
+    var w = $(window).width();
+    var h = $(window).height();
+
+    $(".sa-collapse-tabs").each(function() {
+
+      var breakpoint = (typeof $(this).attr('data-breakpoint')!=='undefined') ? $(this).attr('data-breakpoint') : 992;
+
+      $(this).removeClass('desktop mobile');
+
+      if (w < breakpoint) {
+
+          $(this).addClass('mobile');
+
+          $(this).find('.sa-collapse').removeClass('inactive');
+
+      } else {
+
+          $(this).addClass('desktop');
+
+          $(this).find('.sa-collapse').addClass('inactive');
+
+      }
+
+    });
+
+  }
+
+  // Tab click
+  $('.sa-collapse-tabs>ul li').click(function(){
+
+    // Get index
+    var index=$(this).index();
+
+    // Get parent
+    var par = $(this).parents('.sa-collapse-tabs');
+
+    // Remove active collapse classes
+    $(par).find('.sa-collapse .sa-content').removeClass('in').addClass('collapse').css('height',0);
+
+    // Add active collapse classes
+    $(par).find('.sa-collapse .sa-content').eq(index).addClass('in').removeClass('collapse').css('height','auto');
+
+  });
+
+
+  // Collapse click
+  $('.sa-collapse-tabs .sa-collapse').click(function(){
+
+    // Get index
+    var index=$(this).index();
+
+    // Get parent
+    var par = $(this).parents('.sa-collapse-tabs');
+
+    // Remove active classes from tab panes
+    $(par).find('.tab-pane').removeClass('active');
+
+    // Add active classes to tab pane
+    $(par).find('.tab-pane').eq(index).addClass('active');
+
+    // Remove active classes from tab nav
+    $(par).find('>ul li').removeClass('active');
+
+    // Add active classes to tab nav
+    $(par).find('>ul li').eq(index).addClass('active');
+
+  });
+
+
+  $(window).on('resize', CollapseTab);
+
+});
+
+/* ========================================================================
  * STAN Utils: Collapse
  * Author: Andrew Womersley
  * ======================================================================== */
@@ -213,8 +383,8 @@ $(function() {
 
   'use strict';
 
-	// Add click
-	$('.sa-collapse .sa-click').click(function(){
+  // Add click
+  $('.sa-collapse .sa-click').click(function(){
 
     if( !$(this).closest('.sa-collapse').hasClass('inactive') ){
 
@@ -234,15 +404,15 @@ $(function() {
 
     }
 
-	});
+  });
 
 
-	// Add BS collapse class
-	$('.sa-collapse .sa-content').each(function(){
+  // Add BS collapse class
+  $('.sa-collapse .sa-content').each(function(){
 
-		$(this).addClass('collapse');
+    $(this).addClass('collapse');
 
-	});
+  });
 
   // Check for collapses starting open
   $('.sa-collapse.active').each(function(){
@@ -674,45 +844,46 @@ $(function() {
 /* ========================================================================
  * STAN Utils: Tabs
  * Author: Andrew Womersley
- * ======================================================================== */
+ * ========================================================================*/
 
  $(function(){
 
- 	'use strict';
+  'use strict';
 
-	$('.sa-tabs>ul a').click(function(event){
+  $('.sa-tabs>ul a').click(function(event){
 
-		event.preventDefault();
+    event.preventDefault();
 
-		$(this).tab('show');
+    $(this).tab('show');
 
-	});
+  });
 
-	$('.sa-tabs').each(function(tabsindex){
+  $('.sa-tabs').each(function(tabsindex){
 
-		$(this).addClass('sa-tabs-'+tabsindex);
+    $(this).addClass('sa-tabs-'+tabsindex);
 
-		$(this).find('>ul a').each(function(index){
+    $(this).find('>ul a').each(function(index){
 
-			$(this).attr('data-target','.sa-tabs-'+tabsindex+' .tab-pane-'+index);
+      $(this).attr('data-target','.sa-tabs-'+tabsindex+' .tab-pane-'+index);
 
-		});
+    });
 
-		$(this).find('.tab-pane').each(function(index){
+    $(this).find('.tab-pane').each(function(index){
 
-			$(this).addClass('tab-pane-'+index);
+      $(this).addClass('tab-pane-'+index);
 
-		});
+    });
 
-		// check active
-		$(this).find('>ul li:nth-child(1)').addClass('active');
-		$(this).find('.tab-pane-0').addClass('active');
+    // check active
+    $(this).find('>ul li:nth-child(1)').addClass('active');
+    $(this).find('.tab-pane-0').addClass('active');
 
-	});
+  });
 
 
 
 });
+
 /* ========================================================================
  * STAN Utils: Touch Hover
  * Author: Andrew Womersley
@@ -1023,151 +1194,6 @@ $(function() {
 
 }(jQuery, $STAN));
 /* ========================================================================
- * STAN Utils: Card UI
- * Author: Andrew Womersley
- * ======================================================================== */
-
-(function($, $STAN) {
-
-    'use strict';
-
-    // Define Global Vars
-    var Selectors = [];
-
-    // Resize Listener for resizing slideshow height
-    $(window).resize(function() {
-
-        if (!Selectors.length) return;
-
-        $(Selectors).each(function() {
-
-            // Resize check
-            methods.position.apply(this);
-
-        });
-
-    }).resize();
-
-    // Define Methods
-    var methods = {
-
-        init: function(options) {
-
-            // Iterate Through Selectors
-            return this.each(function(index) {
-
-                // Save selector in array
-                Selectors.push($(this));
-
-                // Add controller class
-                $(this).addClass('sa-cards');
-
-                // Set this
-                var $this = $(this);
-
-                // Set Options
-                var settings = $.extend({
-                    selector: 'div',
-                    cardsPerRow: {
-                        xs: 1,
-                        sm: 1,
-                        md: 1,
-                        lg: 1
-                    }
-                }, options);
-
-                // Save settings
-                $this.data('CardUI', settings);
-
-                // Make sure the selector is positon absolute
-                $this.find(settings.selector).css('position', 'absolute');
-
-                // Do position
-                methods.position.apply(this);
-
-            });
-
-        },
-
-        position: function() {
-
-            // Get settings and set this
-            var settings = $(this).data('CardUI');
-            var $this = $(this);
-
-            // Get the width of the selector
-            var width = $this.find(settings.selector).outerWidth();
-
-            // Set number of cols based on current view
-            var NumCols = Math.round($this.parent().width() / width) - 1;
-
-            // Set our cols array which will hold the height of each column - presume a max of 12
-            var Cols = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-            // Define som evars
-            var x, col, left, max, min;
-
-            $this.find(settings.selector).each(function() {
-
-                min = Cols[0];
-                col = 0;
-
-                // Get shortest column
-                for (x = NumCols; x >= 0; x--) {
-
-                    if (Cols[x] < min) col = x;
-
-                }
-
-                // Set top and left position for card
-                $(this).css({
-                    left: (width * col) + 'px',
-                    top: Cols[col] + 'px'
-                });
-
-                // Update column height
-                Cols[col] += $(this).outerHeight(true);
-
-            });
-
-
-            max = 0;
-
-            // Find highest column
-            for (x = 0; x < NumCols; x++) {
-
-                if (Cols[x] > max) max = Cols[x];
-
-            }
-
-            // Set holder height to match highest column
-            $(this).css('height', max + 'px');
-
-        }
-
-    };
-
-    $.fn.CardUI = function(method) {
-
-        if (methods[method]) {
-
-            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-
-        } else if (typeof method === 'object' || !method) {
-
-            return methods.init.apply(this, arguments);
-
-        } else {
-
-            $.error('Method ' + method + ' does not exist on jQuery.Datatable');
-
-        }
-
-    };
-
-}(jQuery, $STAN));
-
-/* ========================================================================
  * STAN Utils: ClassSwitcher
  * Author: Andrew Womersley
  * ======================================================================== */
@@ -1241,196 +1267,6 @@ $(function() {
     };
 
     $.fn.ClassSwitcher = function(method) {
-
-        if (methods[method]) {
-
-            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-
-        }
-        else if (typeof method === 'object' || !method) {
-
-            return methods.init.apply(this, arguments);
-
-        }
-        else {
-
-            $.error('Method ' + method + ' does not exist on jQuery.Datatable');
-
-        }
-
-    };
-
-}(jQuery, $STAN));
-
-/* ========================================================================
- * STAN Utils: CollapseTab
- * Author: Andrew Womersley
- * ======================================================================== */
-
-(function($, $STAN) {
-
-    'use strict';
-
-    // Define Global Vars
-    var Selectors = [];
-
-    // Resize Listener for resizing slideshow height
-    $(window).resize(function() {
-
-        if (!Selectors.length) return;
-
-        $(Selectors).each(function() {
-
-            // Resize check
-            methods.resize.apply(this);
-
-        });
-
-    }).resize();
-
-
-    // Click Listeners
-    $(window).ready(function() {
-
-        // Show
-        $("[data-toggle='collapse-tab']").click(function() {
-
-            methods.show.apply($($(this).attr('data-target')), [$(this)]);
-
-            return false;
-
-        });
-
-    });
-
-    // Define Methods
-    var methods = {
-
-        init: function(options) {
-
-            // Save selector in array
-            $(this.selector).each(function(){
-
-                Selectors.push( $(this) );
-
-            });
-
-            // Iterate Through Selectors
-            return this.each(function() {
-
-                var $this = $(this);
-
-                // Set Options
-                var settings = $.extend({
-                    breakpoint: 768,
-                    view: false
-                }, options);
-
-                // Set Options
-                $(this).data('CollapseTab', settings);
-
-                $(this).find('.tab-pane.active>div').addClass('in');
-
-                // Add click listeners
-                $(this).find("[data-toggle='collapse']").click(function() {
-
-                    methods.accordion.apply($this, [$(this)]);
-
-                });
-
-                // Do resize
-                methods.resize.apply(this);
-
-            });
-
-        },
-
-        show: function(_this) {
-
-            var settings = $(this).data('CollapseTab');
-
-            if (settings.view == 'tab') {
-
-                $(".nav-tabs [href='" + $(_this).attr('href') + "']").tab('show');
-
-            }
-            else {
-
-                $($(_this).attr('href') + ">div").collapse('show');
-                methods.accordion.apply($(this), [$("[data-target='" + $(_this).attr('href') + ">div']")]);
-
-            }
-
-        },
-
-        accordion: function(t) {
-
-            this.find("[data-toggle='collapse']").not(t).each(function() {
-                var tar = $(this).attr('data-target');
-                if ($(tar).hasClass('in')) $(tar).collapse('hide');
-            });
-
-        },
-
-        resize: function() {
-
-            var settings = $(this).data('CollapseTab');
-
-            if ($(window).width() < settings.breakpoint) {
-
-                if (settings.view != 'collapse') {
-
-                    $(this).find('.tab-pane').addClass('active');
-
-                    $(this).find('.in').addClass('collapse');
-
-                    var index = $(this).find('.nav-tabs li').index($(this).find('.nav-tabs .active'));
-
-                    $(this).find('.collapse:eq(' + index + ')').removeClass('collapse');
-
-                    $(this).trigger('collapse.sa.collapsetab', [settings]);
-
-                }
-
-                $(this).find('.collapse').removeClass('in');
-
-                $(this).find("[data-toggle='collapse-off']").attr('data-toggle', 'collapse');
-
-                settings.view = 'collapse';
-
-            }
-            else {
-
-                if (settings.view != 'tab') {
-
-                    var indx = 0;
-                    $(this).find('.tab-pane').each(function(index) {
-                        if ($(this).find('div').hasClass('in')) indx = index;
-                    });
-
-                    $(this).find('.nav-tabs li').removeClass('active');
-                    $(this).find('.tab-pane').removeClass('active');
-
-                    $(this).find('.nav-tabs li:eq(' + indx + ')').addClass('active');
-                    $(this).find('.tab-content .tab-pane:eq(' + indx + ')').addClass('active');
-
-                    $(this).trigger('tab.sa.collapsetab', [settings]);
-
-                }
-
-                $(this).find('.collapse').css('height', 'auto').addClass('in');
-
-                $(this).find("[data-toggle='collapse']").attr('data-toggle', 'collapse-off');
-
-                settings.view = 'tab';
-
-            }
-
-        }
-
-    };
-
-    $.fn.CollapseTab = function(method) {
 
         if (methods[method]) {
 
@@ -2228,9 +2064,6 @@ $(function() {
                 // Add click listeners to navigation
                 $(settings.navHolder).find('[data-tag]').click(function() {
 
-                    // Reset pages to 1
-                    settings.currentPage = 1;
-
                     // Update filter
                     methods.updateTags.apply($this, [$(this)]);
 
@@ -2247,6 +2080,17 @@ $(function() {
 
                     // Remove focus from button
                     $(this).blur();
+
+                });
+
+                // Set hashchange event
+                $(window).on('hashchange', function() {
+
+                    // Reset pages to 1
+                    settings.currentPage = 1;
+
+                    // Update filter
+                    methods.getHash.apply($this);
 
                 });
 
@@ -2268,21 +2112,23 @@ $(function() {
             // Tigger pre filter event
             $(this).trigger('post.sa.filter', [settings]);
 
-            // Add/remove active class from navigation and update currentTags array
-            if (tag.hasClass('active')) {
-                tag.removeClass('active');
-                var index = settings.currentTags.indexOf(tag.attr('data-tag'));
+            // Check if tag is in currentTags
+            var index = settings.currentTags.indexOf(tag.attr('data-tag'));
+
+            if(index>=0){
+
+                // Remove tag
                 settings.currentTags.splice(index, 1);
-            } else {
-                tag.addClass('active');
+
+            }else{
+
+                // Add tag
                 settings.currentTags.push(tag.attr('data-tag'));
+
             }
 
             // Update hash
             window.location.hash=settings.currentTags.join('|').replace(/ /g,'+');
-
-            // Update filter
-            methods.filter.apply($this);
 
         },
 
@@ -2298,6 +2144,12 @@ $(function() {
             // Get tags from hash and explode at pipes
             var tags=window.location.hash.substring(1).replace(/\+/g,' ').split("|");
 
+            // Reset currentTags
+            settings.currentTags=[];
+
+            // Clear active classes
+            $(settings.navHolder).find("[data-tag]").removeClass('active');
+
             // If tags is set
             if(tags[0]){
 
@@ -2312,6 +2164,9 @@ $(function() {
                 }
 
             }
+
+            // Do filter
+            methods.filter.apply($this);
 
         },
 

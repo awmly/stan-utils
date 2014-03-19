@@ -7,8 +7,8 @@
 
   'use strict';
 
-	// Add click
-	$('.sa-collapse .sa-click').click(function(){
+  // Add click
+  $('.sa-collapse .sa-click').click(function(){
 
     if( !$(this).closest('.sa-collapse').hasClass('inactive') ){
 
@@ -28,15 +28,15 @@
 
     }
 
-	});
+  });
 
 
-	// Add BS collapse class
-	$('.sa-collapse .sa-content').each(function(){
+  // Add BS collapse class
+  $('.sa-collapse .sa-content').each(function(){
 
-		$(this).addClass('collapse');
+    $(this).addClass('collapse');
 
-	});
+  });
 
   // Check for collapses starting open
   $('.sa-collapse.active').each(function(){

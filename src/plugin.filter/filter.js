@@ -78,9 +78,6 @@
                 // Add click listeners to navigation
                 $(settings.navHolder).find('[data-tag]').click(function() {
 
-                    // Reset pages to 1
-                    settings.currentPage = 1;
-
                     // Update filter
                     methods.updateTags.apply($this, [$(this)]);
 
@@ -97,6 +94,17 @@
 
                     // Remove focus from button
                     $(this).blur();
+
+                });
+
+                // Set hashchange event
+                $(window).on('hashchange', function() {
+
+                    // Reset pages to 1
+                    settings.currentPage = 1;
+
+                    // Update filter
+                    methods.getHash.apply($this);
 
                 });
 
@@ -118,21 +126,23 @@
             // Tigger pre filter event
             $(this).trigger('post.sa.filter', [settings]);
 
-            // Add/remove active class from navigation and update currentTags array
-            if (tag.hasClass('active')) {
-                tag.removeClass('active');
-                var index = settings.currentTags.indexOf(tag.attr('data-tag'));
+            // Check if tag is in currentTags
+            var index = settings.currentTags.indexOf(tag.attr('data-tag'));
+
+            if(index>=0){
+
+                // Remove tag
                 settings.currentTags.splice(index, 1);
-            } else {
-                tag.addClass('active');
+
+            }else{
+
+                // Add tag
                 settings.currentTags.push(tag.attr('data-tag'));
+
             }
 
             // Update hash
             window.location.hash=settings.currentTags.join('|').replace(/ /g,'+');
-
-            // Update filter
-            methods.filter.apply($this);
 
         },
 
@@ -148,6 +158,12 @@
             // Get tags from hash and explode at pipes
             var tags=window.location.hash.substring(1).replace(/\+/g,' ').split("|");
 
+            // Reset currentTags
+            settings.currentTags=[];
+
+            // Clear active classes
+            $(settings.navHolder).find("[data-tag]").removeClass('active');
+
             // If tags is set
             if(tags[0]){
 
@@ -162,6 +178,9 @@
                 }
 
             }
+
+            // Do filter
+            methods.filter.apply($this);
 
         },
 
