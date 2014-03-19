@@ -26,24 +26,6 @@
  * STAN Utils: Collapse Tabs
  * Author: Andrew Womersley
  * ======================================================================== */
-.sa-collapse-tabs .desktop-only,
-.sa-collapse-tabs .mobile-only {
-  display: none;
-}
-.sa-collapse-tabs.desktop .desktop-only,
-.sa-collapse-tabs.mobile .mobile-only {
-  display: block;
-}
-.sa-collapse-tabs.mobile .tab-pane {
-  display: block;
-}
-.sa-collapse-tabs.desktop .sa-collapse .sa-click {
-  cursor: auto;
-}
-.sa-collapse-tabs.desktop .sa-collapse .sa-content {
-  height: auto !important;
-  display: block !important;
-}
 /* ========================================================================
  * STAN Utils: Collapse
  * Author: Andrew Womersley
@@ -434,11 +416,35 @@ img.maxheight {
 .resp-nav.mobile a {
   padding: 10px 25px 10px 15px;
 }
-.sa-content .tab-pane {
+/* ========================================================================
+ * STAN Utils: Tabs
+ * Author: Andrew Womersley
+ * ========================================================================*/
+.sa-tabs .tab-pane,
+.sa-collapse-tabs .tab-pane {
   display: none;
 }
-.sa-content .tab-pane.active {
+.sa-tabs .tab-pane.active,
+.sa-collapse-tabs .tab-pane.active {
   display: block;
+}
+.sa-collapse-tabs .desktop-only,
+.sa-collapse-tabs .mobile-only {
+  display: none;
+}
+.sa-collapse-tabs.desktop .desktop-only,
+.sa-collapse-tabs.mobile .mobile-only {
+  display: block;
+}
+.sa-collapse-tabs.mobile .tab-pane {
+  display: block;
+}
+.sa-collapse-tabs.desktop .sa-collapse .sa-click {
+  cursor: auto;
+}
+.sa-collapse-tabs.desktop .sa-collapse .sa-content {
+  height: auto !important;
+  display: block !important;
 }
 /* ========================================================================
  * STAN Utils: Articles

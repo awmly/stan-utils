@@ -1,36 +1,36 @@
 ---
-title: 		Tabs
-layout:		examples
-base:		"../"
+title:    Tabs
+layout:   examples
+base:   "../"
 ---
 
 <h1>Tabs</h1>
 
-<div class='sa-tabs sa-nav nav-horizontal sa-block sa-sm'>
+<div class='sa-tabs sa-nav nav-horizontal nav-block'>
 
-  <ul data-auto-class='i{sa-inset pad-right-sm} a{relative}'>
-    <li>
-      <a href="#">Home
-        <i class='fa fa-minus-square sa-on'></i>
-        <i class='fa fa-plus-square sa-off'></i>
+  <ul>
+    <li data-id='home'>
+      <a class='pad-xs' href="#">Home
+        <i class='fa fa-minus-square sa-on sa-inset'></i>
+        <i class='fa fa-plus-square sa-off sa-inset'></i>
       </a>
     </li>
-    <li>
-      <a href="#">Profile
-        <i class='fa fa-minus-square sa-on'></i>
-        <i class='fa fa-plus-square sa-off'></i>
+    <li class='active' data-id='profile'>
+      <a class='pad-xs' href="#">Profile
+        <i class='fa fa-minus-square sa-on sa-inset'></i>
+        <i class='fa fa-plus-square sa-off sa-inset'></i>
       </a>
     </li>
-    <li>
-      <a href="#">Messages
-        <i class='fa fa-minus-square sa-on'></i>
-        <i class='fa fa-plus-square sa-off'></i>
+    <li data-id='messages'>
+      <a class='pad-xs' href="#">Messages
+        <i class='fa fa-minus-square sa-on sa-inset'></i>
+        <i class='fa fa-plus-square sa-off sa-inset'></i>
       </a>
     </li>
-    <li>
-      <a href="#">Settings
-        <i class='fa fa-minus-square sa-on'></i>
-        <i class='fa fa-plus-square sa-off'></i>
+    <li data-id='settings'>
+      <a class='pad-xs' href="#">Settings
+        <i class='fa fa-minus-square sa-on sa-inset'></i>
+        <i class='fa fa-plus-square sa-off sa-inset'></i>
       </a>
     </li>
   </ul>
@@ -59,31 +59,31 @@ base:		"../"
 
 <div class='space-xl'></div>
 
-<div class='sa-tabs sa-nav nav-horizontal sa-sm'>
+<div class='sa-tabs sa-nav nav-horizontal nav-block'>
 
-  <ul data-auto-class='i{sa-inset pad-right-xs} a{relative}'>
-    <li>
-      <a href="#">Home
-        <i class='fa fa-minus-square sa-on'></i>
-        <i class='fa fa-plus-square sa-off'></i>
+  <ul>
+    <li data-id='home2'>
+      <a class='pad-xs' href="#">Home
+        <i class='fa fa-minus-square sa-on sa-inset'></i>
+        <i class='fa fa-plus-square sa-off sa-inset'></i>
       </a>
     </li>
-    <li>
-      <a href="#">Profile
-        <i class='fa fa-minus-square sa-on'></i>
-        <i class='fa fa-plus-square sa-off'></i>
+    <li data-id='profile2'>
+      <a class='pad-xs' href="#">Profile
+        <i class='fa fa-minus-square sa-on sa-inset'></i>
+        <i class='fa fa-plus-square sa-off sa-inset'></i>
       </a>
     </li>
-    <li>
-      <a href="#">Messages
-        <i class='fa fa-minus-square sa-on'></i>
-        <i class='fa fa-plus-square sa-off'></i>
+    <li data-id='messages2'>
+      <a class='pad-xs' href="#">Messages
+        <i class='fa fa-minus-square sa-on sa-inset'></i>
+        <i class='fa fa-plus-square sa-off sa-inset'></i>
       </a>
     </li>
-    <li>
-      <a href="#">Settings
-        <i class='fa fa-minus-square sa-on'></i>
-        <i class='fa fa-plus-square sa-off'></i>
+    <li data-id='settings2'>
+      <a class='pad-xs' href="#">Settings
+        <i class='fa fa-minus-square sa-on sa-inset'></i>
+        <i class='fa fa-plus-square sa-off sa-inset'></i>
       </a>
     </li>
   </ul>
@@ -94,7 +94,61 @@ base:		"../"
       <h2>home</h2>
       <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
     </div>
-    <div class="tab-pane" id='profile'>
+    <div class="tab-pane">
+      <h2>profile</h2>
+      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <div class="tab-pane">
+      <h2>message</h2>
+      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <div class="tab-pane">
+      <h2>settings</h2>
+      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+    </div>
+  </div>
+
+</div>
+
+
+<div class='space-xl'></div>
+
+<div class='sa-tabs sa-nav nav-horizontal nav-block'>
+
+  <ul>
+    <li>
+      <a class='pad-xs' href="#">Home
+        <i class='fa fa-minus-square sa-on sa-inset'></i>
+        <i class='fa fa-plus-square sa-off sa-inset'></i>
+      </a>
+    </li>
+    <li>
+      <a class='pad-xs' href="#">Profile
+        <i class='fa fa-minus-square sa-on sa-inset'></i>
+        <i class='fa fa-plus-square sa-off sa-inset'></i>
+      </a>
+    </li>
+    <li>
+      <a class='pad-xs' href="#">Messages
+        <i class='fa fa-minus-square sa-on sa-inset'></i>
+        <i class='fa fa-plus-square sa-off sa-inset'></i>
+      </a>
+    </li>
+    <li>
+      <a class='pad-xs' href="#">Settings
+        <i class='fa fa-minus-square sa-on sa-inset'></i>
+        <i class='fa fa-plus-square sa-off sa-inset'></i>
+      </a>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="sa-content">
+    <div class="tab-pane">
+      <h2>home</h2>
+      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <div class="tab-pane">
       <h2>profile</h2>
       <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
     </div>

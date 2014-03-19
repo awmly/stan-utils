@@ -6,28 +6,30 @@ base:   "../"
 
 <h1>Collapse Tabs</h1>
 
-<div class='sa-collapse-tabs sa-accordion sa-tabs sa-nav nav-horizontal nav-block'>
+<p><a href='javascript:;' onclick="">$('[data-id="home"]').tab('show');</a></p>
+
+<div class='sa-collapse-tabs sa-nav nav-horizontal nav-block'>
 
   <ul class='desktop-only'>
-    <li>
+    <li data-id='home'>
       <a class='pad-xs' href="#">Home
         <i class='fa fa-minus-square sa-on sa-inset'></i>
         <i class='fa fa-plus-square sa-off sa-inset'></i>
       </a>
     </li>
-    <li>
+    <li class='activ' data-id='profile'>
       <a class='pad-xs' href="#">Profile
         <i class='fa fa-minus-square sa-on sa-inset'></i>
         <i class='fa fa-plus-square sa-off sa-inset'></i>
       </a>
     </li>
-    <li>
+    <li data-id='messages'>
       <a class='pad-xs' href="#">Messages
         <i class='fa fa-minus-square sa-on sa-inset'></i>
         <i class='fa fa-plus-square sa-off sa-inset'></i>
       </a>
     </li>
-    <li>
+    <li data-id='settings'>
       <a class='pad-xs' href="#">Settings
         <i class='fa fa-minus-square sa-on sa-inset'></i>
         <i class='fa fa-plus-square sa-off sa-inset'></i>
@@ -36,10 +38,10 @@ base:   "../"
   </ul>
 
   <!-- Tab panes -->
-  <div class="sa-content">
-    <div class="tab-pane sa-collapse">
+  <div>
+    <div class="tab-pane">
 
-        <div class='title-block sa-click mobile-only'>
+        <div class='title-block sa-click mobile-onlyy'>
           <h4>Home</h4>
         </div>
 
@@ -54,7 +56,7 @@ base:   "../"
         </div>
 
     </div>
-    <div class="tab-pane sa-collapse">
+    <div class="tab-pane">
 
         <div class='title-block sa-click mobile-only'>
           <h4>Profile</h4>
@@ -70,7 +72,7 @@ base:   "../"
         </div>
 
     </div>
-    <div class="tab-pane sa-collapse">
+    <div class="tab-pane">
 
         <div class='title-block sa-click mobile-only'>
           <h4>Messages</h4>
@@ -86,7 +88,7 @@ base:   "../"
         </div>
 
     </div>
-    <div class="tab-pane sa-collapse">
+    <div class="tab-pane">
 
         <div class='title-block sa-click mobile-only'>
           <h4>Settings</h4>

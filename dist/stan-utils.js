@@ -1,8 +1,3 @@
-/*!
- * STAN Utils 0.0.3
- * Copyright 2014 Andrew Womersley
- */
-
 /* ========================================================================
  * STAN Utils: Stan
  * Author: Andrew Womersley
@@ -295,82 +290,20 @@ $(function() {
  * Author: Andrew Womersley
  * ======================================================================== */
 
- $(function(){
+$(function() {
 
-  'use strict';
-
-  var CollapseTab=function(){
-
-    var w = $(window).width();
-    var h = $(window).height();
-
-    $(".sa-collapse-tabs").each(function() {
-
-      var breakpoint = (typeof $(this).attr('data-breakpoint')!=='undefined') ? $(this).attr('data-breakpoint') : 992;
-
-      $(this).removeClass('desktop mobile');
-
-      if (w < breakpoint) {
-
-          $(this).addClass('mobile');
-
-          $(this).find('.sa-collapse').removeClass('inactive');
-
-      } else {
-
-          $(this).addClass('desktop');
-
-          $(this).find('.sa-collapse').addClass('inactive');
-
-      }
-
-    });
-
-  }
-
-  // Tab click
-  $('.sa-collapse-tabs>ul li').click(function(){
-
-    // Get index
-    var index=$(this).index();
-
-    // Get parent
-    var par = $(this).parents('.sa-collapse-tabs');
-
-    // Remove active collapse classes
-    $(par).find('.sa-collapse .sa-content').removeClass('in').addClass('collapse').css('height',0);
-
-    // Add active collapse classes
-    $(par).find('.sa-collapse .sa-content').eq(index).addClass('in').removeClass('collapse').css('height','auto');
-
-  });
+    'use strict';
 
 
-  // Collapse click
-  $('.sa-collapse-tabs .sa-collapse').click(function(){
-
-    // Get index
-    var index=$(this).index();
-
-    // Get parent
-    var par = $(this).parents('.sa-collapse-tabs');
-
-    // Remove active classes from tab panes
-    $(par).find('.tab-pane').removeClass('active');
-
-    // Add active classes to tab pane
-    $(par).find('.tab-pane').eq(index).addClass('active');
-
-    // Remove active classes from tab nav
-    $(par).find('>ul li').removeClass('active');
-
-    // Add active classes to tab nav
-    $(par).find('>ul li').eq(index).addClass('active');
-
-  });
 
 
-  $(window).on('resize', CollapseTab);
+
+
+
+
+
+
+
 
 });
 
@@ -846,41 +779,178 @@ $(function() {
  * Author: Andrew Womersley
  * ========================================================================*/
 
- $(function(){
+$(function() {
 
-  'use strict';
+    'use strict';
 
-  $('.sa-tabs>ul a').click(function(event){
+    // Main collapse tab function
+    var CollapseTab = function() {
 
-    event.preventDefault();
+        // Get window width
+        var w = $(window).width();
 
-    $(this).tab('show');
+        $(".sa-collapse-tabs").each(function() {
 
-  });
+            // Get breakpoint if set - if not use default
+            var breakpoint = (typeof $(this).attr('data-breakpoint') !== 'undefined') ? $(this).attr('data-breakpoint') : 992;
 
-  $('.sa-tabs').each(function(tabsindex){
+            // Remove desktop and mobile classes
+            $(this).removeClass('desktop mobile');
 
-    $(this).addClass('sa-tabs-'+tabsindex);
+            // Check if width is larger/smaller than breakpoint
+            if (w < breakpoint) {
 
-    $(this).find('>ul a').each(function(index){
+                // Add mobile class to main collapse tabs
+                $(this).addClass('mobile');
 
-      $(this).attr('data-target','.sa-tabs-'+tabsindex+' .tab-pane-'+index);
+            } else {
+
+                // Add desktop class to main collapse tabs
+                $(this).addClass('desktop');
+
+            }
+
+        });
+
+    }
+
+    // Read hash
+    var readHash = function() {
+
+        // Set active based on hash
+        var hash = window.location.hash.substring(1);
+
+        $('.sa-tabs, .sa-collapse-tabs').each(function(tabsindex) {
+
+            if (hash) {
+                if ($(this).find(">ul [data-id='" + hash + "']").length) {
+
+                    $(this).find(">ul [data-id]").removeClass('active');
+                    $(this).find(">ul [data-id='" + hash + "']").addClass('active');
+
+                }
+            }
+
+            // Get index of active tab
+            var index = $(this).find(">ul li.active").index();
+
+            // Store index
+            $(this).data('index', index);
+
+            // Make active nav's tab-pane visible
+            $(this).find(".tab-pane").removeClass('active');
+            $(this).find(".tab-pane").eq(index).addClass('active');
+
+
+            // Collapse Tab logic
+            if ($(this).hasClass('sa-collapse-tabs')) {
+
+                // Remove active collapse classes
+                $(this).find('.sa-content').removeClass('in').addClass('collapse').css('height', 0);
+
+                // Add active collapse classes
+                $(this).find('.sa-content').eq(index).addClass('in').removeClass('collapse').css('height', 'auto');
+            }
+
+        });
+
+    }
+
+
+    // Added needed HTML markup
+    $('.sa-tabs, .sa-collapse-tabs').each(function(tabsindex) {
+
+        $(this).addClass('sa-tabs-' + tabsindex);
+
+        $(this).find('>ul li').each(function(index) {
+
+            $(this).attr('data-target', '.sa-tabs-' + tabsindex + ' .tab-pane-' + index);
+
+        });
+
+        $(this).find('.tab-pane').each(function(index) {
+
+            $(this).addClass('tab-pane-' + index);
+
+        });
+
+        // Check there is an active class
+        if (!$(this).find(">ul li.active").length) {
+            $(this).find(">ul li").eq(0).addClass('active');
+        }
 
     });
 
-    $(this).find('.tab-pane').each(function(index){
+    // Add click listener
+    $('.sa-tabs>ul li, .sa-collapse-tabs>ul li').click(function(event) {
 
-      $(this).addClass('tab-pane-'+index);
+        event.preventDefault();
+
+        // Show tab
+        $(this).tab('show');
 
     });
 
-    // check active
-    $(this).find('>ul li:nth-child(1)').addClass('active');
-    $(this).find('.tab-pane-0').addClass('active');
+    // Click event to show collapse
+    $('.sa-collapse-tabs .sa-click').click(function() {
 
-  });
+        if ($(this).parents('.sa-collapse-tabs').hasClass('mobile')) {
+
+            $(this).parent().find('.sa-content').collapse('toggle');
+
+        }
+
+    });
+
+    // BS tab shown event
+    $('.sa-tabs>ul li, .sa-collapse-tabs>ul li').on('shown.bs.tab', function(event) {
+
+        // Update active classes
+        $(event.target).siblings().removeClass('active');
+        $(event.target).addClass('active');
+
+        if ($(event.target).attr('data-id')) {
+
+            // Update hash
+            window.location.hash = $(event.target).attr('data-id');
+
+        } else {
+
+            // Manually invoke refresh
+            readHash();
+
+        }
+
+    });
+
+    // BS collpase show event to trigger accordion effect
+    $('.sa-collapse-tabs .sa-content').on('show.bs.collapse', function() {
+
+        $(this).parent().siblings().find('.sa-content.in').collapse('hide');
+
+    });
 
 
+    // BS collapse shown event to update hash
+    $('.sa-collapse-tabs .sa-content').on('shown.bs.collapse', function() {
+
+        var index = $(this).parent().index();
+
+        window.location.hash = $(this).parents('.sa-collapse-tabs').find('>ul li').eq(index).attr('data-id');
+
+    });
+
+
+    // Add collapse classes
+    $('.sa-collapse-tabs .sa-content').addClass('collapse');
+
+    // Add resize listener
+    $(window).on('resize', CollapseTab);
+
+    // Set hashchange event
+    $(window).on('hashchange', readHash);
+
+    readHash();
 
 });
 
