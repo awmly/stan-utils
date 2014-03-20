@@ -286,28 +286,6 @@ $(function() {
 });
 
 /* ========================================================================
- * STAN Utils: Collapse Tabs
- * Author: Andrew Womersley
- * ======================================================================== */
-
-$(function() {
-
-    'use strict';
-
-
-
-
-
-
-
-
-
-
-
-
-});
-
-/* ========================================================================
  * STAN Utils: Collapse
  * Author: Andrew Womersley
  * ======================================================================== */
@@ -823,16 +801,16 @@ $(function() {
         $('.sa-tabs, .sa-collapse-tabs').each(function(tabsindex) {
 
             if (hash) {
-                if ($(this).find(">ul [data-id='" + hash + "']").length) {
+                if ($(this).find(".tab-nav [data-id='" + hash + "']").length) {
 
-                    $(this).find(">ul [data-id]").removeClass('active');
-                    $(this).find(">ul [data-id='" + hash + "']").addClass('active');
+                    $(this).find(".tab-nav [data-id]").removeClass('active');
+                    $(this).find(".tab-nav [data-id='" + hash + "']").addClass('active');
 
                 }
             }
 
             // Get index of active tab
-            var index = $(this).find(">ul li.active").index();
+            var index = $(this).find(".tab-nav li.active").index();
 
             // Store index
             $(this).data('index', index);
@@ -862,7 +840,7 @@ $(function() {
 
         $(this).addClass('sa-tabs-' + tabsindex);
 
-        $(this).find('>ul li').each(function(index) {
+        $(this).find('.tab-nav li').each(function(index) {
 
             $(this).attr('data-target', '.sa-tabs-' + tabsindex + ' .tab-pane-' + index);
 
@@ -875,14 +853,14 @@ $(function() {
         });
 
         // Check there is an active class
-        if (!$(this).find(">ul li.active").length) {
-            $(this).find(">ul li").eq(0).addClass('active');
+        if (!$(this).find(".tab-nav li.active").length) {
+            $(this).find(".tab-nav li").eq(0).addClass('active');
         }
 
     });
 
     // Add click listener
-    $('.sa-tabs>ul li, .sa-collapse-tabs>ul li').click(function(event) {
+    $('.tab-nav li').click(function(event) {
 
         event.preventDefault();
 
@@ -903,7 +881,7 @@ $(function() {
     });
 
     // BS tab shown event
-    $('.sa-tabs>ul li, .sa-collapse-tabs>ul li').on('shown.bs.tab', function(event) {
+    $('.tab-nav li').on('shown.bs.tab', function(event) {
 
         // Update active classes
         $(event.target).siblings().removeClass('active');
@@ -936,7 +914,7 @@ $(function() {
 
         var index = $(this).parent().index();
 
-        window.location.hash = $(this).parents('.sa-collapse-tabs').find('>ul li').eq(index).attr('data-id');
+        window.location.hash = $(this).parents('.sa-collapse-tabs').find('.tab-nav li').eq(index).attr('data-id');
 
     });
 

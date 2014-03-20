@@ -23,10 +23,6 @@
   transition-timing-function: linear, linear, linear;
 }
 /* ========================================================================
- * STAN Utils: Collapse Tabs
- * Author: Andrew Womersley
- * ======================================================================== */
-/* ========================================================================
  * STAN Utils: Collapse
  * Author: Andrew Womersley
  * ======================================================================== */
@@ -420,12 +416,10 @@ img.maxheight {
  * STAN Utils: Tabs
  * Author: Andrew Womersley
  * ========================================================================*/
-.sa-tabs .tab-pane,
-.sa-collapse-tabs .tab-pane {
+.tab-content .tab-pane {
   display: none;
 }
-.sa-tabs .tab-pane.active,
-.sa-collapse-tabs .tab-pane.active {
+.tab-content .tab-pane.active {
   display: block;
 }
 .sa-collapse-tabs .desktop-only,
