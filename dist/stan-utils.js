@@ -344,21 +344,21 @@ $(function() {
               if ($(this).attr('data-collapse-devices-open')) {
 
                 if($(this).attr('data-collapse-devices-open').indexOf($STAN.device) >= 0){
-                  $(this).find('.sa-content').first().addClass('in').css('height','');
+                  $(this).addClass('active').find('.sa-content').first().addClass('in').css('height','');
                 }else{
-                  $(this).find('.sa-content').first().removeClass('in').addClass('collapse');
+                  $(this).removeClass('active').find('.sa-content').first().removeClass('in').addClass('collapse');
                 }
 
               }else{
 
-                $(this).find('.sa-content').first().removeClass('in').addClass('collapse');
+                $(this).removeClass('active').find('.sa-content').first().removeClass('in').addClass('collapse');
 
               }
 
           } else {
 
               $(this).addClass('inactive');
-              $(this).find('.sa-content').first().addClass('in').removeClass('collapse').css('height','');
+              $(this).addClass('active').find('.sa-content').first().addClass('in').removeClass('collapse').css('height','');
 
           }
 
@@ -933,6 +933,44 @@ $(function() {
 });
 
 /* ========================================================================
+ * STAN Utils: Tooltip Popovers
+ * Author: Andrew Womersley
+ * ========================================================================*/
+
+$(function() {
+
+    'use strict';
+
+    // Declare id;
+    var id;
+
+    // Auto init BS tooltips
+    $('.sa-tooltip').each(function() {
+
+        id = 'tooltip' + Math.floor((Math.random() * 10000));
+
+        $(this).attr({
+            id: id,
+            'data-container': '#' + id
+        }).tooltip();
+
+    });
+
+    // Auto init BS popovers
+    $('.sa-popover').each(function() {
+
+        id = 'popover' + Math.floor((Math.random() * 10000));
+
+        $(this).attr({
+            id: id,
+            'data-container': '#' + id
+        }).popover();
+
+    });
+
+});
+
+/* ========================================================================
  * STAN Utils: Touch Hover
  * Author: Andrew Womersley
  * ======================================================================== */
@@ -1082,6 +1120,44 @@ $(function() {
     });
 
 });
+
+/* ========================================================================
+ * STAN Utils: GetQueryString
+ * Author: Andrew Womersley
+ * ======================================================================== */
+
+(function($, $STAN) {
+
+  'use strict';
+
+  $STAN.getQueryString=function(){
+
+    // Get query string
+    var qs=window.location.search.substring(1);
+
+    // Set req exp pattern
+    var patt = new RegExp(/([^&=]+)=?([^&]*)/g);
+
+    // Set params object to store qs values
+    var params={};
+
+    // Set matches variable
+    var matches;
+
+    // Loop through pattern matches
+    while (matches = patt.exec(qs)){
+
+      // Set param - replace + and %20 for spaces
+      params[matches[1]] = matches[2].replace(/(\+|\%20)/g,' ');
+
+    }
+
+    // Return params object
+    return params;
+
+  }
+
+}(jQuery, $STAN));
 
 /* ========================================================================
  * STAN Utils: GetSize

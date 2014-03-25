@@ -57,21 +57,21 @@
               if ($(this).attr('data-collapse-devices-open')) {
 
                 if($(this).attr('data-collapse-devices-open').indexOf($STAN.device) >= 0){
-                  $(this).find('.sa-content').first().addClass('in').css('height','');
+                  $(this).addClass('active').find('.sa-content').first().addClass('in').css('height','');
                 }else{
-                  $(this).find('.sa-content').first().removeClass('in').addClass('collapse');
+                  $(this).removeClass('active').find('.sa-content').first().removeClass('in').addClass('collapse');
                 }
 
               }else{
 
-                $(this).find('.sa-content').first().removeClass('in').addClass('collapse');
+                $(this).removeClass('active').find('.sa-content').first().removeClass('in').addClass('collapse');
 
               }
 
           } else {
 
               $(this).addClass('inactive');
-              $(this).find('.sa-content').first().addClass('in').removeClass('collapse').css('height','');
+              $(this).addClass('active').find('.sa-content').first().addClass('in').removeClass('collapse').css('height','');
 
           }
 
