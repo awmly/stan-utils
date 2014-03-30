@@ -1,83 +1,84 @@
-{% assign module = "fs" %}
-
 <h1>Fixed Size</h1>
 <p>Make elements always be the same height</p>
 
-<div class='collapse-tab'>
+<div class="sa-collapse-tabs plugin-examples">
 
-	<ul class="nav nav-tabs hidden-xs">
-		<li class='active'><a href="#{{ module }}examples" data-toggle="tab">Examples</a></li>
-		<li><a href="#{{ module }}settings" data-toggle="tab">Settings</a></li>
-		<li><a href="#{{ module }}methods" data-toggle="tab">Methods</a></li>
-		<li><a href="#{{ module }}events" data-toggle="tab">Events</a></li>
-	</ul>
+  <ul class="sa-cf tab-nav desktop-only">
+    <li><a href="#">Examples</a></li>
+    <li><a href="#">Settings</a></li>
+    <li><a href="#">Methods</a></li>
+    <li><a href="#">Events</a></li>
+  </ul>
 
-	<div class="tab-content">
+  <div class="tab-content">
+    <div class="tab-pane">
 
-		<div class="tab-pane active" id="{{ module }}examples">
-			<h3 data-toggle="collapse" data-target="#{{ module }}examples>div">Examples</h3>
-			<div class='collapse'>
-
-				<h4>Responsive Columns</h4>
-				<p>Fix the heights of columns when inside a responsive column structure.</p>
+      <div class="sa-click mobile-only">Examples</div>
+      <div class="sa-content">
+<h4>Responsive Columns</h4>
+        <p>Fix the heights of columns when inside a responsive column structure.</p>
 
 <pre><code class='xml'>&lt;div class='row'&gt;
-	&lt;div class='col-sm-6 col-md-4 col-lg-3'&gt;&lt;/div&gt;
-	&lt;div class='col-sm-6 col-md-4 col-lg-3'&gt;&lt;/div&gt;
-	&lt;div class='col-sm-6 col-md-4 col-lg-3'&gt;&lt;/div&gt;
-	&lt;div class='col-sm-6 col-md-4 col-lg-3'&gt;&lt;/div&gt;
+  &lt;div class='col-sm-6 col-md-4 col-lg-3'&gt;&lt;/div&gt;
+  &lt;div class='col-sm-6 col-md-4 col-lg-3'&gt;&lt;/div&gt;
+  &lt;div class='col-sm-6 col-md-4 col-lg-3'&gt;&lt;/div&gt;
+  &lt;div class='col-sm-6 col-md-4 col-lg-3'&gt;&lt;/div&gt;
 &lt;/div&gt;
 
 &lt;script&gt;
 $('.row').FixedSize({
-	selector:'.col>div',
-	devices:{ xs:false, sm:2, md:3, lg:4 }
+  selector:'.col>div',
+  devices:{ xs:false, sm:2, md:3, lg:4 }
 });
 &lt;/script&gt;</code></pre>
 
-				<p><a href='{{ page.base }}examples/plugin-fixed-size.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
+        <p><a href='{{ page.base }}examples/plugin-fixed-size.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 
-			</div>
-		</div>
-		<div class="tab-pane" id="{{ module }}settings">
-			<h3 data-toggle="collapse" data-target="#{{ module }}settings>div">Settings</h3>
-			<div class='collapse'>
-				<table class='table table-bordered'>
-					<tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
-					<tr>
-						<td><code>selector</code></td>
-						<td>string</td>
-						<td>div</td>
-						<td>The selectors to fix the size of</td>
-					</tr>
-					<tr>
-						<td><code>devices</code></td>
-						<td>object</td>
-						<td>{ xs:0, sm:0, md:0, lg:0 }</td>
-						<td>How many selectors to group together when fixing the size. Set to <code>0</code> for all, or set to a number. ie setting to <code>3</code> will make the first 3 selectors the same height, then the next 3 and so on. Devices based on Bootstrap spec.</td>
-					</tr>
-				</table>
-			</div>
-		</div>
-		<div class="tab-pane" id="{{ module }}methods">
-			<h3 data-toggle="collapse" data-target="#{{ module }}methods>div">Methods</h3>
-			<div class='collapse'>
+      </div>
 
-				<pre><code class='javascript'>$('#selector').FixedSize('fix'); // Invokes the fix method</code></pre>
+    </div>
+    <div class="tab-pane">
 
-			</div>
-		</div>
-		<div class="tab-pane" id="{{ module }}events">
-			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
-			<div class='collapse'>
+      <div class="sa-click mobile-only">Settings</div>
+      <div class="sa-content">
+<table class='table table-bordered'>
+          <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+          <tr>
+            <td><code>selector</code></td>
+            <td>string</td>
+            <td>div</td>
+            <td>The selectors to fix the size of</td>
+          </tr>
+          <tr>
+            <td><code>devices</code></td>
+            <td>object</td>
+            <td>{ xs:0, sm:0, md:0, lg:0 }</td>
+            <td>How many selectors to group together when fixing the size. Set to <code>0</code> for all, or set to a number. ie setting to <code>3</code> will make the first 3 selectors the same height, then the next 3 and so on. Devices based on Bootstrap spec.</td>
+          </tr>
+        </table>
+      </div>
 
+    </div>
+    <div class="tab-pane">
+
+      <div class="sa-click mobile-only">Methods</div>
+      <div class="sa-content">
+<pre><code class='javascript'>$('#selector').FixedSize('fix'); // Invokes the fix method</code></pre>
+      </div>
+
+    </div>
+    <div class="tab-pane">
+
+      <div class="sa-click mobile-only">Events</div>
+      <div class="sa-content">
 <pre><code class='javascript'>$('#selector').on('resize.sa.fixedsize',function(event,settings){
-	// Triggered every time selectors are resized
+  // Triggered every time selectors are resized
 });</code></pre>
+      </div>
 
-			</div>
-		</div>
-	</div>
+    </div>
+  </div>
+
 </div>
 
 <div class='divide-lg'></div>

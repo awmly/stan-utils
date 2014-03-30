@@ -1,10 +1,14 @@
 <h1>Touch Hover</h1>
 
-<p></p>
+<p>Easily control hover effects when on touch enabled devices. Add the class <code>touch-hover</code> to any element with a hover effect then in the CSS as well as setting the pseudo <code>:hover</code> class add a <code>.hover</code> class too.</p>
 
-<pre><code class='xml'>&lt;div class=""&gt;
+<pre><code class='xml'>&lt;div class="touch-hover"&gt;&lt;/div&gt;</code></pre>
 
-&lt;/div&gt;</code></pre>
+<pre><code class='css'>div:hover,
+div.hover{
+  background:#f00;
+}
+</code></pre>
 
 <p><a href='{{ page.base }}examples/component-touch-hover.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 

@@ -9,13 +9,6 @@ base:   "../"
 .sidenav li:hover{ background:#ddd; }
 .sidenav li.active{ background:#333; color:#fff; }
 .sidenav i{ position:absolute; top:8px; left:15px; }
-
-.sa-filter .inactive{
-  display:block;
-  filter: alpha(opacity=0);
-  opacity:0;
-}
-
 </style>
 <h1>Filter Example</h1>
 
@@ -30,57 +23,57 @@ base:   "../"
 
     <div class='sa-filter'>
 
-      <div class='sa-cards row' data-selector='.card.active'>
+      <div class='row'>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>1</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>1</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:240px;'>2</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:100px;'>2</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='blue'><div style='background:#0000ff;height:110px;'>3</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='blue'><div style='background:#0000ff;height:100px;'>3</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='yellow'><div style='background:#ffff00;height:50px;'>4</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='yellow'><div style='background:#ffff00;height:100px;'>4</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:120px;'>5</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:100px;'>5</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>6</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>6</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='purple'><div style='background:#ff00ff;height:160px;'>7</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='purple'><div style='background:#ff00ff;height:100px;'>7</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:140px;'>8</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:100px;'>8</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='blue'><div style='background:#0000ff;height:110px;'>9</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='blue'><div style='background:#0000ff;height:100px;'>9</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='yellow'><div style='background:#ffff00;height:50px;'>10</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='yellow'><div style='background:#ffff00;height:100px;'>10</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:120px;'>11</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:100px;'>11</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>12</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>12</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>13</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>13</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:240px;'>14</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:100px;'>14</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='blue'><div style='background:#0000ff;height:110px;'>15</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='blue'><div style='background:#0000ff;height:100px;'>15</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='yellow'><div style='background:#ffff00;height:50px;'>16</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='yellow'><div style='background:#ffff00;height:100px;'>16</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:120px;'>17</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:100px;'>17</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>18</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>18</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='purple'><div style='background:#ff00ff;height:160px;'>19</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='purple'><div style='background:#ff00ff;height:100px;'>19</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:140px;'>20</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:100px;'>20</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='blue'><div style='background:#0000ff;height:110px;'>21</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='blue'><div style='background:#0000ff;height:100px;'>21</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='yellow'><div style='background:#ffff00;height:50px;'>22</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='yellow'><div style='background:#ffff00;height:100px;'>22</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:120px;'>23</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='green'><div style='background:#00ff00;height:100px;'>23</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>24</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='red'><div style='background:#ff0000;height:100px;'>24</div></div>
 
-        <div class='card animate col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='light blue'><div style='background:#00ffff;height:100px;'>24</div></div>
+        <div class='col-xs-6 col-sm-4 col-md-3 mar-btm-md' data-tags='light blue'><div style='background:#00ffff;height:100px;'>24</div></div>
 
       </div>
 
@@ -100,20 +93,8 @@ $(function(){
 
   $('.sa-filter').Filter({
 
-    selector:'.card',
-    activeClass:'active',
-    inactiveClass: 'inactive',
-    setNav:true,
-    navHolder:'.sidenav',
-    navHTML: '<li data-tag="{tag}">{tag} <span>{matches}</span><i class="sa-on fa fa-times"></i><i class="sa-off fa fa-check"></i></li>',
-    resultsPerPage:{ xs:4, sm:6, md:8, lg:8 }
-
-  });
-
-
-  $('.sa-filter').on('post.sa.filter',function(){
-
-    $('.sa-cards').trigger('position.sa.cards');
+    selector:'[data-tags]',
+    setNav:true
 
   });
 

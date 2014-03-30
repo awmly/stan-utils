@@ -1,174 +1,176 @@
-{% assign module = "popup" %}
-
 <h1>Popup</h1>
 <p>A responsive popup module that can be controlled on a per device basis.</p>
 
-<div class='collapse-tab'>
+<div class="sa-collapse-tabs plugin-examples">
 
-	<ul class="nav nav-tabs hidden-xs">
-		<li class='active'><a href="#{{ module }}examples" data-toggle="tab">Examples</a></li>
-		<li><a href="#{{ module }}settings" data-toggle="tab">Settings</a></li>
-		<li><a href="#{{ module }}methods" data-toggle="tab">Methods</a></li>
-		<li><a href="#{{ module }}events" data-toggle="tab">Events</a></li>
-		<li><a href="#{{ module }}listeners" data-toggle="tab">Listeners</a></li>
-	</ul>
+  <ul class="sa-cf tab-nav desktop-only">
+    <li><a href="#">Examples</a></li>
+    <li><a href="#">Settings</a></li>
+    <li><a href="#">Methods</a></li>
+    <li><a href="#">Events</a></li>
+    <li><a href="#">Listeners</a></li>
+  </ul>
 
-	<div class="tab-content">
+  <div class="tab-content">
+    <div class="tab-pane">
 
-		<div class="tab-pane active" id="{{ module }}examples">
-			<h3 data-toggle="collapse" data-target="#{{ module }}examples>div">Examples</h3>
-			<div class='collapse'>
-
-				<h4>iFrame Popup</h4>
-				<p>A responsive youtube popup that loads youtube direct if on mobile, works great on phones with the youtube app installed.</p>
+      <div class="sa-click mobile-only">Examples</div>
+      <div class="sa-content">
+<h4>iFrame Popup</h4>
+        <p>A responsive youtube popup that loads youtube direct if on mobile, works great on phones with the youtube app installed.</p>
 
 <pre><code class='xml pre-scrollable'>&lt;div class='popup' id='iframe'&gt;
-	&lt;i class='fa fa-times popup-close'>&lt;/i&gt;
-	&lt;div class='popup-display'&gt;&lt;/div&gt;
+  &lt;i class='fa fa-times popup-close'>&lt;/i&gt;
+  &lt;div class='popup-display'&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;a href='http://www.youtube.com/watch?v=kJuwVuP4ezc' data-toggle='popup.toggle' data-target='#iframe' data-src='http://www.youtube.com/embed/kJuwVuP4ezc'&gt;Load Video&lt;/a&gt;
 
 &lt;script&gt;
 $('#iframe').PopUp({
-	type:'iframe',
-	width:1600,
-	height:900,
-	gutter:30,
-	scroll:false,
-	devices:{ xs:false, sm:true, md:true, lg:true }
+  type:'iframe',
+  width:1600,
+  height:900,
+  gutter:30,
+  scroll:false,
+  devices:{ xs:false, sm:true, md:true, lg:true }
 });
 &lt;/script&gt;</code></pre>
 
-				<p><a href='{{ page.base }}examples/plugin-popup.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
+        <p><a href='{{ page.base }}examples/plugin-popup.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 
-				<div class='space-sm'></div>
+        <div class='space-sm'></div>
 
-				<h4>HTML Popup</h4>
-				<p>A responsive html block popup that scales dynamically in the window.</p>
+        <h4>HTML Popup</h4>
+        <p>A responsive html block popup that scales dynamically in the window.</p>
 
 <pre><code class='xml'>&lt;div class='popup' id='html'&gt;
-	&lt;i class='fa fa-times popup-close'>&lt;/i&gt;
-	&lt;div class='popup-display'&gt;&lt;/div&gt;
+  &lt;i class='fa fa-times popup-close'>&lt;/i&gt;
+  &lt;div class='popup-display'&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;a href='javascript:;' data-toggle='popup.show' data-target='#html'&gt;Load Popup&lt;/a&gt;
 
 &lt;script&gt;
 $('#html').PopUp({
-	type:'html',
-	width:500,
-	height:600,
-	lock_aspect_ratio:false
+  type:'html',
+  width:500,
+  height:600,
+  lock_aspect_ratio:false
 });
 &lt;/script&gt;</code></pre>
 
-				<p><a href='{{ page.base }}examples/plugin-popup-2.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
+        <p><a href='{{ page.base }}examples/plugin-popup-2.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 
-			</div>
-		</div>
-		<div class="tab-pane" id="{{ module }}settings">
-			<h3 data-toggle="collapse" data-target="#{{ module }}settings>div">Settings</h3>
-			<div class='collapse'>
-				<table class='table table-bordered'>
-					<tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
-					<tr>
-						<td><code>type</code></td>
-						<td>string</td>
-						<td>html</td>
-						<td>html - Popup contains standard html code<br/>iframe - Popup loads an external webpage via iframe.</td>
-					</tr>
-					<tr>
-						<td><code>src</code></td>
-						<td>string</td>
-						<td>about:blank</td>
-						<td>The source of the iFrame. This can be overwritten by setting click listeners.</td>
-					</tr>
-					<tr>
-						<td><code>width</code></td>
-						<td>integer</td>
-						<td>200</td>
-						<td>The maximum width of the popup in pixels.</td>
-					</tr>
-					<tr>
-						<td><code>height</code></td>
-						<td>integer</td>
-						<td>300</td>
-						<td>The maximum height of the popup in pixels.</td>
-					</tr>
-					<tr>
-						<td><code>gutter</code></td>
-						<td>integer</td>
-						<td>15</td>
-						<td>If popup dimensions are bigger than window set gutter spacing around edge of popup in pixels.</td>
-					</tr>
-					<tr>
-						<td><code>open</code></td>
-						<td>boolean</td>
-						<td>false</td>
-						<td>Open popup on page load.</td>
-					</tr>
-					<tr>
-						<td><code>auto_reopen</code></td>
-						<td>boolean</td>
-						<td>true</td>
-						<td>Whether to automatically reopen the popup if window size changes.</td>
-					</tr>
-					<tr>
-						<td><code>lock_aspect_ratio</code></td>
-						<td>boolean</td>
-						<td>true</td>
-						<td>Lock the aspect ratio of the popup as it resizes.</td>
-					</tr>
-					<tr>
-						<td><code>scroll</code></td>
-						<td>boolean</td>
-						<td>true</td>
-						<td>Show scroll bars if content doesn't fit the popup.</td>
-					</tr>
-					<tr>
-						<td><code>devices</code></td>
-						<td>object</td>
-						<td>{ xs:true, sm:true, md:true, lg:true }</td>
-						<td>Which devices the popup actions for, if set to false the default action will be taken. Devices based on Bootstrap spec.</td>
-					</tr>
-				</table>
-			</div>
-		</div>
-		<div class="tab-pane" id="{{ module }}methods">
-			<h3 data-toggle="collapse" data-target="#{{ module }}methods>div">Methods</h3>
-			<div class='collapse'>
+      </div>
 
-				<pre><code class='javascript'>$('#selector').Popup('show'); // Shows the popup</code></pre>
-				<pre><code class='javascript'>$('#selector').Popup('hide'); // Hides the popup</code></pre>
-				<pre><code class='javascript'>$('#selector').Popup('toggle'); // Shows/Hides the popup</code></pre>
+    </div>
+    <div class="tab-pane">
 
-			</div>
-		</div>
-		<div class="tab-pane" id="{{ module }}events">
-			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
-			<div class='collapse'>
+      <div class="sa-click mobile-only">Settings</div>
+      <div class="sa-content">
+<table class='table table-bordered'>
+          <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+          <tr>
+            <td><code>type</code></td>
+            <td>string</td>
+            <td>html</td>
+            <td>html - Popup contains standard html code<br/>iframe - Popup loads an external webpage via iframe.</td>
+          </tr>
+          <tr>
+            <td><code>src</code></td>
+            <td>string</td>
+            <td>about:blank</td>
+            <td>The source of the iFrame. This can be overwritten by setting click listeners.</td>
+          </tr>
+          <tr>
+            <td><code>width</code></td>
+            <td>integer</td>
+            <td>200</td>
+            <td>The maximum width of the popup in pixels.</td>
+          </tr>
+          <tr>
+            <td><code>height</code></td>
+            <td>integer</td>
+            <td>300</td>
+            <td>The maximum height of the popup in pixels.</td>
+          </tr>
+          <tr>
+            <td><code>gutter</code></td>
+            <td>integer</td>
+            <td>15</td>
+            <td>If popup dimensions are bigger than window set gutter spacing around edge of popup in pixels.</td>
+          </tr>
+          <tr>
+            <td><code>open</code></td>
+            <td>boolean</td>
+            <td>false</td>
+            <td>Open popup on page load.</td>
+          </tr>
+          <tr>
+            <td><code>auto_reopen</code></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td>Whether to automatically reopen the popup if window size changes.</td>
+          </tr>
+          <tr>
+            <td><code>lock_aspect_ratio</code></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td>Lock the aspect ratio of the popup as it resizes.</td>
+          </tr>
+          <tr>
+            <td><code>scroll</code></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td>Show scroll bars if content doesn't fit the popup.</td>
+          </tr>
+          <tr>
+            <td><code>devices</code></td>
+            <td>object</td>
+            <td>{ xs:true, sm:true, md:true, lg:true }</td>
+            <td>Which devices the popup actions for, if set to false the default action will be taken. Devices based on Bootstrap spec.</td>
+          </tr>
+        </table>
+      </div>
 
+    </div>
+    <div class="tab-pane">
+
+      <div class="sa-click mobile-only">Methods</div>
+      <div class="sa-content">
+<pre><code class='javascript'>$('#selector').Popup('show'); // Shows the popup</code></pre>
+        <pre><code class='javascript'>$('#selector').Popup('hide'); // Hides the popup</code></pre>
+        <pre><code class='javascript'>$('#selector').Popup('toggle'); // Shows/Hides the popup</code></pre>
+      </div>
+
+    </div>
+    <div class="tab-pane">
+
+      <div class="sa-click mobile-only">Events</div>
+      <div class="sa-content">
 <pre><code class='javascript'>$('#selector').on('show.sa.popup',function(event,settings){
-	// Triggered every time view popup is shown
+  // Triggered every time view popup is shown
 });
 
 $('#selector').on('hide.sa.popup',function(event,settings){
-	// Triggered every time view popup is hidden
+  // Triggered every time view popup is hidden
 });</code></pre>
+      </div>
 
-			</div>
-		</div>
-		<div class="tab-pane" id="{{ module }}listeners">
-			<h3 data-toggle="collapse" data-target="#{{ module }}listeners>div">Listeners</h3>
-			<div class='collapse'>
+    </div>
+    <div class="tab-pane">
 
+      <div class="sa-click mobile-only">Listeners</div>
+      <div class="sa-content">
 <pre><code class='xml'>&lt;a href='javascript:;' data-toggle='popup.show' data-target='#selector'&gt;Show Popup&lt;/a&gt;
 &lt;a href='javascript:;' data-toggle='popup.hide' data-target='#selector'&gt;Hide Popup&lt;/a&gt;
 &lt;a href='javascript:;' data-toggle='popup.toggle' data-target='#selector'&gt;Toggle Popup&lt;/a&gt;</code></pre>
 
-				<p>If popup is an iFrame set <code>data-src='http://www...com'</code> to load a new URL.</p>
-			</div>
-		</div>
-	</div>
+        <p>If popup is an iFrame set <code>data-src='http://www...com'</code> to load a new URL.</p>
+      </div>
+
+    </div>
+  </div>
+
 </div>
 
 <div class='divide-lg'></div>

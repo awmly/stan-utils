@@ -1,43 +1,40 @@
-{% assign module = "so" %}
-
 <h1>Slide Out</h1>
 <p>A responsive slide out module that can be controlled on a per device basis.</p>
 
-<div class='collapse-tab'>
+<div class="sa-collapse-tabs plugin-examples">
 
-	<ul class="nav nav-tabs hidden-xs">
-		<li class='active'><a href="#{{ module }}examples" data-toggle="tab">Examples</a></li>
-		<li><a href="#{{ module }}settings" data-toggle="tab">Settings</a></li>
-		<li><a href="#{{ module }}methods" data-toggle="tab">Methods</a></li>
-		<li><a href="#{{ module }}events" data-toggle="tab">Events</a></li>
-		<li><a href="#{{ module }}listeners" data-toggle="tab">Listeners</a></li>
-	</ul>
+  <ul class="sa-cf tab-nav desktop-only">
+    <li><a href="#">Examples</a></li>
+    <li><a href="#">Settings</a></li>
+    <li><a href="#">Methods</a></li>
+    <li><a href="#">Events</a></li>
+    <li><a href="#">Listeners</a></li>
+  </ul>
 
-	<div class="tab-content">
+  <div class="tab-content">
+    <div class="tab-pane">
 
-		<div class="tab-pane active" id="{{ module }}examples">
-			<h3 data-toggle="collapse" data-target="#{{ module }}examples>div">Examples</h3>
-			<div class='collapse'>
-
-				<h4>Left Panel</h4>
-				<p>Slide out the a left panel for all devices.</p>
+      <div class="sa-click mobile-only">Examples</div>
+      <div class="sa-content">
+<h4>Left Panel</h4>
+        <p>Slide out the a left panel for all devices.</p>
 
 <pre><code class='xml'>&lt;div class='slideout'&gt;&lt;/div&gt;
 &lt;a href='javascript:;' data-toggle='slideout.toggle' data-target='.slideout'&gt;TOGGLE&lt;/a&gt;
 
 &lt;script&gt;
 $('.slideout').SlideOut({
-	pos:'left',
-	open:true
+  pos:'left',
+  open:true
 });
 &lt;/script&gt;</code></pre>
 
-				<p><a href='{{ page.base }}examples/plugin-slide-out.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
+        <p><a href='{{ page.base }}examples/plugin-slide-out.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 
-				<div class='space-sm'></div>
+        <div class='space-sm'></div>
 
-				<h4>Bottom Panel</h4>
-				<p>Slide out the a bottom panel for all devices except for extra small (xs).</p>
+        <h4>Bottom Panel</h4>
+        <p>Slide out the a bottom panel for all devices except for extra small (xs).</p>
 
 <pre><code class='xml'>&lt;div class='slideout'&gt;&lt;/div&gt;
 &lt;a href='javascript:;' data-toggle='slideout.show' data-target='.slideout'&gt;SHOW&lt;/a&gt;
@@ -45,97 +42,101 @@ $('.slideout').SlideOut({
 
 &lt;script&gt;
 $('.slideout').SlideOut({
-	pos:'bottom',
-	auto_reopen:false,
-	auto_close:5,
-	devices:{ xs:false, sm:true, md:true, lg:true }
+  pos:'bottom',
+  auto_reopen:false,
+  auto_close:5,
+  devices:{ xs:false, sm:true, md:true, lg:true }
 });
 &lt;/script&gt;</code></pre>
 
-				<p><a href='{{ page.base }}examples/plugin-slide-out-2.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
+        <p><a href='{{ page.base }}examples/plugin-slide-out-2.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 
-			</div>
-		</div>
-		<div class="tab-pane" id="{{ module }}settings">
-			<h3 data-toggle="collapse" data-target="#{{ module }}settings>div">Settings</h3>
-			<div class='collapse'>
-				<table class='table table-bordered'>
-					<tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
-					<tr>
-						<td><code>pos</code></td>
-						<td>string</td>
-						<td>left</td>
-						<td>The positioning of the panel. Allowed values are <code>left</code>, <code>right</code>, <code>top</code> and <code>bottom</code>.</td>
-					</tr>
-					<tr>
-						<td><code>open</code></td>
-						<td>boolean</td>
-						<td>false</td>
-						<td>Open panel on page load.</td>
-					</tr>
-					<tr>
-						<td><code>speed</code></td>
-						<td>integer</td>
-						<td>300</td>
-						<td>The speed to open the panel.</td>
-					</tr>
-					<tr>
-						<td><code>auto_reopen</code></td>
-						<td>boolean</td>
-						<td>true</td>
-						<td>Whether to automatically reopen the popup if window size changes.</td>
-					</tr>
-					<tr>
-						<td><code>auto_close</code></td>
-						<td>integer</td>
-						<td>0</td>
-						<td>Delay to auto close panel. If <code>0</code> panel will remain open to manually closed.</td>
-					</tr>
-					<tr>
-						<td><code>devices</code></td>
-						<td>object</td>
-						<td>{ xs:true, sm:true, md:true, lg:true }</td>
-						<td>Which devices the popup actions for, if set to false the default action will be taken. Devices based on Bootstrap spec.</td>
-					</tr>
+      </div>
 
-				</table>
-			</div>
-		</div>
-		<div class="tab-pane" id="{{ module }}methods">
-			<h3 data-toggle="collapse" data-target="#{{ module }}methods>div">Methods</h3>
-			<div class='collapse'>
+    </div>
+    <div class="tab-pane">
 
+      <div class="sa-click mobile-only">Settings</div>
+      <div class="sa-content">
+<table class='table table-bordered'>
+          <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+          <tr>
+            <td><code>pos</code></td>
+            <td>string</td>
+            <td>left</td>
+            <td>The positioning of the panel. Allowed values are <code>left</code>, <code>right</code>, <code>top</code> and <code>bottom</code>.</td>
+          </tr>
+          <tr>
+            <td><code>open</code></td>
+            <td>boolean</td>
+            <td>false</td>
+            <td>Open panel on page load.</td>
+          </tr>
+          <tr>
+            <td><code>speed</code></td>
+            <td>integer</td>
+            <td>300</td>
+            <td>The speed to open the panel.</td>
+          </tr>
+          <tr>
+            <td><code>auto_reopen</code></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td>Whether to automatically reopen the popup if window size changes.</td>
+          </tr>
+          <tr>
+            <td><code>auto_close</code></td>
+            <td>integer</td>
+            <td>0</td>
+            <td>Delay to auto close panel. If <code>0</code> panel will remain open to manually closed.</td>
+          </tr>
+          <tr>
+            <td><code>devices</code></td>
+            <td>object</td>
+            <td>{ xs:true, sm:true, md:true, lg:true }</td>
+            <td>Which devices the popup actions for, if set to false the default action will be taken. Devices based on Bootstrap spec.</td>
+          </tr>
+
+        </table>
+      </div>
+
+    </div>
+    <div class="tab-pane">
+
+      <div class="sa-click mobile-only">Methods</div>
+      <div class="sa-content">
 <pre><code class='javascript'>$('#selector').SlideOut('show'); // Shows the slideout
 $('#selector').SlideOut('hide'); // Hides the slideout
 $('#selector').SlideOut('toggle'); // Shows/Hides the slideout</code></pre>
+      </div>
 
-			</div>
-		</div>
-		<div class="tab-pane" id="{{ module }}events">
-			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
-			<div class='collapse'>
+    </div>
+    <div class="tab-pane">
 
+      <div class="sa-click mobile-only">Events</div>
+      <div class="sa-content">
 <pre><code class='javascript'>$('#selector').on('show.sa.slideout',function(event,settings){
-	// Triggered every time view slide-out is shown
+  // Triggered every time view slide-out is shown
 });
 
 $('#selector').on('hide.sa.slideout',function(event,settings){
-	// Triggered every time view slide-out is hidden
+  // Triggered every time view slide-out is hidden
 });</code></pre>
+      </div>
 
-			</div>
-		</div>
-		<div class="tab-pane" id="{{ module }}listeners">
-			<h3 data-toggle="collapse" data-target="#{{ module }}listeners>div">Listeners</h3>
-			<div class='collapse'>
+    </div>
+    <div class="tab-pane">
 
+      <div class="sa-click mobile-only">Listeners</div>
+      <div class="sa-content">
 <pre><code class='xml'>&lt;a href='javascript:;' data-toggle='slideout.show' data-target='#selector'&gt;Show Slideout&lt;/a&gt;
 &lt;a href='javascript:;' data-toggle='slideout.hide' data-target='#selector'&gt;Hide Slideout&lt;/a&gt;
 &lt;a href='javascript:;' data-toggle='slideout.toggle' data-target='#selector'&gt;Toggle Slideout&lt;/a&gt;</code></pre>
+      </div>
 
-			</div>
-		</div>
-	</div>
+    </div>
+  </div>
+
 </div>
 
 <div class='divide-lg'></div>

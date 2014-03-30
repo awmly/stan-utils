@@ -5,25 +5,25 @@
 
 $(function() {
 
-	'use strict';
+    'use strict';
 
     var $this;
 
-    if(!("ontouchstart" in document.documentElement)) $('html').addClass('no-touch');
+    if (!("ontouchstart" in document.documentElement)) $('html').addClass('no-touch');
 
     $('html:not(.no-touch) .touch-hover').bind('click touchend', function(event) {
 
-        if($(this).hasClass('hover')){
+        if ($(this).hasClass('hover')) {
 
             event.stopPropagation();
             return true;
 
-        }else{
+        } else {
 
-            $this=$(this);
+            $this = $(this);
 
-            $('.hover').each(function(){
-                if(!$(this).has($this).length) $(this).removeClass('hover');
+            $('.hover').each(function() {
+                if (!$(this).has($this).length) $(this).removeClass('hover');
             });
 
             $this.addClass('hover');
@@ -36,7 +36,6 @@ $(function() {
 
     $('html').on("click touchend", ":not(.touch-hover)", function(event) {
         $('*').removeClass('hover');
-        //event.stopPropagation();
     });
 
 });

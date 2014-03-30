@@ -1,75 +1,149 @@
-{% assign module = "filter" %}
-
 <h1>Filter</h1>
 <p></p>
 
-<div class='collapse-tab'>
+<div class="sa-collapse-tabs plugin-examples">
 
-  <ul class="nav nav-tabs hidden-xs">
-    <li class='active'><a href="#{{ module }}examples" data-toggle="tab">Examples</a></li>
-    <li><a href="#{{ module }}settings" data-toggle="tab">Settings</a></li>
+  <ul class="sa-cf tab-nav desktop-only">
+    <li><a href="#">Examples</a></li>
+    <li><a href="#">Settings</a></li>
+    <li><a href="#">Methods</a></li>
+    <li><a href="#">Events</a></li>
   </ul>
 
   <div class="tab-content">
+    <div class="tab-pane">
 
-    <div class="tab-pane active" id="{{ module }}examples">
-      <h3 data-toggle="collapse" data-target="#{{ module }}examples>div">Examples</h3>
-      <div class='collapse'>
+      <div class="sa-click mobile-only">Examples</div>
+      <div class="sa-content">
 
-        <h4>Sub Title Nav</h4>
-        <p>Creates a navigation which anchor links to all Sub Titles found on a page. This plugin works best with the ScrollTo plugin, simply chain both plugins on the required element.</p>
-<pre><code class='xml'>&lt;ul class="sidebar"&gt;
-&lt;/ul&gt;
+        <h3>Standard layout</h3>
+
+        <pre><code class='xml'>&lt;ul class="sidenav"&gt;&lt;/ul&gt;
+
+&lt;div class="sa-filter"&gt;
+  &lt;div data-tags="red"&gt;&lt;/div&gt;
+  &lt;div data-tags="blue"&gt;&lt;/div&gt;
+  &lt;div data-tags="green"&gt;&lt;/div&gt;
+  &lt;div data-tags="red"&gt;&lt;/div&gt;
+&lt;/div&gt;
 
 &lt;script&gt;
-$('.sidebar').AnchorNav({
-  items:'h2',
+$(".sa-filter").Filter({
+  selector:'[data-tags]',
+  setNav:true
 });
 &lt;/script&gt;</code></pre>
 
         <p><a href='{{ page.base }}examples/plugin-filter.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 
+        <div class='divide-md'></div>
+
+        <h3>Filter with Card UI layout</h3>
+
+                <pre><code class='xml'>&lt;ul class="sidenav"&gt;&lt;/ul&gt;
+
+&lt;div class="sa-filter sa-cards"&gt;
+  &lt;div class="card" data-tags="red"&gt;&lt;/div&gt;
+  &lt;div class="card" data-tags="blue"&gt;&lt;/div&gt;
+  &lt;div class="card" data-tags="green"&gt;&lt;/div&gt;
+  &lt;div class="card" data-tags="red"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+$(".sa-filter").Filter({
+  selector:'[data-tags]',
+  setNav:true
+});
+
+$(".sa-filter").on("post.sa.filter",function(){
+
+  $(".sa-cards").trigger("position.sa.cards");
+
+});
+&lt;/script&gt;</code></pre>
+
+        <p><a href='{{ page.base }}examples/plugin-filter-2.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
+
       </div>
+
     </div>
-    <div class="tab-pane" id="{{ module }}settings">
-      <h3 data-toggle="collapse" data-target="#{{ module }}settings>div">Settings</h3>
-      <div class='collapse'>
+    <div class="tab-pane">
+
+      <div class="sa-click mobile-only">Settings</div>
+      <div class="sa-content">
         <table class='table table-bordered'>
           <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
           <tr>
-            <td><code>items</code></td>
+            <td><code>selector</code></td>
             <td>string</td>
-            <td>768</td>
-            <td>The breakpoint for when tabs and collapse switch</td>
+            <td>div</td>
+            <td>The selector to filter</td>
           </tr>
           <tr>
-            <td><code>li_class</code></td>
+            <td><code>activeClass</code></td>
             <td>string</td>
-            <td></td>
-            <td>Add a class to the automatically added <code>&lt;li&gt;</code>'s</td>
+            <td>active</td>
+            <td>The class name applied to matched elements</td>
           </tr>
           <tr>
-            <td><code>a_class</code></td>
+            <td><code>inactiveClass</code></td>
             <td>string</td>
-            <td></td>
-            <td>Add a class to the automatically added <code>&lt;a&gt;</code>'s</td>
+            <td>inactive</td>
+            <td>The class name applied to un-matched elements</td>
           </tr>
           <tr>
-            <td><code>add_li_active_class</code></td>
+            <td><code>setNav</code></td>
             <td>boolean</td>
             <td>false</td>
-            <td>Add an active class to the <code>&lt;li&gt;</code> currently in view.</td>
+            <td>If true the navHolder will be auto populated with navHTML</td>
           </tr>
           <tr>
-            <td><code>add_a_active_class</code></td>
-            <td>boolean</td>
-            <td>true</td>
-            <td>Add an active class to the <code>&lt;a&gt;</code> currently in view.</td>
+            <td><code>navHolder</code></td>
+            <td>string</td>
+            <td>.filternav</td>
+            <td>A jQuery selector to append the nav to if setNav is true</td>
           </tr>
+          <tr>
+            <td><code>navHTML</code></td>
+            <td>string</td>
+            <td>&lt;li data-tag="{tag}"&gt;<br/>{tag}<br/>&lt;span&gt;&lt;/span&gt;<br/>&lt;i class="sa-on fa fa-times"&gt;&lt;/i&gt;<br/>&lt;i class="sa-off fa fa-check">&lt;/i&gt;<br/>&lt;/li&gt;</td>
+            <td>The HTML to produce for each navigation element<br/>{tag} will be replaced by the tag name<br/>the span will hold the number of matches<br/>sa-on and sa-off will swicth display depending on if the tag is active</td>
+          </tr>
+          <tr>
+            <td><code>resultsPerPage</code></td>
+            <td>string</td>
+            <td>{ xs: 4, sm: 6, md: 8, lg: 10 }</td>
+            <td>The number of filter matches to show per page on each device</td>
+          </tr>
+
         </table>
       </div>
+
+    </div>
+    <div class="tab-pane">
+
+      <div class="sa-click mobile-only">Methods</div>
+      <div class="sa-content">
+      <pre><code class='javascript'>$('#selector').Filter('filter'); // Refreshes selector matches</code></pre>
+      </div>
+
+    </div>
+    <div class="tab-pane">
+
+      <div class="sa-click mobile-only">Events</div>
+      <div class="sa-content">
+<pre><code class='javascript'>$('#selector').on('pre.sa.filter',function(event,settings){
+  // Triggered before the filter happens
+});
+
+$('#selector').on('post.sa.filter',function(event,settings){
+  // Triggered after the filter has happened
+});</code></pre>
+      </div>
+
     </div>
   </div>
+
 </div>
 
 <div class='divide-lg'></div>

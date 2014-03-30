@@ -1,115 +1,115 @@
-{% assign module = "sf" %}
-
 <h1>Sticky Fix</h1>
 <p>Create responsive sticky elements that can be controlled on a per device basis.</p>
 
-<div class='collapse-tab'>
+<div class="sa-collapse-tabs plugin-examples">
 
-	<ul class="nav nav-tabs hidden-xs">
-		<li class='active'><a href="#{{ module }}examples" data-toggle="tab">Examples</a></li>
-		<li><a href="#{{ module }}settings" data-toggle="tab">Settings</a></li>
-		<li><a href="#{{ module }}events" data-toggle="tab">Events</a></li>
-	</ul>
+  <ul class="sa-cf tab-nav desktop-only">
+    <li><a href="#">Examples</a></li>
+    <li><a href="#">Settings</a></li>
+    <li><a href="#">Events</a></li>
+  </ul>
 
-	<div class="tab-content">
+  <div class="tab-content">
+    <div class="tab-pane">
 
-		<div class="tab-pane active" id="{{ module }}examples">
-			<h3 data-toggle="collapse" data-target="#{{ module }}examples>div">Examples</h3>
-			<div class='collapse'>
-
-				<h4>Sticky Header</h4>
-				<p>A full width sticky header</p>
+      <div class="sa-click mobile-only">Examples</div>
+      <div class="sa-content">
+        <h4>Sticky Header</h4>
+        <p>A full width sticky header</p>
 
 <pre><code class='xml'>&lt;header&gt;&lt;/header&gt;
 
 &lt;script&gt;
 $('header').StickyFix({
-	top:0,
-	sticky_class:'stuck'
+  top:0,
+  sticky_class:'stuck'
 });
 &lt;/script&gt;</code></pre>
 
-				<p><a href='{{ page.base }}examples/plugin-sticky-fix.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
+        <p><a href='{{ page.base }}examples/plugin-sticky-fix.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 
-				<div class='space-sm'></div>
+        <div class='space-sm'></div>
 
-				<h4>Sticky Right Panel</h4>
-				<p>A sticky right panel with <code>top</code> and <code>maxtop</code> values set.</p>
+        <h4>Sticky Right Panel</h4>
+        <p>A sticky right panel with <code>top</code> and <code>maxtop</code> values set.</p>
 
 <pre><code class='xml'>&lt;div id='stickyfix'&gt;&lt;/div&gt;
 
 &lt;script&gt;
 $('#stickyfix').StickyFix({
-	top:50,
-	maxtop:500,
-	stick_to:'parent',
-	devices:{ xs:false, sm:true, md:true, lg:true }
+  top:50,
+  maxtop:500,
+  stick_to:'parent',
+  devices:{ xs:false, sm:true, md:true, lg:true }
 });
 &lt;/script&gt;</code></pre>
 
-				<p><a href='{{ page.base }}examples/plugin-sticky-fix-2.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
+        <p><a href='{{ page.base }}examples/plugin-sticky-fix-2.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
+      </div>
 
-			</div>
-		</div>
-		<div class="tab-pane" id="{{ module }}settings">
-			<h3 data-toggle="collapse" data-target="#{{ module }}settings>div">Settings</h3>
-			<div class='collapse'>
-				<table class='table table-bordered'>
-					<tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
-					<tr>
-						<td><code>top</code></td>
-						<td>integer</td>
-						<td>0</td>
-						<td>The scroll amount at which the element becomes sticky</td>
-					</tr>
-					<tr>
-						<td><code>maxtop</code></td>
-						<td>integer</td>
-						<td>0</td>
-						<td>The maximum scroll amount the element is sticky for. Leave as <code>0</code> for no maximum.</td>
-					</tr>
-					<tr>
-						<td><code>zindex</code></td>
-						<td>integer</td>
-						<td>1000</td>
-						<td>The Z-Index level to apply to the selector when sticky.</td>
-					</tr>
-					<tr>
-						<td><code>sticky_class</code></td>
-						<td>string</td>
-						<td></td>
-						<td>Apply a class to the element when its stuck</td>
-					</tr>
-					<tr>
-						<td><code>stick_to</code></td>
-						<td>string</td>
-						<td>window</td>
-						<td><code>window</code> Element is fixed to the window<br/><code>parent</code> Element is fixed to its parent</td>
-					</tr>
-					<tr>
-						<td><code>devices</code></td>
-						<td>object</td>
-						<td>{ xs:true, sm:true, md:true, lg:true }</td>
-						<td>Which devices the stickyfix actions for, if set to false the default action will be taken. Devices based on Bootstrap spec.</td>
-					</tr>
-				</table>
-			</div>
-		</div>
-		<div class="tab-pane" id="{{ module }}events">
-			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
-			<div class='collapse'>
+    </div>
+    <div class="tab-pane">
 
+      <div class="sa-click mobile-only">Settings</div>
+      <div class="sa-content">
+<table class='table table-bordered'>
+          <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+          <tr>
+            <td><code>top</code></td>
+            <td>integer</td>
+            <td>0</td>
+            <td>The scroll amount at which the element becomes sticky</td>
+          </tr>
+          <tr>
+            <td><code>maxtop</code></td>
+            <td>integer</td>
+            <td>0</td>
+            <td>The maximum scroll amount the element is sticky for. Leave as <code>0</code> for no maximum.</td>
+          </tr>
+          <tr>
+            <td><code>zindex</code></td>
+            <td>integer</td>
+            <td>1000</td>
+            <td>The Z-Index level to apply to the selector when sticky.</td>
+          </tr>
+          <tr>
+            <td><code>sticky_class</code></td>
+            <td>string</td>
+            <td></td>
+            <td>Apply a class to the element when its stuck</td>
+          </tr>
+          <tr>
+            <td><code>stick_to</code></td>
+            <td>string</td>
+            <td>window</td>
+            <td><code>window</code> Element is fixed to the window<br/><code>parent</code> Element is fixed to its parent</td>
+          </tr>
+          <tr>
+            <td><code>devices</code></td>
+            <td>object</td>
+            <td>{ xs:true, sm:true, md:true, lg:true }</td>
+            <td>Which devices the stickyfix actions for, if set to false the default action will be taken. Devices based on Bootstrap spec.</td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+    <div class="tab-pane">
+
+      <div class="sa-click mobile-only">Events</div>
+      <div class="sa-content">
 <pre><code class='javascript'>$('#selector').on('stuck.sa.stickyfix',function(event,settings){
-	// Triggered every time element is stuck
+  // Triggered every time element is stuck
 });
 
 $('#selector').on('unstuck.sa.stickyfix',function(event,settings){
-	// Triggered every time element is unstuck
+  // Triggered every time element is unstuck
 });</code></pre>
+      </div>
 
-			</div>
-		</div>
-	</div>
+    </div>
+  </div>
+
 </div>
 
 <div class='divide-lg'></div>

@@ -1,18 +1,22 @@
 <h1>Tabs</h1>
 
 <h3>Normal Tabs</h3>
-<p>Built upon BS tabs this component allows for marking up tabs without the need of setting ID's and targets. The usuall BS commands for showing tabs remain instact.</p>
+<p>Built upon BS tabs this component allows for marking up tabs without the need of setting ID's and targets. To quickly style the tabs add the navigation classes <code>sa-nav nav-horizontal nav-block</code> to the main <code>sa-tabs</code> element.</p>
+
+<p>Tabs can also change the URL hash depending on which tab is open, to activate this add the attribute <code>data-id="foo"</code> to each <code>li</code> within <code>tab-nav</code>.</p>
+
+<p>Tabs can be opened/closed using the normal bootstrap API - eg <code>$('[data-id="home"]').tab('show');</code> or <code>$('.tab-nav li:first-child').tab('hide');</code>.</p>
 
 <pre><code class='xml'>&lt;div class="sa-tabs"&gt;
 
-  &lt;ul&gt;
+  &lt;ul class="tab-nav"&gt;
     &lt;li&gt;&lt;a href="#"&gt;Tab 1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href="#"&gt;Tab 2&lt;/a&gt;&lt;/li&gt;
   &lt;/ul&gt;
 
-  &lt;div class="sa-content"&gt;
-    &lt;div class="tab-pane"&gt;...&lt;/div&gt;
-    &lt;div class="tab-pane"&gt;...&lt;/div&gt;
+  &lt;div class="tab-content"&gt;
+    &lt;div class="tab-pane"&gt;...Tab 1 Content...&lt;/div&gt;
+    &lt;div class="tab-pane"&gt;...Tab 2 Content...&lt;/div&gt;
   &lt;/div&gt;
 
 &lt;/div&gt;</code></pre>
@@ -24,9 +28,35 @@
 
 <h3>Collapse Tabs</h3>
 
-<p>Built upon BS tabs this component allows for marking up tabs without the need of setting ID's and targets. The usuall BS commands for showing tabs remain instact.</p>
+<p>Tabs can also be configured to act as collapses when on smaller devices.  By default the breakpoint between devices is 992px, to modify this add the attribute <code>data-breakpoint="728"</code> on to the main <code>sa-collapse-tabs</code> element.</p>
 
-<pre><code class='xml'>&lt;div class="sa-tabs"&gt;
+<p>To only show certian elements on each viewport add the classes <code>.desktop-only</code> and <code>.mobile-only</code>.</p>
+
+<pre><code class='xml'>&lt;div class="sa-collapse-tabs"&gt;
+
+  &lt;ul class="tab-nav desktop-only"&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Tab 1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Tab 2&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;div class="tab-content"&gt;
+    &lt;div class="tab-pane"&gt;
+
+      &lt;div class="sa-click mobile-only"&gt;Tab 1&lt;/div&gt;
+      &lt;div class="sa-content"&gt;
+        ...Tab 1 Content...
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+    &lt;div class="tab-pane"&gt;
+
+      &lt;div class="sa-click mobile-only"&gt;Tab 2&lt;/div&gt;
+      &lt;div class="sa-content"&gt;
+        ...Tab 2 Content...
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+  &lt;/div&gt;
 
 &lt;/div&gt;</code></pre>
 

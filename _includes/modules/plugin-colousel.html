@@ -1,120 +1,120 @@
-{% assign module = "col" %}
-
 <h1>Colousel</h1>
 <p>A responsive carousel plugin that works within BS's column layouts.</p>
 
-<div class='collapse-tab'>
 
-	<ul class="nav nav-tabs hidden-xs">
-		<li class='active'><a href="#{{ module }}examples" data-toggle="tab">Examples</a></li>
-		<li><a href="#{{ module }}settings" data-toggle="tab">Settings</a></li>
-		<li><a href="#{{ module }}methods" data-toggle="tab">Methods</a></li>
-		<li><a href="#{{ module }}events" data-toggle="tab">Events</a></li>
-		<li><a href="#{{ module }}listeners" data-toggle="tab">Listeners</a></li>
-		<li><a href="#{{ module }}helpers" data-toggle="tab">Helpers</a></li>
-	</ul>
+<div class="sa-collapse-tabs plugin-examples">
 
-	<div class="tab-content">
+  <ul class="sa-cf tab-nav desktop-only">
+    <li><a href="#">Examples</a></li>
+    <li><a href="#">Settings</a></li>
+    <li><a href="#">Methods</a></li>
+    <li><a href="#">Events</a></li>
+    <li><a href="#">Listeners</a></li>
+    <li><a href="#">Helpers</a></li>
+  </ul>
 
-		<div class="tab-pane active" id="{{ module }}examples">
-			<h3 data-toggle="collapse" data-target="#{{ module }}examples>div">Examples</h3>
-			<div class='collapse'>
+  <div class="tab-content">
+    <div class="tab-pane">
 
-				<h4>Continuous Scroll</h4>
-				<p>A continuous looping carousel with autoplay.</p>
+      <div class="sa-click mobile-only">Examples</div>
+      <div class="sa-content">
+<h4>Continuous Scroll</h4>
+        <p>A continuous looping carousel with autoplay.</p>
 
 <pre><code class='xml'>&lt;div class='colousel' id='colousel'>
-	&lt;span class='colousel-prev'>&lt;/span&gt;
-	&lt;span class='colousel-next'>&lt;/span&gt;
-	&lt;div class='colousel-inner'&gt;
-		&lt;div&gt;&lt;/div&gt;
-		&lt;div&gt;&lt;/div&gt;
-		...
-	&lt;/div&gt;
+  &lt;span class='colousel-prev'>&lt;/span&gt;
+  &lt;span class='colousel-next'>&lt;/span&gt;
+  &lt;div class='colousel-inner'&gt;
+    &lt;div&gt;&lt;/div&gt;
+    &lt;div&gt;&lt;/div&gt;
+    ...
+  &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;script&gt;
 $('#colousel').Colousel({
-	selector_class:'col-xs-6 col-sm-4 col-md-3 col-lg-2',
-	autoplay:true,
-	autoplay_delay:3000
+  selector_class:'col-xs-6 col-sm-4 col-md-3 col-lg-2',
+  autoplay:true,
+  autoplay_delay:3000
 });
 &lt;/script&gt;</code></pre>
 
-				<p><a href='{{ page.base }}examples/plugin-colousel.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
+        <p><a href='{{ page.base }}examples/plugin-colousel.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 
-				<div class='space-sm'></div>
+        <div class='space-sm'></div>
 
-				<h4>Non Continuous Scroll</h4>
-				<p>A none continuous looping carousel.</p>
+        <h4>Non Continuous Scroll</h4>
+        <p>A none continuous looping carousel.</p>
 
 <pre><code class='xml'>&lt;div class='colousel' id='colousel'>
-	&lt;span class='colousel-prev'>&lt;/span&gt;
-	&lt;span class='colousel-next'>&lt;/span&gt;
-	&lt;div class='colousel-inner'&gt;
-		&lt;div class='col-xs-12 col-sm-6'&gt;&lt;/div&gt;
-		&lt;div class='col-xs-12 col-sm-6'&gt;&lt;/div&gt;
-		...
-	&lt;/div&gt;
+  &lt;span class='colousel-prev'>&lt;/span&gt;
+  &lt;span class='colousel-next'>&lt;/span&gt;
+  &lt;div class='colousel-inner'&gt;
+    &lt;div class='col-xs-12 col-sm-6'&gt;&lt;/div&gt;
+    &lt;div class='col-xs-12 col-sm-6'&gt;&lt;/div&gt;
+    ...
+  &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;script&gt;
 $('#colousel').Colousel({
-	continuous:false
+  continuous:false
 });
 &lt;/script&gt;</code></pre>
 
-				<p><a href='{{ page.base }}examples/plugin-colousel-2.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
+        <p><a href='{{ page.base }}examples/plugin-colousel-2.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 
-			</div>
-		</div>
-		<div class="tab-pane" id="{{ module }}settings">
-			<h3 data-toggle="collapse" data-target="#{{ module }}settings>div">Settings</h3>
-			<div class='collapse'>
-				<table class='table table-bordered'>
-					<tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
-					<tr>
-						<td><code>type</code></td>
-						<td>string</td>
-						<td>normal</td>
-						<td><code>normal</code> Colousel slides left to right and stops at end<br/><code>continuous</code> Colousel slides left to right in an infinite loop<br/><code>fade</code> Colousel fades between transitions</td>
-					</tr>
-					<tr>
-						<td><code>selector</code></td>
-						<td>string</td>
-						<td>div</td>
-						<td>The selectors that will be moving</td>
-					</tr>
-					<tr>
-						<td><code>selector_class</code></td>
-						<td>string</td>
-						<td></td>
-						<td>Class names to add to all selectors</td>
-					</tr>
-					<tr>
-						<td><code>transition_speed</code></td>
-						<td>integer</td>
-						<td>300</td>
-						<td>The speed at which the colousel moves</td>
-					</tr>
-					<tr>
-						<td><code>autoplay</code></td>
-						<td>boolean</td>
-						<td>false</td>
-						<td>If <code>true</code> the colousel will auto scroll</td>
-					</tr>
-					<tr>
-						<td><code>autoplay_delay</code></td>
-						<td>integer</td>
-						<td>5000</td>
-						<td>The delay between auto scrolls</td>
-					</tr>
-					<tr>
-						<td><code>break_autoplay_on_click</code></td>
-						<td>boolean</td>
-						<td>true</td>
-						<td>If <code>true</code> once a user has clicked the prev/next buttons any autoplay will be stopped</td>
-					</tr>
+      </div>
+
+    </div>
+    <div class="tab-pane">
+
+      <div class="sa-click mobile-only">Settings</div>
+      <div class="sa-content">
+<table class='table table-bordered'>
+          <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+          <tr>
+            <td><code>type</code></td>
+            <td>string</td>
+            <td>normal</td>
+            <td><code>normal</code> Colousel slides left to right and stops at end<br/><code>continuous</code> Colousel slides left to right in an infinite loop<br/><code>fade</code> Colousel fades between transitions</td>
+          </tr>
+          <tr>
+            <td><code>selector</code></td>
+            <td>string</td>
+            <td>div</td>
+            <td>The selectors that will be moving</td>
+          </tr>
+          <tr>
+            <td><code>selector_class</code></td>
+            <td>string</td>
+            <td></td>
+            <td>Class names to add to all selectors</td>
+          </tr>
+          <tr>
+            <td><code>transition_speed</code></td>
+            <td>integer</td>
+            <td>300</td>
+            <td>The speed at which the colousel moves</td>
+          </tr>
+          <tr>
+            <td><code>autoplay</code></td>
+            <td>boolean</td>
+            <td>false</td>
+            <td>If <code>true</code> the colousel will auto scroll</td>
+          </tr>
+          <tr>
+            <td><code>autoplay_delay</code></td>
+            <td>integer</td>
+            <td>5000</td>
+            <td>The delay between auto scrolls</td>
+          </tr>
+          <tr>
+            <td><code>break_autoplay_on_click</code></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td>If <code>true</code> once a user has clicked the prev/next buttons any autoplay will be stopped</td>
+          </tr>
           <tr>
             <td><code>max_in_view</code></td>
             <td>integer</td>
@@ -127,49 +127,57 @@ $('#colousel').Colousel({
             <td>{ xs:1, sm:1, md:1, lg:1 }</td>
             <td>The number of columns to move on a per device basis. If a device is set to <code>0</code> the colousel turns in to a scrollable area (works well on mobile devices).</td>
           </tr>
-				</table>
-			</div>
-		</div>
-		<div class="tab-pane" id="{{ module }}methods">
-			<h3 data-toggle="collapse" data-target="#{{ module }}methods>div">Methods</h3>
-			<div class='collapse'>
+        </table>
+      </div>
 
-				<pre><code class='javascript'>$('#selector').Colousel('next'); // Invokes the next method</code></pre>
-				<pre><code class='javascript'>$('#selector').Colousel('prev'); // Invokes the prev method</code></pre>
+    </div>
+    <div class="tab-pane">
+
+      <div class="sa-click mobile-only">Methods</div>
+      <div class="sa-content">
+
+
+        <pre><code class='javascript'>$('#selector').Colousel('next'); // Invokes the next method</code></pre>
+        <pre><code class='javascript'>$('#selector').Colousel('prev'); // Invokes the prev method</code></pre>
         <pre><code class='javascript'>$('#selector').Colousel('set_index',index); // Set current index</code></pre>
 
-			</div>
-		</div>
-		<div class="tab-pane" id="{{ module }}events">
-			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
-			<div class='collapse'>
+      </div>
 
+    </div>
+    <div class="tab-pane">
+
+      <div class="sa-click mobile-only">Events</div>
+      <div class="sa-content">
 <pre><code class='javascript'>$('#selector').on('next.sa.colousel',function(event,settings){
-	// Triggered every time the colousel moves next
+  // Triggered every time the colousel moves next
 });
 
 $('#selector').on('prev.sa.colousel',function(event,settings){
-	// Triggered every time the colousel moves prev
+  // Triggered every time the colousel moves prev
 });</code></pre>
+      </div>
 
-			</div>
-		</div>
-		<div class="tab-pane" id="{{ module }}listeners">
-			<h3 data-toggle="collapse" data-target="#{{ module }}listeners>div">Listeners</h3>
-			<div class='collapse'>
+    </div>
+    <div class="tab-pane">
 
+      <div class="sa-click mobile-only">Listeners</div>
+      <div class="sa-content">
 <pre><code class='xml'>&lt;a href='javascript:;' data-toggle='colousel.next' data-target='#selector'&gt;Move Next&lt;/a&gt;
 &lt;a href='javascript:;' data-toggle='colousel.prev' data-target='#selector'&gt;Move Prev&lt;/a&gt;</code></pre>
+      </div>
 
-			</div>
-		</div>
-		<div class="tab-pane" id="{{ module }}helpers">
-			<h3 data-toggle="collapse" data-target="#{{ module }}helpers>div">Helpers</h3>
-			<div class='collapse'>
-				<p>When in none continous mode the classes <code>start</code> and <code>end</code> are added to the main colousel when at the start and end respectivly.</p>
-			</div>
-		</div>
-	</div>
+    </div>
+    <div class="tab-pane">
+
+      <div class="sa-click mobile-only">Helpers</div>
+      <div class="sa-content">
+        <p>When in none continous mode the classes <code>start</code> and <code>end</code> are added to the main colousel when at the start and end respectivly.</p>
+
+      </div>
+
+    </div>
+  </div>
+
 </div>
 
 <div class='divide-lg'></div>

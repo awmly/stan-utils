@@ -1,75 +1,81 @@
-{% assign module = "an" %}
-
 <h1>Anchor Nav</h1>
 <p>Automatically generate a list of anchored links.</p>
 
-<div class='collapse-tab'>
 
-	<ul class="nav nav-tabs hidden-xs">
-		<li class='active'><a href="#{{ module }}examples" data-toggle="tab">Examples</a></li>
-		<li><a href="#{{ module }}settings" data-toggle="tab">Settings</a></li>
-	</ul>
 
-	<div class="tab-content">
+<div class="sa-collapse-tabs plugin-examples">
 
-		<div class="tab-pane active" id="{{ module }}examples">
-			<h3 data-toggle="collapse" data-target="#{{ module }}examples>div">Examples</h3>
-			<div class='collapse'>
+  <ul class="sa-cf tab-nav desktop-only">
+    <li><a href="#">Examples</a></li>
+    <li><a href="#">Settings</a></li>
+  </ul>
 
-				<h4>Sub Title Nav</h4>
-				<p>Creates a navigation which anchor links to all Sub Titles found on a page. This plugin works best with the ScrollTo plugin, simply chain both plugins on the required element.</p>
+  <div class="tab-content">
+    <div class="tab-pane">
+
+      <div class="sa-click mobile-only title-block"><h4>Examples</h4></div>
+      <div class="sa-content">
+
+        <h4>Sub Title Nav</h4>
+        <p>Creates a navigation which anchor links to all Sub Titles found on a page. This plugin works best with the ScrollTo plugin, simply chain both plugins on the required element.</p>
 <pre><code class='xml'>&lt;ul class="sidebar"&gt;
 &lt;/ul&gt;
 
 &lt;script&gt;
 $('.sidebar').AnchorNav({
-	items:'h2',
+  items:'h2',
 });
 &lt;/script&gt;</code></pre>
 
-				<p><a href='{{ page.base }}examples/plugin-anchor-nav.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
+        <p><a href='{{ page.base }}examples/plugin-anchor-nav.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 
-			</div>
-		</div>
-		<div class="tab-pane" id="{{ module }}settings">
-			<h3 data-toggle="collapse" data-target="#{{ module }}settings>div">Settings</h3>
-			<div class='collapse'>
-				<table class='table table-bordered'>
-					<tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
-					<tr>
-						<td><code>items</code></td>
-						<td>string</td>
-						<td>768</td>
-						<td>The breakpoint for when tabs and collapse switch</td>
-					</tr>
-					<tr>
-						<td><code>li_class</code></td>
-						<td>string</td>
-						<td></td>
-						<td>Add a class to the automatically added <code>&lt;li&gt;</code>'s</td>
-					</tr>
-					<tr>
-						<td><code>a_class</code></td>
-						<td>string</td>
-						<td></td>
-						<td>Add a class to the automatically added <code>&lt;a&gt;</code>'s</td>
-					</tr>
-					<tr>
-						<td><code>add_li_active_class</code></td>
-						<td>boolean</td>
-						<td>false</td>
-						<td>Add an active class to the <code>&lt;li&gt;</code> currently in view.</td>
-					</tr>
-					<tr>
-						<td><code>add_a_active_class</code></td>
-						<td>boolean</td>
-						<td>true</td>
-						<td>Add an active class to the <code>&lt;a&gt;</code> currently in view.</td>
-					</tr>
-				</table>
-			</div>
-		</div>
-	</div>
+      </div>
+    </div>
+    <div class="tab-pane">
+
+      <div class="sa-click mobile-only title-block"><h4>Settings</h4></div>
+      <div class="sa-content">
+
+        <table class='table table-bordered'>
+          <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+          <tr>
+            <td><code>items</code></td>
+            <td>string</td>
+            <td>768</td>
+            <td>The breakpoint for when tabs and collapse switch</td>
+          </tr>
+          <tr>
+            <td><code>li_class</code></td>
+            <td>string</td>
+            <td></td>
+            <td>Add a class to the automatically added <code>&lt;li&gt;</code>'s</td>
+          </tr>
+          <tr>
+            <td><code>a_class</code></td>
+            <td>string</td>
+            <td></td>
+            <td>Add a class to the automatically added <code>&lt;a&gt;</code>'s</td>
+          </tr>
+          <tr>
+            <td><code>add_li_active_class</code></td>
+            <td>boolean</td>
+            <td>false</td>
+            <td>Add an active class to the <code>&lt;li&gt;</code> currently in view.</td>
+          </tr>
+          <tr>
+            <td><code>add_a_active_class</code></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td>Add an active class to the <code>&lt;a&gt;</code> currently in view.</td>
+          </tr>
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </div>
 
 <div class='divide-lg'></div>

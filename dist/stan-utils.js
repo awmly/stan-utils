@@ -1,3 +1,8 @@
+/*!
+ * STAN Utils 0.0.3
+ * Copyright 2014 Andrew Womersley
+ */
+
 /* ========================================================================
  * STAN Utils: Stan
  * Author: Andrew Womersley
@@ -211,77 +216,77 @@ $(function() {
 
 $(function() {
 
-  'use strict';
+    'use strict';
 
-  var CardUI=function(){
+    var CardUI = function() {
 
-    $(".sa-cards").each(function() {
+        $(".sa-cards").each(function() {
 
-      var $this = $(this);
+            var $this = $(this);
 
-      var selector = (typeof $(this).attr('data-selector')!=='undefined') ? $(this).attr('data-selector') : '.card';
+            var selector = (typeof $(this).attr('data-selector') !== 'undefined') ? $(this).attr('data-selector') : '.card';
 
-      if( $(this).find(selector).length ){
+            if ($(this).find(selector).length) {
 
-        // Get the width of the selector
-        var width = $this.find(selector).outerWidth();
+                // Get the width of the selector
+                var width = $this.find(selector).outerWidth();
 
-        // Set number of cols based on current view
-        var NumCols = Math.round($this.width() / width) - 1;
+                // Set number of cols based on current view
+                var NumCols = Math.round($this.width() / width) - 1;
 
-        // Set our cols array which will hold the height of each column - presume a max of 12
-        var Cols = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                // Set our cols array which will hold the height of each column - presume a max of 12
+                var Cols = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-        // Define som evars
-        var x, col, left, max, min;
+                // Define som evars
+                var x, col, left, max, min;
 
-        $this.find(selector).each(function() {
+                $this.find(selector).each(function() {
 
-            min = 99999;
+                    min = 99999;
 
-            // Get shortest column
-            for (x = 0; x <= NumCols; x++) {
+                    // Get shortest column
+                    for (x = 0; x <= NumCols; x++) {
 
-                if (Cols[x] < min){
-                    col = x;
-                    min = Cols[x];
+                        if (Cols[x] < min) {
+                            col = x;
+                            min = Cols[x];
+                        }
+
+                    }
+
+                    // Set top and left position for card
+                    $(this).css({
+                        left: (width * col) + 'px',
+                        top: Cols[col] + 'px'
+                    });
+
+                    // Update column height
+                    Cols[col] += $(this).outerHeight(true);
+
+                });
+
+
+                max = 0;
+
+                // Find highest column
+                for (x = 0; x < NumCols; x++) {
+
+                    if (Cols[x] > max) max = Cols[x];
+
                 }
+
+                // Set holder height to match highest column
+                $(this).css('height', max + 'px');
 
             }
 
-            // Set top and left position for card
-            $(this).css({
-                left: (width * col) + 'px',
-                top: Cols[col] + 'px'
-            });
-
-            // Update column height
-            Cols[col] += $(this).outerHeight(true);
-
         });
 
+    }
 
-        max = 0;
+    $(window).on('resize', CardUI);
 
-        // Find highest column
-        for (x = 0; x < NumCols; x++) {
-
-            if (Cols[x] > max) max = Cols[x];
-
-        }
-
-        // Set holder height to match highest column
-        $(this).css('height', max + 'px');
-
-      }
-
-    });
-
-  }
-
-  $(window).on('resize', CardUI);
-
-  $('.sa-cards').on('position.sa.cards', CardUI);
+    $('.sa-cards').on('position.sa.cards', CardUI);
 
 });
 
@@ -290,81 +295,81 @@ $(function() {
  * Author: Andrew Womersley
  * ======================================================================== */
 
- $(function(){
+$(function() {
 
-  'use strict';
+    'use strict';
 
-  // Add click
-  $('.sa-collapse .sa-click').click(function(){
+    // Add click
+    $('.sa-collapse .sa-click').click(function() {
 
-    if( !$(this).closest('.sa-collapse').hasClass('inactive') ){
+        if (!$(this).closest('.sa-collapse').hasClass('inactive')) {
 
-      $(this).closest('.sa-collapse') .toggleClass('active')
-                                      .find('.sa-content').first().collapse('toggle');
+            $(this).closest('.sa-collapse').toggleClass('active')
+                .find('.sa-content').first().collapse('toggle');
 
-      if( $(this).parents('.sa-accordion').length ){
+            if ($(this).parents('.sa-accordion').length) {
 
-        $(this).closest('.sa-collapse').siblings('.sa-collapse.active').each(function(){
+                $(this).closest('.sa-collapse').siblings('.sa-collapse.active').each(function() {
 
-          $(this) .removeClass('active')
-                  .find('.sa-content').first().collapse('hide');
+                    $(this).removeClass('active')
+                        .find('.sa-content').first().collapse('hide');
+
+                });
+
+            }
+
+        }
+
+    });
+
+
+    // Add BS collapse class
+    $('.sa-collapse .sa-content').each(function() {
+
+        $(this).addClass('collapse');
+
+    });
+
+    // Check for collapses starting open
+    $('.sa-collapse.active').each(function() {
+
+        $(this).find('.sa-content').first().addClass('in');
+
+    });
+
+    // Device dependant logic
+    $('body').on('active.sa.stan', function() {
+
+        $('[data-collapse-devices]').each(function() {
+
+            if ($(this).attr('data-collapse-devices').indexOf($STAN.device) >= 0) {
+
+                $(this).removeClass('inactive');
+
+                if ($(this).attr('data-collapse-devices-open')) {
+
+                    if ($(this).attr('data-collapse-devices-open').indexOf($STAN.device) >= 0) {
+                        $(this).addClass('active').find('.sa-content').first().addClass('in').css('height', '');
+                    } else {
+                        $(this).removeClass('active').find('.sa-content').first().removeClass('in').addClass('collapse');
+                    }
+
+                } else {
+
+                    $(this).removeClass('active').find('.sa-content').first().removeClass('in').addClass('collapse');
+
+                }
+
+            } else {
+
+                $(this).addClass('inactive');
+                $(this).addClass('active').find('.sa-content').first().addClass('in').removeClass('collapse').css('height', '');
+
+            }
 
         });
 
-      }
-
-    }
-
-  });
-
-
-  // Add BS collapse class
-  $('.sa-collapse .sa-content').each(function(){
-
-    $(this).addClass('collapse');
-
-  });
-
-  // Check for collapses starting open
-  $('.sa-collapse.active').each(function(){
-
-    $(this).find('.sa-content').first().addClass('in');
-
-  });
-
-  // Device dependant logic
-  $('body').on('active.sa.stan', function() {
-
-      $('[data-collapse-devices]').each(function() {
-
-          if ($(this).attr('data-collapse-devices').indexOf($STAN.device) >= 0) {
-
-              $(this).removeClass('inactive');
-
-              if ($(this).attr('data-collapse-devices-open')) {
-
-                if($(this).attr('data-collapse-devices-open').indexOf($STAN.device) >= 0){
-                  $(this).addClass('active').find('.sa-content').first().addClass('in').css('height','');
-                }else{
-                  $(this).removeClass('active').find('.sa-content').first().removeClass('in').addClass('collapse');
-                }
-
-              }else{
-
-                $(this).removeClass('active').find('.sa-content').first().removeClass('in').addClass('collapse');
-
-              }
-
-          } else {
-
-              $(this).addClass('inactive');
-              $(this).addClass('active').find('.sa-content').first().addClass('in').removeClass('collapse').css('height','');
-
-          }
-
-      });
-
-  });
+    });
 
 });
 
@@ -555,40 +560,40 @@ $(function() {
 
 $(function() {
 
-  'use strict';
+    'use strict';
 
-    var InsetOutset=function(){
+    var InsetOutset = function() {
 
         var padding, width, side, outset, clone;
 
-        $('.sa-inset,.sa-outset').each(function(){
+        $('.sa-inset,.sa-outset').each(function() {
 
             // Set side
-            if($(this).hasClass('sa-right')) side='right';
-            else side='left';
+            if ($(this).hasClass('sa-right')) side = 'right';
+            else side = 'left';
 
             // Reset inline css padding
-            $(this).parent().css('padding-'+side,'');
+            $(this).parent().css('padding-' + side, '');
 
             // Get offset
-            padding=parseInt($(this).parent().css('padding-'+side));
+            padding = parseInt($(this).parent().css('padding-' + side));
 
             // Get width
-            width=$(this).outerWidth(true);
+            width = $(this).outerWidth(true);
 
             // If width is zero (hidden) - use getSize to find its width
-            if(!width) width=$STAN.getSize($(this)).outerWidthMargin;
+            if (!width) width = $STAN.getSize($(this)).outerWidthMargin;
 
             // Apply paddings
-            if( $(this).hasClass('sa-outset') ){
+            if ($(this).hasClass('sa-outset')) {
 
-              $(this).parent().parent().css('padding-'+side,width+'px');
-              $(this).css(side,'-'+width+'px');
+                $(this).parent().parent().css('padding-' + side, width + 'px');
+                $(this).css(side, '-' + width + 'px');
 
-            }else{
+            } else {
 
-              $(this).parent().css('padding-'+side,(padding+width)+'px');
-              $(this).css(side,padding+'px');
+                $(this).parent().css('padding-' + side, (padding + width) + 'px');
+                $(this).css(side, padding + 'px');
 
             }
 
@@ -596,11 +601,16 @@ $(function() {
 
     };
 
-    $('.sa-inset,.sa-outset').each(function(){
-      if($(this).parent().css('position')=='static') $(this).parent().addClass('relative');
+    // Add required parent class
+    $('.sa-inset,.sa-outset').each(function() {
+        if ($(this).parent().css('position') == 'static') $(this).parent().addClass('relative');
     });
 
-    $(window).on('load resize',InsetOutset);
+    // Add function listeners
+    $(window).on('load resize', InsetOutset);
+
+    // Turn visibility back on
+    $('.sa-inset,.sa-outset').css('visibility','visible');
 
 });
 
@@ -977,25 +987,25 @@ $(function() {
 
 $(function() {
 
-	'use strict';
+    'use strict';
 
     var $this;
 
-    if(!("ontouchstart" in document.documentElement)) $('html').addClass('no-touch');
+    if (!("ontouchstart" in document.documentElement)) $('html').addClass('no-touch');
 
     $('html:not(.no-touch) .touch-hover').bind('click touchend', function(event) {
 
-        if($(this).hasClass('hover')){
+        if ($(this).hasClass('hover')) {
 
             event.stopPropagation();
             return true;
 
-        }else{
+        } else {
 
-            $this=$(this);
+            $this = $(this);
 
-            $('.hover').each(function(){
-                if(!$(this).has($this).length) $(this).removeClass('hover');
+            $('.hover').each(function() {
+                if (!$(this).has($this).length) $(this).removeClass('hover');
             });
 
             $this.addClass('hover');
@@ -1008,7 +1018,6 @@ $(function() {
 
     $('html').on("click touchend", ":not(.touch-hover)", function(event) {
         $('*').removeClass('hover');
-        //event.stopPropagation();
     });
 
 });
@@ -1128,34 +1137,44 @@ $(function() {
 
 (function($, $STAN) {
 
-  'use strict';
+    'use strict';
 
-  $STAN.getQueryString=function(){
+    $STAN.getQueryString = function(replaceSpaces) {
 
-    // Get query string
-    var qs=window.location.search.substring(1);
+        // Get query string
+        var qs = window.location.search.substring(1);
 
-    // Set req exp pattern
-    var patt = new RegExp(/([^&=]+)=?([^&]*)/g);
+        // Set req exp pattern
+        var patt = new RegExp(/([^&=]+)=?([^&]*)/g);
 
-    // Set params object to store qs values
-    var params={};
+        // Set params object to store qs values
+        var params = {};
 
-    // Set matches variable
-    var matches;
+        // Set matches variable
+        var matches;
 
-    // Loop through pattern matches
-    while (matches = patt.exec(qs)){
+        // Loop through pattern matches
+        while (matches = patt.exec(qs)) {
 
-      // Set param - replace + and %20 for spaces
-      params[matches[1]] = matches[2].replace(/(\+|\%20)/g,' ');
+            // Set param
+            if (replaceSpaces) {
+
+                // Replace + and %20 for spaces
+                params[matches[1]] = matches[2].replace(/(\+|\%20)/g, ' ');
+
+            } else {
+
+                // Leave string as is
+                params[matches[1]] = matches[2];
+
+            }
+
+        }
+
+        // Return params object
+        return params;
 
     }
-
-    // Return params object
-    return params;
-
-  }
 
 }(jQuery, $STAN));
 
@@ -2159,7 +2178,7 @@ $(function() {
                     inactiveClass: 'inactive',
                     setNav: false,
                     navHolder: '.filternav',
-                    navHTML: '<li data-tag="{tag}">{tag} <span>{matches}</span><i class="sa-on fa fa-times"></i><i class="sa-off fa fa-check"></i></li>',
+                    navHTML: '<li data-tag="{tag}">{tag} <span></span><i class="sa-on fa fa-times"></i><i class="sa-off fa fa-check"></i></li>',
                     resultsPerPage: {
                         xs: 4,
                         sm: 6,
@@ -2234,7 +2253,7 @@ $(function() {
             var $this = $(this);
 
             // Tigger pre filter event
-            $(this).trigger('post.sa.filter', [settings]);
+            $(this).trigger('pre.sa.filter', [settings]);
 
             // Check if tag is in currentTags
             var index = settings.currentTags.indexOf(tag.attr('data-tag'));

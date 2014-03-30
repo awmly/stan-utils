@@ -1,16 +1,16 @@
 <h1>Navigation</h1>
 
-<p>Stan provides base styles for both horizontal and vertical navigations. Each must include the class of <code>sa-nav</code> and then either add <code>nav-horizontal</code> or <code>nav-vertical</code>. The navigations can then be turned in to block style by adding <code>sa-block</code>. The top level <code>ul</code> should also have the class <code>sa-content</code>.</p>
+<p>Stan provides base styles for both horizontal and vertical navigations. Each must include the class of <code>sa-nav</code> and then either add <code>nav-horizontal</code> or <code>nav-vertical</code>. The navigations can then be turned in to inline list styles by adding <code>nav-list</code> or block style by adding <code>nav-block</code>.</p>
 
-<p>Sub navigation can be added to any nav, just start another <code>ul</code> inside an <code>li</code>. When inside a horizontal nav the subnav is displayed as a drop down when mouseovered, while in a vertical nav the subnav is indented.</p>
+<p>Sub navigation can be added to any nav, just start another <code>ul</code> inside an <code>li</code>. When inside a horizontal nav the subnav is displayed as a drop down on mouseover, while in a vertical nav the subnav is indented.</p>
 
-<p>Navigations are built around flexibility and so only the core css is included by default - this means when styling a navigation you are starting from blank and not constantly over writing styles. In the examples styling applied using class names on the html but in real sites this can all be moved in to the css file by creating some navigation classes.</p>
+<p>Navigations are built around flexibility and so only the core css is included by default - this means when styling a navigation you are starting from blank and not constantly over writing styles. In the examples there is a mix of using padding classes placed on the html elements to style the navigation and creating some navigation specific classes.</p>
 
-<pre><code class='xml'>&lt;nav class="sa-nav nav-horizontal sa-block sa-sm"&gt;
-  &lt;div class="sa-title"&gt;
+<pre><code class='xml'>&lt;nav class="sa-nav nav-horizontal nav-block"&gt;
+  &lt;div class="title-block float-left"&gt;
     &lt;h6&gt;Nav Title&lt;/h6&gt;
   &lt;/div&gt;
-  &lt;ul class="sa-title"&gt;
+  &lt;ul&gt;
     &lt;li&gt;&lt;a href=''&gt;Link 1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=''&gt;Link 2&lt;/a&gt;
       &lt;ul&gt;
@@ -21,7 +21,7 @@
   &lt;/ul&gt;
 &lt;/nav&gt;
 
-&lt;nav class="sa-nav nav-vertical sa-sm"&gt;
+&lt;nav class="sa-nav nav-vertical nav-list"&gt;
   &lt;ul&gt;
     &lt;li&gt;&lt;a href=''&gt;&lt;i class="fa fa-check"&gt;&lt;/i&gt; Link 1&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href=''&gt;&lt;i class="fa fa-check"&gt;&lt;/i&gt; Link 2&lt;/a&gt;&lt;/li&gt;

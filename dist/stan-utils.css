@@ -14,16 +14,16 @@
   position: absolute;
 }
 .sa-cards .animate {
-  -webkit-transition-property: opacity, top,left;
+  -webkit-transition-property: opacity, top, left;
   -webkit-transition-duration: 0.3s, 0.3s, 0.3s;
   -webkit-transition-timing-function: linear, linear, linear;
-  -mox-transition-property: opacity, top,left;
+  -mox-transition-property: opacity, top, left;
   -moz-transition-duration: 0.3s, 0.3s, 0.3s;
   -moz-transition-timing-function: linear, linear, linear;
-  -o-transition-property: opacity, top,left;
+  -o-transition-property: opacity, top, left;
   -o-transition-duration: 0.3s, 0.3s, 0.3s;
   -o-transition-timing-function: linear, linear, linear;
-  transition-property: opacity, top,left;
+  transition-property: opacity, top, left;
   transition-duration: 0.3s, 0.3s;
   transition-timing-function: linear, linear, linear;
 }
@@ -53,6 +53,12 @@
 }
 .sa-collapse.inactive > .sa-click .sa-on,
 .sa-collapse.inactive > .sa-click .sa-off {
+  display: none;
+}
+.sa-collapse.inactive > .sa-click {
+  cursor: auto;
+}
+.sa-collapse.inactive.hide-click > .sa-click {
   display: none;
 }
 /* ========================================================================
@@ -142,6 +148,7 @@ img.maxheight {
  * ======================================================================== */
 .sa-inset,
 .sa-outset {
+  visibility: hidden;
   position: absolute;
   top: 50%;
   left: 0;
@@ -434,10 +441,10 @@ img.maxheight {
 .sa-collapse-tabs.mobile .tab-pane {
   display: block;
 }
-.sa-collapse-tabs.desktop .sa-collapse .sa-click {
+.sa-collapse-tabs.desktop .sa-click {
   cursor: auto;
 }
-.sa-collapse-tabs.desktop .sa-collapse .sa-content {
+.sa-collapse-tabs.desktop .sa-content {
   height: auto !important;
   display: block !important;
 }
@@ -446,7 +453,7 @@ img.maxheight {
  * Author: Andrew Womersley
  * ======================================================================== */
 article.list {
-  padding: 30px 0;
+  padding: 15px 0;
 }
 article.divide {
   border-bottom: solid 1px #ccc;
@@ -557,54 +564,71 @@ article.tab:hover .title-block {
  * STAN Utils: Helpers
  * Author: Andrew Womersley
  * ======================================================================== */
+.sa-on,
+.active .sa-off {
+  display: none;
+}
+.active .sa-on {
+  display: block;
+}
+.sa-panel {
+  background: #eeeeee;
+}
 /** Floats */
 .float-left {
-  float: left      !important;
+  float: left !important;
 }
 .float-right {
-  float: right     !important;
+  float: right !important;
 }
 /** Text aligns */
 .text-left {
-  text-align: left   !important;
+  text-align: left !important;
 }
 .text-center {
-  text-align: center   !important;
+  text-align: center !important;
 }
 .text-right {
-  text-align: right  !important;
+  text-align: right !important;
 }
-.line-xs {
-  line-height: 7px;
+/** Line heights */
+.line-xs,
+.line-xs * {
+  line-height: 7px !important;
 }
-.line-sm {
-  line-height: 15px;
+.line-sm,
+.line-sm * {
+  line-height: 15px !important;
 }
-.line-md {
-  line-height: 30px;
+.line-md,
+.line-md * {
+  line-height: 30px !important;
 }
-.line-lg {
-  line-height: 45px;
+.line-lg,
+.line-lg * {
+  line-height: 45px !important;
 }
-.line-xl {
-  line-height: 60px;
+.line-xl,
+.line-xl * {
+  line-height: 60px !important;
 }
-.line-xxl {
-  line-height: 90px;
+.line-xxl,
+.line-xxl * {
+  line-height: 90px !important;
 }
 /** Display/Postion */
 .block {
-  display: block     !important;
+  display: block !important;
 }
 .relative {
-  position: relative   !important;
+  position: relative !important;
 }
 .static {
-  position: static  !important;
+  position: static !important;
 }
 /** Cursor */
 .pointer {
-  cursor: pointer    !important;
+  cursor: pointer !important;
 }
 .img-fullwidth {
   width: 100%;
@@ -667,14 +691,6 @@ a {
 .sa-cf:after,
 .nav-horizontal > ul:after {
   clear: both;
-}
-/** SA On */
-.sa-on,
-.active .sa-off {
-  display: none;
-}
-.active .sa-on {
-  display: block;
 }
 /* ========================================================================
  * STAN Utils: Lists
@@ -2848,14 +2864,6 @@ ul.icon i {
   color: #666;
 }
 /* ========================================================================
- * STAN Utils: Side Panel
- * Author: Andrew Womersley
- * ======================================================================== */
-/** General */
-.sa-panel {
-  background: #eeeeee;
-}
-/* ========================================================================
  * STAN Utils: Social Icons
  * Author: Andrew Womersley
  * ======================================================================== */
@@ -3213,6 +3221,11 @@ ul.icon i {
 .slider .layer5 {
   z-index: 60;
   overflow: hidden;
+}
+/** Image */
+.slider img.fullwidth {
+  width: 100%;
+  display: block;
 }
 /** Radio */
 .slider .dots {

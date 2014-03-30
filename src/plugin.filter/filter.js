@@ -49,7 +49,7 @@
                     inactiveClass: 'inactive',
                     setNav: false,
                     navHolder: '.filternav',
-                    navHTML: '<li data-tag="{tag}">{tag} <span>{matches}</span><i class="sa-on fa fa-times"></i><i class="sa-off fa fa-check"></i></li>',
+                    navHTML: '<li data-tag="{tag}">{tag} <span></span><i class="sa-on fa fa-times"></i><i class="sa-off fa fa-check"></i></li>',
                     resultsPerPage: {
                         xs: 4,
                         sm: 6,
@@ -124,7 +124,7 @@
             var $this = $(this);
 
             // Tigger pre filter event
-            $(this).trigger('post.sa.filter', [settings]);
+            $(this).trigger('pre.sa.filter', [settings]);
 
             // Check if tag is in currentTags
             var index = settings.currentTags.indexOf(tag.attr('data-tag'));

@@ -1,20 +1,55 @@
 <h1>Collapse</h1>
 
-<p>Built upon BS collapse this component aids in changing the display depending on if the collapse is open or closed. Any element within the main <code>sa-collapse</code> element with the class <code>sa-off</code> will be displayed when the collapse is closed and any element with the class <code>sa-on</code> will be displayed when the collapse is open. An <code>active</code> class is also applied to <code>sa-collapse</code> when the collapse is open, you can also make a collapse start open by loading the page with the <code>active</code> class already applied.</p>
+<h3>Normal</h3>
+<p>Built upon BS collapse this component aids in changing the display depending on if the collapse is open or closed. An <code>active</code> class is also applied to <code>sa-collapse</code> when the collapse is open - you can make a collapse start open by loading the page with the <code>active</code> class already applied. Any element with the class <code>sa-click</code> can be used to activate the collapse mechanism. If a group of collapses are surrounded by an element with the class <code>sa-accordion</code> the collapses will behave with an accordion effect.</p>
 
-<p>Any element with the class <code>sa-click</code> can be used to activate the collapse mechanism and any element with the class <code>sa-content</code> will behave as a collapse.</p>
+<pre><code class='xml'>&lt;div class="sa-collapse"&gt;
 
-<pre><code class='xml'>&lt;div class="sa-collapse">
+  &lt;div class="sa-click"&gt;Collapse&lt;/div&gt;
 
-  &lt;div class="sa-content"&gt;
-    ...
-  &lt;div&gt;
-
-  &lt;p class="sa-click sa-on"&gt;&lt;a href="#"&gt;Read less...&lt;/a&gt;&lt;/p&gt;
-  &lt;p class="sa-click sa-off"&gt;&lt;a href="#"&gt;Read more...&lt;/a&gt;&lt;/p&gt;
+  &lt;div class="sa-content"&gt;...&lt;div&gt;
 
 &lt;/div&gt;</code></pre>
 
 <p><a href='{{ page.base }}examples/component-collapse.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
+
+<div class='divide-md'></div>
+
+<h3>Collapse in Collapse</h3>
+<p>Collapses can be placed within other collapses.</p>
+
+<pre><code class='xml'>&lt;div class="sa-collapse"&gt;
+
+  &lt;div class="sa-click"&gt;Collapse&lt;/div&gt;
+  &lt;div class="sa-content"&gt;
+
+    &lt;div class="sa-collapse">
+
+      &lt;div class="sa-click"&gt;Collapse&lt;/div&gt;
+      &lt;div class="sa-content"&gt;...&lt;div&gt;
+
+    &lt;/div&gt;
+
+  &lt;div&gt;
+
+&lt;/div&gt;</code></pre>
+
+<p><a href='{{ page.base }}examples/component-collapse-2.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
+
+
+<div class='divide-md'></div>
+
+<h3>Target Devices</h3>
+<p>Collapses can be configured to work only on certain devices and either start open or closed on a per device basis. To hide the <code>sa-click</code> element when the collapse is inactive, add the class <code>hide-click</code> to the collapse.</p>
+
+<pre><code class='xml'>&lt;div class="sa-collapse hide-click" data-collapse-devices="xs,sm,md" data-collapse-devices-open="md"&gt;
+
+  &lt;div class="sa-click"&gt;Collapse&lt;/div&gt;
+
+  &lt;div class="sa-content"&gt;...&lt;div&gt;
+
+&lt;/div&gt;</code></pre>
+
+<p><a href='{{ page.base }}examples/component-collapse-3.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 
 <div class='divide-lg'></div>

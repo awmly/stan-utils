@@ -1,109 +1,110 @@
-{% assign module = "st" %}
-
 <h1>Scroll To</h1>
 <p>Animate window scrolling to inpage elements.</p>
 
-<div class='collapse-tab'>
+<div class="sa-collapse-tabs plugin-examples">
 
-	<ul class="nav nav-tabs hidden-xs">
-		<li class='active'><a href="#{{ module }}examples" data-toggle="tab">Examples</a></li>
-		<li><a href="#{{ module }}settings" data-toggle="tab">Settings</a></li>
-		<li><a href="#{{ module }}events" data-toggle="tab">Events</a></li>
-	</ul>
+  <ul class="sa-cf tab-nav desktop-only">
+    <li><a href="#">Examples</a></li>
+    <li><a href="#">Settings</a></li>
+    <li><a href="#">Events</a></li>
+  </ul>
 
-	<div class="tab-content">
+  <div class="tab-content">
+    <div class="tab-pane">
 
-		<div class="tab-pane active" id="{{ module }}examples">
-			<h3 data-toggle="collapse" data-target="#{{ module }}examples>div">Examples</h3>
-			<div class='collapse'>
-
-				<h4>Simple Scroll Navigation 1</h4>
-				<p>Scrolling using <code>&lt;a&gt;</code> tags with the attribute <code>href='selector'</code>.</p>
+      <div class="sa-click mobile-only">Examples</div>
+      <div class="sa-content">
+<h4>Simple Scroll Navigation 1</h4>
+        <p>Scrolling using <code>&lt;a&gt;</code> tags with the attribute <code>href='selector'</code>.</p>
 
 <pre><code class='xml'>&lt;p&gt;
-	&lt;a class="scrollto" href='#link1'&gt;Link 1&lt;/a&gt;
-	&lt;a class="scrollto" href='#link2' data-offset='30'&gt;Link 2 with offset override&lt;/a&gt;
+  &lt;a class="scrollto" href='#link1'&gt;Link 1&lt;/a&gt;
+  &lt;a class="scrollto" href='#link2' data-offset='30'&gt;Link 2 with offset override&lt;/a&gt;
 &lt;/p&gt;
 
 &lt;script&gt;
 $('body').ScrollTo({
-	offset:70,
-	selector:'a.scrollto'
+  offset:70,
+  selector:'a.scrollto'
 });
 &lt;/script&gt;</code></pre>
 
-				<p><a href='{{ page.base }}examples/plugin-scroll-to.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
+        <p><a href='{{ page.base }}examples/plugin-scroll-to.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 
-				<div class='space-sm'></div>
+        <div class='space-sm'></div>
 
-				<h4>Simple Scroll Navigation 2</h4>
-				<p>Scrolling using <code>&lt;li&gt;</code> tags with the attribute <code>data-target='selector'</code>.</p>
+        <h4>Simple Scroll Navigation 2</h4>
+        <p>Scrolling using <code>&lt;li&gt;</code> tags with the attribute <code>data-target='selector'</code>.</p>
 
 <pre><code class='xml'>&lt;ul class="scrollto"&gt;
-	&lt;li data-target='#link1'&gt;Link 1&lt;/li&gt;
-	&lt;li data-target='#link2' data-offset='30'&gt;Link 2 with offset override&lt;/a&gt;
+  &lt;li data-target='#link1'&gt;Link 1&lt;/li&gt;
+  &lt;li data-target='#link2' data-offset='30'&gt;Link 2 with offset override&lt;/a&gt;
 &lt;/ul&gt;
 
 &lt;script&gt;
 $('.scrollto').ScrollTo({
-	selector:'li',
-	offset:70
+  selector:'li',
+  offset:70
 });
 &lt;/script&gt;</code></pre>
 
-				<p><a href='{{ page.base }}examples/plugin-scroll-to-2.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
+        <p><a href='{{ page.base }}examples/plugin-scroll-to-2.html' target='_blank' class='btn btn-sm btn-black'><i class='fa fa-external-link'></i> View Example</a></p>
 
-			</div>
-		</div>
-		<div class="tab-pane" id="{{ module }}settings">
-			<h3 data-toggle="collapse" data-target="#{{ module }}settings>div">Settings</h3>
-			<div class='collapse'>
-				<table class='table table-bordered'>
-					<tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
-					<tr>
-						<td><code>selector</code></td>
-						<td>string</td>
-						<td>a</td>
-						<td>The element to attach the click listener.</td>
-					</tr>
-					<tr>
-						<td><code>listener</code></td>
-						<td>string</td>
-						<td>click</td>
-						<td>The event listener to attach to the selector.</td>
-					</tr>
-					<tr>
-						<td><code>offset</code></td>
-						<td>integer</td>
-						<td>0</td>
-						<td>The offset from the top of the page to scroll to. Usefull when the page has a sticky header.</td>
-					</tr>
-					<tr>
-						<td><code>scroll_speed</code></td>
-						<td>integer</td>
-						<td>300</td>
-						<td>The speed to scroll.</td>
-					</tr>
-					<tr>
-						<td><code>scroll_spy</code></td>
-						<td>boolean</td>
-						<td>true</td>
-						<td>If true, plugin listens to natural scroll and sets active classes and element scrolls in to view.</td>
-					</tr>
-				</table>
-			</div>
-		</div>
-		<div class="tab-pane" id="{{ module }}events">
-			<h3 data-toggle="collapse" data-target="#{{ module }}events>div">Events</h3>
-			<div class='collapse'>
+      </div>
 
+    </div>
+    <div class="tab-pane">
+
+      <div class="sa-click mobile-only">Settings</div>
+      <div class="sa-content">
+<table class='table table-bordered'>
+          <tr><th>Name</th><th>Type</th><th>Default</th><th>Description</th></tr>
+          <tr>
+            <td><code>selector</code></td>
+            <td>string</td>
+            <td>a</td>
+            <td>The element to attach the click listener.</td>
+          </tr>
+          <tr>
+            <td><code>listener</code></td>
+            <td>string</td>
+            <td>click</td>
+            <td>The event listener to attach to the selector.</td>
+          </tr>
+          <tr>
+            <td><code>offset</code></td>
+            <td>integer</td>
+            <td>0</td>
+            <td>The offset from the top of the page to scroll to. Usefull when the page has a sticky header.</td>
+          </tr>
+          <tr>
+            <td><code>scroll_speed</code></td>
+            <td>integer</td>
+            <td>300</td>
+            <td>The speed to scroll.</td>
+          </tr>
+          <tr>
+            <td><code>scroll_spy</code></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td>If true, plugin listens to natural scroll and sets active classes and element scrolls in to view.</td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+    <div class="tab-pane">
+
+      <div class="sa-click mobile-only">Events</div>
+      <div class="sa-content">
 <pre><code class='javascript'>$('#selector').on('scrollend.sa.scrollto',function(event,settings){
-	// Triggered on scroll end
+  // Triggered on scroll end
 });</code></pre>
+      </div>
 
-			</div>
-		</div>
-	</div>
+    </div>
+  </div>
+
 </div>
 
 <div class='divide-lg'></div>

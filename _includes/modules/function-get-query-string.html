@@ -1,0 +1,25 @@
+<h1>Get Query String</h1>
+
+<p>Get the query string from the URL.</p>
+
+<p><b>.getQueryString(replaceSpaces);</b></p>
+<ul class='bullet'>
+  <li><code>replaceSpaces</code> <i>boolean</i><br/>Replace <code>%20</code> and <code>+</code> with a space.</li>
+</ul>
+
+<p><b>Returns <i>object</i></b></p>
+<ul class='bullet'>
+  <li><code>var_1</code> <i>string</i><br/>Value of variable</li>
+  <li><code>var_2</code> <i>string</i><br/>Value of variable</li>
+  <li>etc</li>
+</ul>
+
+<pre><code class='javascript'>// URL = file.html?message=hello+world
+
+// Get query string
+var QS=$STAN.getQueryString(true);
+
+// Output the message variable (hello world)
+console.log(QS.message);</code></pre>
+
+<div class='divide-lg'></div>

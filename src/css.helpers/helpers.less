@@ -3,56 +3,104 @@
  * Author: Andrew Womersley
  * ======================================================================== */
 
+
+.sa-on, .active .sa-off{
+  display:none;
+}
+.active .sa-on{
+  display:block;
+}
+.sa-panel{
+  background:@bg-normal;
+}
+
 /** Floats */
-.float-left{  float:left      !important; }
-.float-right{   float:right     !important; }
+ .float-left {
+    float:left !important;
+}
+.float-right {
+    float:right !important;
+}
 
 
 /** Text aligns */
-.text-left{   text-align:left   !important; }
-.text-center{   text-align:center   !important; }
-.text-right{  text-align:right  !important; }
+ .text-left {
+    text-align:left !important;
+}
+.text-center {
+    text-align:center !important;
+}
+.text-right {
+    text-align:right !important;
+}
 
-.line-xs{ line-height:@xs; }
-.line-sm{ line-height:@sm; }
-.line-md{ line-height:@md; }
-.line-lg{ line-height:@lg; }
-.line-xl{ line-height:@xl; }
-.line-xxl{ line-height:@xxl; }
+
+/** Line heights */
+.line-xs,
+.line-xs * {
+    line-height:@xs !important;
+}
+.line-sm,
+.line-sm * {
+    line-height:@sm !important;
+}
+.line-md,
+.line-md * {
+    line-height:@md !important;
+}
+.line-lg,
+.line-lg * {
+    line-height:@lg !important;
+}
+.line-xl,
+.line-xl * {
+    line-height:@xl !important;
+}
+.line-xxl,
+.line-xxl * {
+    line-height:@xxl !important;
+}
 
 
 /** Display/Postion */
-.block{     display:block     !important; }
-.relative{    position:relative   !important; }
-.static{ position:static  !important; }
+ .block {
+    display:block !important;
+}
+.relative {
+    position:relative !important;
+}
+.static {
+    position:static !important;
+}
+
 
 /** Cursor */
-.pointer{     cursor:pointer    !important; }
+ .pointer {
+    cursor:pointer !important;
+}
 
 
-.img-fullwidth{ width:100%; display:block; height:auto; }
+.img-fullwidth {
+    width:100%;
+    display:block;
+    height:auto;
+}
+
 
 /** Transition */
-.ease-short,
-.transition-sm{
-  .transition(all 0.3s ease);
+ .ease-short, .transition-sm {
+    .transition(all 0.3s ease);
 }
-
-.ease-medium,
-.transition-md{
-  .transition(all 0.6s ease);
+.ease-medium, .transition-md {
+    .transition(all 0.6s ease);
 }
-
-.ease-long,
-.transition-lg{
- .transition(all 0.9s ease);
+.ease-long, .transition-lg {
+    .transition(all 0.9s ease);
 }
-
 a.no-style, a.no-style:hover {
     color:inherit !important;
     text-decoration:none !important;
 }
-
 ul, ol, li {
     list-style: none;
     padding:0;
@@ -66,17 +114,11 @@ a {
     text-decoration:none;
 }
 
-
 /** Clear Fix - Add here all elements that have cf auto aplied */
-.sa-cf:before,
-.sa-cf:after,
-.nav-horizontal>ul:before,
-.nav-horizontal>ul:after{
-  content: " ";
-  display: table;
+ .sa-cf:before, .sa-cf:after, .nav-horizontal>ul:before, .nav-horizontal>ul:after {
+    content:" ";
+    display: table;
 }
-
-.sa-cf:after,
-.nav-horizontal>ul:after{
-  clear: both;
+.sa-cf:after, .nav-horizontal>ul:after {
+    clear: both;
 }

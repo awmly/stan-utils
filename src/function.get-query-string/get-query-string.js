@@ -5,33 +5,43 @@
 
 (function($, $STAN) {
 
-  'use strict';
+    'use strict';
 
-  $STAN.getQueryString=function(){
+    $STAN.getQueryString = function(replaceSpaces) {
 
-    // Get query string
-    var qs=window.location.search.substring(1);
+        // Get query string
+        var qs = window.location.search.substring(1);
 
-    // Set req exp pattern
-    var patt = new RegExp(/([^&=]+)=?([^&]*)/g);
+        // Set req exp pattern
+        var patt = new RegExp(/([^&=]+)=?([^&]*)/g);
 
-    // Set params object to store qs values
-    var params={};
+        // Set params object to store qs values
+        var params = {};
 
-    // Set matches variable
-    var matches;
+        // Set matches variable
+        var matches;
 
-    // Loop through pattern matches
-    while (matches = patt.exec(qs)){
+        // Loop through pattern matches
+        while (matches = patt.exec(qs)) {
 
-      // Set param - replace + and %20 for spaces
-      params[matches[1]] = matches[2].replace(/(\+|\%20)/g,' ');
+            // Set param
+            if (replaceSpaces) {
+
+                // Replace + and %20 for spaces
+                params[matches[1]] = matches[2].replace(/(\+|\%20)/g, ' ');
+
+            } else {
+
+                // Leave string as is
+                params[matches[1]] = matches[2];
+
+            }
+
+        }
+
+        // Return params object
+        return params;
 
     }
-
-    // Return params object
-    return params;
-
-  }
 
 }(jQuery, $STAN));

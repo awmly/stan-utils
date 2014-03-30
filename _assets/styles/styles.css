@@ -108,7 +108,11 @@ footer .logos img{ width:30px; display:inline-block; margin:0 5px; }
 
 .nav-tabs li a{ font-weight:bold; }
 
-
+.plugin-examples .tab-nav{ border-bottom:solid 2px #2C97DE; margin-bottom:15px; }
+.plugin-examples .tab-nav li{ float:left; }
+.plugin-examples .tab-nav a{ padding:6px 15px; background:#eee; color:#666; display:block; }
+.plugin-examples .tab-nav a:hover{ text-decoration:none; background:#ddd; }
+.plugin-examples .tab-nav .active a{ background:#2C97DE; color:#fff; }
 
 .device-xs .tab-content>.tab-pane{ display:block; }
 .device-xs .tab-content>.tab-pane h2{ cursor:pointer; background:#eee; border-bottom:solid 1px #ccc; }
