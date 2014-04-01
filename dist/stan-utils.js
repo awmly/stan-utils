@@ -1,8 +1,3 @@
-/*!
- * STAN Utils 0.0.3
- * Copyright 2014 Andrew Womersley
- */
-
 /* ========================================================================
  * STAN Utils: Stan
  * Author: Andrew Womersley
@@ -1345,12 +1340,25 @@ $(function() {
 
     'use strict';
 
+    // Click Listeners
+    $(window).ready(function() {
+
+        // Set class
+        $("body").on("click", "[data-toggle='class-switcher']", function() {
+
+            methods.setClass.apply($(this).attr('data-target'), [$(this).attr('data-class')]);
+
+        });
+
+    });
+
     // Define Methods
     var methods = {
 
         init: function(options) {
 
-            var _this = this;
+            // Add selector to options
+            options._Selector = this.selector;
 
             // Iterate Through Selectors
             return this.each(function(index) {
@@ -1361,49 +1369,50 @@ $(function() {
                 // Set Options
                 var settings = $.extend({
                     selector: 'div',
-                    current_class: ''
+                    currentClass: ''
                 }, options);
 
 
                 // Save settings
                 $this.data('ClassSwitcher', settings);
 
-                // Find Controllers and Set Listeners
-                $("[data-toggle='class-switcher'][data-target='" + _this.selector + "']").each(function() {
+                // Check for active
+                if ($("[data-toggle='class-switcher'][data-target='" + settings._Selector + "'].active").length) {
 
-                    $(this).find('li').each(function() {
+                    methods.setClass.apply($this, [$("[data-toggle='class-switcher'][data-target='" + settings._Selector + "'].active").attr('data-class')]);
 
-                        // Check if button has active class
-                        if ($(this).hasClass('active')) methods.change.apply($this, [$(this)]);
+                } else {
 
-                        // Add click listener
-                        $(this).click(function() {
-                            methods.change.apply($this, [$(this)]);
-                        });
+                    methods.setClass.apply($this, [$("[data-toggle='class-switcher'][data-target='" + settings._Selector + "']").eq(0).attr('data-class')]);
 
-                    });
-
-                });
+                }
 
             });
 
         },
 
-        change: function(_this) {
+        setClass: function(_Class) {
 
             var settings = $(this).data('ClassSwitcher');
-
             var $this = $(this);
 
-            $(_this).siblings().removeClass('active');
-            _this.addClass('active');
+            if ($("[data-toggle='class-switcher'][data-target='" + settings._Selector + "'][data-class='" + _Class + "']").length) {
 
-            this.children(settings.selector).removeClass(settings.current_class).addClass(_this.attr('data-class'));
+                $this.find(settings.selector).removeClass(settings.currentClass);
 
-            settings.current_class = _this.attr('data-class');
+                settings.currentClass = _Class;
 
-            // Trigger
+            }
+
+            $this.find(settings.selector).addClass(settings.currentClass);
+
+            $("[data-toggle='class-switcher'][data-target='" + settings._Selector + "']").removeClass('active');
+            $("[data-toggle='class-switcher'][data-target='" + settings._Selector + "'][data-class='" + settings.currentClass + "']").addClass('active');
+
+            // Trigger event
             $(this).trigger('change.sa.class-switcher', [settings]);
+
+
 
         }
 
@@ -1415,13 +1424,11 @@ $(function() {
 
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
 
-        }
-        else if (typeof method === 'object' || !method) {
+        } else if (typeof method === 'object' || !method) {
 
             return methods.init.apply(this, arguments);
 
-        }
-        else {
+        } else {
 
             $.error('Method ' + method + ' does not exist on jQuery.Datatable');
 

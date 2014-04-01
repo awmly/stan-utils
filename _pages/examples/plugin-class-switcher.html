@@ -6,9 +6,10 @@ base:		"../"
 
 <h1>Class Switcher</h1>
 
-<ul data-toggle='class-switcher' data-target='.switcher'>
-	<li class="btn btn-default active" data-class='col-sm-3 grid'><i class='fa fa-th-large'></i> Grid View</li>
-	<li class="btn btn-default" data-class='col-sm-12 list'><i class='fa fa-reorder'></i> List View</li>
+<ul>
+	<li class="btn btn-default" data-toggle='class-switcher' data-target='.switcher' data-class='col-sm-3 block'>Block View</li>
+	<li class="btn btn-default" data-toggle='class-switcher' data-target='.switcher' data-class='col-sm-12 list'>List View</li>
+  <li class="btn btn-default" data-toggle='class-switcher' data-target='.switcher' data-class='col-sm-6 grid'>Grid View</li>
 </ul>
 <div class='space-md'></div>
 
@@ -26,17 +27,26 @@ base:		"../"
 
 <style>
 	.switcher div{ padding-bottom:30px; }
-	.switcher .grid span{ height:300px; background:#ccc; display:block; }
+	.switcher .grid span{ height:100px; background:#ccc; display:block; }
 	.switcher .list span{ height:100px; background:#ccc; display:block; }
+  .switcher .block span{ height:300px; background:#ccc; display:block; }
 </style>
 
 <script>
 
 	$(function(){
 
+    // Init class switcher
 		$('.switcher').ClassSwitcher({
 			selector:'div'
 		});
+
+    // Set listener to set cookie when class changes
+    $('.switcher').on('change.sa.class-switcher',function(event,settings){
+
+      console.log(settings);
+
+    });
 
 	});
 </script>

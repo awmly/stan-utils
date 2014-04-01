@@ -18,19 +18,26 @@
 
         <h3>Standard layout</h3>
 
-        <pre><code class='xml'>&lt;ul class="sidenav"&gt;&lt;/ul&gt;
+        <pre><code class='xml'>&lt;ul class="filternav"&gt;
+  &lt;li data-tag="red"&gt;Red &lt;span&gt;&lt;/span&gt;&lt;/li&gt;
+  &lt;li data-tag="blue"&gt;Blue &lt;span&gt;&lt;/span&gt;&lt;/li&gt;
+  &lt;li data-tag="green"&gt;Green &lt;span&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;div class="sa-filter"&gt;
+
   &lt;div data-tags="red"&gt;&lt;/div&gt;
   &lt;div data-tags="blue"&gt;&lt;/div&gt;
   &lt;div data-tags="green"&gt;&lt;/div&gt;
   &lt;div data-tags="red"&gt;&lt;/div&gt;
+
+  &lt;button class="sa-load"&gt;Load More&lt;/button&gt;
+
 &lt;/div&gt;
 
 &lt;script&gt;
 $(".sa-filter").Filter({
-  selector:'[data-tags]',
-  setNav:true
+  selector:'[data-tags]'
 });
 &lt;/script&gt;</code></pre>
 
@@ -40,13 +47,19 @@ $(".sa-filter").Filter({
 
         <h3>Filter with Card UI layout</h3>
 
-                <pre><code class='xml'>&lt;ul class="sidenav"&gt;&lt;/ul&gt;
+                <pre><code class='xml'>&lt;ul class="filternav"&gt;&lt;/ul&gt;
 
-&lt;div class="sa-filter sa-cards"&gt;
-  &lt;div class="card" data-tags="red"&gt;&lt;/div&gt;
-  &lt;div class="card" data-tags="blue"&gt;&lt;/div&gt;
-  &lt;div class="card" data-tags="green"&gt;&lt;/div&gt;
-  &lt;div class="card" data-tags="red"&gt;&lt;/div&gt;
+&lt;div class="sa-filter"&gt;
+
+  &lt;div class="sa-cards"&gt;
+    &lt;div class="card" data-tags="red"&gt;&lt;/div&gt;
+    &lt;div class="card" data-tags="blue"&gt;&lt;/div&gt;
+    &lt;div class="card" data-tags="green"&gt;&lt;/div&gt;
+    &lt;div class="card" data-tags="red"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;button class="sa-load"&gt;Load More&lt;/button&gt;
+
 &lt;/div&gt;
 
 &lt;script&gt;

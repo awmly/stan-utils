@@ -5,10 +5,10 @@ base:   "../"
 ---
 
 <style>
-.sidenav li{ padding:5px 15px 5px 35px; background:#eee; position:relative; cursor:pointer; }
-.sidenav li:hover{ background:#ddd; }
-.sidenav li.active{ background:#333; color:#fff; }
-.sidenav i{ position:absolute; top:8px; left:15px; }
+.filternav li{ padding:5px 15px 5px 35px; background:#eee; position:relative; cursor:pointer; }
+.filternav li:hover{ background:#ddd; }
+.filternav li.active{ background:#333; color:#fff; }
+.filternav i{ position:absolute; top:8px; left:15px; }
 </style>
 <h1>Filter Example</h1>
 
@@ -16,7 +16,14 @@ base:   "../"
 
   <div class='col-sm-3 mar-btm-md'>
 
-    <ul class='sidenav'></ul>
+    <ul class='filternav'>
+      <li data-tag="blue">blue <span></span><i class="sa-on fa fa-times"></i><i class="sa-off fa fa-check"></i></li>
+      <li data-tag="green">green <span></span><i class="sa-on fa fa-times"></i><i class="sa-off fa fa-check"></i></li>
+      <li data-tag="light blue">light blue <span></span><i class="sa-on fa fa-times"></i><i class="sa-off fa fa-check"></i></li>
+      <li data-tag="purple">purple <span></span><i class="sa-on fa fa-times"></i><i class="sa-off fa fa-check"></i></li>
+      <li data-tag="red">red <span></span><i class="sa-on fa fa-times"></i><i class="sa-off fa fa-check"></i></li>
+      <li data-tag="yellow">yellow <span></span><i class="sa-on fa fa-times"></i><i class="sa-off fa fa-check"></i></li>
+    </ul>
 
   </div>
   <div class='col-sm-9 content'>
@@ -93,8 +100,7 @@ $(function(){
 
   $('.sa-filter').Filter({
 
-    selector:'[data-tags]',
-    setNav:true
+    selector:'[data-tags]'
 
   });
 
