@@ -45,14 +45,15 @@ base:		"../"
 $(function(){
 
 	$('#colousel').Colousel({
-		continuous:true,
+		type:'continuous',
 		selector:'div',
 		selector_class:'col-xs-6 col-sm-4 col-md-3 col-lg-2',
 		autoplay:true,
 		autoplay_delay:3000,
 		break_autoplay_on_click:true,
 		transition_speed:200,
-		scroll_amount: {xs:2, sm:3, md:4, lg:6 }
+		scroll_amount: {xs:2, sm:3, md:4, lg:6 },
+    //max_in_view:6
 	});
 
 });

@@ -124,10 +124,14 @@
                 // Duplicate selectors if not enough
                 if(settings.continuous){
 
-                  if(settings.total>settings.max_in_view && settings.total<(settings.max_in_view*2)) $this.find('.colousel-inner').append($this.find('.colousel-inner').html());
+                  if(settings.total>settings.max_in_view && settings.total<(settings.max_in_view*2)){
 
-                  settings.total=settings.total*2;
-                  $Selectors = $this.find('.colousel-inner').children(settings.selector);
+                    $this.find('.colousel-inner').append($this.find('.colousel-inner').html());
+
+                    settings.total=settings.total*2;
+                    Selectors = $this.find('.colousel-inner').children(settings.selector);
+
+                  }
 
                 }
 

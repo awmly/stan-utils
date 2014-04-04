@@ -1343,7 +1343,7 @@ $(function() {
     // Click Listeners
     $(window).ready(function() {
 
-        // Set class
+        // Set click listener
         $("body").on("click", "[data-toggle='class-switcher']", function() {
 
             methods.setClass.apply($(this).attr('data-target'), [$(this).attr('data-class')]);
@@ -1358,7 +1358,7 @@ $(function() {
         init: function(options) {
 
             // Add selector to options
-            options._Selector = this.selector;
+            options.target = this.selector;
 
             // Iterate Through Selectors
             return this.each(function(index) {
@@ -1377,13 +1377,15 @@ $(function() {
                 $this.data('ClassSwitcher', settings);
 
                 // Check for active
-                if ($("[data-toggle='class-switcher'][data-target='" + settings._Selector + "'].active").length) {
+                if ($("[data-toggle='class-switcher'][data-target='" + settings.target + "'].active").length) {
 
-                    methods.setClass.apply($this, [$("[data-toggle='class-switcher'][data-target='" + settings._Selector + "'].active").attr('data-class')]);
+                    // Apply classes from active element
+                    methods.setClass.apply($this, [$("[data-toggle='class-switcher'][data-target='" + settings.target + "'].active").attr('data-class')]);
 
                 } else {
 
-                    methods.setClass.apply($this, [$("[data-toggle='class-switcher'][data-target='" + settings._Selector + "']").eq(0).attr('data-class')]);
+                    // Apply classes from first element
+                    methods.setClass.apply($this, [$("[data-toggle='class-switcher'][data-target='" + settings.target + "']").eq(0).attr('data-class')]);
 
                 }
 
@@ -1393,21 +1395,27 @@ $(function() {
 
         setClass: function(_Class) {
 
+            // Get settings
             var settings = $(this).data('ClassSwitcher');
             var $this = $(this);
 
-            if ($("[data-toggle='class-switcher'][data-target='" + settings._Selector + "'][data-class='" + _Class + "']").length) {
+            // If _Class is set remove and update currentClass
+            if (_Class) {
 
+                // remoce currentClass
                 $this.find(settings.selector).removeClass(settings.currentClass);
 
+                // Update currentClass
                 settings.currentClass = _Class;
 
             }
 
+            // Add currentClass to selectors
             $this.find(settings.selector).addClass(settings.currentClass);
 
-            $("[data-toggle='class-switcher'][data-target='" + settings._Selector + "']").removeClass('active');
-            $("[data-toggle='class-switcher'][data-target='" + settings._Selector + "'][data-class='" + settings.currentClass + "']").addClass('active');
+            // Update active classes
+            $("[data-toggle='class-switcher'][data-target='" + settings.target + "']").removeClass('active');
+            $("[data-toggle='class-switcher'][data-target='" + settings.target + "'][data-class='" + settings.currentClass + "']").addClass('active');
 
             // Trigger event
             $(this).trigger('change.sa.class-switcher', [settings]);
@@ -1564,10 +1572,14 @@ $(function() {
                 // Duplicate selectors if not enough
                 if(settings.continuous){
 
-                  if(settings.total>settings.max_in_view && settings.total<(settings.max_in_view*2)) $this.find('.colousel-inner').append($this.find('.colousel-inner').html());
+                  if(settings.total>settings.max_in_view && settings.total<(settings.max_in_view*2)){
 
-                  settings.total=settings.total*2;
-                  $Selectors = $this.find('.colousel-inner').children(settings.selector);
+                    $this.find('.colousel-inner').append($this.find('.colousel-inner').html());
+
+                    settings.total=settings.total*2;
+                    Selectors = $this.find('.colousel-inner').children(settings.selector);
+
+                  }
 
                 }
 

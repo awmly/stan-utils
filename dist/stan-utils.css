@@ -478,6 +478,9 @@ article.tab .title-block {
 article.tab:hover .title-block {
   background: #111;
 }
+article.click {
+  cursor: pointer;
+}
 /* ========================================================================
  * STAN Utils: Columns
  * Author: Andrew Womersley
@@ -2988,6 +2991,7 @@ ul.icon i {
  * Author: Andrew Womersley
  * ======================================================================== */
 .valign-mid {
+  display: block;
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -2995,6 +2999,7 @@ ul.icon i {
   transform: translateY(-50%);
 }
 .valign-btm {
+  display: block;
   position: relative;
   top: 100%;
   -webkit-transform: translateY(-100%);
