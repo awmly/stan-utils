@@ -11,14 +11,17 @@ $(function(){
 
   $('.sidebar').AnchorNav({
     items:'.content>h1',
-    add_a_active_class:false
+    add_a_active_class:false,
+    attribute:'data-id'
   }).StickyFix({
     top:70,
     maxtop:function(_this,_settings){ return $('.content').height()+$('.content').offset().top-$(_this).height()-_settings.top;  },
     stick_to: 'parent',
     devices: { xs:false, sm:true, md:true, lg:true },
     zindex:999
-  }).ScrollTo({
+  });
+
+  $('.sidebar a').ScrollTo({
       offset:70
   });
 

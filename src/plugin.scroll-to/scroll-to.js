@@ -31,6 +31,12 @@
 
         init: function(options) {
 
+            // Save selector in array
+            if($(this.selector).length) Selectors.push(this.selector);
+
+            // Add selector to options
+            options.selector = this.selector;
+
             return this.each(function() {
 
                 // Set this
@@ -39,7 +45,6 @@
                 // Set Options
                 var settings = $.extend({
 
-                    selector: 'a',
                     listener: 'click',
                     offset: 0,
                     scroll_speed: 300,
@@ -51,27 +56,19 @@
                 $this.data('scrollTo', settings);
 
                 // Add listener
-                $(this).on(settings.listener, settings.selector, function() {
+                $(this).on(settings.listener, function() {
 
                     methods.Listener.apply($this, [$(this)]);
 
-                    return false;
+                    if(settings.scroll_spy) return false; else return true;
 
                 });
 
-                if( $this.find(settings.selector).length ){
+                var vars = methods.getVars.apply($this, [$this, settings]);
 
-                  Selectors.push($this);
-
+                if (window.location.hash == vars.target){
+                  $('body,html').scrollTop(vars.position);
                 }
-
-                $this.find(settings.selector).each(function() {
-
-                    var vars = methods.getVars.apply(this, [this, settings]);
-
-                    if (window.location.hash.substring(2) == vars.target.substring(1)) $('body,html').scrollTop(vars.position);
-
-                });
 
             });
 
@@ -104,14 +101,14 @@
 
             var scrolltop;
 
-            $this.find(settings.selector).removeClass('active');
+            $('body').find(settings.selector).removeClass('active');
 
             var st = {
                 position: 0,
                 target: false
             };
 
-            $this.find(settings.selector).each(function() {
+            $('body').find(settings.selector).each(function() {
 
                 var vars = methods.getVars.apply(this, [this, settings]);
 
@@ -128,10 +125,10 @@
 
             if (st.target) {
                 $(st.element).addClass('active');
-                window.location.hash = '#/' + st.target.substring(1);
+                window.location.hash = st.target;
             } else {
-                if(window.location.hash!='/'){
-                    window.location.hash = '/';
+                if (window.location.hash) {
+                    window.location.hash = '';
                 }
             }
 
@@ -146,8 +143,23 @@
             else offset = settings.offset;
 
             var target = $(object).attr('data-target') ? $(object).attr('data-target') : $(object).attr('href');
-            var position = parseInt($(target).offset().top) - parseInt(offset);
             var maxscroll = $(document).height() - $(window).height();
+            var selector = $("[data-id='" + target.substring(1) + "']");
+
+            if (selector.length) {
+
+                // Ensure selector and parent are displayed
+                $([selector,selector.parent()]).addClass('block');
+
+                // Get positon
+                var position = selector.offset().top - parseInt(offset);
+
+                // Revert display
+                $([selector,selector.parent()]).removeClass('block');
+
+            } else {
+                var position = 0;
+            }
 
             return {
                 offset: offset,

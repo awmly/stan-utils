@@ -26,7 +26,8 @@
                     li_class: '',
                     a_class: '',
                     add_li_active_class:false,
-                    add_a_active_class:true
+                    add_a_active_class:true,
+                    attribute:'id'
                 }, options);
 
 
@@ -37,7 +38,7 @@
                 $(settings.items).each(function() {
 
                     var id=$(this).text().replace(/\W/g, '');
-                    $(this).attr('id',id);
+                    $(this).attr(settings.attribute,id);
                     $this.append("<li class='"+settings.li_class+"'><a href='#"+id+"' class='"+settings.a_class+"'>"+$(this).text()+"</a></li>");
 
                 });

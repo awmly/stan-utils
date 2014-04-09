@@ -147,6 +147,9 @@ module.exports = function(grunt) {
                     'scp -i ~/.ssh/sa_rsa -r releases/* saadmin@sadev4.co.uk:/var/www/vhosts/smartarts.co.uk/stan-utils.smartarts.co.uk/releases'
                 ].join('&&')
             },
+            atom: {
+              command: 'atom ./'
+            },
             tmp: {
                 command: 'rm -rf tmp/*'
             },
@@ -208,7 +211,7 @@ module.exports = function(grunt) {
     grunt.registerTask('site', function() {
 
         grunt.config('watch', config.watch_site);
-        grunt.task.run(['js-less', 'jekyll', 'shell:jekyll', 'connect:dev', 'watch']);
+        grunt.task.run(['js-less', 'jekyll', 'shell:jekyll', 'shell:atom', 'connect:dev', 'watch']);
 
     });
     grunt.registerTask('tests', function() {

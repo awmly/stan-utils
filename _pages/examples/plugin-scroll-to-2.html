@@ -6,10 +6,11 @@ base:		"../"
 
 <h1>Scroll To Example 2</h1>
 
-<ul class="scrollto">
-    <li data-target='#link1'><b>Link 1</b></li>
-    <li data-target='#link2' data-offset='50'><b>Link 2 with offset override</b></a>
-</ul>
+<p>
+    <a href='#link1' class='scrollto'>Link 1</a>
+    <a href='#link2' data-offset='50' class='scrollto'>Link 2 with offset override</a>
+</p>
+
 
 <div class='divide20'></div>
 
@@ -19,27 +20,27 @@ base:		"../"
 
 <div class='divide50'></div>
 
-<h2 id='link1'>Title 1</h2>
+<h2 data-id='link1'>Title 1</h2>
 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
 
 <div class='divide50'></div>
 
-<h2 id='link2'>Title 2</h2>
+<h2 data-id='link2'>Title 2</h2>
 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
 
-<div style='height:600px;'></div>
+<div style='height:1200px;'></div>
 
 <script>
 
 $(function(){
 
 	$('.scrollto').ScrollTo({
-	    selector:'li',
-	    offset:5
+	    offset:5,
+      scroll_spy:false
 	});
 
 });
