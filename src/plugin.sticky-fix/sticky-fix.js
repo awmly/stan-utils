@@ -125,10 +125,8 @@
                     // Trigger
                     if (settings._status == 'unstuck') $(this).trigger('stuck.sa.stickyfix', [settings]);
 
-                      $(this).addClass(settings.sticky_class).css({
-                          'z-index': settings.zindex,
+                      $(this).addClass("sticky-fix-stuck "+settings.sticky_class).css({
                           top: settings.top + 'px',
-                          position: 'fixed'
                       });
 
                       settings._status='stuck';
@@ -150,10 +148,8 @@
                 // Trigger
                 if (settings._status == 'stuck') $(this).trigger('unstuck.sa.stickyfix', [settings]);
 
-                  $(this).removeClass(settings.sticky_class).css({
+                  $(this).removeClass("sticky-fix-stuck "+settings.sticky_class).css({
                       top: settings._css.top,
-                      position: settings._css.position,
-                      'z-index': settings._css.zindex
                   });
 
                   settings._status='unstuck';

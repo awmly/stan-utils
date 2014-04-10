@@ -48,7 +48,8 @@
                     listener: 'click',
                     offset: 0,
                     scroll_speed: 300,
-                    scroll_spy: true
+                    scroll_spy: true,
+                    active_class:'active'
 
                 }, options);
 
@@ -101,7 +102,7 @@
 
             var scrolltop;
 
-            $('body').find(settings.selector).removeClass('active');
+            $('body').find(settings.selector).removeClass(settings.active_class);
 
             var st = {
                 position: 0,
@@ -124,11 +125,11 @@
             });
 
             if (st.target) {
-                $(st.element).addClass('active');
+                $(st.element).addClass(settings.active_class);
                 window.location.hash = st.target;
             } else {
-                if (window.location.hash) {
-                    window.location.hash = '';
+                if (window.location.hash!='#/') {
+                    window.location.hash = '#/';
                 }
             }
 

@@ -377,9 +377,35 @@ $(function() {
 
   'use strict';
 
+  var width, subnav, pad;
+
     $('.sa-dropdown').click(function(event){
 
       $('.sa-dropdown').removeClass('active');
+
+        width = 0;
+        subnav = $(this).children('ul');
+
+        pad = subnav.outerWidth()-subnav.width();
+
+      subnav.css('width', '1000px')
+            .children('li').css('display', 'inline-block');
+
+        subnav.children('li').each(function() {
+
+            if ($(this).outerWidth() > width) width = $(this).outerWidth();
+
+        });
+
+        width=width+pad;
+
+        subnav.css('width', '')
+            .children('li').css('display', '');
+
+        if (width > subnav.outerWidth()) subnav.css('width', width + 'px');
+
+
+
 
       $(this).addClass('active');
 
@@ -1579,7 +1605,7 @@ $(function() {
                     $this.find('.colousel-inner').append($this.find('.colousel-inner').html());
 
                     settings.total=settings.total*2;
-                    Selectors = $this.find('.colousel-inner').children(settings.selector);
+                    $Selectors = $this.find('.colousel-inner').children(settings.selector);
 
                   }
 
@@ -3187,7 +3213,8 @@ $(function() {
                     listener: 'click',
                     offset: 0,
                     scroll_speed: 300,
-                    scroll_spy: true
+                    scroll_spy: true,
+                    active_class:'active'
 
                 }, options);
 
@@ -3240,7 +3267,7 @@ $(function() {
 
             var scrolltop;
 
-            $('body').find(settings.selector).removeClass('active');
+            $('body').find(settings.selector).removeClass(settings.active_class);
 
             var st = {
                 position: 0,
@@ -3263,11 +3290,11 @@ $(function() {
             });
 
             if (st.target) {
-                $(st.element).addClass('active');
+                $(st.element).addClass(settings.active_class);
                 window.location.hash = st.target;
             } else {
-                if (window.location.hash) {
-                    window.location.hash = '';
+                if (window.location.hash!='#/') {
+                    window.location.hash = '#/';
                 }
             }
 
@@ -4283,10 +4310,8 @@ $(function() {
                     // Trigger
                     if (settings._status == 'unstuck') $(this).trigger('stuck.sa.stickyfix', [settings]);
 
-                      $(this).addClass(settings.sticky_class).css({
-                          'z-index': settings.zindex,
+                      $(this).addClass("sticky-fix-stuck "+settings.sticky_class).css({
                           top: settings.top + 'px',
-                          position: 'fixed'
                       });
 
                       settings._status='stuck';
@@ -4308,10 +4333,8 @@ $(function() {
                 // Trigger
                 if (settings._status == 'stuck') $(this).trigger('unstuck.sa.stickyfix', [settings]);
 
-                  $(this).removeClass(settings.sticky_class).css({
+                  $(this).removeClass("sticky-fix-stuck "+settings.sticky_class).css({
                       top: settings._css.top,
-                      position: settings._css.position,
-                      'z-index': settings._css.zindex
                   });
 
                   settings._status='unstuck';

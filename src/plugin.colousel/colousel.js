@@ -129,7 +129,7 @@
                     $this.find('.colousel-inner').append($this.find('.colousel-inner').html());
 
                     settings.total=settings.total*2;
-                    Selectors = $this.find('.colousel-inner').children(settings.selector);
+                    $Selectors = $this.find('.colousel-inner').children(settings.selector);
 
                   }
 
