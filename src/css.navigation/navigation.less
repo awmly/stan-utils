@@ -10,34 +10,21 @@
 }
 
 .sa-nav:hover{
-  z-index:1000;
+  z-index:200;
 }
 
-.nav-horizontal a{ display:block; }
 
-/** Block Nav */
 .nav-block a{
   display:block;
-  zbackground:@bg-normal;
 }
 
-.nav-block a:hover{
-  zbackground:@bg-hover;
-  text-decoration:none;
-}
-
-.nav-block li.active > a{
-  zbackground:@bg-active;
-}
-
-
-/** Vertical */
-.nav-vertical.nav-list a,
-.nav-horizontal.nav-list ul ul a{
+.nav-list a{
   display:inline-block;
 }
 
-.nav-vertical.nav-list > ul > li:last-child > a{
+
+.nav-vertical li:last-child,
+.nav-vertical li:last-child > a{
   margin-bottom:0;
 }
 
@@ -54,7 +41,6 @@
   top:100%;
   left:0;
   display:none;
-  zbackground:@bg-normal;
 }
 
 .nav-horizontal ul ul ul{

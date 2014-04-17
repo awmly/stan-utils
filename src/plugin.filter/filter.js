@@ -263,7 +263,7 @@
                 for (x in tags) {
 
                     // Add tag to array if not already added
-                    if (Tags.indexOf(tags[x]) < 0) Tags.push(tags[x]);
+                    if (Tags.indexOf(tags[x]) < 0 && tags[x]) Tags.push(tags[x]);
 
                 }
 

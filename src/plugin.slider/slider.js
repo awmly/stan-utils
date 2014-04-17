@@ -499,7 +499,7 @@
 
                 // Get height of frames
                 $this.find('.frame').each(function() {
-                    if ($(this).children().height() > fh) fh = $(this).children().height();
+                    if ($(this).children().outerHeight(true) > fh) fh = $(this).children().outerHeight(true);
                 });
 
                 // Set height of frames

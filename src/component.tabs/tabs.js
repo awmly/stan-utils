@@ -120,7 +120,9 @@ $(function() {
 
         if ($(this).parents('.sa-collapse-tabs').hasClass('mobile')) {
 
-            $(this).parent().find('.sa-content').collapse('toggle');
+            var collapse=$(this).parent().find('.sa-content');
+
+            if( !collapse.hasClass('in') ) collapse.collapse('show');
 
         }
 

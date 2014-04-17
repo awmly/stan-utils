@@ -22,18 +22,56 @@
     float:right !important;
 }
 
+/** Hides */
+.mobile .hidden-mobile,
+.desktop .hidden-desktop{
+  display:none;
+}
+
 
 /** Text aligns */
- .text-left {
+.text-left,
+.device-xs .text-left-xs,
+.device-sm .text-left-sm,
+.device-md .text-left-md,
+.device-lg .text-left-lg {
     text-align:left !important;
 }
-.text-center {
+
+.text-center,
+.device-xs .text-center-xs,
+.device-sm .text-center-sm,
+.device-md .text-center-md,
+.device-lg .text-center-lg{
     text-align:center !important;
 }
-.text-right {
+.text-right,
+.device-xs .text-right-xs,
+.device-sm .text-right-sm,
+.device-md .text-right-md,
+.device-lg .text-right-lg{
     text-align:right !important;
 }
 
+/** Heights */
+.height-xs{
+    height:@xs !important;
+}
+.height-sm{
+    height:@sm !important;
+}
+.height-md{
+    height:@md !important;
+}
+.height-lg{
+    height:@lg !important;
+}
+.height-xl{
+    height:@xl !important;
+}
+.height-xxl{
+    height:@xxl !important;
+}
 
 /** Line heights */
 .line-xs,

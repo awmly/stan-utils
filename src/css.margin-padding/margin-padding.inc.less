@@ -46,6 +46,40 @@
   padding-right:0 !important;
 }
 
+/** Extra Extra Small margin */
+.@{device}mar-xxs{
+  margin:@xxs;
+}
+.@{device}mar-top-xxs{
+  margin-top:@xxs;
+}
+.@{device}mar-btm-xxs{
+  margin-bottom:@xxs;
+}
+.@{device}mar-left-xxs{
+  margin-left:@xxs;
+}
+.@{device}mar-right-xxs{
+  margin-right:@xxs;
+}
+.@{device}mar-sides-xxs{
+  margin-left:@xxs;
+  margin-right:@xxs;
+}
+
+/** Negative Extra Extra Small margin */
+.@{device}neg-mar-top-xxs{
+  margin-top:-@xxs;
+}
+.@{device}neg-mar-btm-xxs{
+  margin-bottom:-@xxs;
+}
+.@{device}neg-mar-left-xxs{
+  margin-left:-@xxs;
+}
+.@{device}neg-mar-right-xxs{
+  margin-right:-@xxs;
+}
 
 /** Extra Small margin */
 .@{device}mar-xs{
@@ -262,6 +296,26 @@
   margin-right:-@xxl;
 }
 
+/** Extra Extra Small Padding */
+.@{device}pad-xxs{
+  padding:@xxs;
+}
+.@{device}pad-top-xxs{
+  padding-top:@xxs;
+}
+.@{device}pad-btm-xxs{
+  padding-bottom:@xxs;
+}
+.@{device}pad-left-xxs{
+  padding-left:@xxs;
+}
+.@{device}pad-right-xxs{
+  padding-right:@xxs;
+}
+.@{device}pad-sides-xxs{
+  padding-left:@xxs;
+  padding-right:@xxs;
+}
 
 /** Extra Small Padding */
 .@{device}pad-xs{
@@ -393,7 +447,54 @@
   padding-right:@xxl;
 }
 
+.@{device}pad-xxs-xs{
+  padding:@xxs @xs;
+}
+.@{device}pad-xxs-sm{
+  padding:@xxs @sm;
+}
+
+.@{device}pad-xs-sm{
+  padding:@xs @sm;
+}
+.@{device}pad-xs-md{
+  padding:@xs @md;
+}
+
+.@{device}pad-sm-md{
+  padding:@sm @md;
+}
+.@{device}pad-sm-lg{
+  padding:@sm @lg;
+}
+
+.@{device}pad-md-lg{
+  padding:@md @lg;
+}
+.@{device}pad-md-xl{
+  padding:@md @xl;
+}
+
+.@{device}pad-lg-xl{
+  padding:@lg @xl;
+}
+.@{device}pad-lg-xxl{
+  padding:@lg @xxl;
+}
+
+.@{device}pad-xl-xxl{
+  padding:@xl @xxl;
+}
+
 /** Befores / Afters */
+.@{device}inner-xxs:before,
+.@{device}inner-xxs:after,
+.@{device}before-xxs:before,
+.@{device}after-xxs:after{
+  content:"";
+  display:block;
+  height:@xxs;
+}
 .@{device}inner-xs:before,
 .@{device}inner-xs:after,
 .@{device}before-xs:before,

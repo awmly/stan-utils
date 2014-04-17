@@ -1,3 +1,8 @@
+/*!
+ * STAN Utils 0.0.3
+ * Copyright 2014 Andrew Womersley
+ */
+
 /* ========================================================================
  * STAN Utils: Stan
  * Author: Andrew Womersley
@@ -905,7 +910,9 @@ $(function() {
 
         if ($(this).parents('.sa-collapse-tabs').hasClass('mobile')) {
 
-            $(this).parent().find('.sa-content').collapse('toggle');
+            var collapse=$(this).parent().find('.sa-content');
+
+            if( !collapse.hasClass('in') ) collapse.collapse('show');
 
         }
 
@@ -2439,7 +2446,7 @@ $(function() {
                 for (x in tags) {
 
                     // Add tag to array if not already added
-                    if (Tags.indexOf(tags[x]) < 0) Tags.push(tags[x]);
+                    if (Tags.indexOf(tags[x]) < 0 && tags[x]) Tags.push(tags[x]);
 
                 }
 
@@ -4135,7 +4142,7 @@ $(function() {
 
                 // Get height of frames
                 $this.find('.frame').each(function() {
-                    if ($(this).children().height() > fh) fh = $(this).children().height();
+                    if ($(this).children().outerHeight(true) > fh) fh = $(this).children().outerHeight(true);
                 });
 
                 // Set height of frames
@@ -4202,6 +4209,7 @@ $(function() {
 
         $(Selectors).each(function() {
 
+            methods.updateOffset.apply(this);
             methods.stick.apply(this);
 
         });
@@ -4308,22 +4316,24 @@ $(function() {
                 else {
 
                     // Trigger
-                    if (settings._status == 'unstuck') $(this).trigger('stuck.sa.stickyfix', [settings]);
+                    if (settings._status == 'unstuck'){
 
-                      $(this).addClass("sticky-fix-stuck "+settings.sticky_class).css({
-                          top: settings.top + 'px',
-                      });
+                      $(this).trigger('stuck.sa.stickyfix', [settings]);
 
-                      settings._status='stuck';
+                        $(this).addClass("sticky-fix-stuck "+settings.sticky_class).css({
+                            top: settings.top + 'px',
+                        });
 
-                      $(settings.placeholder).css('display', 'block');
+                        settings._status='stuck';
 
-                      if (settings.stick_to == 'parent') $(this).css({
-                          width: $(settings.placeholder).width() + 'px',
-                          left: $(settings.placeholder).offset().left + 'px'
-                      });
+                        $(settings.placeholder).css({display:'block',height:$(this).height()+'px' });
 
+                        if (settings.stick_to == 'parent') $(this).css({
+                            width: $(settings.placeholder).width() + 'px',
+                            left: $(settings.placeholder).offset().left + 'px'
+                        });
 
+                    }
 
                 }
 
@@ -4349,6 +4359,25 @@ $(function() {
 
 
             }
+
+        },
+
+        updateOffset:function(){
+
+          var settings = $(this).data('StickyFix');
+
+          // Unstick element
+          $(this).removeClass("sticky-fix-stuck "+settings.sticky_class).css({
+              top: settings._css.top,
+          });
+
+          // Calculate new offset
+          settings.offset = $(this).offset();
+
+          // Restick element
+          $(this).addClass("sticky-fix-stuck "+settings.sticky_class).css({
+              top: settings.top + 'px',
+          });
 
         }
 

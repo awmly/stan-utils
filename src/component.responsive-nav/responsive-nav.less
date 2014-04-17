@@ -10,14 +10,7 @@
     visibility:hidden;
 }
 .resp-nav-load {
-    position:absolute;
-    top:50%;
-    margin-top:-20px;
-    height:40px;
-    line-height:40px;
-    left:0;
     cursor:pointer;
-    color:#AAAAAA;
     display:none;
 }
 .resp-nav-mask {
@@ -42,7 +35,6 @@
     display:block;
 }
 .resp-nav.desktop {
-    background:#444;
     visibility:visible;
     z-index:200;
 }
@@ -95,50 +87,7 @@
 /** Top level links */
  .resp-nav.desktop .level0 {
     float:left;
-    line-height:34px;
 }
-.resp-nav.desktop .level0>a {
-    color:#fff;
-    padding:0 15px;
-}
-.resp-nav.desktop .level0.active>a {
-    background: #222;
-}
-.resp-nav.desktop .level0:hover>a {
-    background: #333;
-}
-
-/** Sub Nav Styles */
- .resp-nav.desktop .sub li {
-    font-size:14px;
-}
-.resp-nav.desktop .sub li a {
-    line-height:18px;
-    padding:9px 15px;
-    color:#333;
-}
-.resp-nav.desktop .sub li i {
-    color:#666;
-}
-.resp-nav.desktop .level1>a {
-    background:#eee;
-}
-.resp-nav.desktop .level1:hover>a, .resp-nav.desktop .level1.active>a {
-    background:#ddd;
-}
-.resp-nav.desktop .level2>a {
-    background:#ddd;
-}
-.resp-nav.desktop .level2:hover>a, .resp-nav.desktop .level2.active>a {
-    background:#ccc;
-}
-.resp-nav.desktop .level3>a {
-    background:#ccc;
-}
-.resp-nav.desktop .level3:hover>a, .resp-nav.desktop .level3.active>a {
-    background:#bbb;
-}
-
 
 /*
 ===== MOBILE =====
@@ -156,7 +105,6 @@
     width:80%;
     max-width:300px;
     height:100%;
-    background:#fff;
     z-index:100001;
     overflow:hidden;
 }
@@ -216,9 +164,7 @@
 
 /** Sub Nav Titles and Button */
  .resp-nav.mobile .sub-title {
-    background:#eee;
     padding:8px 0;
-    border-bottom:solid 1px #ccc;
 }
 .resp-nav.mobile button {
     position:absolute;
@@ -237,16 +183,4 @@
     overflow:hidden;
     margin:0;
     cursor:pointer;
-}
-
-/** Links */
- .resp-nav.mobile li {
-    line-height:20px;
-    border-bottom:solid 1px #ccc;
-}
-.resp-nav.mobile li:hover {
-    background:#eee;
-}
-.resp-nav.mobile a {
-    padding:10px 25px 10px 15px;
 }

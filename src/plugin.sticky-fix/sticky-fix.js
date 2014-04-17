@@ -17,6 +17,7 @@
 
         $(Selectors).each(function() {
 
+            methods.updateOffset.apply(this);
             methods.stick.apply(this);
 
         });
@@ -123,22 +124,24 @@
                 else {
 
                     // Trigger
-                    if (settings._status == 'unstuck') $(this).trigger('stuck.sa.stickyfix', [settings]);
+                    if (settings._status == 'unstuck'){
 
-                      $(this).addClass("sticky-fix-stuck "+settings.sticky_class).css({
-                          top: settings.top + 'px',
-                      });
+                      $(this).trigger('stuck.sa.stickyfix', [settings]);
 
-                      settings._status='stuck';
+                        $(this).addClass("sticky-fix-stuck "+settings.sticky_class).css({
+                            top: settings.top + 'px',
+                        });
 
-                      $(settings.placeholder).css('display', 'block');
+                        settings._status='stuck';
 
-                      if (settings.stick_to == 'parent') $(this).css({
-                          width: $(settings.placeholder).width() + 'px',
-                          left: $(settings.placeholder).offset().left + 'px'
-                      });
+                        $(settings.placeholder).css({display:'block',height:$(this).height()+'px' });
 
+                        if (settings.stick_to == 'parent') $(this).css({
+                            width: $(settings.placeholder).width() + 'px',
+                            left: $(settings.placeholder).offset().left + 'px'
+                        });
 
+                    }
 
                 }
 
@@ -164,6 +167,25 @@
 
 
             }
+
+        },
+
+        updateOffset:function(){
+
+          var settings = $(this).data('StickyFix');
+
+          // Unstick element
+          $(this).removeClass("sticky-fix-stuck "+settings.sticky_class).css({
+              top: settings._css.top,
+          });
+
+          // Calculate new offset
+          settings.offset = $(this).offset();
+
+          // Restick element
+          $(this).addClass("sticky-fix-stuck "+settings.sticky_class).css({
+              top: settings.top + 'px',
+          });
 
         }
 
