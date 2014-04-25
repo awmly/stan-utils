@@ -4,11 +4,14 @@
  * ======================================================================== */
 
 
-.sa-on, .active .sa-off{
+.sa-on, .active .sa-off, .sa-hover:hover .sa-off{
   display:none;
 }
-.active .sa-on{
+.active .sa-on, .sa-hover:hover .sa-on{
   display:block;
+}
+.sa-click{
+  cursor:pointer;
 }
 .sa-panel{
   background:@bg-normal;

@@ -126,12 +126,18 @@
 
             if (st.target) {
                 $(st.element).addClass(settings.active_class);
-                window.location.hash = st.target;
+                if(window.location.hash!=st.target){
+                  window.location.hash = st.target;
+                  $this.trigger('hash_change.sa.scrollto', [settings]);
+                }
             } else {
                 if (window.location.hash!='#/') {
                     window.location.hash = '#/';
+                    $this.trigger('hash_change.sa.scrollto', [settings]);
                 }
             }
+
+
 
         },
 

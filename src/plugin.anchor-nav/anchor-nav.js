@@ -23,23 +23,37 @@
                 // Set Options
                 var settings = $.extend({
                     items: 'h2',
-                    li_class: '',
-                    a_class: '',
                     add_li_active_class:false,
                     add_a_active_class:true,
-                    attribute:'id'
+                    attribute:'id',
+                    navHTML: "<li><a href='#{id}'>{text}</a></li>",
                 }, options);
 
 
                 // Save settings
                 $this.data('AnchorNav', settings);
 
+                // Set regexp for html tag replace
+                var regexpid = new RegExp('{id}', 'g');
+
+                // Set regexp for html tag replace
+                var regexptext = new RegExp('{text}', 'g');
+
+                var html, id, text;
+
                 // Find Controllers and Set Listeners
                 $(settings.items).each(function() {
 
-                    var id=$(this).text().replace(/\W/g, '');
+                    text = !! $(this).attr('data-nav-text') ? $(this).attr('data-nav-text') : $(this).text();
+
+                    id=text.replace(/\W/g, '-').toLowerCase();
+
                     $(this).attr(settings.attribute,id);
-                    $this.append("<li class='"+settings.li_class+"'><a href='#"+id+"' class='"+settings.a_class+"'>"+$(this).text()+"</a></li>");
+
+                    html = settings.navHTML.replace(regexpid, id);
+                    html = html.replace(regexptext, text);
+
+                    $this.append(html);
 
                 });
 

@@ -1304,23 +1304,37 @@ $(function() {
                 // Set Options
                 var settings = $.extend({
                     items: 'h2',
-                    li_class: '',
-                    a_class: '',
                     add_li_active_class:false,
                     add_a_active_class:true,
-                    attribute:'id'
+                    attribute:'id',
+                    navHTML: "<li><a href='#{id}'>{text}</a></li>",
                 }, options);
 
 
                 // Save settings
                 $this.data('AnchorNav', settings);
 
+                // Set regexp for html tag replace
+                var regexpid = new RegExp('{id}', 'g');
+
+                // Set regexp for html tag replace
+                var regexptext = new RegExp('{text}', 'g');
+
+                var html, id, text;
+
                 // Find Controllers and Set Listeners
                 $(settings.items).each(function() {
 
-                    var id=$(this).text().replace(/\W/g, '');
+                    text = !! $(this).attr('data-nav-text') ? $(this).attr('data-nav-text') : $(this).text();
+
+                    id=text.replace(/\W/g, '-').toLowerCase();
+
                     $(this).attr(settings.attribute,id);
-                    $this.append("<li class='"+settings.li_class+"'><a href='#"+id+"' class='"+settings.a_class+"'>"+$(this).text()+"</a></li>");
+
+                    html = settings.navHTML.replace(regexpid, id);
+                    html = html.replace(regexptext, text);
+
+                    $this.append(html);
 
                 });
 
@@ -3298,12 +3312,18 @@ $(function() {
 
             if (st.target) {
                 $(st.element).addClass(settings.active_class);
-                window.location.hash = st.target;
+                if(window.location.hash!=st.target){
+                  window.location.hash = st.target;
+                  $this.trigger('hash_change.sa.scrollto', [settings]);
+                }
             } else {
                 if (window.location.hash!='#/') {
                     window.location.hash = '#/';
+                    $this.trigger('hash_change.sa.scrollto', [settings]);
                 }
             }
+
+
 
         },
 
@@ -4289,12 +4309,17 @@ $(function() {
 
             var t = settings.offset.top - $(window).scrollTop();
 
+            var mintop;
             var maxtop;
             var maxscroll;
             var topscroll;
             var pos;
 
-            if (t < settings.top && settings.devices[$STAN.device]) {
+            if (typeof settings.top === 'function') mintop = settings.top($(this),settings);
+            else if (typeof settings.top === 'number') mintop = settings.top;
+            else mintop = 99999;
+
+            if (t < mintop && settings.devices[$STAN.device]) {
 
                 if (typeof settings.maxtop === 'function') maxtop = settings.maxtop($(this),settings);
                 else if (typeof settings.maxtop === 'number') maxtop = settings.maxtop;
@@ -4305,9 +4330,9 @@ $(function() {
                 if ($(window).scrollTop() > maxtop) {
 
                     if( $(window).scrollTop()>maxscroll ){
-                      pos = settings.top - ( maxscroll - maxtop );
+                      pos = mintop - ( maxscroll - maxtop );
                     }else{
-                      pos = settings.top - ($(window).scrollTop() - maxtop);
+                      pos = mintop - ($(window).scrollTop() - maxtop);
                     }
 
                     $(this).css('top', pos + 'px');
@@ -4321,7 +4346,7 @@ $(function() {
                       $(this).trigger('stuck.sa.stickyfix', [settings]);
 
                         $(this).addClass("sticky-fix-stuck "+settings.sticky_class).css({
-                            top: settings.top + 'px',
+                            top: mintop + 'px',
                         });
 
                         settings._status='stuck';
@@ -4366,6 +4391,12 @@ $(function() {
 
           var settings = $(this).data('StickyFix');
 
+          var mintop;
+
+          if (typeof settings.top === 'function') mintop = settings.top($(this),settings);
+          else if (typeof settings.top === 'number') mintop = settings.top;
+          else mintop = 99999;
+
           // Unstick element
           $(this).removeClass("sticky-fix-stuck "+settings.sticky_class).css({
               top: settings._css.top,
@@ -4376,7 +4407,7 @@ $(function() {
 
           // Restick element
           $(this).addClass("sticky-fix-stuck "+settings.sticky_class).css({
-              top: settings.top + 'px',
+              top: mintop + 'px',
           });
 
         }

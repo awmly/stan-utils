@@ -28,17 +28,23 @@
  * ======================================================================== */
 .sa-collapse .sa-click {
   cursor: pointer;
-  margin-bottom: 0 !important;
+  margin-bottom: 0;
 }
-.sa-collapse .sa-click :last-child {
-  margin-bottom: 0 !important;
+.sa-collapse .sa-click h1,
+.sa-collapse .sa-click h2,
+.sa-collapse .sa-click h3,
+.sa-collapse .sa-click h4,
+.sa-collapse .sa-click h5,
+.sa-collapse .sa-click h6,
+.sa-collapse .sa-click p {
+  margin-bottom: 0;
 }
 .sa-collapse .sa-content {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 .sa-collapse .sa-content > :last-child {
-  margin-bottom: 0 !important;
+  margin-bottom: 0;
 }
 .sa-collapse:not(.active) > .sa-click > .sa-on {
   display: none;
@@ -62,7 +68,11 @@
  * ======================================================================== */
 .sa-dropdown {
   position: relative;
+  overflow: hidden;
   z-index: 1000;
+}
+.sa-dropdown.active {
+  overflow: visible;
 }
 .sa-dropdown .sa-click {
   cursor: pointer;
@@ -208,7 +218,6 @@ img.maxheight {
 .resp-nav.desktop nav {
   z-index: 20;
   position: relative;
-  padding: 0;
 }
 .resp-nav.desktop li {
   position: relative;
@@ -491,11 +500,16 @@ article.click {
  * Author: Andrew Womersley
  * ======================================================================== */
 .sa-on,
-.active .sa-off {
+.active .sa-off,
+.sa-hover:hover .sa-off {
   display: none;
 }
-.active .sa-on {
+.active .sa-on,
+.sa-hover:hover .sa-on {
   display: block;
+}
+.sa-click {
+  cursor: pointer;
 }
 .sa-panel {
   background: #eeeeee;
@@ -3977,13 +3991,13 @@ ul.icon i {
 .colousel,
 .colousel .colousel-inner {
   position: relative;
-  overflow: hidden;
 }
 .colousel.scroll {
   overflow-x: scroll;
 }
 .colousel .colousel-inner {
   height: 100%;
+  overflow: hidden;
 }
 .colousel .colousel-inner > [class*='col-'] {
   position: absolute;

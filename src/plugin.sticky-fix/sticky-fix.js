@@ -97,12 +97,17 @@
 
             var t = settings.offset.top - $(window).scrollTop();
 
+            var mintop;
             var maxtop;
             var maxscroll;
             var topscroll;
             var pos;
 
-            if (t < settings.top && settings.devices[$STAN.device]) {
+            if (typeof settings.top === 'function') mintop = settings.top($(this),settings);
+            else if (typeof settings.top === 'number') mintop = settings.top;
+            else mintop = 99999;
+
+            if (t < mintop && settings.devices[$STAN.device]) {
 
                 if (typeof settings.maxtop === 'function') maxtop = settings.maxtop($(this),settings);
                 else if (typeof settings.maxtop === 'number') maxtop = settings.maxtop;
@@ -113,9 +118,9 @@
                 if ($(window).scrollTop() > maxtop) {
 
                     if( $(window).scrollTop()>maxscroll ){
-                      pos = settings.top - ( maxscroll - maxtop );
+                      pos = mintop - ( maxscroll - maxtop );
                     }else{
-                      pos = settings.top - ($(window).scrollTop() - maxtop);
+                      pos = mintop - ($(window).scrollTop() - maxtop);
                     }
 
                     $(this).css('top', pos + 'px');
@@ -129,7 +134,7 @@
                       $(this).trigger('stuck.sa.stickyfix', [settings]);
 
                         $(this).addClass("sticky-fix-stuck "+settings.sticky_class).css({
-                            top: settings.top + 'px',
+                            top: mintop + 'px',
                         });
 
                         settings._status='stuck';
@@ -174,6 +179,12 @@
 
           var settings = $(this).data('StickyFix');
 
+          var mintop;
+
+          if (typeof settings.top === 'function') mintop = settings.top($(this),settings);
+          else if (typeof settings.top === 'number') mintop = settings.top;
+          else mintop = 99999;
+
           // Unstick element
           $(this).removeClass("sticky-fix-stuck "+settings.sticky_class).css({
               top: settings._css.top,
@@ -184,7 +195,7 @@
 
           // Restick element
           $(this).addClass("sticky-fix-stuck "+settings.sticky_class).css({
-              top: settings.top + 'px',
+              top: mintop + 'px',
           });
 
         }
