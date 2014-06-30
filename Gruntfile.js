@@ -130,7 +130,8 @@ module.exports = function(grunt) {
                 command: [
                     'mv _site/dist _site/_assets/dist',
                     'mv _site/_pages/* _site/',
-                    'rm -rf _site/_pages'
+                    'rm -rf _site/_pages',
+                    'cp _pages/.htaccess _site/.htaccess'
                 ].join('&&')
             },
             zip: {
@@ -143,9 +144,17 @@ module.exports = function(grunt) {
             },
             publish: {
                 command: [
-                    'scp -i ~/.ssh/sa_rsa -r _site/* saadmin@sadev4.co.uk:/var/www/vhosts/smartarts.co.uk/stan-utils.smartarts.co.uk',
-                    'scp -i ~/.ssh/sa_rsa -r releases/* saadmin@sadev4.co.uk:/var/www/vhosts/smartarts.co.uk/stan-utils.smartarts.co.uk/releases'
+                    "rsync -trp --rsh='ssh -i ~/.ssh/sa_rsa' releases/ saadmin@sadev4.co.uk:/var/www/vhosts/smartarts.co.uk/stan-utils.smartarts.co.uk/releases/",
+                    "rsync -trp --rsh='ssh -i ~/.ssh/sa_rsa' _site/ saadmin@sadev4.co.uk:/var/www/vhosts/smartarts.co.uk/stan-utils.smartarts.co.uk/"
                 ].join('&&')
+            },
+            set_permissions:{
+              command:[
+                        "find _site/* -type d -print0 | xargs -0 chmod 0755",
+                        "find _site/* -type f -print0 | xargs -0 chmod 0644",
+                        "find releases/* -type d -print0 | xargs -0 chmod 0755",
+                        "find releases/* -type f -print0 | xargs -0 chmod 0644"
+                      ].join('&&')
             },
             atom: {
               command: 'atom ./'
@@ -220,7 +229,7 @@ module.exports = function(grunt) {
         grunt.task.run(['connect:tests', 'watch']);
 
     });
-    grunt.registerTask('deploy', ['js-less', 'jekyll', 'shell:jekyll', 'htmlmin', 'prettify', 'shell:zip', 'shell:publish']);
+    grunt.registerTask('deploy', ['js-less', 'jekyll', 'shell:jekyll', 'htmlmin', 'prettify', 'shell:zip', 'shell:set_permissions', 'shell:publish']);
     grunt.registerTask('test', ['js-less']);
     grunt.registerTask('default', ['js-less']);
 

@@ -126,7 +126,7 @@ var $STAN;
         if (deferTrigger) {
 
             $(window).on('ready', function() {
-                _STAN_Triggers(triggers);
+                //_STAN_Triggers(triggers);
             });
 
         }

@@ -9,13 +9,19 @@ ul.alpha,
 ol.bullet,
 ol.numeric,
 ol.alpha {
-    padding:0 0 10px 20px;
+    padding:0 0 0 20px;
     list-style-position:inside;
 }
 
+ul.bullet,
+ul.numeric,
+ul.alpha,
+ol.bullet,
+ol.numeric,
+ol.alpha,
 ul.icon,
 ol.icon {
-    padding:0 0 10px 0;
+    margin:0 0 15px 0;
 }
 
 ul.bullet ul,
@@ -26,7 +32,7 @@ ol.bullet ol,
 ol.numeric ol,
 ol.alpha ol,
 ol.icon ol {
-    padding-bottom:0;
+    margin:0;
 }
 
 ul.icon ul,
@@ -43,7 +49,17 @@ ol.numeric li,
 ol.alpha li,
 ol.icon li {
     line-height:16px;
-    padding:0 0 5px 0;
+}
+
+ul.bullet li:last-child,
+ul.numeric li:last-child,
+ul.alpha li:last-child,
+ul.icon li:last-child,
+ol.bullet li:last-child,
+ol.numeric li:last-child,
+ol.alpha li:last-child,
+ol.icon li:last-child {
+    margin:0;
 }
 
 ul.bullet li,

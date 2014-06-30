@@ -102,7 +102,12 @@
 
             var scrolltop;
 
-            $('body').find(settings.selector).removeClass(settings.active_class);
+            $('body').find(settings.selector).each(function(){
+
+              $(this).removeClass(settings.active_class);
+              if($(this).attr('data-active-class')) $(this).removeClass( $(this).attr('data-active-class') );
+            
+          });
 
             var st = {
                 position: 0,
@@ -126,6 +131,7 @@
 
             if (st.target) {
                 $(st.element).addClass(settings.active_class);
+                if($(st.element).attr('data-active-class')) $(st.element).addClass( $(st.element).attr('data-active-class') );
                 if(window.location.hash!=st.target){
                   window.location.hash = st.target;
                   $this.trigger('hash_change.sa.scrollto', [settings]);

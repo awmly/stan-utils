@@ -12,8 +12,16 @@ $(function() {
 
         if (!$(this).closest('.sa-collapse').hasClass('inactive')) {
 
-            $(this).closest('.sa-collapse').toggleClass('active')
-                .find('.sa-content').first().collapse('toggle');
+            if( $(this).closest('.sa-collapse').hasClass('active') ){
+
+                $(this).closest('.sa-collapse').removeClass('active')
+                    .find('.sa-content').first().collapse('hide');
+            }else{
+
+              $(this).closest('.sa-collapse').addClass('active')
+                  .find('.sa-content').first().collapse('show');
+
+            }
 
             if ($(this).parents('.sa-accordion').length) {
 
@@ -77,6 +85,6 @@ $(function() {
 
         });
 
-    });
+    }).trigger('active.sa.stan');
 
 });

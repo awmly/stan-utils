@@ -1,8 +1,3 @@
-/*!
- * STAN Utils 0.0.3
- * Copyright 2014 Andrew Womersley
- */
-
 /* ========================================================================
  * STAN Utils: Stan
  * Author: Andrew Womersley
@@ -131,7 +126,7 @@ var $STAN;
         if (deferTrigger) {
 
             $(window).on('ready', function() {
-                _STAN_Triggers(triggers);
+                //_STAN_Triggers(triggers);
             });
 
         }
@@ -304,8 +299,16 @@ $(function() {
 
         if (!$(this).closest('.sa-collapse').hasClass('inactive')) {
 
-            $(this).closest('.sa-collapse').toggleClass('active')
-                .find('.sa-content').first().collapse('toggle');
+            if( $(this).closest('.sa-collapse').hasClass('active') ){
+
+                $(this).closest('.sa-collapse').removeClass('active')
+                    .find('.sa-content').first().collapse('hide');
+            }else{
+
+              $(this).closest('.sa-collapse').addClass('active')
+                  .find('.sa-content').first().collapse('show');
+
+            }
 
             if ($(this).parents('.sa-accordion').length) {
 
@@ -369,7 +372,7 @@ $(function() {
 
         });
 
-    });
+    }).trigger('active.sa.stan');
 
 });
 
@@ -555,6 +558,18 @@ $(function() {
 
 	var imgResonsive=function(){
 
+		$("img[srcset]").each(function() {
+
+			var t = $(this);
+
+			
+
+		});
+
+	}
+
+	var imgResonsiveOld=function(){
+
 		$("img[data-resp-src^='{']").each(function() {
 
 			var t = $(this);
@@ -641,6 +656,110 @@ $(function() {
 });
 
 /* ========================================================================
+ * STAN Utils: Pull Down Navigation
+ * Author: Andrew Womersley
+ * ======================================================================== */
+
+$(function() {
+
+    'use strict';
+
+    var OpenMobile = function(){
+
+        $('.pull-nav').attr('data-open',1);
+
+        $('.pull-nav nav').collapse('show');
+
+        $('.pull-nav-mask').css({
+            display: 'block',
+            opacity: 0
+        });
+        $('.pull-nav-mask').animate({
+            opacity: 1
+        }, 200, "swing");
+
+    };
+
+    var CloseMobile = function() {
+
+        $('.pull-nav').attr('data-open', 0);
+
+        $('.pull-nav nav').collapse('hide');
+
+        $('.pull-nav-mask').animate({
+            opacity: 0
+        }, 200, "swing", function() {
+            $('.pull-nav-mask').css('display', 'none');
+        });
+
+    };
+
+
+    $(window).resize(function() {
+
+        var w = $(window).width();
+        var h = $(window).height();
+        var breakpoint = (typeof $('.pull-nav').attr('data-breakpoint')!=='undefined') ? $('.pull-nav').attr('data-breakpoint') : 992;
+
+        $('.pull-nav, .pull-nav-load').removeClass('desktop mobile');
+
+        if (w < breakpoint) {
+
+            $('.pull-nav, .pull-nav-load').addClass('mobile');
+
+            $('.pull-nav-mask').css({height:h-$('header').height() + 'px', top:$('header').height()+'px'});
+
+            $('.pull-nav nav').addClass('collapse');
+
+            if( $('.pull-nav').attr('data-open')!='1') $('.pull-nav nav').css('height',0).removeClass('in');
+
+            $('.pull-nav ul').css({"max-height":h-$('header').height()-60 + 'px'});
+
+        } else {
+
+            $('.pull-nav').attr('data-open', 0).addClass('desktop');
+
+            $('.pull-nav nav').addClass('in').css({
+                height: ''
+            });
+
+            $('.pull-nav-mask').css('display', 'none');
+
+        }
+
+    }).resize();
+
+    $('.pull-nav-load').click(function(event) {
+
+        if( $('.pull-nav').attr('data-open')=='1'){
+            CloseMobile();
+        }else{
+            OpenMobile();
+        }
+
+        event.stopPropagation();
+
+    });
+
+    $('.pull-nav-mask').click(function(event) {
+
+        CloseMobile();
+
+        event.stopPropagation();
+
+    });
+
+
+
+    $('.pull-nav-mask').on('wheel mousewheel touchmove', function(event) {
+
+        event.preventDefault();
+
+    });
+
+});
+
+/* ========================================================================
  * STAN Utils: Responsive Navigation
  * Author: Andrew Womersley
  * ======================================================================== */
@@ -651,74 +770,74 @@ $(function() {
 
     var CloseMobile = function() {
 
-        $('.resp-nav').animate({
+        $('.slide-nav').animate({
             left: '-100%'
         }, 200, "swing", function() {
-            $('.resp-nav').css({
+            $('.slide-nav').css({
                 visibility: 'hidden'
             });
         });
 
-        $('.resp-nav-mask').animate({
+        $('.slide-nav-mask').animate({
             opacity: 0
         }, 200, "swing", function() {
-            $('.resp-nav-mask').css('display', 'none');
+            $('.slide-nav-mask').css('display', 'none');
         });
 
         ResetNav();
 
-    }
+    };
 
     var ResetNav = function() {
 
-        $('.resp-nav nav').css('left', 0);
-        $('.resp-nav').find('li').removeClass('open');
-        $('.resp-nav').attr('data-open', 0);
+        $('.slide-nav nav').css('left', 0);
+        $('.slide-nav').find('li').removeClass('open');
+        $('.slide-nav').attr('data-open', 0);
 
-    }
+    };
 
     $(window).resize(function() {
 
         var w = $(window).width();
         var h = $(window).height();
-        var breakpoint = (typeof $('.resp-nav').attr('data-breakpoint')!=='undefined') ? $('.resp-nav').attr('data-breakpoint') : 992;
+        var breakpoint = (typeof $('.slide-nav').attr('data-breakpoint')!=='undefined') ? $('.slide-nav').attr('data-breakpoint') : 992;
 
-        $('.resp-nav, .resp-nav-load').removeClass('desktop mobile');
+        $('.slide-nav, .slide-nav-load').removeClass('desktop mobile');
 
         if (w < breakpoint) {
 
-            $('.resp-nav, .resp-nav-load').addClass('mobile');
-            $('.resp-nav, .resp-nav-mask').css('height', h + 'px');
+            $('.slide-nav, .slide-nav-load').addClass('mobile');
+            $('.slide-nav, .slide-nav-mask').css('height', h + 'px');
 
         } else {
 
-            $('.resp-nav').addClass('desktop').css({
+            $('.slide-nav').addClass('desktop').css({
                 height: '',
                 visibility: '',
                 left: ''
             });
 
-            $('.resp-nav-mask').css('display', 'none');
+            $('.slide-nav-mask').css('display', 'none');
 
             ResetNav();
         }
 
     }).resize();
 
-    $('.resp-nav-load').click(function(event) {
+    $('.slide-nav-load').click(function(event) {
 
-        $('.resp-nav').css({
+        $('.slide-nav').css({
             visibility: 'visible',
             left: '-100%'
         })
-        $('.resp-nav').attr('data-open', 1).animate({
+        $('.slide-nav').attr('data-open', 1).animate({
             left: 0
         }, 200, "swing");
-        $('.resp-nav-mask').css({
+        $('.slide-nav-mask').css({
             display: 'block',
             opacity: 0
         });
-        $('.resp-nav-mask').animate({
+        $('.slide-nav-mask').animate({
             opacity: 1
         }, 200, "swing");
 
@@ -726,7 +845,7 @@ $(function() {
 
     });
 
-    $('.resp-nav-mask').click(function(event) {
+    $('.slide-nav-mask').click(function(event) {
 
         CloseMobile();
 
@@ -734,16 +853,16 @@ $(function() {
 
     });
 
-    $('.resp-nav a').click(function() {
+    $('.slide-nav a').click(function() {
 
-        if ($(this).parents('.resp-nav').hasClass('mobile') && !$('.resp-nav nav').is(':animated')) {
+        if ($(this).parents('.slide-nav').hasClass('mobile') && !$('.slide-nav nav').is(':animated')) {
 
             var p = $(this).parent();
 
             if ($(p).find('.sub:not(.desktop-only)').length) {
 
                 $(p).addClass('open');
-                $('.resp-nav nav').animate({
+                $('.slide-nav nav').animate({
                     left: '-=100%'
                 }, 200, "swing");
 
@@ -756,11 +875,11 @@ $(function() {
 
     });
 
-    $('.resp-nav .bwd').click(function() {
+    $('.slide-nav .bwd').click(function() {
 
         var p = $(this).closest('li');
 
-        $('.resp-nav nav').animate({
+        $('.slide-nav nav').animate({
             left: '+=100%'
         }, 200, "swing", function() {
             $(p).removeClass('open');
@@ -768,19 +887,19 @@ $(function() {
 
     });
 
-    $('.resp-nav .fwd').click(function() {
+    $('.slide-nav .fwd').click(function() {
 
         CloseMobile();
 
     });
 
-    $('.resp-nav h2').click(function() {
+    $('.slide-nav h2').click(function() {
 
         document.location.href = $(this).attr('data-url');
 
     });
 
-    $('.resp-nav-mask').on('wheel mousewheel touchmove', function(event) {
+    $('.slide-nav-mask').on('wheel mousewheel touchmove', function(event) {
 
         event.preventDefault();
 
@@ -2688,7 +2807,9 @@ $(function() {
         // Show
         $("[data-toggle='popup.show']").click(function() {
 
-            methods.set_src.apply($($(this).attr('data-target')), [$(this).attr('data-src')]);
+            var src=!! $(this).attr('data-src') ? $(this).attr('data-src') : $(this).attr('href');
+
+            methods.set_src.apply($($(this).attr('data-target')), [src]);
 
             return methods.show.apply($($(this).attr('data-target')));
 
@@ -2704,7 +2825,9 @@ $(function() {
         // Toggle
         $("[data-toggle='popup.toggle']").click(function() {
 
-            methods.set_src.apply($($(this).attr('data-target')), [$(this).attr('data-src')]);
+          var src=!! $(this).attr('data-src') ? $(this).attr('data-src') : $(this).attr('href');
+
+            methods.set_src.apply($($(this).attr('data-target')), [src]);
 
             return methods.toggle.apply($($(this).attr('data-target')));
 
@@ -3288,7 +3411,12 @@ $(function() {
 
             var scrolltop;
 
-            $('body').find(settings.selector).removeClass(settings.active_class);
+            $('body').find(settings.selector).each(function(){
+
+              $(this).removeClass(settings.active_class);
+              if($(this).attr('data-active-class')) $(this).removeClass( $(this).attr('data-active-class') );
+            
+          });
 
             var st = {
                 position: 0,
@@ -3312,6 +3440,7 @@ $(function() {
 
             if (st.target) {
                 $(st.element).addClass(settings.active_class);
+                if($(st.element).attr('data-active-class')) $(st.element).addClass( $(st.element).attr('data-active-class') );
                 if(window.location.hash!=st.target){
                   window.location.hash = st.target;
                   $this.trigger('hash_change.sa.scrollto', [settings]);
@@ -3758,12 +3887,15 @@ $(function() {
 
                 // Set Options
                 var settings = $.extend({
-                    height: '.layer0 img',
+                    height: false,
                     activeIndex: 0,
                     autoplay: false,
                     autoplay_break_on_click: true,
                     autoplay_delay: 5000,
-                    layers: []
+                    layers: [],
+                    currentIndex:0,
+                    nextIndex:0,
+                    prevIndex:0
                 }, options);
 
                 settings.action = settings.timer = settings.animationLength = false;
@@ -3857,6 +3989,8 @@ $(function() {
                           left: '-100%'
                       };
 
+                      layer.reverse_for_prev=true;
+
                       layer.selector.addClass('absolute');
 
                   }
@@ -3880,6 +4014,11 @@ $(function() {
                         $this.find("[data-role='slider.navigation']").append('<span data-toggle="slider.set" data-index="'+i+'"></span>');
                     }
                 }
+
+                // Pre load
+                methods.preload.apply(this,[$this.find('.frame').eq(0)]);
+                methods.preload.apply(this,[$this.find('.frame').eq(1)]);
+                methods.preload.apply(this,[$this.find('.frame').eq(settings.total-1)]);
 
                 // Add load events
                 $this.find('img').load(function() {
@@ -3905,7 +4044,7 @@ $(function() {
                       'z-index':20
                     });
 
-                    for (i in settings.layers) {
+                    for (var i in settings.layers) {
 
                       $(settings.layers[i].selector).eq(settings.activeIndex).css(settings.layers[i].inCSS);
 
@@ -3935,11 +4074,21 @@ $(function() {
 
                 // Set indexes
                 if (direction == 'next') {
+
                     settings.nextIndex = settings.currentIndex + 1;
                     if (settings.nextIndex == settings.total) settings.nextIndex = 0;
+
+                    settings.preLoadIndex = settings.nextIndex + 1;
+                    if (settings.preLoadIndex == settings.total) settings.preLoadIndex = 0;
+
                 } else {
+
                     settings.nextIndex = settings.currentIndex - 1;
                     if (settings.nextIndex < 0) settings.nextIndex = settings.total - 1;
+
+                    settings.preLoadIndex = settings.nextIndex - 1;
+                    if (settings.preLoadIndex < 0) settings.preLoadIndex = settings.total - 1;
+
                 }
 
                 // Animate
@@ -3999,6 +4148,11 @@ $(function() {
             var $next = $this.find('.frame').eq(settings.nextIndex);
             var $current = $this.find('.frame').eq(settings.currentIndex);
 
+            // Pre load
+            var $preload = $this.find('.frame').eq(settings.preLoadIndex);
+            methods.preload.apply(this,[$preload]);
+
+
             // Set CSS for next/current frames
             $current.css({
                 'z-index': 10
@@ -4052,7 +4206,8 @@ $(function() {
             var settings = $(this).data('Slider');
             var $this = $(this);
 
-            // Update index
+            // Update indexes
+            settings.prevIndex = settings.currentIndex;
             settings.currentIndex = settings.nextIndex;
 
             // Add/remove active classes
@@ -4090,7 +4245,7 @@ $(function() {
             $(this).trigger('autoplay-set.sa.slider', [settings]);
 
           }else{
-            delay=settings.autoplay_delay
+            delay=settings.autoplay_delay;
           }
 
           if (settings.autoplay && settings.total>1) {
@@ -4185,6 +4340,18 @@ $(function() {
                 });
 
             }
+
+        },
+
+        preload:function($preload){
+
+            $preload.find('img').each(function(){
+
+                  if( !$(this).attr('src') ){
+                      $(this).attr('src',$(this).attr('data-src'));
+                  }
+
+            });
 
         }
 
@@ -4427,6 +4594,151 @@ $(function() {
 
         }
         else {
+
+            $.error('Method ' + method + ' does not exist on jQuery.Datatable');
+
+        }
+
+    };
+
+}(jQuery, $STAN));
+
+/* ========================================================================
+ * STAN Utils: Swiper
+ * Author: Andrew Womersley
+ * ======================================================================== */
+
+(function($, $STAN) {
+
+    'use strict';
+
+    // Define Global Vars
+    var Selectors = [];
+
+    // Define Methods
+    var methods = {
+
+        init: function(options) {
+
+            // Add selector to options
+            options.selector = this.selector;
+
+            // Iterate Through Selectors
+            return this.each(function(index) {
+
+                // Save selector in array
+                Selectors.push($(this));
+
+                // Set this
+                var $this = $(this);
+                var i, layer;
+
+                // Set Options
+                var settings = $.extend({
+                    left:false,
+                    right:false,
+                    up:false,
+                    down:false,
+                    sensitivity:'medium'
+                }, options);
+
+                // Save settings
+                $this.data('Swiper', settings);
+
+                $this.on('touchstart mousedown',function(event){
+
+                  var settings=$this.data('Swiper');
+
+                  var coX=!! event.pageX ? event.pageX : event.originalEvent.touches[0].pageX;
+                  var coY=!! event.pageY ? event.pageY : event.originalEvent.touches[0].pageY;
+
+                  settings.coX=coX;
+                  settings.coY=coY;
+                  settings.swiped=false;
+
+                });
+
+                $this.on('touchmove mouseup',function(event){
+
+                  var settings=$this.data('Swiper');
+
+                  var coX=!! event.pageX ? event.pageX : event.originalEvent.touches[0].pageX;
+                  var coY=!! event.pageY ? event.pageY : event.originalEvent.touches[0].pageY;
+
+                  var distX=settings.coX-coX;
+                  var distY=settings.coY-coY;
+
+                  var dirX, dirY, dir, dist, size;
+
+                  if(distX<0){
+                    dirX='right';
+                    distX=distX*-1;
+                  }else{
+                    dirX='left';
+                  }
+
+                  if(distY<0){
+                    dirY='down';
+                    distY=distY*-1;
+                  }else{
+                    dirY='up';
+                  }
+
+                  if(distX>distY){
+                    dir=dirX;
+                    dist=distX;
+                    size=$(this).width();
+                  }else{
+                    dir=dirY;
+                    dist=distY;
+                    size=$(this).height();
+                  }
+
+                  if(settings[dir] && !settings.swiped){
+
+                    var percent=(dist/size)*100;
+
+                    if(percent>80 || (percent>50 && settings.sensitivity=='medium') || (percent>20 && settings.sensitivity=='low')){
+
+                      settings.direction=dir;
+                      settings.distance=dist;
+
+                      $(this).trigger('swipe.sa.swiper', [settings]);
+                      $(this).trigger(dir+'.sa.swiper', [settings]);
+                      settings.swiped=true;
+
+                    }
+
+                    event.preventDefault();
+                    return false;
+
+                  }else{
+
+                    return true;
+
+                  }
+
+
+                });
+
+            });
+
+        }
+
+
+    };
+
+    $.fn.Swiper = function(method) {
+
+        if (methods[method]) {
+
+            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+
+        } else if (typeof method === 'object' || !method) {
+
+            return methods.init.apply(this, arguments);
+
+        } else {
 
             $.error('Method ' + method + ' does not exist on jQuery.Datatable');
 

@@ -9,6 +9,18 @@ $(function() {
 
 	var imgResonsive=function(){
 
+		$("img[srcset]").each(function() {
+
+			var t = $(this);
+
+			
+
+		});
+
+	}
+
+	var imgResonsiveOld=function(){
+
 		$("img[data-resp-src^='{']").each(function() {
 
 			var t = $(this);

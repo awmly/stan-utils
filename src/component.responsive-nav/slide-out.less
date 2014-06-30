@@ -6,14 +6,14 @@
 /*
 ===== COMMON =====
  */
- .resp-nav {
+.slide-nav {
     visibility:hidden;
 }
-.resp-nav-load {
+.slide-nav-load {
     cursor:pointer;
     display:none;
 }
-.resp-nav-mask {
+.slide-nav-mask {
     position:absolute;
     top:0;
     left:0;
@@ -23,7 +23,7 @@
     display:none;
     z-index:100000;
 }
-.resp-nav .desktop-only, .resp-nav .mobile-only {
+.slide-nav .desktop-only, .slide-nav .mobile-only {
     display:none;
 }
 
@@ -31,36 +31,36 @@
 /*
 ===== DESKTOP =====
  */
- .resp-nav.desktop .desktop-only {
+ .slide-nav.desktop .desktop-only {
     display:block;
 }
-.resp-nav.desktop {
+.slide-nav.desktop {
     visibility:visible;
     z-index:200;
 }
-.resp-nav.desktop nav {
+.slide-nav.desktop nav {
     z-index:20;
     position:relative;
 }
-.resp-nav.desktop li {
+.slide-nav.desktop li {
     position:relative;
 }
-.resp-nav.desktop li:hover {
+.slide-nav.desktop li:hover {
     z-index: 999;
 }
-.resp-nav.desktop li:hover > .sub {
+.slide-nav.desktop li:hover > .sub {
     visibility:visible;
 }
-.resp-nav.desktop a {
+.slide-nav.desktop a {
     text-decoration:none;
     display:block;
 }
-.resp-nav.desktop .sub-title {
+.slide-nav.desktop .sub-title {
     display:none;
 }
 
 /** Sub Nav Positioning */
- .resp-nav.desktop .sub {
+ .slide-nav.desktop .sub {
     position:absolute;
     top:0;
     left:100%;
@@ -69,35 +69,35 @@
     width: 210px;
     padding:0;
 }
-.resp-nav.desktop .level0>.sub {
+.slide-nav.desktop .level0>.sub {
     left:0;
     top:100%;
 }
-.resp-nav.desktop .level0>.sub.right {
+.slide-nav.desktop .level0>.sub.right {
     left:auto;
     right:0;
 }
-.resp-nav.desktop .sub i {
+.slide-nav.desktop .sub i {
     position:absolute;
     top:10px;
     right:15px;
 }
 
 /** Top level links */
- .resp-nav.desktop .level0 {
+ .slide-nav.desktop .level0 {
     float:left;
 }
 
 /*
 ===== MOBILE =====
  */
- .resp-nav-load.mobile {
+ .slide-nav-load.mobile {
     display:block;
 }
-.resp-nav.mobile .mobile-only {
+.slide-nav.mobile .mobile-only {
     display:block;
 }
-.resp-nav.mobile {
+.slide-nav.mobile {
     position:absolute;
     top:0;
     left:-100%;
@@ -107,7 +107,7 @@
     z-index:100001;
     overflow:hidden;
 }
-.resp-nav.mobile nav {
+.slide-nav.mobile nav {
     position:absolute;
     top:0;
     left:0;
@@ -115,13 +115,13 @@
     height:100%;
     padding:0;
 }
-.resp-nav.mobile nav>ul {
+.slide-nav.mobile nav>ul {
     height:100%;
     overflow:auto;
 }
 
 /** Sub Nav Structure */
- .resp-nav.mobile .sub {
+ .slide-nav.mobile .sub {
     position:absolute;
     top:0;
     left:100%;
@@ -129,52 +129,52 @@
     height:100%;
     display:none;
 }
-.resp-nav.mobile li.open>.sub {
+.slide-nav.mobile li.open>.sub {
     display:block;
 }
-.resp-nav.mobile .sub-title {
+.slide-nav.mobile .sub-title {
     position:absolute;
     top:0;
     left:0;
     width:100%;
     z-index:100;
 }
-.resp-nav.mobile .sub-links {
+.slide-nav.mobile .sub-links {
     height:100%;
     padding-top:47px;
     overflow:auto;
     margin:0;
 }
-.resp-nav.mobile a {
+.slide-nav.mobile a {
     display:block;
     position:relative;
     text-decoration:none;
 }
-.resp-nav.mobile a i {
+.slide-nav.mobile a i {
     position:absolute;
     right:15px;
     top:50%;
     margin-top:-8px;
 }
-.resp-nav.mobile ul {
+.slide-nav.mobile ul {
     position: static;
     padding:0;
 }
 
 /** Sub Nav Titles and Button */
- .resp-nav.mobile .sub-title {
+ .slide-nav.mobile .sub-title {
     padding:8px 0;
 }
-.resp-nav.mobile button {
+.slide-nav.mobile button {
     position:absolute;
     top:8px;
     left:15px;
 }
-.resp-nav.mobile button.fwd {
+.slide-nav.mobile button.fwd {
     left:auto;
     right:15px;
 }
-.resp-nav.mobile h2 {
+.slide-nav.mobile h2 {
     padding:0 55px;
     text-align:center;
     line-height:30px;

@@ -95,12 +95,15 @@
 
                 // Set Options
                 var settings = $.extend({
-                    height: '.layer0 img',
+                    height: false,
                     activeIndex: 0,
                     autoplay: false,
                     autoplay_break_on_click: true,
                     autoplay_delay: 5000,
-                    layers: []
+                    layers: [],
+                    currentIndex:0,
+                    nextIndex:0,
+                    prevIndex:0
                 }, options);
 
                 settings.action = settings.timer = settings.animationLength = false;
@@ -194,6 +197,8 @@
                           left: '-100%'
                       };
 
+                      layer.reverse_for_prev=true;
+
                       layer.selector.addClass('absolute');
 
                   }
@@ -217,6 +222,11 @@
                         $this.find("[data-role='slider.navigation']").append('<span data-toggle="slider.set" data-index="'+i+'"></span>');
                     }
                 }
+
+                // Pre load
+                methods.preload.apply(this,[$this.find('.frame').eq(0)]);
+                methods.preload.apply(this,[$this.find('.frame').eq(1)]);
+                methods.preload.apply(this,[$this.find('.frame').eq(settings.total-1)]);
 
                 // Add load events
                 $this.find('img').load(function() {
@@ -242,7 +252,7 @@
                       'z-index':20
                     });
 
-                    for (i in settings.layers) {
+                    for (var i in settings.layers) {
 
                       $(settings.layers[i].selector).eq(settings.activeIndex).css(settings.layers[i].inCSS);
 
@@ -272,11 +282,21 @@
 
                 // Set indexes
                 if (direction == 'next') {
+
                     settings.nextIndex = settings.currentIndex + 1;
                     if (settings.nextIndex == settings.total) settings.nextIndex = 0;
+
+                    settings.preLoadIndex = settings.nextIndex + 1;
+                    if (settings.preLoadIndex == settings.total) settings.preLoadIndex = 0;
+
                 } else {
+
                     settings.nextIndex = settings.currentIndex - 1;
                     if (settings.nextIndex < 0) settings.nextIndex = settings.total - 1;
+
+                    settings.preLoadIndex = settings.nextIndex - 1;
+                    if (settings.preLoadIndex < 0) settings.preLoadIndex = settings.total - 1;
+
                 }
 
                 // Animate
@@ -336,6 +356,11 @@
             var $next = $this.find('.frame').eq(settings.nextIndex);
             var $current = $this.find('.frame').eq(settings.currentIndex);
 
+            // Pre load
+            var $preload = $this.find('.frame').eq(settings.preLoadIndex);
+            methods.preload.apply(this,[$preload]);
+
+
             // Set CSS for next/current frames
             $current.css({
                 'z-index': 10
@@ -389,7 +414,8 @@
             var settings = $(this).data('Slider');
             var $this = $(this);
 
-            // Update index
+            // Update indexes
+            settings.prevIndex = settings.currentIndex;
             settings.currentIndex = settings.nextIndex;
 
             // Add/remove active classes
@@ -427,7 +453,7 @@
             $(this).trigger('autoplay-set.sa.slider', [settings]);
 
           }else{
-            delay=settings.autoplay_delay
+            delay=settings.autoplay_delay;
           }
 
           if (settings.autoplay && settings.total>1) {
@@ -522,6 +548,18 @@
                 });
 
             }
+
+        },
+
+        preload:function($preload){
+
+            $preload.find('img').each(function(){
+
+                  if( !$(this).attr('src') ){
+                      $(this).attr('src',$(this).attr('data-src'));
+                  }
+
+            });
 
         }
 

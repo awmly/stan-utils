@@ -30,7 +30,9 @@
         // Show
         $("[data-toggle='popup.show']").click(function() {
 
-            methods.set_src.apply($($(this).attr('data-target')), [$(this).attr('data-src')]);
+            var src=!! $(this).attr('data-src') ? $(this).attr('data-src') : $(this).attr('href');
+
+            methods.set_src.apply($($(this).attr('data-target')), [src]);
 
             return methods.show.apply($($(this).attr('data-target')));
 
@@ -46,7 +48,9 @@
         // Toggle
         $("[data-toggle='popup.toggle']").click(function() {
 
-            methods.set_src.apply($($(this).attr('data-target')), [$(this).attr('data-src')]);
+          var src=!! $(this).attr('data-src') ? $(this).attr('data-src') : $(this).attr('href');
+
+            methods.set_src.apply($($(this).attr('data-target')), [src]);
 
             return methods.toggle.apply($($(this).attr('data-target')));
 

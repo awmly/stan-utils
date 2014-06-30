@@ -1,0 +1,53 @@
+---
+title: 		Slider Example
+layout:		examples
+base:		"../"
+---
+
+<h1>Swiper</h1>
+
+<div class='swipe' style='width:300px;height:500px;background:#ff0;'>ALL<br/>MEDIUM SENSITIVITY</div>
+<div style='height:100px;'></div>
+<div class='swipe2' style='width:300px;height:500px;background:#0f0;'>LEFT/RIGHT<br/>HIGH SENSITIVITY</div>
+<div style='height:100px;'></div>
+<div class='swipe3' style='width:300px;height:500px;background:#0ff;'>UP/DOWN<br/>LOW SENSITIVITY</div>
+
+<script>
+$(function(){
+
+  $('.swipe').Swiper({
+    left:true,
+    right:true,
+    up:true,
+    down:true,
+    sensitivity:'medium'
+  });
+  $('.swipe2').Swiper({
+    left:true,
+    right:true,
+    sensitivity:'high'
+  });
+  $('.swipe3').Swiper({
+    up:true,
+    down:true,
+    sensitivity:'low'
+  });
+
+  $('.swipe').on('swipe.sa.swiper',function(event,settings){
+      $(this).html(settings.direction+" "+settings.distance);
+  });
+
+  $('.swipe2').on('left.sa.swiper',function(event,settings){
+      $(this).html("SWIPED LEFT");
+  }).on('right.sa.swiper',function(event,settings){
+      $(this).html("SWIPED RIGHT");
+  });
+
+  $('.swipe3').on('up.sa.swiper',function(event,settings){
+      $(this).html("SWIPED UP");
+  }).on('down.sa.swiper',function(event,settings){
+      $(this).html("SWIPED DOWN");
+  });
+
+});
+</script>

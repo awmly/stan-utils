@@ -178,20 +178,20 @@ img.maxheight {
   right: 0;
 }
 /* ========================================================================
- * STAN Utils: Responsive Navigation
+ * STAN Utils: Pull Down Navigation
  * Author: Andrew Womersley
  * ======================================================================== */
 /*
 ===== COMMON =====
  */
-.resp-nav {
+.pull-nav {
   visibility: hidden;
 }
-.resp-nav-load {
+.pull-nav-load {
   cursor: pointer;
   display: none;
 }
-.resp-nav-mask {
+.pull-nav-mask {
   position: absolute;
   top: 0;
   left: 0;
@@ -201,42 +201,42 @@ img.maxheight {
   display: none;
   z-index: 100000;
 }
-.resp-nav .desktop-only,
-.resp-nav .mobile-only {
+.pull-nav .desktop-only,
+.pull-nav .mobile-only {
   display: none;
 }
 /*
 ===== DESKTOP =====
  */
-.resp-nav.desktop .desktop-only {
+.pull-nav.desktop .desktop-only {
   display: block;
 }
-.resp-nav.desktop {
+.pull-nav.desktop {
   visibility: visible;
   z-index: 200;
 }
-.resp-nav.desktop nav {
+.pull-nav.desktop nav {
   z-index: 20;
   position: relative;
 }
-.resp-nav.desktop li {
+.pull-nav.desktop li {
   position: relative;
 }
-.resp-nav.desktop li:hover {
+.pull-nav.desktop li:hover {
   z-index: 999;
 }
-.resp-nav.desktop li:hover > .sub {
+.pull-nav.desktop li:hover > .sub {
   visibility: visible;
 }
-.resp-nav.desktop a {
+.pull-nav.desktop a {
   text-decoration: none;
   display: block;
 }
-.resp-nav.desktop .sub-title {
+.pull-nav.desktop .sub-title {
   display: none;
 }
 /** Sub Nav Positioning */
-.resp-nav.desktop .sub {
+.pull-nav.desktop .sub {
   position: absolute;
   top: 0;
   left: 100%;
@@ -245,33 +245,151 @@ img.maxheight {
   width: 210px;
   padding: 0;
 }
-.resp-nav.desktop .level0 > .sub {
+.pull-nav.desktop .level0 > .sub {
   left: 0;
   top: 100%;
 }
-.resp-nav.desktop .level0 > .sub.right {
+.pull-nav.desktop .level0 > .sub.right {
   left: auto;
   right: 0;
 }
-.resp-nav.desktop .sub i {
+.pull-nav.desktop .sub i {
   position: absolute;
   top: 10px;
   right: 15px;
 }
 /** Top level links */
-.resp-nav.desktop .level0 {
+.pull-nav.desktop .level0 {
   float: left;
 }
 /*
 ===== MOBILE =====
  */
-.resp-nav-load.mobile {
+.pull-nav-load.mobile {
   display: block;
 }
-.resp-nav.mobile .mobile-only {
+.pull-nav.mobile .mobile-only {
   display: block;
 }
-.resp-nav.mobile {
+.pull-nav.mobile {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 100001;
+  overflow: hidden;
+  visibility: visible;
+}
+.pull-nav.mobile nav {
+  padding: 0;
+  height: auto;
+}
+.pull-nav.mobile nav > ul {
+  height: auto;
+  overflow: auto;
+}
+.pull-nav.mobile nav a {
+  display: block;
+}
+/** Sub Nav Structure */
+.pull-nav.mobile .sub {
+  display: block;
+}
+/* ========================================================================
+ * STAN Utils: Responsive Navigation
+ * Author: Andrew Womersley
+ * ======================================================================== */
+/*
+===== COMMON =====
+ */
+.slide-nav {
+  visibility: hidden;
+}
+.slide-nav-load {
+  cursor: pointer;
+  display: none;
+}
+.slide-nav-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(50, 50, 50, 0.8);
+  display: none;
+  z-index: 100000;
+}
+.slide-nav .desktop-only,
+.slide-nav .mobile-only {
+  display: none;
+}
+/*
+===== DESKTOP =====
+ */
+.slide-nav.desktop .desktop-only {
+  display: block;
+}
+.slide-nav.desktop {
+  visibility: visible;
+  z-index: 200;
+}
+.slide-nav.desktop nav {
+  z-index: 20;
+  position: relative;
+}
+.slide-nav.desktop li {
+  position: relative;
+}
+.slide-nav.desktop li:hover {
+  z-index: 999;
+}
+.slide-nav.desktop li:hover > .sub {
+  visibility: visible;
+}
+.slide-nav.desktop a {
+  text-decoration: none;
+  display: block;
+}
+.slide-nav.desktop .sub-title {
+  display: none;
+}
+/** Sub Nav Positioning */
+.slide-nav.desktop .sub {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 100%;
+  visibility: hidden;
+  width: 210px;
+  padding: 0;
+}
+.slide-nav.desktop .level0 > .sub {
+  left: 0;
+  top: 100%;
+}
+.slide-nav.desktop .level0 > .sub.right {
+  left: auto;
+  right: 0;
+}
+.slide-nav.desktop .sub i {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+}
+/** Top level links */
+.slide-nav.desktop .level0 {
+  float: left;
+}
+/*
+===== MOBILE =====
+ */
+.slide-nav-load.mobile {
+  display: block;
+}
+.slide-nav.mobile .mobile-only {
+  display: block;
+}
+.slide-nav.mobile {
   position: absolute;
   top: 0;
   left: -100%;
@@ -281,7 +399,7 @@ img.maxheight {
   z-index: 100001;
   overflow: hidden;
 }
-.resp-nav.mobile nav {
+.slide-nav.mobile nav {
   position: absolute;
   top: 0;
   left: 0;
@@ -289,12 +407,12 @@ img.maxheight {
   height: 100%;
   padding: 0;
 }
-.resp-nav.mobile nav > ul {
+.slide-nav.mobile nav > ul {
   height: 100%;
   overflow: auto;
 }
 /** Sub Nav Structure */
-.resp-nav.mobile .sub {
+.slide-nav.mobile .sub {
   position: absolute;
   top: 0;
   left: 100%;
@@ -302,51 +420,51 @@ img.maxheight {
   height: 100%;
   display: none;
 }
-.resp-nav.mobile li.open > .sub {
+.slide-nav.mobile li.open > .sub {
   display: block;
 }
-.resp-nav.mobile .sub-title {
+.slide-nav.mobile .sub-title {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 100;
 }
-.resp-nav.mobile .sub-links {
+.slide-nav.mobile .sub-links {
   height: 100%;
   padding-top: 47px;
   overflow: auto;
   margin: 0;
 }
-.resp-nav.mobile a {
+.slide-nav.mobile a {
   display: block;
   position: relative;
   text-decoration: none;
 }
-.resp-nav.mobile a i {
+.slide-nav.mobile a i {
   position: absolute;
   right: 15px;
   top: 50%;
   margin-top: -8px;
 }
-.resp-nav.mobile ul {
+.slide-nav.mobile ul {
   position: static;
   padding: 0;
 }
 /** Sub Nav Titles and Button */
-.resp-nav.mobile .sub-title {
+.slide-nav.mobile .sub-title {
   padding: 8px 0;
 }
-.resp-nav.mobile button {
+.slide-nav.mobile button {
   position: absolute;
   top: 8px;
   left: 15px;
 }
-.resp-nav.mobile button.fwd {
+.slide-nav.mobile button.fwd {
   left: auto;
   right: 15px;
 }
-.resp-nav.mobile h2 {
+.slide-nav.mobile h2 {
   padding: 0 55px;
   text-align: center;
   line-height: 30px;
@@ -524,7 +642,7 @@ article.click {
 /** Hides */
 .mobile .hidden-mobile,
 .desktop .hidden-desktop {
-  display: none;
+  display: none !important;
 }
 /** Text aligns */
 .text-left,
@@ -678,12 +796,18 @@ ul.alpha,
 ol.bullet,
 ol.numeric,
 ol.alpha {
-  padding: 0 0 10px 20px;
+  padding: 0 0 0 20px;
   list-style-position: inside;
 }
+ul.bullet,
+ul.numeric,
+ul.alpha,
+ol.bullet,
+ol.numeric,
+ol.alpha,
 ul.icon,
 ol.icon {
-  padding: 0 0 10px 0;
+  margin: 0 0 15px 0;
 }
 ul.bullet ul,
 ul.numeric ul,
@@ -693,7 +817,7 @@ ol.bullet ol,
 ol.numeric ol,
 ol.alpha ol,
 ol.icon ol {
-  padding-bottom: 0;
+  margin: 0;
 }
 ul.icon ul,
 ol.icon ol {
@@ -708,7 +832,16 @@ ol.numeric li,
 ol.alpha li,
 ol.icon li {
   line-height: 16px;
-  padding: 0 0 5px 0;
+}
+ul.bullet li:last-child,
+ul.numeric li:last-child,
+ul.alpha li:last-child,
+ul.icon li:last-child,
+ol.bullet li:last-child,
+ol.numeric li:last-child,
+ol.alpha li:last-child,
+ol.icon li:last-child {
+  margin: 0;
 }
 ul.bullet li,
 ol.bullet li {
@@ -760,7 +893,7 @@ ul.icon i {
 .no-mar-right {
   margin-right: 0 !important;
 }
-.no-mar-side {
+.no-mar-sides {
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
@@ -780,7 +913,7 @@ ul.icon i {
 .no-pad-right {
   padding-right: 0 !important;
 }
-.no-pad-side {
+.no-pad-sides {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
@@ -1290,7 +1423,7 @@ ul.icon i {
 .device-xs .xs-no-mar-right {
   margin-right: 0 !important;
 }
-.device-xs .xs-no-mar-side {
+.device-xs .xs-no-mar-sides {
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
@@ -1309,7 +1442,7 @@ ul.icon i {
 .device-xs .xs-no-pad-right {
   padding-right: 0 !important;
 }
-.device-xs .xs-no-pad-side {
+.device-xs .xs-no-pad-sides {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
@@ -1809,9 +1942,9 @@ ul.icon i {
 .device-lg .sm-no-mar-right {
   margin-right: 0 !important;
 }
-.device-sm .sm-no-mar-side,
-.device-md .sm-no-mar-side,
-.device-lg .sm-no-mar-side {
+.device-sm .sm-no-mar-sides,
+.device-md .sm-no-mar-sides,
+.device-lg .sm-no-mar-sides {
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
@@ -1840,9 +1973,9 @@ ul.icon i {
 .device-lg .sm-no-pad-right {
   padding-right: 0 !important;
 }
-.device-sm .sm-no-pad-side,
-.device-md .sm-no-pad-side,
-.device-lg .sm-no-pad-side {
+.device-sm .sm-no-pad-sides,
+.device-md .sm-no-pad-sides,
+.device-lg .sm-no-pad-sides {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
@@ -2638,8 +2771,8 @@ ul.icon i {
 .device-lg .md-no-mar-right {
   margin-right: 0 !important;
 }
-.device-md .md-no-mar-side,
-.device-lg .md-no-mar-side {
+.device-md .md-no-mar-sides,
+.device-lg .md-no-mar-sides {
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
@@ -2663,8 +2796,8 @@ ul.icon i {
 .device-lg .md-no-pad-right {
   padding-right: 0 !important;
 }
-.device-md .md-no-pad-side,
-.device-lg .md-no-pad-side {
+.device-md .md-no-pad-sides,
+.device-lg .md-no-pad-sides {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
@@ -3303,7 +3436,7 @@ ul.icon i {
 .device-lg .lg-no-mar-right {
   margin-right: 0 !important;
 }
-.device-lg .lg-no-mar-side {
+.device-lg .lg-no-mar-sides {
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
@@ -3322,7 +3455,7 @@ ul.icon i {
 .device-lg .lg-no-pad-right {
   padding-right: 0 !important;
 }
-.device-lg .lg-no-pad-side {
+.device-lg .lg-no-pad-sides {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
@@ -4068,9 +4201,8 @@ ul.icon i {
   top: 50%;
   left: 50%;
   z-index: 10;
-  overflow: auto;
+  overflow: hidden;
 }
-.popup .popup-display.no-scroll,
 .popup .popup-display iframe.no-scroll {
   overflow: hidden;
 }
