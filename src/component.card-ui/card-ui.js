@@ -7,6 +7,75 @@ $(function() {
 
     'use strict';
 
+    var HitTestCount=0;
+
+    var CardHitTest = function($card,$siblings,top,left,width,height){
+
+        var t = top;
+        var l = left;
+        var w = width;
+        var h = height;
+        var b = t+h;
+        var r = l+w;
+
+        /*var ct = top;
+        var cl = left;
+        var cw = 100;
+        var ch = 30;
+        var cb = ct+ch;
+        var cr = cl+cw;*/
+
+
+
+        var st, sl, sw, sh, sb, sr;
+        //console.log(t + " " +l + " " + w + " " + h);
+
+        var HIT=false;
+
+        $siblings.each(function(index){
+
+          if($(this).data('active') && !HIT){
+
+            var st = $(this).data('top');
+            var sl = $(this).data('left');
+            var sw = $(this).data('width');
+            var sh = $(this).outerHeight(true);
+            var sb = st+sh;
+            var sr = sl+sw;
+
+            HitTestCount++;
+
+            //console.log(index+" "+st+" "+sb);
+
+            //console.log(t + " " + st + " " + b + " " + sb);
+            //if( (t>=st && t<sb) || (b>st && b<=sb) ){
+            if( t<sb && b>st){
+              //console.log("HIT TOP");
+              //console.log(l + " " + r + " " + sl + " " + sr);
+              if( l<sr && r>sl ){
+                //console.log("HIT SIDES");
+                HIT=true;
+              }
+            }
+
+          }
+
+        });
+
+        if(!HIT){
+
+          //console.log("OK");
+          return true;
+
+        }else{
+
+          //console.log("HIT");
+          return false;
+
+        }
+
+    };
+
     var CardUI = function() {
 
         $(".sa-cards").each(function() {
@@ -14,66 +83,131 @@ $(function() {
             var $this = $(this);
 
             var selector = (typeof $(this).attr('data-selector') !== 'undefined') ? $(this).attr('data-selector') : '.card';
+            var maxCols = (typeof $(this).attr('data-maxcols') !== 'undefined') ? $(this).attr('data-maxcols') : '12';
 
             if ($(this).find(selector).length) {
 
-                // Get the width of the selector
-                var width = $this.find(selector).outerWidth();
+                var max, _Pos, _Col, _Col2, pos, col, top, span, width, colid, ok;
 
-                // Set number of cols based on current view
-                var NumCols = Math.round($this.width() / width) - 1;
+                var minwidth=$this.outerWidth()/maxCols;
 
-                // Set our cols array which will hold the height of each column - presume a max of 12
-                var Cols = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                $(this).find(selector).data('active',false);
+                _Col=[ [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0] ];
+                _Col2=[0];
 
-                // Define som evars
-                var x, col, left, max, min;
+                $this.find(selector).each(function(index) {
 
-                $this.find(selector).each(function() {
+                  if($STAN.device=='xs'){
 
-                    min = 99999;
+                    $(this).removeClass('absolute').css({
+                        left: 'auto',
+                        top: 'auto'
+                    });
 
-                    // Get shortest column
-                    for (x = 0; x <= NumCols; x++) {
+                  }else{
 
-                        if (Cols[x] < min) {
-                            col = x;
-                            min = Cols[x];
+                    width = $(this).outerWidth();
+                    span = maxCols / Math.round(($this.parent().width()+30) / width);
+
+                    pos=9999;
+                    top=9999;
+
+                    //console.log(_Col2);
+
+                    //for(var x in _Col){
+
+                      //_Pos=_Col[x];
+                    //  _Pos=_Col2;
+
+                      //console.log("COL: "+x);
+                      //console.log(_Pos);
+
+                      for(var y in _Col2){
+                        ok=false;
+                        for(var x=0; x<maxCols; x++){
+                          if(_Col2[y]>=0){
+                            if( CardHitTest( $(this), $this.find(selector), _Col2[y], x*100, 100, 50 ) ){
+
+                              ok=true
+
+                            }
+                          }
                         }
+                        if(!ok) _Col2[y]=-1;
+                      }
+
+                    //}
+
+                    for(var x=0; x<maxCols; x++){
+
+                      _Pos=_Col2;
+
+                      for(var y in _Pos){
+
+                        if(_Pos[y]<top ){
+                          colid=parseInt(span)+parseInt(x);
+
+                          if(colid<=maxCols && _Pos[y]>=0){
+
+                            if( CardHitTest( $(this), $this.find(selector), _Pos[y], x*100, span*100, $(this).outerHeight(true) ) ){
+                              col = x;
+                              pos = y
+                              top = _Pos[y];
+                            }
+
+                          }
+                        }
+
+                      } // end _Pos loop
+
+                    } // end _Col loop
+
+                    $(this).addClass('absolute').css({
+                        left: (minwidth * col) + 'px',
+                        top: top + 'px'
+                    }).data('active',true).data('top',top).data('left',(100 * col)).data('width',(100* span));
+
+                    for(var x=0; x<span; x++){
+                      colid=parseInt(col)+parseInt(x);
+                      //console.log(colid);
+                      //_Col[colid].push( (top+$(this).outerHeight(true)) );
 
                     }
 
-                    // Set top and left position for card
-                    $(this).css({
-                        left: (width * col) + 'px',
-                        top: Cols[col] + 'px'
-                    });
+                    _Col2.push( (top+$(this).outerHeight(true)) );
 
-                    // Update column height
-                    Cols[col] += $(this).outerHeight(true);
+                    } // end if device XS
 
-                });
+                  }); // end selector each
+
+                  max = 0;
+
+                  // Find highest column
+                  for(var y in _Col2){
+
+                      if (_Col2[y] > max) max = _Col2[y];
+
+                  }
+
+                  // Set holder height to match highest column
+                  if($STAN.device=='xs'){
+                    $(this).css('height', 'auto');
+                  }else{
+                    $(this).css('height', max + 'px');
+                  }
+                  //console.log(HitTestCount);
 
 
-                max = 0;
 
-                // Find highest column
-                for (x = 0; x < NumCols; x++) {
+            } // end if selector length
 
-                    if (Cols[x] > max) max = Cols[x];
+        }); // end sa-cards each
 
-                }
+    }; // end function
 
-                // Set holder height to match highest column
-                $(this).css('height', max + 'px');
+    //$(window).on('resize', CardUI);
 
-            }
-
-        });
-
-    }
-
-    $(window).on('resize', CardUI);
+    $('body').on('active.sa.stan', CardUI);
 
     $('.sa-cards').on('position.sa.cards', CardUI);
 

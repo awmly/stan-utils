@@ -193,15 +193,31 @@ module.exports = function(grunt) {
                 src: ['*.html'],
                 dest: '_site/examples'
             }
+        },
+
+        cloudfiles: {
+          prod: {
+            'user': 'smartarts',
+            'key': 'c39a567828b6a1e4da279ee3192a1468',
+            'region': 'LON',
+            'authUrl': 'https://lon.identity.api.rackspacecloud.com',
+            'upload': [{
+              'container': 'stan-utils',
+              'src': 'releases/**/*',
+              'dest': '',
+              'stripcomponents': 1
+            }]
+          }
         }
 
-    }
+    };
 
     // Init grunt config
     grunt.initConfig(config);
 
 
     // Load node modules
+    grunt.loadNpmTasks('grunt-cloudfiles');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-watch');
@@ -229,7 +245,7 @@ module.exports = function(grunt) {
         grunt.task.run(['connect:tests', 'watch']);
 
     });
-    grunt.registerTask('deploy', ['js-less', 'jekyll', 'shell:jekyll', 'htmlmin', 'prettify', 'shell:zip', 'shell:set_permissions', 'shell:publish']);
+    grunt.registerTask('deploy', ['js-less', 'jekyll', 'shell:jekyll', 'htmlmin', 'prettify', 'shell:zip', 'shell:set_permissions', 'shell:publish', 'cloudfiles']);
     grunt.registerTask('test', ['js-less']);
     grunt.registerTask('default', ['js-less']);
 

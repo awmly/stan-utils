@@ -5,8 +5,8 @@
 .sa-cards {
   position: relative;
 }
-.sa-cards .card {
-  position: absolute;
+.sa-cards .absolute {
+  position: absolute !important;
 }
 .sa-cards .animate {
   -webkit-transition-property: opacity, top, left;
@@ -131,6 +131,14 @@
   right: 10px;
   z-index: 20;
   color: #aaa;
+}
+/* ========================================================================
+ * STAN Utils: Hide Till
+ * Author: Andrew Womersley
+ * ======================================================================== */
+.hide-till-ready,
+.hide-till-load {
+  visibility: hidden;
 }
 /* ========================================================================
  * STAN Utils: ImgBox
@@ -730,7 +738,6 @@ article.click {
   height: auto;
 }
 /** Transition */
-.ease-short,
 .transition-sm {
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
@@ -738,7 +745,6 @@ article.click {
   -ms-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-.ease-medium,
 .transition-md {
   -webkit-transition: all 0.6s ease;
   -moz-transition: all 0.6s ease;
@@ -746,13 +752,33 @@ article.click {
   -ms-transition: all 0.6s ease;
   transition: all 0.6s ease;
 }
-.ease-long,
 .transition-lg {
   -webkit-transition: all 0.9s ease;
   -moz-transition: all 0.9s ease;
   -o-transition: all 0.9s ease;
   -ms-transition: all 0.9s ease;
   transition: all 0.9s ease;
+}
+.transition-opacity-sm {
+  -webkit-transition: opacity 0.3s ease;
+  -moz-transition: opacity 0.3s ease;
+  -o-transition: opacity 0.3s ease;
+  -ms-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
+.transition-opacity-md {
+  -webkit-transition: opacity 0.6s ease;
+  -moz-transition: opacity 0.6s ease;
+  -o-transition: opacity 0.6s ease;
+  -ms-transition: opacity 0.6s ease;
+  transition: opacity 0.6s ease;
+}
+.transition-opacity-lg {
+  -webkit-transition: opacity 0.9s ease;
+  -moz-transition: opacity 0.9s ease;
+  -o-transition: opacity 0.9s ease;
+  -ms-transition: opacity 0.9s ease;
+  transition: opacity 0.9s ease;
 }
 a.no-style,
 a.no-style:hover {
@@ -3984,41 +4010,6 @@ ul.icon i {
   color: #666;
 }
 /* ========================================================================
- * STAN Utils: Social Icons
- * Author: Andrew Womersley
- * ======================================================================== */
-.sa-social i {
-  font-size: 30px;
-}
-.sa-social .icon {
-  width: 32px;
-  height: 32px;
-  line-height: 32px;
-  text-align: center;
-  display: inline-block;
-  text-decoration: none;
-  color: #2a2a2a;
-  opacity: 0.9;
-}
-.sa-social .icon:hover {
-  opacity: 1;
-}
-.sa-social .icon.twitter {
-  color: #00ACED;
-}
-.sa-social .icon.facebook {
-  color: #4A6EA9;
-}
-.sa-social .icon.pintrest {
-  color: #D73532;
-}
-.sa-social .icon.google {
-  color: #DD4C39;
-}
-.sa-social .icon.linkedin {
-  color: #007BB6;
-}
-/* ========================================================================
  * STAN Utils: Spaces/Divides
  * Author: Andrew Womersley
  * ======================================================================== */
@@ -4103,14 +4094,20 @@ ul.icon i {
  * STAN Utils: VAlign
  * Author: Andrew Womersley
  * ======================================================================== */
-.valign-mid {
+.valign-mid,
+.device-lg .valign-mid-not-xs,
+.device-md .valign-mid-not-xs,
+.device-sm .valign-mid-not-xs {
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
-.valign-btm {
+.valign-btm,
+.device-lg .valign-btm-not-xs,
+.device-md .valign-btm-not-xs,
+.device-sm .valign-btm-not-xs {
   position: relative;
   top: 100%;
   -webkit-transform: translateY(-100%);
@@ -4201,7 +4198,7 @@ ul.icon i {
   top: 50%;
   left: 50%;
   z-index: 10;
-  overflow: hidden;
+  overflow: auto;
 }
 .popup .popup-display iframe.no-scroll {
   overflow: hidden;

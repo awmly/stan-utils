@@ -1,3 +1,8 @@
+/*!
+ * STAN Utils 0.0.5
+ * Copyright 2014 Andrew Womersley
+ */
+
 /* ========================================================================
  * STAN Utils: Stan
  * Author: Andrew Womersley
@@ -69,6 +74,7 @@ var $STAN;
         var x;
         var bp;
         var ww;
+        var wh;
 
         // Loop through breakpoints - reset data
         for (device in Config) {
@@ -90,7 +96,11 @@ var $STAN;
 
             bp = Config[device];
 
-            ww = $(window).width();
+            ww = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+            wh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+            STAN.windowWidth=ww;
+            STAN.windowHeight=wh;
 
             if (bp.min_width <= ww && ww < bp.max_width) {
 
@@ -148,13 +158,14 @@ var $STAN;
     };
 
     // Set resize listener
-    $(window).on('resize', function() {
+    $(window).on('resize orientationchange', function() {
         _STAN(false);
     });
 
     $(window).load(function(){
       $(window).resize();
     });
+
 
     // Run
     _STAN(true);
@@ -213,6 +224,75 @@ $(function() {
 
     'use strict';
 
+    var HitTestCount=0;
+
+    var CardHitTest = function($card,$siblings,top,left,width,height){
+
+        var t = top;
+        var l = left;
+        var w = width;
+        var h = height;
+        var b = t+h;
+        var r = l+w;
+
+        /*var ct = top;
+        var cl = left;
+        var cw = 100;
+        var ch = 30;
+        var cb = ct+ch;
+        var cr = cl+cw;*/
+
+
+
+        var st, sl, sw, sh, sb, sr;
+        //console.log(t + " " +l + " " + w + " " + h);
+
+        var HIT=false;
+
+        $siblings.each(function(index){
+
+          if($(this).data('active') && !HIT){
+
+            var st = $(this).data('top');
+            var sl = $(this).data('left');
+            var sw = $(this).data('width');
+            var sh = $(this).outerHeight(true);
+            var sb = st+sh;
+            var sr = sl+sw;
+
+            HitTestCount++;
+
+            //console.log(index+" "+st+" "+sb);
+
+            //console.log(t + " " + st + " " + b + " " + sb);
+            //if( (t>=st && t<sb) || (b>st && b<=sb) ){
+            if( t<sb && b>st){
+              //console.log("HIT TOP");
+              //console.log(l + " " + r + " " + sl + " " + sr);
+              if( l<sr && r>sl ){
+                //console.log("HIT SIDES");
+                HIT=true;
+              }
+            }
+
+          }
+
+        });
+
+        if(!HIT){
+
+          //console.log("OK");
+          return true;
+
+        }else{
+
+          //console.log("HIT");
+          return false;
+
+        }
+
+    };
+
     var CardUI = function() {
 
         $(".sa-cards").each(function() {
@@ -220,66 +300,131 @@ $(function() {
             var $this = $(this);
 
             var selector = (typeof $(this).attr('data-selector') !== 'undefined') ? $(this).attr('data-selector') : '.card';
+            var maxCols = (typeof $(this).attr('data-maxcols') !== 'undefined') ? $(this).attr('data-maxcols') : '12';
 
             if ($(this).find(selector).length) {
 
-                // Get the width of the selector
-                var width = $this.find(selector).outerWidth();
+                var max, _Pos, _Col, _Col2, pos, col, top, span, width, colid, ok;
 
-                // Set number of cols based on current view
-                var NumCols = Math.round($this.width() / width) - 1;
+                var minwidth=$this.outerWidth()/maxCols;
 
-                // Set our cols array which will hold the height of each column - presume a max of 12
-                var Cols = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                $(this).find(selector).data('active',false);
+                _Col=[ [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0] ];
+                _Col2=[0];
 
-                // Define som evars
-                var x, col, left, max, min;
+                $this.find(selector).each(function(index) {
 
-                $this.find(selector).each(function() {
+                  if($STAN.device=='xs'){
 
-                    min = 99999;
+                    $(this).removeClass('absolute').css({
+                        left: 'auto',
+                        top: 'auto'
+                    });
 
-                    // Get shortest column
-                    for (x = 0; x <= NumCols; x++) {
+                  }else{
 
-                        if (Cols[x] < min) {
-                            col = x;
-                            min = Cols[x];
+                    width = $(this).outerWidth();
+                    span = maxCols / Math.round(($this.parent().width()+30) / width);
+
+                    pos=9999;
+                    top=9999;
+
+                    //console.log(_Col2);
+
+                    //for(var x in _Col){
+
+                      //_Pos=_Col[x];
+                    //  _Pos=_Col2;
+
+                      //console.log("COL: "+x);
+                      //console.log(_Pos);
+
+                      for(var y in _Col2){
+                        ok=false;
+                        for(var x=0; x<maxCols; x++){
+                          if(_Col2[y]>=0){
+                            if( CardHitTest( $(this), $this.find(selector), _Col2[y], x*100, 100, 50 ) ){
+
+                              ok=true
+
+                            }
+                          }
                         }
+                        if(!ok) _Col2[y]=-1;
+                      }
+
+                    //}
+
+                    for(var x=0; x<maxCols; x++){
+
+                      _Pos=_Col2;
+
+                      for(var y in _Pos){
+
+                        if(_Pos[y]<top ){
+                          colid=parseInt(span)+parseInt(x);
+
+                          if(colid<=maxCols && _Pos[y]>=0){
+
+                            if( CardHitTest( $(this), $this.find(selector), _Pos[y], x*100, span*100, $(this).outerHeight(true) ) ){
+                              col = x;
+                              pos = y
+                              top = _Pos[y];
+                            }
+
+                          }
+                        }
+
+                      } // end _Pos loop
+
+                    } // end _Col loop
+
+                    $(this).addClass('absolute').css({
+                        left: (minwidth * col) + 'px',
+                        top: top + 'px'
+                    }).data('active',true).data('top',top).data('left',(100 * col)).data('width',(100* span));
+
+                    for(var x=0; x<span; x++){
+                      colid=parseInt(col)+parseInt(x);
+                      //console.log(colid);
+                      //_Col[colid].push( (top+$(this).outerHeight(true)) );
 
                     }
 
-                    // Set top and left position for card
-                    $(this).css({
-                        left: (width * col) + 'px',
-                        top: Cols[col] + 'px'
-                    });
+                    _Col2.push( (top+$(this).outerHeight(true)) );
 
-                    // Update column height
-                    Cols[col] += $(this).outerHeight(true);
+                    } // end if device XS
 
-                });
+                  }); // end selector each
+
+                  max = 0;
+
+                  // Find highest column
+                  for(var y in _Col2){
+
+                      if (_Col2[y] > max) max = _Col2[y];
+
+                  }
+
+                  // Set holder height to match highest column
+                  if($STAN.device=='xs'){
+                    $(this).css('height', 'auto');
+                  }else{
+                    $(this).css('height', max + 'px');
+                  }
+                  //console.log(HitTestCount);
 
 
-                max = 0;
 
-                // Find highest column
-                for (x = 0; x < NumCols; x++) {
+            } // end if selector length
 
-                    if (Cols[x] > max) max = Cols[x];
+        }); // end sa-cards each
 
-                }
+    }; // end function
 
-                // Set holder height to match highest column
-                $(this).css('height', max + 'px');
+    //$(window).on('resize', CardUI);
 
-            }
-
-        });
-
-    }
-
-    $(window).on('resize', CardUI);
+    $('body').on('active.sa.stan', CardUI);
 
     $('.sa-cards').on('position.sa.cards', CardUI);
 
@@ -476,6 +621,29 @@ $(function() {
       }
 
    });
+
+});
+
+/* ========================================================================
+ * STAN Utils: Hide Till
+ * Author: Andrew Womersley
+ * ======================================================================== */
+
+$(function() {
+
+    'use strict';
+
+    $('.hide-till-ready').removeClass('hide-till-ready');
+
+    $('.hide-on-ready').remove();
+
+    $(window).load(function(){
+
+        $('.hide-till-load').removeClass('hide-till-load');
+
+        $('.hide-on-load').remove();
+
+    });
 
 });
 
@@ -694,11 +862,17 @@ $(function() {
 
     };
 
+    $(window).on('orientationchange',function(){
+
+      CloseMobile();
+
+    });
+
 
     $(window).resize(function() {
 
-        var w = $(window).width();
-        var h = $(window).height();
+        var w = $STAN.windowWidth;
+        var h = $STAN.windowHeight;
         var breakpoint = (typeof $('.pull-nav').attr('data-breakpoint')!=='undefined') ? $('.pull-nav').attr('data-breakpoint') : 992;
 
         $('.pull-nav, .pull-nav-load').removeClass('desktop mobile');
@@ -904,6 +1078,55 @@ $(function() {
         event.preventDefault();
 
     });
+
+});
+
+/* ========================================================================
+ * STAN Utils: Responsive Preload
+ * Author: Andrew Womersley
+ * ======================================================================== */
+
+$(function() {
+
+    'use strict';
+
+    var preloadImage = function (){
+
+      $("[data-src]").each(function(){
+
+            if( !$(this).attr('src') ){
+                $(this).attr('src', $(this).attr('data-src') );
+                $(this).attr('data-src','');
+            }
+
+      });
+
+    };
+
+    var responsiveImage = function(){
+
+        $("[data-resp-img='true']").each(function(){
+
+          var src = $(this).attr('data-'+$STAN.device);
+
+          if( $(this).attr('data-src') ){
+            $(this).attr('data-src',src);
+          }else{
+            $(this).attr('src',src);
+          }
+
+        });
+
+    };
+
+    $(window).load(function(){
+
+      responsiveImage();
+      preloadImage();
+
+    });
+
+    $('body').on('active.sa.stan', responsiveImage );
 
 });
 
@@ -1138,7 +1361,13 @@ $(function() {
 
     var $this;
 
-    if (!("ontouchstart" in document.documentElement)) $('html').addClass('no-touch');
+    if (!("ontouchstart" in document.documentElement)){
+        $('html').addClass('no-touch');
+        $STAN.touch=false;
+    }else{
+        $('html').addClass('touch');
+        $STAN.touch=true;
+    }
 
     $('html:not(.no-touch) .touch-hover').bind('click touchend', function(event) {
 
@@ -1367,6 +1596,27 @@ $(function() {
     return size;
 
   }
+
+}(jQuery, $STAN));
+
+/* ========================================================================
+ * STAN Utils: Log
+ * Author: Andrew Womersley
+ * ======================================================================== */
+
+(function($, $STAN) {
+
+  'use strict';
+
+  $STAN.log=function(msg){
+
+    if (typeof console == "object") {
+
+      console.log(msg);
+
+    }
+
+  };
 
 }(jQuery, $STAN));
 
@@ -2443,7 +2693,7 @@ $(function() {
             $(this).trigger('pre.sa.filter', [settings]);
 
             // Check if tag is in currentTags
-            var index = settings.currentTags.indexOf(tag.attr('data-tag'));
+            var index = $.inArray(tag.attr('data-tag'),settings.currentTags);
 
             if(index>=0){
 
@@ -2472,7 +2722,7 @@ $(function() {
             var x;
 
             // Get tags from hash and explode at pipes
-            var tags=window.location.hash.substring(1).replace(/\+/g,' ').split("|");
+            var tags=window.location.hash.substring(1).split("|");
 
             // Reset currentTags
             settings.currentTags=[];
@@ -2527,10 +2777,10 @@ $(function() {
                 // If no filters are set - set display to true
                 if (!settings.currentTags.length) display = true;
 
-                for (x in tags) {
+                for (var x in tags) {
 
                     // If selector has active filter - set display to true
-                    if (settings.currentTags.indexOf(tags[x]) >= 0) display = true;
+                    if ($.inArray(tags[x],settings.currentTags) >= 0) display = true;
 
                 }
 
@@ -2568,7 +2818,7 @@ $(function() {
             var Tags = [];
 
             // Declare some vars
-            var html, tags, regexp, x;
+            var html, tags, tagexp, labelexp, x;
 
             // Loop through selectors and get all tags
             $this.find(settings.selector).each(function() {
@@ -2576,10 +2826,12 @@ $(function() {
                 // Get tags from attribute
                 tags = $(this).attr('data-tags').split(",");
 
-                for (x in tags) {
+                for (var x in tags) {
 
                     // Add tag to array if not already added
-                    if (Tags.indexOf(tags[x]) < 0 && tags[x]) Tags.push(tags[x]);
+                    if ($.inArray(tags[x],Tags) < 0 && tags[x]) Tags.push(tags[x]);
+
+
 
                 }
 
@@ -2589,13 +2841,15 @@ $(function() {
             Tags.sort();
 
             // Set regexp for html tag replace
-            regexp = new RegExp('{tag}', 'g');
+            tagexp = new RegExp('{tag}', 'g');
+            labelexp = new RegExp('{label}', 'g');
 
             // Loop though tags
             for (x in Tags) {
 
                 // Replace tag name in HTML string
-                html = settings.navHTML.replace(regexp, Tags[x]);
+                html = settings.navHTML.replace(tagexp, Tags[x]);
+                html = html.replace(labelexp, decodeURIComponent(Tags[x].replace(/\+/g, ' ')));
 
                 // Add HTML to nav
                 $(settings.navHolder).append(html);
@@ -2873,6 +3127,8 @@ $(function() {
                     }
                 }, options);
 
+                // Unlock aspect ratio for variable heights
+                if( settings.height=='auto') settings.lock_aspect_ratio=false;
 
                 // Save settings
                 $this.data('PopUp', settings);
@@ -2914,6 +3170,10 @@ $(function() {
 
                 }
 
+                $this.on('resize.sa.popup',function(){
+                  methods.resize.apply( $(this) );
+                });
+
                 // Do resize
                 methods.resize.apply(this);
 
@@ -2934,6 +3194,9 @@ $(function() {
 
                     // Display Popup
                     $(this).css('display', 'block');
+
+                    // Do resize
+                    methods.resize.apply(this);
 
                     // Set open to true
                     settings.open = true;
@@ -3003,8 +3266,15 @@ $(function() {
             var w = $(window).width() - (2 * settings.gutter);
             var h = $(window).height() - (2 * settings.gutter);
 
+            if( settings.height=='auto'){
+              $(this).find('.popup-display').css('height','auto');
+              var ah=$(this).find('.popup-display').outerHeight();
+              if (h > ah) h = ah;
+            }else{
+              if (h > settings.height) h = settings.height;
+            }
+
             if (w > settings.width) w = settings.width;
-            if (h > settings.height) h = settings.height;
 
             if (settings.lock_aspect_ratio) {
                 if ((w / h) > (settings.width / settings.height)) w = settings.width * (h / settings.height);
@@ -4034,7 +4304,7 @@ $(function() {
                 methods.resize.apply(this);
 
                 // Set load event
-                $(window).on('load', function() {
+                //$(window).on('load', function() {
 
                     $this.css({
                       visibility: 'visible'
@@ -4050,9 +4320,25 @@ $(function() {
 
                     }
 
-                });
+                //});
 
             });
+
+        },
+
+        next: function(){
+
+          var $this = $(this);
+
+          methods.move.apply($this, ['next', true]);
+
+        },
+
+        prev: function(){
+
+          var $this = $(this);
+
+          methods.move.apply($this, ['prev', true]);
 
         },
 
@@ -4345,13 +4631,7 @@ $(function() {
 
         preload:function($preload){
 
-            $preload.find('img').each(function(){
-
-                  if( !$(this).attr('src') ){
-                      $(this).attr('src',$(this).attr('data-src'));
-                  }
-
-            });
+          // removed - moved to seperate component
 
         }
 

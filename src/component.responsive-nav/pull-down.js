@@ -37,11 +37,17 @@ $(function() {
 
     };
 
+    $(window).on('orientationchange',function(){
+
+      CloseMobile();
+
+    });
+
 
     $(window).resize(function() {
 
-        var w = $(window).width();
-        var h = $(window).height();
+        var w = $STAN.windowWidth;
+        var h = $STAN.windowHeight;
         var breakpoint = (typeof $('.pull-nav').attr('data-breakpoint')!=='undefined') ? $('.pull-nav').attr('data-breakpoint') : 992;
 
         $('.pull-nav, .pull-nav-load').removeClass('desktop mobile');

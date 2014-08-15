@@ -96,6 +96,8 @@
                     }
                 }, options);
 
+                // Unlock aspect ratio for variable heights
+                if( settings.height=='auto') settings.lock_aspect_ratio=false;
 
                 // Save settings
                 $this.data('PopUp', settings);
@@ -137,6 +139,10 @@
 
                 }
 
+                $this.on('resize.sa.popup',function(){
+                  methods.resize.apply( $(this) );
+                });
+
                 // Do resize
                 methods.resize.apply(this);
 
@@ -157,6 +163,9 @@
 
                     // Display Popup
                     $(this).css('display', 'block');
+
+                    // Do resize
+                    methods.resize.apply(this);
 
                     // Set open to true
                     settings.open = true;
@@ -226,8 +235,15 @@
             var w = $(window).width() - (2 * settings.gutter);
             var h = $(window).height() - (2 * settings.gutter);
 
+            if( settings.height=='auto'){
+              $(this).find('.popup-display').css('height','auto');
+              var ah=$(this).find('.popup-display').outerHeight();
+              if (h > ah) h = ah;
+            }else{
+              if (h > settings.height) h = settings.height;
+            }
+
             if (w > settings.width) w = settings.width;
-            if (h > settings.height) h = settings.height;
 
             if (settings.lock_aspect_ratio) {
                 if ((w / h) > (settings.width / settings.height)) w = settings.width * (h / settings.height);

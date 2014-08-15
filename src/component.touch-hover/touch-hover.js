@@ -9,7 +9,13 @@ $(function() {
 
     var $this;
 
-    if (!("ontouchstart" in document.documentElement)) $('html').addClass('no-touch');
+    if (!("ontouchstart" in document.documentElement)){
+        $('html').addClass('no-touch');
+        $STAN.touch=false;
+    }else{
+        $('html').addClass('touch');
+        $STAN.touch=true;
+    }
 
     $('html:not(.no-touch) .touch-hover').bind('click touchend', function(event) {
 

@@ -127,7 +127,7 @@
             $(this).trigger('pre.sa.filter', [settings]);
 
             // Check if tag is in currentTags
-            var index = settings.currentTags.indexOf(tag.attr('data-tag'));
+            var index = $.inArray(tag.attr('data-tag'),settings.currentTags);
 
             if(index>=0){
 
@@ -156,7 +156,7 @@
             var x;
 
             // Get tags from hash and explode at pipes
-            var tags=window.location.hash.substring(1).replace(/\+/g,' ').split("|");
+            var tags=window.location.hash.substring(1).split("|");
 
             // Reset currentTags
             settings.currentTags=[];
@@ -211,10 +211,10 @@
                 // If no filters are set - set display to true
                 if (!settings.currentTags.length) display = true;
 
-                for (x in tags) {
+                for (var x in tags) {
 
                     // If selector has active filter - set display to true
-                    if (settings.currentTags.indexOf(tags[x]) >= 0) display = true;
+                    if ($.inArray(tags[x],settings.currentTags) >= 0) display = true;
 
                 }
 
@@ -252,7 +252,7 @@
             var Tags = [];
 
             // Declare some vars
-            var html, tags, regexp, x;
+            var html, tags, tagexp, labelexp, x;
 
             // Loop through selectors and get all tags
             $this.find(settings.selector).each(function() {
@@ -260,10 +260,12 @@
                 // Get tags from attribute
                 tags = $(this).attr('data-tags').split(",");
 
-                for (x in tags) {
+                for (var x in tags) {
 
                     // Add tag to array if not already added
-                    if (Tags.indexOf(tags[x]) < 0 && tags[x]) Tags.push(tags[x]);
+                    if ($.inArray(tags[x],Tags) < 0 && tags[x]) Tags.push(tags[x]);
+
+
 
                 }
 
@@ -273,13 +275,15 @@
             Tags.sort();
 
             // Set regexp for html tag replace
-            regexp = new RegExp('{tag}', 'g');
+            tagexp = new RegExp('{tag}', 'g');
+            labelexp = new RegExp('{label}', 'g');
 
             // Loop though tags
             for (x in Tags) {
 
                 // Replace tag name in HTML string
-                html = settings.navHTML.replace(regexp, Tags[x]);
+                html = settings.navHTML.replace(tagexp, Tags[x]);
+                html = html.replace(labelexp, decodeURIComponent(Tags[x].replace(/\+/g, ' ')));
 
                 // Add HTML to nav
                 $(settings.navHolder).append(html);

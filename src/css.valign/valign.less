@@ -3,7 +3,10 @@
  * Author: Andrew Womersley
  * ======================================================================== */
 
- .valign-mid {
+ .valign-mid,
+ .device-lg .valign-mid-not-xs,
+ .device-md .valign-mid-not-xs,
+ .device-sm .valign-mid-not-xs{
     position: relative;
     top: 50%;
     -webkit-transform: translateY(-50%);
@@ -11,7 +14,10 @@
             transform: translateY(-50%);
 }
 
-.valign-btm {
+.valign-btm,
+.device-lg .valign-btm-not-xs,
+.device-md .valign-btm-not-xs,
+.device-sm .valign-btm-not-xs{
     position: relative;
     top: 100%;
     -webkit-transform: translateY(-100%);

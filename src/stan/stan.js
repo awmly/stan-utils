@@ -69,6 +69,7 @@ var $STAN;
         var x;
         var bp;
         var ww;
+        var wh;
 
         // Loop through breakpoints - reset data
         for (device in Config) {
@@ -90,7 +91,11 @@ var $STAN;
 
             bp = Config[device];
 
-            ww = $(window).width();
+            ww = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+            wh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+            STAN.windowWidth=ww;
+            STAN.windowHeight=wh;
 
             if (bp.min_width <= ww && ww < bp.max_width) {
 
@@ -148,13 +153,14 @@ var $STAN;
     };
 
     // Set resize listener
-    $(window).on('resize', function() {
+    $(window).on('resize orientationchange', function() {
         _STAN(false);
     });
 
     $(window).load(function(){
       $(window).resize();
     });
+
 
     // Run
     _STAN(true);

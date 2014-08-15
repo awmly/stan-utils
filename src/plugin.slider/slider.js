@@ -242,7 +242,7 @@
                 methods.resize.apply(this);
 
                 // Set load event
-                $(window).on('load', function() {
+                //$(window).on('load', function() {
 
                     $this.css({
                       visibility: 'visible'
@@ -258,9 +258,25 @@
 
                     }
 
-                });
+                //});
 
             });
+
+        },
+
+        next: function(){
+
+          var $this = $(this);
+
+          methods.move.apply($this, ['next', true]);
+
+        },
+
+        prev: function(){
+
+          var $this = $(this);
+
+          methods.move.apply($this, ['prev', true]);
 
         },
 
@@ -553,13 +569,7 @@
 
         preload:function($preload){
 
-            $preload.find('img').each(function(){
-
-                  if( !$(this).attr('src') ){
-                      $(this).attr('src',$(this).attr('data-src'));
-                  }
-
-            });
+          // removed - moved to seperate component
 
         }
 

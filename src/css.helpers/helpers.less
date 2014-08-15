@@ -129,15 +129,26 @@
 
 
 /** Transition */
- .ease-short, .transition-sm {
+.transition-sm {
     .transition(all 0.3s ease);
 }
-.ease-medium, .transition-md {
+.transition-md {
     .transition(all 0.6s ease);
 }
-.ease-long, .transition-lg {
+.transition-lg {
     .transition(all 0.9s ease);
 }
+
+.transition-opacity-sm {
+    .transition(opacity 0.3s ease);
+}
+.transition-opacity-md {
+    .transition(opacity 0.6s ease);
+}
+.transition-opacity-lg {
+    .transition(opacity 0.9s ease);
+}
+
 a.no-style, a.no-style:hover {
     color:inherit !important;
     text-decoration:none !important;
