@@ -1092,7 +1092,7 @@ $(function() {
 
     var preloadImage = function (){
 
-      $("[data-src]").each(function(){
+      $("img[data-src]").each(function(){
 
             if( !$(this).attr('src') ){
                 $(this).attr('src', $(this).attr('data-src') );
