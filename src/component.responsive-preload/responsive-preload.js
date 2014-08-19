@@ -26,7 +26,9 @@ $(function() {
 
           var src = $(this).attr('data-'+$STAN.device);
 
-          if( $(this).attr('data-src') ){
+          if( $(this).attr('hide-src') ){
+            $(this).attr('hide-src',src);
+          }else if( $(this).attr('data-src') ){
             $(this).attr('data-src',src);
           }else{
             $(this).attr('src',src);
@@ -35,6 +37,19 @@ $(function() {
         });
 
     };
+
+    $(".show-hide-src").click(function(){
+
+        $(this).find("img[hide-src]").each(function(){
+
+              if( !$(this).attr('src') ){
+                  $(this).attr('src', $(this).attr('hide-src') );
+                  $(this).attr('hide-src','');
+              }
+
+        });
+
+    });
 
     $(window).load(function(){
 
