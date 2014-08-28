@@ -1,5 +1,5 @@
 /*!
- * STAN Utils 0.0.6
+ * STAN Utils 0.0.7
  * Copyright 2014 Andrew Womersley
  */
 
@@ -65,7 +65,7 @@ var $STAN;
     Config.lg.max_width = 9999;
 
 
-    var _STAN = function(deferTrigger) {
+    var _STAN = function() { //deferTrigger
 
         var STAN = !! window.$STAN ? window.$STAN : [];
         var device;
@@ -132,24 +132,7 @@ var $STAN;
         // Assign STAN to $_STAN global
         window.$STAN = STAN;
 
-        // If defer trigger is true - delay the activate trigger till window is ready
-        if (deferTrigger) {
-
-            $(window).on('ready', function() {
-                //_STAN_Triggers(triggers);
-            });
-
-        }
-        else {
-
-            _STAN_Triggers(triggers);
-
-        }
-
-    };
-
-    var _STAN_Triggers = function(triggers) {
-
+        // Init triggers
         for (var i in triggers) {
             var trigger = triggers[i];
             $(Tag).trigger(trigger.type + '.sa.stan', [trigger.device]);
@@ -159,16 +142,11 @@ var $STAN;
 
     // Set resize listener
     $(window).on('resize orientationchange', function() {
-        _STAN(false);
+        _STAN();
     });
-
-    $(window).load(function(){
-      $(window).resize();
-    });
-
 
     // Run
-    _STAN(true);
+    _STAN();
 
 
 })( ((typeof $STAN_Config === 'undefined') ? [] : $STAN_Config) );
@@ -1112,7 +1090,7 @@ $(function() {
 
     $("img[delay-src]").each(function(){
 
-        if( !$(this).attr('src') ){
+        if( $(this).attr('delay-src') ){
             $(this).attr('src', $(this).attr('delay-src') );
             $(this).attr('delay-src','');
         }
@@ -1123,33 +1101,29 @@ $(function() {
 
   $STAN.loadDeferedImages=function($target){
 
-    $target.find("img[defer-src]").each(function(){
+      $target.find("img[defer-src]").each(function(){
 
-        if( !$(this).attr('src') ){
+        if( $(this).attr('defer-src') ){
             $(this).attr('src', $(this).attr('defer-src') );
             $(this).attr('defer-src','');
         }
 
-    });
-
-    $(".load-defered-img").click(function(){
-
-        var $target=!! $(this).attr('data-target') ? $($(this).attr('data-target')) : $(this);
-
-        $STAN.loadDeferedImages($target);
-
-    });
-
-    $(window).load(function(){
-
-      $STAN.responsiveImages();
-      $STAN.loadDelayedImages();
-
-    });
-
-    $('body').on('active.sa.stan', $STAN.responsiveImages );
+      });
 
   };
+
+  $(".load-defered-img").click(function(){
+
+      var $target=!! $(this).attr('data-target') ? $($(this).attr('data-target')) : $(this);
+
+      $STAN.loadDeferedImages($target);
+
+  });
+
+  $('body').on('active.sa.stan', $STAN.responsiveImages );
+
+  $STAN.responsiveImages();
+  $STAN.loadDelayedImages();
 
 }(jQuery, $STAN));
 
