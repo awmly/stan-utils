@@ -3,61 +3,65 @@
  * Author: Andrew Womersley
  * ======================================================================== */
 
-$(function() {
+(function($, $STAN) {
 
-    'use strict';
+  'use strict';
 
-    var preloadImage = function (){
+  $STAN.responsiveImages=function(){
 
-      $("img[data-src]").each(function(){
+    $("[data-resp-img='true']").each(function(){
 
-            if( !$(this).attr('src') ){
-                $(this).attr('src', $(this).attr('data-src') );
-                $(this).attr('data-src','');
-            }
+      var src = $(this).attr('data-'+$STAN.device);
+
+      if( $(this).attr('defer-src') ){
+        $(this).attr('defer-src',src);
+      }else if( $(this).attr('delay-src') ){
+        $(this).attr('delay-src',src);
+      }else{
+        $(this).attr('src',src);
+      }
+
+    });
+
+  };
+
+  $STAN.loadDelayedImages=function(){
+
+    $("img[delay-src]").each(function(){
+
+        if( $(this).attr('delay-src') ){
+            $(this).attr('src', $(this).attr('delay-src') );
+            $(this).attr('delay-src','');
+        }
+
+    });
+
+  };
+
+  $STAN.loadDeferedImages=function($target){
+
+      $target.find("img[defer-src]").each(function(){
+
+        if( $(this).attr('defer-src') ){
+            $(this).attr('src', $(this).attr('defer-src') );
+            $(this).attr('defer-src','');
+        }
 
       });
 
-    };
+  };
 
-    var responsiveImage = function(){
+  $(".load-defered-img").click(function(){
 
-        $("[data-resp-img='true']").each(function(){
+      var $target=!! $(this).attr('data-target') ? $($(this).attr('data-target')) : $(this);
 
-          var src = $(this).attr('data-'+$STAN.device);
+      $STAN.loadDeferedImages($target);
 
-          if( $(this).attr('hide-src') ){
-            $(this).attr('hide-src',src);
-          }else if( $(this).attr('data-src') ){
-            $(this).attr('data-src',src);
-          }else{
-            $(this).attr('src',src);
-          }
+  });
 
-        });
+  $('body').on('active.sa.stan', $STAN.responsiveImages );
 
-    };
+  $STAN.responsiveImages();
+  $STAN.loadDelayedImages();
 
-    $(".show-hide-src").click(function(){
-
-        $(this).find("img[hide-src]").each(function(){
-
-              if( !$(this).attr('src') ){
-                  $(this).attr('src', $(this).attr('hide-src') );
-                  $(this).attr('hide-src','');
-              }
-
-        });
-
-    });
-
-    $(window).load(function(){
-
-      responsiveImage();
-      preloadImage();
-
-    });
-
-    $('body').on('active.sa.stan', responsiveImage );
-
-});
+}(jQuery, $STAN));

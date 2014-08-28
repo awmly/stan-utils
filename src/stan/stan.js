@@ -60,7 +60,7 @@ var $STAN;
     Config.lg.max_width = 9999;
 
 
-    var _STAN = function(deferTrigger) {
+    var _STAN = function() { //deferTrigger
 
         var STAN = !! window.$STAN ? window.$STAN : [];
         var device;
@@ -127,24 +127,7 @@ var $STAN;
         // Assign STAN to $_STAN global
         window.$STAN = STAN;
 
-        // If defer trigger is true - delay the activate trigger till window is ready
-        if (deferTrigger) {
-
-            $(window).on('ready', function() {
-                //_STAN_Triggers(triggers);
-            });
-
-        }
-        else {
-
-            _STAN_Triggers(triggers);
-
-        }
-
-    };
-
-    var _STAN_Triggers = function(triggers) {
-
+        // Init triggers
         for (var i in triggers) {
             var trigger = triggers[i];
             $(Tag).trigger(trigger.type + '.sa.stan', [trigger.device]);
@@ -154,16 +137,11 @@ var $STAN;
 
     // Set resize listener
     $(window).on('resize orientationchange', function() {
-        _STAN(false);
+        _STAN();
     });
-
-    $(window).load(function(){
-      $(window).resize();
-    });
-
 
     // Run
-    _STAN(true);
+    _STAN();
 
 
 })( ((typeof $STAN_Config === 'undefined') ? [] : $STAN_Config) );
