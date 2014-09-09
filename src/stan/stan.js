@@ -124,6 +124,8 @@ var $STAN;
 
         }
 
+        STAN.Tag=Tag;
+
         // Assign STAN to $_STAN global
         window.$STAN = STAN;
 
@@ -135,9 +137,18 @@ var $STAN;
 
     };
 
-    // Set resize listener
-    $(window).on('resize orientationchange', function() {
+    var _STAN_Resize=function(){
+
         _STAN();
+        $(Tag).trigger('resize.sa.stan');
+
+    }
+
+    // Set resize listener
+    var timer;
+    $(window).on('resize orientationchange', function() {
+        window.clearTimeout(timer);
+        timer = window.setTimeout(_STAN_Resize, 100);
     });
 
     // Run

@@ -1,8 +1,3 @@
-/*!
- * STAN Utils 0.0.7
- * Copyright 2014 Andrew Womersley
- */
-
 /* ========================================================================
  * STAN Utils: Stan
  * Author: Andrew Womersley
@@ -129,6 +124,8 @@ var $STAN;
 
         }
 
+        STAN.Tag=Tag;
+
         // Assign STAN to $_STAN global
         window.$STAN = STAN;
 
@@ -140,9 +137,18 @@ var $STAN;
 
     };
 
-    // Set resize listener
-    $(window).on('resize orientationchange', function() {
+    var _STAN_Resize=function(){
+
         _STAN();
+        $(Tag).trigger('resize.sa.stan');
+
+    }
+
+    // Set resize listener
+    var timer;
+    $(window).on('resize orientationchange', function() {
+        window.clearTimeout(timer);
+        timer = window.setTimeout(_STAN_Resize, 100);
     });
 
     // Run
@@ -1153,10 +1159,25 @@ $(function() {
             // Check if width is larger/smaller than breakpoint
             if (w < breakpoint) {
 
+                if( $(this).data('index')<0 ){
+
+                  $(this).find(".tab-pane").eq(0).removeClass('active');
+                  $(this).find(".tab-nav li").eq(0).removeClass('active');
+
+                }
+
                 // Add mobile class to main collapse tabs
                 $(this).addClass('mobile');
 
             } else {
+
+                // Check for active index
+                if( $(this).data('index')<0 ){
+
+                  $(this).find(".tab-pane").eq(0).addClass('active');
+                  $(this).find(".tab-nav li").eq(0).addClass('active');
+
+                }
 
                 // Add desktop class to main collapse tabs
                 $(this).addClass('desktop');
@@ -1165,7 +1186,7 @@ $(function() {
 
         });
 
-    }
+    };
 
     // Read hash
     var readHash = function() {
@@ -1190,24 +1211,27 @@ $(function() {
             // Store index
             $(this).data('index', index);
 
-            // Make active nav's tab-pane visible
-            $(this).find(".tab-pane").removeClass('active');
-            $(this).find(".tab-pane").eq(index).addClass('active');
+            if(index>=0){
 
+              // Make active nav's tab-pane visible
+              $(this).find(".tab-pane").removeClass('active');
+              $(this).find(".tab-pane").eq(index).addClass('active');
 
-            // Collapse Tab logic
-            if ($(this).hasClass('sa-collapse-tabs')) {
+              // Collapse Tab logic
+              if ($(this).hasClass('sa-collapse-tabs')) {
 
-                // Remove active collapse classes
-                $(this).find('.sa-content').removeClass('in').addClass('collapse').css('height', 0);
+                  // Remove active collapse classes
+                  $(this).find('.sa-content').removeClass('in').addClass('collapse').css('height', 0);
 
-                // Add active collapse classes
-                $(this).find('.sa-content').eq(index).addClass('in').removeClass('collapse').css('height', 'auto');
+                  // Add active collapse classes
+                  $(this).find('.sa-content').eq(index).addClass('in').removeClass('collapse').css('height', 'auto');
+              }
+
             }
 
         });
 
-    }
+    };
 
 
     // Added needed HTML markup
@@ -1229,7 +1253,7 @@ $(function() {
 
         // Check there is an active class
         if (!$(this).find(".tab-nav li.active").length) {
-            $(this).find(".tab-nav li").eq(0).addClass('active');
+            //$(this).find(".tab-nav li").eq(0).addClass('active');
         }
 
     });
@@ -1251,7 +1275,8 @@ $(function() {
 
             var collapse=$(this).parent().find('.sa-content');
 
-            if( !collapse.hasClass('in') ) collapse.collapse('show');
+            //if( !collapse.hasClass('in') ) collapse.collapse('show');
+            collapse.collapse('toggle');
 
         }
 
@@ -1285,13 +1310,26 @@ $(function() {
 
     });
 
+    //////////////
+    $('.sa-collapse-tabs .sa-content').on('hidden.bs.collapse', function(event) {
+
+        $(event.target).parent().removeClass('active');
+
+    });
+
 
     // BS collapse shown event to update hash
     $('.sa-collapse-tabs .sa-content').on('shown.bs.collapse', function() {
 
         var index = $(this).parent().index();
 
-        window.location.hash = $(this).parents('.sa-collapse-tabs').find('.tab-nav li').eq(index).attr('data-id');
+        var hash = $(this).parents('.sa-collapse-tabs').find('.tab-nav li').eq(index).attr('data-id') || false;
+
+        if("#"+hash==window.location.hash){
+          readHash();
+        }else{
+          window.location.hash = hash;
+        }
 
     });
 
@@ -1300,7 +1338,7 @@ $(function() {
     $('.sa-collapse-tabs .sa-content').addClass('collapse');
 
     // Add resize listener
-    $(window).on('resize', CollapseTab);
+    $STAN.on('resize', CollapseTab);
 
     // Set hashchange event
     $(window).on('hashchange', readHash);
@@ -1504,6 +1542,40 @@ $(function() {
 });
 
 /* ========================================================================
+ * STAN Utils: Feature Detect (has)
+ * Author: Andrew Womersley
+ * ========================================================================*/
+
+ (function($, $STAN) {
+
+    'use strict';
+
+    $STAN.has = function(feature) {
+
+        return $STAN.feature[feature];
+
+    };
+
+    $STAN.feature = [ ];
+
+    // Placeholder
+    $STAN.feature.placeholder=( 'placeholder' in document.createElement('input') && 'placeholder' in document.createElement('textarea') );
+
+    // Add event listener
+    $STAN.feature.eventlistener='addEventListener' in window;
+
+    // XHR2
+    $STAN.feature.xhr2=( 'XMLHttpRequest' in window && 'withCredentials' in new XMLHttpRequest() );
+
+    // Canvas
+    $STAN.feature.canvas=(function() {
+      var elem = document.createElement('canvas');
+      return !!(elem.getContext && elem.getContext('2d'));
+    })();
+
+}(jQuery, $STAN));
+
+/* ========================================================================
  * STAN Utils: GetQueryString
  * Author: Andrew Womersley
  * ======================================================================== */
@@ -1614,6 +1686,46 @@ $(function() {
     }
 
   };
+
+}(jQuery, $STAN));
+
+/* ========================================================================
+ * STAN Utils: On / Off
+ * Author: Andrew Womersley
+ * ========================================================================*/
+
+ (function($, $STAN) {
+
+    'use strict';
+
+    // Shortcut events
+    $STAN.on=function(_event,_callback){
+
+      if(_event=='xs' || _event=='sm' || _event=='md' || _event=='lg'){
+
+        $($STAN.Tag).on('active.sa.stan',function(event,device){
+          if(device==_event) _callback();
+        });
+
+      }else{
+
+        $($STAN.Tag).on(_event + '.sa.stan',_callback);
+
+      }
+
+    };
+
+    $STAN.off=function(_event,_callback){
+
+      if(_event=='xs' || _event=='sm' || _event=='md' || _event=='lg'){
+
+        $($STAN.Tag).on('deactive.sa.stan',function(event,device){
+          if(device==_event) _callback();
+        });
+
+      }
+
+    };
 
 }(jQuery, $STAN));
 

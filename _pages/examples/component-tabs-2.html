@@ -4,6 +4,9 @@ layout:   examples
 base:   "../"
 ---
 
+<style>
+.active *{ color:red !important; }
+</style>
 <h1>Collapse Tabs</h1>
 
 <div class='sa-collapse-tabs sa-nav nav-horizontal nav-block'>
@@ -211,3 +214,24 @@ base:   "../"
   </div>
 
 </div>
+
+<script>
+var callback=function(){
+
+  $STAN.on('resize',function(){
+    console.log("RESIZE");
+  });
+
+  $STAN.on('lg',function(){
+    console.log("LG");
+  });
+
+  $STAN.off('lg',function(){
+    console.log("NO LG");
+  });
+
+  console.log( $STAN.has('canvas') );
+  console.log( $STAN.has('canvas') );
+
+};
+</script>
