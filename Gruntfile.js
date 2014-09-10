@@ -68,7 +68,7 @@ module.exports = function(grunt) {
           },
           target: {
             files: {
-              'dist/<%= pkg.name %>.js': ['src/stan/stan.js', 'src/**/*.js']
+              'dist/<%= pkg.name %>.js': ['src/stan/stan.js', 'src/function*/*.js', 'src/**/*.js' ]
             }
           }
         },
