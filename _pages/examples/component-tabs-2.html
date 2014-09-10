@@ -219,19 +219,25 @@ base:   "../"
 var callback=function(){
 
   $STAN.on('resize',function(){
-    console.log("RESIZE");
+    alert("RESIZE");
   });
 
   $STAN.on('lg',function(){
-    console.log("LG");
+    //console.log("LG");
   });
 
   $STAN.off('lg',function(){
-    console.log("NO LG");
+    //console.log("NO LG");
   });
 
-  console.log( $STAN.has('canvas') );
-  console.log( $STAN.has('canvas') );
+  //console.log( $STAN.has('canvas') );
+  if( $STAN.has('canvas') ){
+    alert("YES");
+  }else{
+    alert("NO");
+  }
+
+  alert("LOADED");
 
 };
 </script>

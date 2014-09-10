@@ -142,7 +142,7 @@ var $STAN;
         _STAN();
         $(Tag).trigger('resize.sa.stan');
 
-    }
+    };
 
     // Set resize listener
     var timer;

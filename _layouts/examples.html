@@ -16,18 +16,20 @@
   </div>
 
   <script>
-  /*!
-   * STAN Loader 1.0.0
-   * Copyright 2014 Andrew Womersley
-   */
-  !function(a,b){function c(a,b){f=a,g=b,document.addEventListener?document.addEventListener("DOMContentLoaded",e):window.attachEvent("onload",e)}function d(){i++,f[i]?e():g()}function e(){var a=document.createElement("script");a.type="text/javascript",a.src=f[i],"onload"in a?a.onload=function(){d()}:a.onreadystatechange=function(){("complete"==this.readyState||"loaded"==this.readyState)&&d()},document.getElementsByTagName("head")[0].appendChild(a)}var f,g,h=b||"$STAN_Load",i=0;a[h]=c}(window);
-  $STAN_Load([
+
+/*!
+ * STAN Loader 0.0.1
+ * Copyright 2014 Andrew Womersley
+ */
+!function(a,b){function c(c,g){e=c,f=g,b.addEventListener?b.addEventListener("DOMContentLoaded",d):a.attachEvent("onload",d)}function d(){function a(){h++,e[h]?d():"function"==typeof f&&f()}var c=b.createElement("script");c.type="text/javascript",c.src=e[h],c.async=!0,"onload"in c?c.onload=a:c.onreadystatechange=function(){("complete"==this.readyState||"loaded"==this.readyState)&&a()},b.getElementsByTagName("head")[0].appendChild(c)}var e,f,g=a.$STAN_Loader||"$STAN_Load",h=0;a[g]=c}(window,document);
+
+$STAN_Load([
     '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js',
     '//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js',
     '{{ page.base }}_assets/dist/stan-utils.js'
-  ],callback);
-  </script>
+],callback);
 
+  </script>
   {% include analytics.html %}
 
 </body>

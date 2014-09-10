@@ -1,3 +1,8 @@
+/*!
+ * STAN Utils 0.0.8
+ * Copyright 2014 Andrew Womersley
+ */
+
 /* ========================================================================
  * STAN Utils: Stan
  * Author: Andrew Womersley
@@ -142,7 +147,7 @@ var $STAN;
         _STAN();
         $(Tag).trigger('resize.sa.stan');
 
-    }
+    };
 
     // Set resize listener
     var timer;
@@ -156,6 +161,222 @@ var $STAN;
 
 
 })( ((typeof $STAN_Config === 'undefined') ? [] : $STAN_Config) );
+
+/* ========================================================================
+ * STAN Utils: Feature Detect (has)
+ * Author: Andrew Womersley
+ * ========================================================================*/
+
+ (function($, $STAN) {
+
+    'use strict';
+
+    $STAN.has = function(feature) {
+
+        return $STAN.feature[feature];
+
+    };
+
+    $STAN.feature = [ ];
+
+    // Placeholder
+    $STAN.feature.placeholder=( 'placeholder' in document.createElement('input') && 'placeholder' in document.createElement('textarea') );
+
+    // Add event listener
+    $STAN.feature.eventlistener='addEventListener' in window;
+
+    // XHR2
+    $STAN.feature.xhr2=( 'XMLHttpRequest' in window && 'withCredentials' in new XMLHttpRequest() );
+
+    // Canvas
+    $STAN.feature.canvas=(function() {
+      var elem = document.createElement('canvas');
+      return !!(elem.getContext && elem.getContext('2d'));
+    })();
+
+}(jQuery, $STAN));
+
+/* ========================================================================
+ * STAN Utils: GetQueryString
+ * Author: Andrew Womersley
+ * ======================================================================== */
+
+(function($, $STAN) {
+
+    'use strict';
+
+    $STAN.getQueryString = function(replaceSpaces) {
+
+        // Get query string
+        var qs = window.location.search.substring(1);
+
+        // Set req exp pattern
+        var patt = new RegExp(/([^&=]+)=?([^&]*)/g);
+
+        // Set params object to store qs values
+        var params = {};
+
+        // Set matches variable
+        var matches;
+
+        // Loop through pattern matches
+        while (matches = patt.exec(qs)) {
+
+            // Set param
+            if (replaceSpaces) {
+
+                // Replace + and %20 for spaces
+                params[matches[1]] = matches[2].replace(/(\+|\%20)/g, ' ');
+
+            } else {
+
+                // Leave string as is
+                params[matches[1]] = matches[2];
+
+            }
+
+        }
+
+        // Return params object
+        return params;
+
+    }
+
+}(jQuery, $STAN));
+
+/* ========================================================================
+ * STAN Utils: GetSize
+ * Author: Andrew Womersley
+ * ======================================================================== */
+
+(function($, $STAN) {
+
+	'use strict';
+
+  var size={};
+  var width, display, clone;
+
+  var setSize=function(target){
+
+    return {
+      outerWidthMargin:target.outerWidth(true),
+      outerHeightMargin:target.outerHeight(true),
+      outerWidth:target.outerWidth(),
+      outerHeight:target.outerHeight(),
+      width:target.width(),
+      height:target.height()
+    }
+
+  };
+
+  $STAN.getSize=function(target,css){
+
+    if(typeof css=='undefined') css={};
+
+    css.visibility="hidden";
+
+    clone = target.clone().css(css);
+
+    $('body').append(clone);
+
+    size=setSize(clone);
+
+    clone.remove();
+
+    return size;
+
+  }
+
+}(jQuery, $STAN));
+
+/* ========================================================================
+ * STAN Utils: Log
+ * Author: Andrew Womersley
+ * ======================================================================== */
+
+(function($, $STAN) {
+
+  'use strict';
+
+  $STAN.log=function(msg){
+
+    if (typeof console == "object") {
+
+      console.log(msg);
+
+    }
+
+  };
+
+}(jQuery, $STAN));
+
+/* ========================================================================
+ * STAN Utils: On / Off
+ * Author: Andrew Womersley
+ * ========================================================================*/
+
+ (function($, $STAN) {
+
+    'use strict';
+
+    // Shortcut events
+    $STAN.on=function(_event,_callback){
+
+      if(_event=='xs' || _event=='sm' || _event=='md' || _event=='lg'){
+
+        $($STAN.Tag).on('active.sa.stan',function(event,device){
+          if(device==_event) _callback();
+        });
+
+      }else{
+
+        $($STAN.Tag).on(_event + '.sa.stan',_callback);
+
+      }
+
+    };
+
+    $STAN.off=function(_event,_callback){
+
+      if(_event=='xs' || _event=='sm' || _event=='md' || _event=='lg'){
+
+        $($STAN.Tag).on('deactive.sa.stan',function(event,device){
+          if(device==_event) _callback();
+        });
+
+      }
+
+    };
+
+}(jQuery, $STAN));
+
+(function($, $STAN) {
+
+  'use strict';
+
+  $STAN.overOutDelay=function(element,over,out,delay){
+
+    $(element).mouseenter(function(){
+
+      $(element).attr('data-over',1);
+
+      over();
+
+    }).mouseleave(function(){
+
+      $(element).attr('data-over',0);
+
+      setTimeout(function(){
+
+        if( $(element).attr('data-over')=='0' ) out();
+
+      },delay);
+
+    });
+
+  }
+
+}(jQuery, $STAN));
 
 /* ========================================================================
  * STAN Utils: AutoClass
@@ -1338,7 +1559,7 @@ $(function() {
     $('.sa-collapse-tabs .sa-content').addClass('collapse');
 
     // Add resize listener
-    $STAN.on('resize', CollapseTab);
+    $STAN.on('resize', CollapseTab );
 
     // Set hashchange event
     $(window).on('hashchange', readHash);
@@ -1540,222 +1761,6 @@ $(function() {
     });
 
 });
-
-/* ========================================================================
- * STAN Utils: Feature Detect (has)
- * Author: Andrew Womersley
- * ========================================================================*/
-
- (function($, $STAN) {
-
-    'use strict';
-
-    $STAN.has = function(feature) {
-
-        return $STAN.feature[feature];
-
-    };
-
-    $STAN.feature = [ ];
-
-    // Placeholder
-    $STAN.feature.placeholder=( 'placeholder' in document.createElement('input') && 'placeholder' in document.createElement('textarea') );
-
-    // Add event listener
-    $STAN.feature.eventlistener='addEventListener' in window;
-
-    // XHR2
-    $STAN.feature.xhr2=( 'XMLHttpRequest' in window && 'withCredentials' in new XMLHttpRequest() );
-
-    // Canvas
-    $STAN.feature.canvas=(function() {
-      var elem = document.createElement('canvas');
-      return !!(elem.getContext && elem.getContext('2d'));
-    })();
-
-}(jQuery, $STAN));
-
-/* ========================================================================
- * STAN Utils: GetQueryString
- * Author: Andrew Womersley
- * ======================================================================== */
-
-(function($, $STAN) {
-
-    'use strict';
-
-    $STAN.getQueryString = function(replaceSpaces) {
-
-        // Get query string
-        var qs = window.location.search.substring(1);
-
-        // Set req exp pattern
-        var patt = new RegExp(/([^&=]+)=?([^&]*)/g);
-
-        // Set params object to store qs values
-        var params = {};
-
-        // Set matches variable
-        var matches;
-
-        // Loop through pattern matches
-        while (matches = patt.exec(qs)) {
-
-            // Set param
-            if (replaceSpaces) {
-
-                // Replace + and %20 for spaces
-                params[matches[1]] = matches[2].replace(/(\+|\%20)/g, ' ');
-
-            } else {
-
-                // Leave string as is
-                params[matches[1]] = matches[2];
-
-            }
-
-        }
-
-        // Return params object
-        return params;
-
-    }
-
-}(jQuery, $STAN));
-
-/* ========================================================================
- * STAN Utils: GetSize
- * Author: Andrew Womersley
- * ======================================================================== */
-
-(function($, $STAN) {
-
-	'use strict';
-
-  var size={};
-  var width, display, clone;
-
-  var setSize=function(target){
-
-    return {
-      outerWidthMargin:target.outerWidth(true),
-      outerHeightMargin:target.outerHeight(true),
-      outerWidth:target.outerWidth(),
-      outerHeight:target.outerHeight(),
-      width:target.width(),
-      height:target.height()
-    }
-
-  };
-
-  $STAN.getSize=function(target,css){
-
-    if(typeof css=='undefined') css={};
-
-    css.visibility="hidden";
-
-    clone = target.clone().css(css);
-
-    $('body').append(clone);
-
-    size=setSize(clone);
-
-    clone.remove();
-
-    return size;
-
-  }
-
-}(jQuery, $STAN));
-
-/* ========================================================================
- * STAN Utils: Log
- * Author: Andrew Womersley
- * ======================================================================== */
-
-(function($, $STAN) {
-
-  'use strict';
-
-  $STAN.log=function(msg){
-
-    if (typeof console == "object") {
-
-      console.log(msg);
-
-    }
-
-  };
-
-}(jQuery, $STAN));
-
-/* ========================================================================
- * STAN Utils: On / Off
- * Author: Andrew Womersley
- * ========================================================================*/
-
- (function($, $STAN) {
-
-    'use strict';
-
-    // Shortcut events
-    $STAN.on=function(_event,_callback){
-
-      if(_event=='xs' || _event=='sm' || _event=='md' || _event=='lg'){
-
-        $($STAN.Tag).on('active.sa.stan',function(event,device){
-          if(device==_event) _callback();
-        });
-
-      }else{
-
-        $($STAN.Tag).on(_event + '.sa.stan',_callback);
-
-      }
-
-    };
-
-    $STAN.off=function(_event,_callback){
-
-      if(_event=='xs' || _event=='sm' || _event=='md' || _event=='lg'){
-
-        $($STAN.Tag).on('deactive.sa.stan',function(event,device){
-          if(device==_event) _callback();
-        });
-
-      }
-
-    };
-
-}(jQuery, $STAN));
-
-(function($, $STAN) {
-
-  'use strict';
-
-  $STAN.overOutDelay=function(element,over,out,delay){
-
-    $(element).mouseenter(function(){
-
-      $(element).attr('data-over',1);
-
-      over();
-
-    }).mouseleave(function(){
-
-      $(element).attr('data-over',0);
-
-      setTimeout(function(){
-
-        if( $(element).attr('data-over')=='0' ) out();
-
-      },delay);
-
-    });
-
-  }
-
-}(jQuery, $STAN));
 
 /* ========================================================================
  * STAN Utils: AnchorNav

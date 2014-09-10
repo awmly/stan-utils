@@ -2,6 +2,11 @@
 Header set Connection keep-alive
 </IfModule>
 
+<IfModule pagespeed_module>
+  ModPageSpeed off
+ </IfModule>
+
+
 # Turn on the Expires engine
 ExpiresActive On
 
