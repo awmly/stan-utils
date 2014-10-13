@@ -1,5 +1,5 @@
 /*!
- * STAN Utils 0.0.8
+ * STAN Utils 0.0.9
  * Copyright 2014 Andrew Womersley
  */
 
@@ -1398,6 +1398,12 @@ $(function() {
                   $(this).find(".tab-pane").eq(0).addClass('active');
                   $(this).find(".tab-nav li").eq(0).addClass('active');
 
+                }else{
+
+                    //$(this).find(".tab-pane").eq($(this).data('index')).addClass('active');
+                    //$(this).find(".tab-nav li").eq($(this).data('index')).addClass('active');
+                    //$(this).find('.sa-content').eq($(this).data('index')).addClass('in').removeClass('collapse').css('height', 'auto');
+
                 }
 
                 // Add desktop class to main collapse tabs
@@ -1510,7 +1516,7 @@ $(function() {
         $(event.target).siblings().removeClass('active');
         $(event.target).addClass('active');
 
-        if ($(event.target).attr('data-id')) {
+        if ($(event.target).attr('data-id') &&  window.location.hash!="#"+$(event.target).attr('data-id') ) {
 
             // Update hash
             window.location.hash = $(event.target).attr('data-id');
@@ -1531,10 +1537,14 @@ $(function() {
 
     });
 
-    //////////////
     $('.sa-collapse-tabs .sa-content').on('hidden.bs.collapse', function(event) {
 
         $(event.target).parent().removeClass('active');
+
+        if( !$(this).parents('.sa-collapse-tabs').find('.tab-pane.active').length ){
+          $(this).parents('.sa-collapse-tabs').find('.tab-nav .active').removeClass('active');
+          $(this).parents('.sa-collapse-tabs').data('index',-1);
+        }
 
     });
 
@@ -1655,24 +1665,6 @@ $(function() {
 });
 
 /* ========================================================================
- * STAN Utils: Articles
- * Author: Andrew Womersley
- * ======================================================================== */
-
-$(function() {
-
-    'use strict';
-
-    $('article.click').click(function(){
-      document.location.href=$(this).find("a").eq(0).attr('href');
-    });
-    $('article.click a').click(function(event){
-      event.stopPropagation();
-    });
-
-});
-
-/* ========================================================================
  * STAN Utils: Helpers
  * Author: Andrew Womersley
  * ======================================================================== */
@@ -1726,39 +1718,6 @@ $(function() {
     var pxRatio = !! window.devicePixelRatio ? window.devicePixelRatio : 1;
 
     if (pxRatio > 1) $('body').addClass('x2');
-
-});
-
-$(function() {
-
-    'use strict';
-
-    var width, subnav;
-
-    $(".sa-nav.nav-horizontal li").mouseover(function() {
-
-        width = 0;
-        subnav = $(this).children('ul');
-
-        if (subnav.length) {
-
-            subnav.css('width', '1000px')
-                .children('li').css('display', 'inline-block');
-
-            subnav.children('li').each(function() {
-
-                if ($(this).outerWidth() > width) width = $(this).outerWidth();
-
-            });
-
-            subnav.css('width', '')
-                .children('li').css('display', '');
-
-            if (width > subnav.outerWidth()) subnav.css('width', width + 'px');
-
-        }
-
-    });
 
 });
 

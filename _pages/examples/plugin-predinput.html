@@ -14,12 +14,12 @@ base:		"../"
 
 <script>
 
-$(function(){
+var callback=function(){
 
 	$('.predinput').Predinput({
     	search_url:'/examples/plugin-predinput-results.php',
     	data: { results_limit:10 }
 	});
 
-});
+};
 </script>

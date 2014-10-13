@@ -22,7 +22,7 @@ base:		"../"
 </div>
 
 <script>
-$(function(){
+var callback=function(){
 
 	// Set up event listners
 	$('#iframe').on('show.sa.popup',function(event){
@@ -41,5 +41,5 @@ $(function(){
 		devices:{ xs:false, sm:true, md:true, lg:true }
 	});
 
-});
+};
 </script>

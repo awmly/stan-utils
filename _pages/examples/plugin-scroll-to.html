@@ -35,11 +35,11 @@ base:		"../"
 
 <script>
 
-$(function(){
+var callback=function(){
 
 	$('a.scrollto').ScrollTo({
 	    offset:function(){ return $('.headersticky').height()+20; }
 	});
 
-});
+};
 </script>

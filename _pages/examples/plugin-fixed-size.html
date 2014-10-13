@@ -20,12 +20,12 @@ base:		"../"
 <style>.marb{ margin-bottom:30px; }.col{ background:#eee; }</style>
 
 <script>
-$(function(){
+var callback=function(){
 
 	$('#fixedsize').FixedSize({
 		selector:'.col',
 		devices:{ xs:false, sm:2, md:3, lg:4 }
 	});
 
-});
+};
 </script>

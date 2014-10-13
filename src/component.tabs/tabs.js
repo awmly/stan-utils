@@ -42,6 +42,12 @@ $(function() {
                   $(this).find(".tab-pane").eq(0).addClass('active');
                   $(this).find(".tab-nav li").eq(0).addClass('active');
 
+                }else{
+
+                    //$(this).find(".tab-pane").eq($(this).data('index')).addClass('active');
+                    //$(this).find(".tab-nav li").eq($(this).data('index')).addClass('active');
+                    //$(this).find('.sa-content').eq($(this).data('index')).addClass('in').removeClass('collapse').css('height', 'auto');
+
                 }
 
                 // Add desktop class to main collapse tabs
@@ -154,7 +160,7 @@ $(function() {
         $(event.target).siblings().removeClass('active');
         $(event.target).addClass('active');
 
-        if ($(event.target).attr('data-id')) {
+        if ($(event.target).attr('data-id') &&  window.location.hash!="#"+$(event.target).attr('data-id') ) {
 
             // Update hash
             window.location.hash = $(event.target).attr('data-id');
@@ -175,10 +181,14 @@ $(function() {
 
     });
 
-    //////////////
     $('.sa-collapse-tabs .sa-content').on('hidden.bs.collapse', function(event) {
 
         $(event.target).parent().removeClass('active');
+
+        if( !$(this).parents('.sa-collapse-tabs').find('.tab-pane.active').length ){
+          $(this).parents('.sa-collapse-tabs').find('.tab-nav .active').removeClass('active');
+          $(this).parents('.sa-collapse-tabs').data('index',-1);
+        }
 
     });
 

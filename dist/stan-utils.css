@@ -514,36 +514,6 @@ img.maxheight {
   display: block !important;
 }
 /* ========================================================================
- * STAN Utils: Articles
- * Author: Andrew Womersley
- * ======================================================================== */
-article {
-  position: relative;
-}
-article.list {
-  padding: 15px 0;
-}
-article.divide {
-  border-bottom: solid 1px #ccc;
-}
-article.divide:last-child {
-  border: none;
-}
-article.hover:hover {
-  background: #eee;
-  cursor: pointer;
-}
-article.tab .title-block {
-  position: absolute;
-  bottom: 0;
-  left: 15px;
-  right: 15px;
-  text-align: center;
-}
-article.click {
-  cursor: pointer;
-}
-/* ========================================================================
  * STAN Utils: Columns
  * Author: Andrew Womersley
  * ======================================================================== */
@@ -4897,46 +4867,6 @@ ul.icon i {
   content: "";
   display: block;
   height: 90px;
-}
-/* ========================================================================
- * STAN Utils: Navigation
- * Author: Andrew Womersley
- * ======================================================================== */
-/** Nav */
-.sa-nav,
-.sa-nav li {
-  position: relative;
-}
-.sa-nav:hover {
-  z-index: 200;
-}
-.nav-block a {
-  display: block;
-}
-.nav-list a {
-  display: inline-block;
-}
-.nav-vertical li:last-child,
-.nav-vertical li:last-child > a {
-  margin-bottom: 0;
-}
-/** Horizontal List */
-.nav-horizontal > ul > li {
-  float: left;
-}
-/** Sub Nav */
-.nav-horizontal ul ul {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  display: none;
-}
-.nav-horizontal ul ul ul {
-  top: 0;
-  left: 100% !important;
-}
-.nav-horizontal li:hover > ul {
-  display: block;
 }
 /* ========================================================================
  * STAN Utils: Pagination

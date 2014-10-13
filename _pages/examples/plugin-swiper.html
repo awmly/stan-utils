@@ -13,7 +13,7 @@ base:		"../"
 <div class='swipe3' style='width:300px;height:500px;background:#0ff;'>UP/DOWN<br/>LOW SENSITIVITY</div>
 
 <script>
-$(function(){
+var callback=function(){
 
   $('.swipe').Swiper({
     left:true,
@@ -49,5 +49,5 @@ $(function(){
       $(this).html("SWIPED DOWN");
   });
 
-});
+};
 </script>

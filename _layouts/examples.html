@@ -18,10 +18,12 @@
   <script>
 
 /*!
- * STAN Loader 0.0.1
+ * STAN Loader 1.0.0
  * Copyright 2014 Andrew Womersley
  */
 !function(a,b){function c(c,g){e=c,f=g,b.addEventListener?b.addEventListener("DOMContentLoaded",d):a.attachEvent("onload",d)}function d(){function a(){h++,e[h]?d():"function"==typeof f&&f()}var c=b.createElement("script");c.type="text/javascript",c.src=e[h],c.async=!0,"onload"in c?c.onload=a:c.onreadystatechange=function(){("complete"==this.readyState||"loaded"==this.readyState)&&a()},b.getElementsByTagName("head")[0].appendChild(c)}var e,f,g=a.$STAN_Loader||"$STAN_Load",h=0;a[g]=c}(window,document);
+
+if (typeof callback  === "undefined") callback = false;
 
 $STAN_Load([
     '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js',

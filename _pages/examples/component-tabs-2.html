@@ -112,7 +112,7 @@ base:   "../"
 </div>
 
 <div class='space-xl'></div>
-
+<!--
 <div class='sa-collapse-tabs sa-nav nav-horizontal nav-block'>
 
   <ul class='tab-nav desktop-only'>
@@ -142,7 +142,7 @@ base:   "../"
     </li>
   </ul>
 
-  <!-- Tab panes -->
+
   <div class='tab-content'>
     <div class="tab-pane">
 
@@ -214,12 +214,12 @@ base:   "../"
   </div>
 
 </div>
-
+-->
 <script>
 var callback=function(){
 
   $STAN.on('resize',function(){
-    alert("RESIZE");
+    //alert("RESIZE");
   });
 
   $STAN.on('lg',function(){
@@ -232,12 +232,12 @@ var callback=function(){
 
   //console.log( $STAN.has('canvas') );
   if( $STAN.has('canvas') ){
-    alert("YES");
+    //alert("YES");
   }else{
-    alert("NO");
+    //alert("NO");
   }
 
-  alert("LOADED");
+  //alert("LOADED");
 
 };
 </script>
