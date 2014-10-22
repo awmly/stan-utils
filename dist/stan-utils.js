@@ -1,5 +1,5 @@
 /*!
- * STAN Utils 0.0.9
+ * STAN Utils 0.0.11
  * Copyright 2014 Andrew Womersley
  */
 
@@ -1398,12 +1398,6 @@ $(function() {
                   $(this).find(".tab-pane").eq(0).addClass('active');
                   $(this).find(".tab-nav li").eq(0).addClass('active');
 
-                }else{
-
-                    //$(this).find(".tab-pane").eq($(this).data('index')).addClass('active');
-                    //$(this).find(".tab-nav li").eq($(this).data('index')).addClass('active');
-                    //$(this).find('.sa-content').eq($(this).data('index')).addClass('in').removeClass('collapse').css('height', 'auto');
-
                 }
 
                 // Add desktop class to main collapse tabs
@@ -1534,6 +1528,8 @@ $(function() {
     $('.sa-collapse-tabs .sa-content').on('show.bs.collapse', function() {
 
         $(this).parent().siblings().find('.sa-content.in').collapse('hide');
+
+        $(event.target).parent().addClass('active');
 
     });
 
@@ -2531,7 +2527,7 @@ $(function() {
     var Selectors = [];
 
     // Resize Listener for resizing slideshow height
-    $(window).resize(function() {
+    $STAN.on('resize',function() {
 
         if (!Selectors.length) return;
 
@@ -2542,7 +2538,7 @@ $(function() {
 
         });
 
-    }).resize();
+    });
 
 
     // Define Methods
@@ -2569,15 +2565,18 @@ $(function() {
                     current_holder: false
                 }, options);
 
-                if (!settings.xs) {
-                    if (!settings.sm) settings.xs = settings.md;
-                    else settings.xs = settings.sm;
+
+                if(settings.xs && settings.sm && !settings.md && !settings.lg){
+                  settings.md = settings.lg = settings.sm;
                 }
-                if (!settings.sm) settings.sm = settings.md;
-                if (!settings.md) settings.md = settings.lg;
-                if (!settings.lg) {
-                    if (!settings.md) settings.lg = settings.sm;
-                    else settings.lg = settings.md;
+
+                if(!settings.xs && settings.sm && settings.md && !settings.lg){
+                  settings.xs = settings.sm;
+                  settings.md = settings.lg;
+                }
+
+                if(!settings.xs && !settings.sm && settings.md && settings.lg){
+                  settings.xs = settings.sm = settings.md;
                 }
 
                 // Set Options
@@ -3038,43 +3037,46 @@ $(function() {
 
             var settings = $(this).data('FixedSize');
 
-            var split = settings.devices[$STAN.device];
+            var lastTop, thisTop, newLine;
 
             // Reset height of elements
             $(this).find(settings.selector).css('height', 'auto');
 
             // If split value is set
-            if (split) {
+            $(this).each(function() {
 
-                $(this).each(function() {
+                var h = 0;
+                var t = [];
 
-                    var h = 0;
-                    var t = [];
+                $(this).find(settings.selector).each(function(index) {
 
-                    $(this).find(settings.selector).each(function(index) {
+                    thisTop=$(this).offset().top;
 
-                        if ($(this).outerHeight() > h) h = $(this).outerHeight();
-                        t.push(this);
+                    if(lastTop<thisTop+20 && lastTop>thisTop-20) newLine=false; else newLine=true;
+                    if(newLine && h>0){
 
-                        if ((index + 1) % split === 0) {
-                            for (var x in t) $(t[x]).css('height', h + 'px');
-                            h = 0;
-                            t = [];
-                        }
-
-                    });
-
-                    // Check for uncomplete row
-                    if (h) {
                         for (var x in t) $(t[x]).css('height', h + 'px');
+                        h = 0;
+                        t = [];
                     }
+
+                    if ($(this).outerHeight() > h) h = $(this).outerHeight();
+                    t.push(this);
+
+                    lastTop=thisTop;
 
                 });
 
-                // Inititate event trigger
-                $(this).trigger('resize.sa.fixedsize', [settings]);
+                // Check for uncomplete row
+                if (h) {
+                    for (var x in t) $(t[x]).css('height', h + 'px');
+                }
 
-            }
+            });
+
+            // Inititate event trigger
+            $(this).trigger('resize.sa.fixedsize', [settings]);
+
 
         }
 
@@ -4146,7 +4148,7 @@ $(function() {
     var Selectors = [];
 
     // Resize Listener for resizing slideshow height
-    $(window).resize(function() {
+    $STAN.on('resize',function() {
 
         if (!Selectors.length) return;
 
@@ -4157,7 +4159,7 @@ $(function() {
 
         });
 
-    }).resize();
+    });
 
     // Click Listeners
     $(window).ready(function() {

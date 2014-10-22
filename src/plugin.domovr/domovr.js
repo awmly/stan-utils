@@ -11,7 +11,7 @@
     var Selectors = [];
 
     // Resize Listener for resizing slideshow height
-    $(window).resize(function() {
+    $STAN.on('resize',function() {
 
         if (!Selectors.length) return;
 
@@ -22,7 +22,7 @@
 
         });
 
-    }).resize();
+    });
 
 
     // Define Methods
@@ -49,15 +49,18 @@
                     current_holder: false
                 }, options);
 
-                if (!settings.xs) {
-                    if (!settings.sm) settings.xs = settings.md;
-                    else settings.xs = settings.sm;
+
+                if(settings.xs && settings.sm && !settings.md && !settings.lg){
+                  settings.md = settings.lg = settings.sm;
                 }
-                if (!settings.sm) settings.sm = settings.md;
-                if (!settings.md) settings.md = settings.lg;
-                if (!settings.lg) {
-                    if (!settings.md) settings.lg = settings.sm;
-                    else settings.lg = settings.md;
+
+                if(!settings.xs && settings.sm && settings.md && !settings.lg){
+                  settings.xs = settings.sm;
+                  settings.md = settings.lg;
+                }
+
+                if(!settings.xs && !settings.sm && settings.md && settings.lg){
+                  settings.xs = settings.sm = settings.md;
                 }
 
                 // Set Options

@@ -68,43 +68,46 @@
 
             var settings = $(this).data('FixedSize');
 
-            var split = settings.devices[$STAN.device];
+            var lastTop, thisTop, newLine;
 
             // Reset height of elements
             $(this).find(settings.selector).css('height', 'auto');
 
             // If split value is set
-            if (split) {
+            $(this).each(function() {
 
-                $(this).each(function() {
+                var h = 0;
+                var t = [];
 
-                    var h = 0;
-                    var t = [];
+                $(this).find(settings.selector).each(function(index) {
 
-                    $(this).find(settings.selector).each(function(index) {
+                    thisTop=$(this).offset().top;
 
-                        if ($(this).outerHeight() > h) h = $(this).outerHeight();
-                        t.push(this);
+                    if(lastTop<thisTop+20 && lastTop>thisTop-20) newLine=false; else newLine=true;
+                    if(newLine && h>0){
 
-                        if ((index + 1) % split === 0) {
-                            for (var x in t) $(t[x]).css('height', h + 'px');
-                            h = 0;
-                            t = [];
-                        }
-
-                    });
-
-                    // Check for uncomplete row
-                    if (h) {
                         for (var x in t) $(t[x]).css('height', h + 'px');
+                        h = 0;
+                        t = [];
                     }
+
+                    if ($(this).outerHeight() > h) h = $(this).outerHeight();
+                    t.push(this);
+
+                    lastTop=thisTop;
 
                 });
 
-                // Inititate event trigger
-                $(this).trigger('resize.sa.fixedsize', [settings]);
+                // Check for uncomplete row
+                if (h) {
+                    for (var x in t) $(t[x]).css('height', h + 'px');
+                }
 
-            }
+            });
+
+            // Inititate event trigger
+            $(this).trigger('resize.sa.fixedsize', [settings]);
+
 
         }
 

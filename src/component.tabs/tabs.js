@@ -42,12 +42,6 @@ $(function() {
                   $(this).find(".tab-pane").eq(0).addClass('active');
                   $(this).find(".tab-nav li").eq(0).addClass('active');
 
-                }else{
-
-                    //$(this).find(".tab-pane").eq($(this).data('index')).addClass('active');
-                    //$(this).find(".tab-nav li").eq($(this).data('index')).addClass('active');
-                    //$(this).find('.sa-content').eq($(this).data('index')).addClass('in').removeClass('collapse').css('height', 'auto');
-
                 }
 
                 // Add desktop class to main collapse tabs
@@ -178,6 +172,8 @@ $(function() {
     $('.sa-collapse-tabs .sa-content').on('show.bs.collapse', function() {
 
         $(this).parent().siblings().find('.sa-content.in').collapse('hide');
+
+        $(event.target).parent().addClass('active');
 
     });
 

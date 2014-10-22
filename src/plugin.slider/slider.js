@@ -11,7 +11,7 @@
     var Selectors = [];
 
     // Resize Listener for resizing slideshow height
-    $(window).resize(function() {
+    $STAN.on('resize',function() {
 
         if (!Selectors.length) return;
 
@@ -22,7 +22,7 @@
 
         });
 
-    }).resize();
+    });
 
     // Click Listeners
     $(window).ready(function() {
