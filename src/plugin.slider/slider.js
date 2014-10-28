@@ -241,24 +241,21 @@
                 // Do resize
                 methods.resize.apply(this);
 
-                // Set load event
-                //$(window).on('load', function() {
 
-                    $this.css({
-                      visibility: 'visible'
-                    });
+                $this.css({
+                  visibility: 'visible'
+                });
 
-                    $this.find('.frame').eq(settings.activeIndex).css({
-                      'z-index':20
-                    });
+                $this.find('.frame').eq(settings.activeIndex).css({
+                  'z-index':20
+                });
 
-                    for (var i in settings.layers) {
+                for (var i in settings.layers) {
 
-                      $(settings.layers[i].selector).eq(settings.activeIndex).css(settings.layers[i].inCSS);
+                  $(settings.layers[i].selector).eq(settings.activeIndex).css(settings.layers[i].inCSS);
 
-                    }
+                }
 
-                //});
 
             });
 
@@ -564,12 +561,6 @@
                 });
 
             }
-
-        },
-
-        preload:function($preload){
-
-          // removed - moved to seperate component
 
         }
 

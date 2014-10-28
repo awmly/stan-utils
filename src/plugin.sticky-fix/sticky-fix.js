@@ -10,8 +10,7 @@
     // Define Global Vars
     var Selectors = [];
 
-    // Resize Listener for resizing slideshow height
-    $(window).resize(function() {
+    $STAN.on('resize',function() {
 
         if (!Selectors.length) return;
 
@@ -22,7 +21,7 @@
 
         });
 
-    }).resize();
+    });
 
     $(window).scroll(function() {
 

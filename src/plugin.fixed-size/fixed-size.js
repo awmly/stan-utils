@@ -10,8 +10,7 @@
     // Define Global Vars
     var Selectors = [];
 
-    // Resize Listener
-    $(window).resize(function() {
+    $STAN.on('resize',function() {
 
         if (!Selectors.length) return;
 
@@ -22,7 +21,7 @@
 
         });
 
-    }).resize();
+    });
 
 
     // Define Methods

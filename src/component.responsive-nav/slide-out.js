@@ -61,7 +61,7 @@ $(function() {
             ResetNav();
         }
 
-    }).resize();
+    });
 
     $('.slide-nav-load').click(function(event) {
 

@@ -4985,21 +4985,6 @@ ul.icon i {
   margin-bottom: 90px;
 }
 /* ========================================================================
- * STAN Utils: Title Blocks
- * Author: Andrew Womersley
- * ======================================================================== */
-.title-block {
-  position: relative;
-}
-.title-block h1,
-.title-block h2,
-.title-block h3,
-.title-block h4,
-.title-block h5,
-.title-block h6 {
-  margin: 0;
-}
-/* ========================================================================
  * STAN Utils: VAlign
  * Author: Andrew Womersley
  * ======================================================================== */

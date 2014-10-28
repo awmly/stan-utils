@@ -44,7 +44,7 @@ $(function() {
     });
 
 
-    $(window).resize(function() {
+    $STAN.on('resize',function() {
 
         var w = $STAN.windowWidth;
         var h = $STAN.windowHeight;
@@ -76,7 +76,7 @@ $(function() {
 
         }
 
-    }).resize();
+    });
 
     $('.pull-nav-load').click(function(event) {
 

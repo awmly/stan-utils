@@ -921,53 +921,6 @@ $(function() {
 });
 
 /* ========================================================================
- * STAN Utils: ImgResponsive
- * Author: Andrew Womersley
- * ======================================================================== */
-
-$(function() {
-
-	'use strict';
-
-	var imgResonsive=function(){
-
-		$("img[srcset]").each(function() {
-
-			var t = $(this);
-
-			
-
-		});
-
-	}
-
-	var imgResonsiveOld=function(){
-
-		$("img[data-resp-src^='{']").each(function() {
-
-			var t = $(this);
-
-			if (t.attr('data-resp-src')) {
-
-				var src = jQuery.parseJSON(t.attr('data-resp-src'));
-
-				var device = !! $STAN.device ? $STAN.device : 'xs';
-
-				t.attr('src', src[device]);
-
-			}
-
-		});
-
-	}
-
-	$(window).on('resize',imgResonsive);
-
-	imgResonsive();
-
-});
-
-/* ========================================================================
  * STAN Utils: InsetOutset
  * Author: Andrew Womersley
  * ======================================================================== */
@@ -1074,7 +1027,7 @@ $(function() {
     });
 
 
-    $(window).resize(function() {
+    $STAN.on('resize',function() {
 
         var w = $STAN.windowWidth;
         var h = $STAN.windowHeight;
@@ -1106,7 +1059,7 @@ $(function() {
 
         }
 
-    }).resize();
+    });
 
     $('.pull-nav-load').click(function(event) {
 
@@ -1201,7 +1154,7 @@ $(function() {
             ResetNav();
         }
 
-    }).resize();
+    });
 
     $('.slide-nav-load').click(function(event) {
 
@@ -1353,6 +1306,50 @@ $(function() {
   $STAN.loadDelayedImages();
 
 }(jQuery, $STAN));
+
+/* ========================================================================
+ * STAN Utils: ImgResponsive
+ * Author: Andrew Womersley
+ * ======================================================================== */
+
+$(function() {
+
+    'use strict';
+
+    var scrollSpy = function() {
+
+        var activeAt;
+        var scrollTop=$(window).scrollTop();
+
+        $("[data-scroll-spy]").each(function(){
+
+            activeAt=$(this).attr("data-scroll-spy");
+
+            if( !isNaN(parseFloat(activeAt)) && isFinite(activeAt) ){ // is number
+
+                activeAt=parseInt(activeAt);
+
+            }else{ // is selector
+
+                activeAt=eval(activeAt);
+
+            }
+
+            if(scrollTop>activeAt){
+                $(this).addClass('active');
+            }else{
+                $(this).removeClass('active');
+            }
+
+        });
+
+    };
+
+    $(window).scroll(scrollSpy);
+
+    scrollSpy();
+
+});
 
 /* ========================================================================
  * STAN Utils: Tabs
@@ -1945,8 +1942,7 @@ $(function() {
     // Define Global Vars
     var Selectors = [];
 
-    // Resize Listener for resizing slideshow height
-    $(window).resize(function() {
+    $STAN.on('resize',function() {
 
         if (!Selectors.length) return;
 
@@ -1957,7 +1953,7 @@ $(function() {
 
             });
 
-    }).resize();
+    });
 
     // Click Listeners
     $(window).ready(function() {
@@ -2648,8 +2644,7 @@ $(function() {
     // Define Global Vars
     var Selectors = [];
 
-    // Resize Listener for resizing slideshow height
-    $(window).resize(function() {
+    $STAN.on('resize',function() {
 
         if (!Selectors.length) return;
 
@@ -2660,7 +2655,7 @@ $(function() {
 
         });
 
-    }).resize();
+    });
 
     // Define Methods
     var methods = {
@@ -2979,8 +2974,7 @@ $(function() {
     // Define Global Vars
     var Selectors = [];
 
-    // Resize Listener
-    $(window).resize(function() {
+    $STAN.on('resize',function() {
 
         if (!Selectors.length) return;
 
@@ -2991,7 +2985,7 @@ $(function() {
 
         });
 
-    }).resize();
+    });
 
 
     // Define Methods
@@ -3116,8 +3110,7 @@ $(function() {
     // Define Global Vars
     var Selectors = [];
 
-    // Resize Listener for resizing slideshow height
-    $(window).resize(function() {
+    $STAN.on('resize',function() {
 
         if (!Selectors.length) return;
 
@@ -3128,7 +3121,7 @@ $(function() {
 
             });
 
-    }).resize();
+    });
 
     // Click Listeners
     $(window).ready(function() {
@@ -3871,8 +3864,7 @@ $(function() {
     // Define Global Vars
     var Selectors = [];
 
-    // Resize Listener for resizing slideshow height
-    $(window).resize(function() {
+    $STAN.on('resize',function() {
 
         if (!Selectors.length) return;
 
@@ -3891,7 +3883,7 @@ $(function() {
 
             });
 
-    }).resize();
+    });
 
     // Click Listeners
     $(window).ready(function() {
@@ -4045,7 +4037,7 @@ $(function() {
                     // Animate
                     $(this).animate(css, settings.speed, function() {
 
-                        // Set open to true			
+                        // Set open to true
                         settings.open = true;
 
                         // Trigger
@@ -4378,24 +4370,21 @@ $(function() {
                 // Do resize
                 methods.resize.apply(this);
 
-                // Set load event
-                //$(window).on('load', function() {
 
-                    $this.css({
-                      visibility: 'visible'
-                    });
+                $this.css({
+                  visibility: 'visible'
+                });
 
-                    $this.find('.frame').eq(settings.activeIndex).css({
-                      'z-index':20
-                    });
+                $this.find('.frame').eq(settings.activeIndex).css({
+                  'z-index':20
+                });
 
-                    for (var i in settings.layers) {
+                for (var i in settings.layers) {
 
-                      $(settings.layers[i].selector).eq(settings.activeIndex).css(settings.layers[i].inCSS);
+                  $(settings.layers[i].selector).eq(settings.activeIndex).css(settings.layers[i].inCSS);
 
-                    }
+                }
 
-                //});
 
             });
 
@@ -4702,12 +4691,6 @@ $(function() {
 
             }
 
-        },
-
-        preload:function($preload){
-
-          // removed - moved to seperate component
-
         }
 
     };
@@ -4744,8 +4727,7 @@ $(function() {
     // Define Global Vars
     var Selectors = [];
 
-    // Resize Listener for resizing slideshow height
-    $(window).resize(function() {
+    $STAN.on('resize',function() {
 
         if (!Selectors.length) return;
 
@@ -4756,7 +4738,7 @@ $(function() {
 
         });
 
-    }).resize();
+    });
 
     $(window).scroll(function() {
 
