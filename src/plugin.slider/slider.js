@@ -223,11 +223,6 @@
                     }
                 }
 
-                // Pre load
-                methods.preload.apply(this,[$this.find('.frame').eq(0)]);
-                methods.preload.apply(this,[$this.find('.frame').eq(1)]);
-                methods.preload.apply(this,[$this.find('.frame').eq(settings.total-1)]);
-
                 // Add load events
                 $this.find('img').load(function() {
 
@@ -368,10 +363,6 @@
             // Get frames
             var $next = $this.find('.frame').eq(settings.nextIndex);
             var $current = $this.find('.frame').eq(settings.currentIndex);
-
-            // Pre load
-            var $preload = $this.find('.frame').eq(settings.preLoadIndex);
-            methods.preload.apply(this,[$preload]);
 
 
             // Set CSS for next/current frames
