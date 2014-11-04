@@ -1,5 +1,5 @@
 /*!
- * STAN Utils 0.0.13
+ * STAN Utils 0.0.14
  * Copyright 2014 Andrew Womersley
  */
 
@@ -652,11 +652,11 @@ $(function() {
             if( $(this).closest('.sa-collapse').hasClass('active') ){
 
                 $(this).closest('.sa-collapse').removeClass('active')
-                    .find('.sa-content').first().collapse('hide');
+                    .find('.collapse-content').first().collapse('hide');
             }else{
 
               $(this).closest('.sa-collapse').addClass('active')
-                  .find('.sa-content').first().collapse('show');
+                  .find('.collapse-content').first().collapse('show');
 
             }
 
@@ -665,7 +665,7 @@ $(function() {
                 $(this).closest('.sa-collapse').siblings('.sa-collapse.active').each(function() {
 
                     $(this).removeClass('active')
-                        .find('.sa-content').first().collapse('hide');
+                        .find('.collapse-content').first().collapse('hide');
 
                 });
 
@@ -677,7 +677,7 @@ $(function() {
 
 
     // Add BS collapse class
-    $('.sa-collapse .sa-content').each(function() {
+    $('.sa-collapse .collapse-content').each(function() {
 
         $(this).addClass('collapse');
 
@@ -686,7 +686,7 @@ $(function() {
     // Check for collapses starting open
     $('.sa-collapse.active').each(function() {
 
-        $(this).find('.sa-content').first().addClass('in');
+        $(this).find('.collapse-content').first().addClass('in');
 
     });
 
@@ -702,21 +702,21 @@ $(function() {
                 if ($(this).attr('data-collapse-devices-open')) {
 
                     if ($(this).attr('data-collapse-devices-open').indexOf($STAN.device) >= 0) {
-                        $(this).addClass('active').find('.sa-content').first().addClass('in').css('height', '');
+                        $(this).addClass('active').find('.collapse-content').first().addClass('in').css('height', '');
                     } else {
-                        $(this).removeClass('active').find('.sa-content').first().removeClass('in').addClass('collapse');
+                        $(this).removeClass('active').find('.collapse-content').first().removeClass('in').addClass('collapse');
                     }
 
                 } else {
 
-                    $(this).removeClass('active').find('.sa-content').first().removeClass('in').addClass('collapse');
+                    $(this).removeClass('active').find('.collapse-content').first().removeClass('in').addClass('collapse');
 
                 }
 
             } else {
 
                 $(this).addClass('inactive');
-                $(this).addClass('active').find('.sa-content').first().addClass('in').removeClass('collapse').css('height', '');
+                $(this).addClass('active').find('.collapse-content').first().addClass('in').removeClass('collapse').css('height', '');
 
             }
 
@@ -1439,10 +1439,10 @@ $(function() {
               if ($(this).hasClass('sa-collapse-tabs')) {
 
                   // Remove active collapse classes
-                  $(this).find('.sa-content').removeClass('in').addClass('collapse').css('height', 0);
+                  $(this).find('.tab-content').removeClass('in').addClass('collapse').css('height', 0);
 
                   // Add active collapse classes
-                  $(this).find('.sa-content').eq(index).addClass('in').removeClass('collapse').css('height', 'auto');
+                  $(this).find('.tab-content').eq(index).addClass('in').removeClass('collapse').css('height', 'auto');
               }
 
             }
@@ -1491,7 +1491,7 @@ $(function() {
 
         if ($(this).parents('.sa-collapse-tabs').hasClass('mobile')) {
 
-            var collapse=$(this).parent().find('.sa-content');
+            var collapse=$(this).parent().find('.tab-content');
 
             //if( !collapse.hasClass('in') ) collapse.collapse('show');
             collapse.collapse('toggle');
@@ -1522,15 +1522,15 @@ $(function() {
     });
 
     // BS collpase show event to trigger accordion effect
-    $('.sa-collapse-tabs .sa-content').on('show.bs.collapse', function() {
+    $('.sa-collapse-tabs .tab-content').on('show.bs.collapse', function() {
 
-        $(this).parent().siblings().find('.sa-content.in').collapse('hide');
+        $(this).parent().siblings().find('.tab-content.in').collapse('hide');
 
         $(event.target).parent().addClass('active');
 
     });
 
-    $('.sa-collapse-tabs .sa-content').on('hidden.bs.collapse', function(event) {
+    $('.sa-collapse-tabs .tab-content').on('hidden.bs.collapse', function(event) {
 
         $(event.target).parent().removeClass('active');
 
@@ -1543,7 +1543,7 @@ $(function() {
 
 
     // BS collapse shown event to update hash
-    $('.sa-collapse-tabs .sa-content').on('shown.bs.collapse', function() {
+    $('.sa-collapse-tabs .tab-content').on('shown.bs.collapse', function() {
 
         var index = $(this).parent().index();
 
@@ -1559,7 +1559,7 @@ $(function() {
 
 
     // Add collapse classes
-    $('.sa-collapse-tabs .sa-content').addClass('collapse');
+    $('.sa-collapse-tabs .tab-content').addClass('collapse');
 
     // Add resize listener
     $STAN.on('resize', CollapseTab );

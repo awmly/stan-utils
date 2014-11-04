@@ -86,10 +86,10 @@ $(function() {
               if ($(this).hasClass('sa-collapse-tabs')) {
 
                   // Remove active collapse classes
-                  $(this).find('.sa-content').removeClass('in').addClass('collapse').css('height', 0);
+                  $(this).find('.tab-content').removeClass('in').addClass('collapse').css('height', 0);
 
                   // Add active collapse classes
-                  $(this).find('.sa-content').eq(index).addClass('in').removeClass('collapse').css('height', 'auto');
+                  $(this).find('.tab-content').eq(index).addClass('in').removeClass('collapse').css('height', 'auto');
               }
 
             }
@@ -138,7 +138,7 @@ $(function() {
 
         if ($(this).parents('.sa-collapse-tabs').hasClass('mobile')) {
 
-            var collapse=$(this).parent().find('.sa-content');
+            var collapse=$(this).parent().find('.tab-content');
 
             //if( !collapse.hasClass('in') ) collapse.collapse('show');
             collapse.collapse('toggle');
@@ -169,15 +169,15 @@ $(function() {
     });
 
     // BS collpase show event to trigger accordion effect
-    $('.sa-collapse-tabs .sa-content').on('show.bs.collapse', function() {
+    $('.sa-collapse-tabs .tab-content').on('show.bs.collapse', function() {
 
-        $(this).parent().siblings().find('.sa-content.in').collapse('hide');
+        $(this).parent().siblings().find('.tab-content.in').collapse('hide');
 
         $(event.target).parent().addClass('active');
 
     });
 
-    $('.sa-collapse-tabs .sa-content').on('hidden.bs.collapse', function(event) {
+    $('.sa-collapse-tabs .tab-content').on('hidden.bs.collapse', function(event) {
 
         $(event.target).parent().removeClass('active');
 
@@ -190,7 +190,7 @@ $(function() {
 
 
     // BS collapse shown event to update hash
-    $('.sa-collapse-tabs .sa-content').on('shown.bs.collapse', function() {
+    $('.sa-collapse-tabs .tab-content').on('shown.bs.collapse', function() {
 
         var index = $(this).parent().index();
 
@@ -206,7 +206,7 @@ $(function() {
 
 
     // Add collapse classes
-    $('.sa-collapse-tabs .sa-content').addClass('collapse');
+    $('.sa-collapse-tabs .tab-content').addClass('collapse');
 
     // Add resize listener
     $STAN.on('resize', CollapseTab );

@@ -1,5 +1,5 @@
 /*!
- * STAN Utils 0.0.13
+ * STAN Utils 0.0.14
  * Copyright 2014 Andrew Womersley
  */
 
@@ -44,11 +44,11 @@
 .sa-collapse .sa-click p {
   margin-bottom: 0;
 }
-.sa-collapse .sa-content {
+.sa-collapse .collapse-content {
   padding-top: 0;
   padding-bottom: 0;
 }
-.sa-collapse .sa-content > :last-child {
+.sa-collapse .collapse-content > :last-child {
   margin-bottom: 0;
 }
 .sa-collapse:not(.active) > .sa-click > .sa-on {
@@ -494,10 +494,10 @@ img.maxheight {
  * STAN Utils: Tabs
  * Author: Andrew Womersley
  * ========================================================================*/
-.tab-content .tab-pane {
+.sa-collapse-tabs .tab-pane {
   display: none;
 }
-.tab-content .tab-pane.active {
+.sa-collapse-tabs .tab-pane.active {
   display: block;
 }
 .sa-collapse-tabs .desktop-only,
@@ -511,10 +511,10 @@ img.maxheight {
 .sa-collapse-tabs.mobile .tab-pane {
   display: block;
 }
-.sa-collapse-tabs.desktop .sa-click {
+.sa-collapse-tabs.desktop .tab-pane > .sa-click {
   cursor: auto;
 }
-.sa-collapse-tabs.desktop .sa-content {
+.sa-collapse-tabs.desktop .tab-content {
   height: auto !important;
   display: block !important;
 }

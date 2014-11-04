@@ -15,11 +15,11 @@ $(function() {
             if( $(this).closest('.sa-collapse').hasClass('active') ){
 
                 $(this).closest('.sa-collapse').removeClass('active')
-                    .find('.sa-content').first().collapse('hide');
+                    .find('.collapse-content').first().collapse('hide');
             }else{
 
               $(this).closest('.sa-collapse').addClass('active')
-                  .find('.sa-content').first().collapse('show');
+                  .find('.collapse-content').first().collapse('show');
 
             }
 
@@ -28,7 +28,7 @@ $(function() {
                 $(this).closest('.sa-collapse').siblings('.sa-collapse.active').each(function() {
 
                     $(this).removeClass('active')
-                        .find('.sa-content').first().collapse('hide');
+                        .find('.collapse-content').first().collapse('hide');
 
                 });
 
@@ -40,7 +40,7 @@ $(function() {
 
 
     // Add BS collapse class
-    $('.sa-collapse .sa-content').each(function() {
+    $('.sa-collapse .collapse-content').each(function() {
 
         $(this).addClass('collapse');
 
@@ -49,7 +49,7 @@ $(function() {
     // Check for collapses starting open
     $('.sa-collapse.active').each(function() {
 
-        $(this).find('.sa-content').first().addClass('in');
+        $(this).find('.collapse-content').first().addClass('in');
 
     });
 
@@ -65,21 +65,21 @@ $(function() {
                 if ($(this).attr('data-collapse-devices-open')) {
 
                     if ($(this).attr('data-collapse-devices-open').indexOf($STAN.device) >= 0) {
-                        $(this).addClass('active').find('.sa-content').first().addClass('in').css('height', '');
+                        $(this).addClass('active').find('.collapse-content').first().addClass('in').css('height', '');
                     } else {
-                        $(this).removeClass('active').find('.sa-content').first().removeClass('in').addClass('collapse');
+                        $(this).removeClass('active').find('.collapse-content').first().removeClass('in').addClass('collapse');
                     }
 
                 } else {
 
-                    $(this).removeClass('active').find('.sa-content').first().removeClass('in').addClass('collapse');
+                    $(this).removeClass('active').find('.collapse-content').first().removeClass('in').addClass('collapse');
 
                 }
 
             } else {
 
                 $(this).addClass('inactive');
-                $(this).addClass('active').find('.sa-content').first().addClass('in').removeClass('collapse').css('height', '');
+                $(this).addClass('active').find('.collapse-content').first().addClass('in').removeClass('collapse').css('height', '');
 
             }
 
