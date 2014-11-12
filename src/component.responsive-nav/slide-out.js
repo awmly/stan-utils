@@ -35,7 +35,7 @@ $(function() {
 
     };
 
-    $(window).resize(function() {
+    $STAN.on('resize',function() {
 
         var w = $(window).width();
         var h = $(window).height();

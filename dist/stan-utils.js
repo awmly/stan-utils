@@ -1,5 +1,5 @@
 /*!
- * STAN Utils 0.0.14
+ * STAN Utils 0.0.15
  * Copyright 2014 Andrew Womersley
  */
 
@@ -1128,7 +1128,7 @@ $(function() {
 
     };
 
-    $(window).resize(function() {
+    $STAN.on('resize',function() {
 
         var w = $(window).width();
         var h = $(window).height();
@@ -4652,7 +4652,7 @@ $(function() {
 
             // Set vars to hold frame height
             var fh = 0;
-
+            var h;
             // Perform size fixes
             if (settings.aspect_ratio == 'fixed') {
 
@@ -4670,17 +4670,35 @@ $(function() {
 
             } else {
 
+                if( !isNaN(parseFloat(settings.height[$STAN.device])) && isFinite(settings.height[$STAN.device]) ){ // is number
+
+                    h=parseInt(settings.height[$STAN.device]);
+
+                }else{ // is selector/function
+
+                    h=eval(settings.height[$STAN.device]);
+
+                }
+
                 // Set height of main slider
-                $this.css('height', settings.height[$STAN.device]);
+                $this.css('height', h);
 
                 // Set height of frames
                 $this.find('.frame').css({
-                  height: settings.height[$STAN.device]
+                  height: h
                 }).parent().closest('div').css({
-                  height: settings.height[$STAN.device]
+                  height: h
                 });
 
             }
+
+        },
+
+        getSettings:function(){
+
+          var settings = $(this).data('Slider');
+
+          return settings;
 
         }
 

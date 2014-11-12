@@ -23,16 +23,13 @@
     display:none;
     z-index:100000;
 }
-.pull-nav .desktop-only, .pull-nav .mobile-only {
-    display:none;
-}
 
 
 /*
 ===== DESKTOP =====
  */
-.pull-nav.desktop .desktop-only {
-    display:block;
+.pull-nav.desktop .mobile-only {
+    display:none !important;
 }
 .pull-nav.desktop {
     visibility:visible;
@@ -91,8 +88,8 @@
 /*
 ===== MOBILE =====
  */
-.pull-nav-load.mobile {
-    display:block;
+.pull-nav.mobile .desktop-only {
+    display:none !important;
 }
 .pull-nav.mobile .mobile-only {
     display:block;
