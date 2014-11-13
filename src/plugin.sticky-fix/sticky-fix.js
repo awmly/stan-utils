@@ -106,7 +106,7 @@
             else if (typeof settings.top === 'number') mintop = settings.top;
             else mintop = 99999;
 
-            if (t < mintop && settings.devices[$STAN.device]) {
+            if (t <= mintop && settings.devices[$STAN.device]) {
 
                 if (typeof settings.maxtop === 'function') maxtop = settings.maxtop($(this),settings);
                 else if (typeof settings.maxtop === 'number') maxtop = settings.maxtop;
