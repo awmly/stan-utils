@@ -192,6 +192,9 @@
           // Calculate new offset
           settings.offset = $(this).offset();
 
+          // Set placeholder height
+          $(settings.placeholder).css({height:$(this).outerHeight(true)+'px' });
+
           // Restick element
           $(this).addClass("sticky-fix-stuck "+settings.sticky_class).css({
               top: mintop + 'px',
