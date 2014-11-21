@@ -14,11 +14,11 @@ $(function() {
       var $t = $(this);
 
       if (dir > 0 && $t.scrollTop() === 0) {
-          event.preventDefault();
+        event.preventDefault();
       }
 
       if (dir < 0 && ($t.scrollTop() == $t.get(0).scrollHeight - $t.innerHeight())) {
-          event.preventDefault();
+        event.preventDefault();
       }
 
       event.stopPropagation();

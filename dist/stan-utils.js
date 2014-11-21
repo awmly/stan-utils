@@ -1,5 +1,5 @@
 /*!
- * STAN Utils 0.0.18
+ * STAN Utils 0.0.19
  * Copyright 2014 Andrew Womersley
  */
 
@@ -1734,11 +1734,11 @@ $(function() {
       var $t = $(this);
 
       if (dir > 0 && $t.scrollTop() === 0) {
-          event.preventDefault();
+        event.preventDefault();
       }
 
       if (dir < 0 && ($t.scrollTop() == $t.get(0).scrollHeight - $t.innerHeight())) {
-          event.preventDefault();
+        event.preventDefault();
       }
 
       event.stopPropagation();
@@ -3024,440 +3024,460 @@ $(function() {
 }(jQuery, $STAN));
 
 /* ========================================================================
- * STAN Utils: FixedSize
- * Author: Andrew Womersley
- * ======================================================================== */
+* STAN Utils: FixedSize
+* Author: Andrew Womersley
+* ======================================================================== */
 
 (function($, $STAN) {
 
-    'use strict';
+  'use strict';
 
-    // Define Global Vars
-    var Selectors = [];
+  // Define Global Vars
+  var Selectors = [];
 
-    $STAN.on('resize',function() {
+  $STAN.on('resize',function() {
 
-        if (!Selectors.length) return;
+    if (!Selectors.length) return;
 
-        $(Selectors).each(function() {
+    $(Selectors).each(function() {
 
-            // Resize check
-            methods.fix.apply(this);
-
-        });
+      // Resize check
+      methods.fix.apply(this);
 
     });
 
-
-    // Define Methods
-    var methods = {
-
-        init: function(options) {
-
-            // Save selector in array
-            $(this.selector).each(function(){
-
-                Selectors.push( $(this) );
-
-            });
-
-            // Iterate Through Selectors
-            return this.each(function() {
-
-                // Set this
-                var $this = $(this);
-
-                // Set Options
-                var settings = $.extend({
-                    selector: 'div',
-                    devices: {
-                        xs: 0,
-                        sm: 0,
-                        md: 0,
-                        lg: 0
-                    }
-                }, options);
-
-                // Save settings
-                $this.data('FixedSize', settings);
-
-                // Do fix
-                methods.fix.apply(this);
-
-            });
-
-        },
-
-        fix: function() {
-
-            var settings = $(this).data('FixedSize');
-
-            var lastTop, thisTop, newLine;
-
-            // Reset height of elements
-            $(this).find(settings.selector).css('height', 'auto');
-
-            // If split value is set
-            $(this).each(function() {
-
-                var h = 0;
-                var t = [];
-
-                $(this).find(settings.selector).each(function(index) {
-
-                    thisTop=$(this).offset().top;
-
-                    if(lastTop<thisTop+20 && lastTop>thisTop-20) newLine=false; else newLine=true;
-                    if(newLine && h>0){
-
-                        for (var x in t) $(t[x]).css('height', h + 'px');
-                        h = 0;
-                        t = [];
-                    }
-
-                    if ($(this).outerHeight() > h) h = $(this).outerHeight();
-                    t.push(this);
-
-                    lastTop=thisTop;
-
-                });
-
-                // Check for uncomplete row
-                if (h) {
-                    for (var x in t) $(t[x]).css('height', h + 'px');
-                }
-
-            });
-
-            // Inititate event trigger
-            $(this).trigger('resize.sa.fixedsize', [settings]);
+  });
 
 
+  // Define Methods
+  var methods = {
+
+    init: function(options) {
+
+      // Save selector in array
+      $(this.selector).each(function(){
+
+        Selectors.push( $(this) );
+
+      });
+
+      // Iterate Through Selectors
+      return this.each(function() {
+
+        // Set this
+        var $this = $(this);
+
+        // Set Options
+        var settings = $.extend({
+          selector: 'div',
+          devices: {
+            xs: 0,
+            sm: 0,
+            md: 0,
+            lg: 0
+          }
+        }, options);
+
+        if(typeof settings.selector==='string') settings.selector=[settings.selector];
+
+        // Save settings
+        $this.data('FixedSize', settings);
+
+        // Do fix
+        methods.fix.apply(this);
+
+      });
+
+    },
+
+    fix: function() {
+
+      var settings = $(this).data('FixedSize');
+
+      for(var x in settings.selector){
+
+        methods.checkSize.apply(this,[settings.selector[x]]);
+
+      }
+
+      // Inititate event trigger
+      $(this).trigger('resize.sa.fixedsize', [settings]);
+
+
+    },
+
+    checkSize: function(selector){
+
+      var h = 0;
+      var t = [];
+      var lastTop, thisTop, newLine;
+
+      // Reset height of elements
+      $(this).find(selector).css('height', 'auto');
+
+      $(this).find(selector).each(function(index) {
+
+        thisTop=$(this).offset().top;
+
+        if(lastTop<thisTop+20 && lastTop>thisTop-20) newLine=false; else newLine=true;
+        if(newLine && h>0){
+
+          for (var x in t) $(t[x]).css('height', h + 'px');
+          h = 0;
+          t = [];
         }
 
-    };
+        if ($(this).outerHeight() > h) h = $(this).outerHeight();
+        t.push(this);
 
-    $.fn.FixedSize = function(method) {
+        lastTop=thisTop;
 
-        if (methods[method]) {
+      });
 
-            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+      // Check for uncomplete row
+      if (h) {
+        for (var x in t) $(t[x]).css('height', h + 'px');
+      }
 
-        }
-        else if (typeof method === 'object' || !method) {
+    }
 
-            return methods.init.apply(this, arguments);
+  };
 
-        }
-        else {
+  $.fn.FixedSize = function(method) {
 
-            $.error('Method ' + method + ' does not exist on jQuery.Datatable');
+    if (methods[method]) {
 
-        }
+      return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
 
-    };
+    }
+    else if (typeof method === 'object' || !method) {
+
+      return methods.init.apply(this, arguments);
+
+    }
+    else {
+
+      $.error('Method ' + method + ' does not exist on jQuery.Datatable');
+
+    }
+
+  };
 
 }(jQuery, $STAN));
 
 /* ========================================================================
- * STAN Utils: Popup
- * Author: Andrew Womersley
- * ======================================================================== */
+* STAN Utils: Popup
+* Author: Andrew Womersley
+* ======================================================================== */
 
 (function($, $STAN) {
 
-    'use strict';
+  'use strict';
 
-    // Define Global Vars
-    var Selectors = [];
+  // Define Global Vars
+  var Selectors = [];
 
-    $STAN.on('resize',function() {
+  $STAN.on('resize',function() {
 
-        if (!Selectors.length) return;
+    if (!Selectors.length) return;
 
-            $(Selectors).each(function() {
+    $(Selectors).each(function() {
 
-                // Resize check
-                methods.resize.apply(this);
-
-            });
+      // Resize check
+      methods.resize.apply(this);
 
     });
 
-    // Click Listeners
-    $(window).ready(function() {
+  });
 
-        // Show
-        $("[data-toggle='popup.show']").click(function() {
+  // Click Listeners
+  $(window).ready(function() {
 
-            var src=!! $(this).attr('data-src') ? $(this).attr('data-src') : $(this).attr('href');
+    // Show
+    $("[data-toggle='popup.show']").click(function() {
 
-            methods.set_src.apply($($(this).attr('data-target')), [src]);
+      var src=!! $(this).attr('data-src') ? $(this).attr('data-src') : $(this).attr('href');
 
-            return methods.show.apply($($(this).attr('data-target')));
+      methods.set_src.apply($($(this).attr('data-target')), [src]);
 
-        });
-
-        // Hide
-        $("[data-toggle='popup.hide']").click(function() {
-
-            return methods.hide.apply($($(this).attr('data-target')));
-
-        });
-
-        // Toggle
-        $("[data-toggle='popup.toggle']").click(function() {
-
-          var src=!! $(this).attr('data-src') ? $(this).attr('data-src') : $(this).attr('href');
-
-            methods.set_src.apply($($(this).attr('data-target')), [src]);
-
-            return methods.toggle.apply($($(this).attr('data-target')));
-
-        });
+      return methods.show.apply($($(this).attr('data-target')));
 
     });
 
+    // Hide
+    $("[data-toggle='popup.hide']").click(function() {
 
-    // Define Methods
-    var methods = {
+      return methods.hide.apply($($(this).attr('data-target')));
 
-        init: function(options) {
+    });
 
-            // Save selector in array
-            $(this.selector).each(function(){
+    // Toggle
+    $("[data-toggle='popup.toggle']").click(function() {
 
-                Selectors.push( $(this) );
+      var src=!! $(this).attr('data-src') ? $(this).attr('data-src') : $(this).attr('href');
 
-            });
+      methods.set_src.apply($($(this).attr('data-target')), [src]);
 
-            // Iterate Through Selectors
-            return this.each(function(index) {
+      return methods.toggle.apply($($(this).attr('data-target')));
 
-                // Set this
-                var $this = $(this);
+    });
 
-                // Set Options
-                var settings = $.extend({
-                    type: 'html',
-                    src: 'about:blank',
-                    width: 200,
-                    height: 300,
-                    gutter: 15,
-                    open: false,
-                    auto_reopen: true,
-                    lock_aspect_ratio: true,
-                    scroll: true,
-                    devices: {
-                        xs: true,
-                        sm: true,
-                        md: true,
-                        lg: true
-                    }
-                }, options);
+  });
 
-                // Unlock aspect ratio for variable heights
-                if( settings.height=='auto') settings.lock_aspect_ratio=false;
 
-                // Save settings
-                $this.data('PopUp', settings);
+  // Define Methods
+  var methods = {
 
-                // Scroll settings
-                var _scroll = (settings.scroll) ? 'yes' : 'no';
-                var _class = (settings.scroll) ? '' : 'no-scroll';
+    init: function(options) {
 
-                // Set HTML/iFrame/Classes
-                if (settings.type == 'iframe') {
+      // Save selector in array
+      $(this.selector).each(function(){
 
-                    $this.find('.popup-display').addClass(_class);
-                    $this.find('.popup-display').html("<iframe src='about:blank' class='" + _class + "' style='width:100%;height:100%;' seamless frameborder='0' scrolling='" + _scroll + "'></iframe>");
+        Selectors.push( $(this) );
 
-                }
-                else {
+      });
 
-                    $this.find('.popup-display').addClass(_class);
+      // Iterate Through Selectors
+      return this.each(function(index) {
 
-                }
+        // Set this
+        var $this = $(this);
 
-                // Set close listener
-                $this.click(function() {
+        // Set Options
+        var settings = $.extend({
+          type: 'html',
+          src: 'about:blank',
+          width: 200,
+          height: 300,
+          gutter: 15,
+          open: false,
+          auto_reopen: true,
+          lock_aspect_ratio: true,
+          scroll: true,
+          devices: {
+            xs: true,
+            sm: true,
+            md: true,
+            lg: true
+          }
+        }, options);
 
-                    methods.hide.apply($this);
+        // Unlock aspect ratio for variable heights
+        if( settings.height=='auto') settings.lock_aspect_ratio=false;
 
-                });
+        // Save settings
+        $this.data('PopUp', settings);
 
-                $this.find('.popup-display').click(function(event) {
+        // Scroll settings
+        var _scroll = (settings.scroll) ? 'yes' : 'no';
+        var _class = (settings.scroll) ? '' : 'no-scroll';
 
-                    event.stopPropagation();
 
-                });
+        // Set HTML/iFrame/Classes
+        if (settings.type == 'iframe') {
 
-                // Show if open and allowed on current device
-                if (settings.open && settings.devices[$('body').attr('data-current-device')]) {
-
-                    $(this).css('display', 'block');
-
-                }
-
-                $this.on('resize.sa.popup',function(){
-                  methods.resize.apply( $(this) );
-                });
-
-                // Do resize
-                methods.resize.apply(this);
-
-            });
-
-        },
-
-        show: function() {
-
-            var settings = $(this).data('PopUp');
-
-            if (!settings.open) {
-
-                if (settings.devices[$STAN.device]) {
-
-                    // Set iFrame source
-                    $(this).find('iframe').attr('src', settings.src);
-
-                    // Display Popup
-                    $(this).css('display', 'block');
-
-                    // Do resize
-                    methods.resize.apply(this);
-
-                    // Set open to true
-                    settings.open = true;
-
-                    // Trigger
-                    $(this).trigger('show.sa.popup', [settings]);
-
-                    // Return false to stop default action
-                    return false;
-
-                }
-                else {
-
-                    // Return true to allow default action
-                    return true;
-
-                }
-
-            }
-            else {
-
-                return false;
-
-            }
-
-        },
-
-        hide: function() {
-
-            var settings = $(this).data('PopUp');
-
-            if (settings.open) {
-
-                // Close Popup
-                $(this).css('display', 'none');
-
-                // Unset iFrame src
-                if (settings.type == 'iframe') $(this).find('iframe').attr('src', 'about:blank');
-
-                // Set open to false
-                settings.open = false;
-
-                // Trigger
-                $(this).trigger('hide.sa.popup', [settings]);
-
-            }
-
-            // Return false to stop default action
-            return false;
-
-        },
-
-        toggle: function(src) {
-
-            var settings = $(this).data('PopUp');
-
-            if (settings.open) return methods.hide.apply(this);
-            else return methods.show.apply(this, [src]);
-
-        },
-
-        resize: function() {
-
-            var settings = $(this).data('PopUp');
-
-            // Resize to fit
-            var w = $(window).width() - (2 * settings.gutter);
-            var h = $(window).height() - (2 * settings.gutter);
-
-            if( settings.height=='auto'){
-              $(this).find('.popup-display').css('height','auto');
-              var ah=$(this).find('.popup-display').outerHeight();
-              if (h > ah) h = ah;
-            }else{
-              if (h > settings.height) h = settings.height;
-            }
-
-            if (w > settings.width) w = settings.width;
-
-            if (settings.lock_aspect_ratio) {
-                if ((w / h) > (settings.width / settings.height)) w = settings.width * (h / settings.height);
-                else h = settings.height * (w / settings.width);
-            }
-
-            $(this).find('.popup-display').css({
-                width: w + 'px',
-                height: h + 'px',
-                marginTop: '-' + (h / 2) + 'px',
-                marginLeft: '-' + (w / 2) + 'px'
-            });
-
-            // Check if device has changed
-            if (!settings.devices[$STAN.device] && settings.open) {
-                settings.reopen = true;
-                methods.hide.apply(this);
-            }
-            else if (settings.devices[$STAN.device] && settings.reopen && settings.auto_reopen) {
-                settings.reopen = false;
-                methods.show.apply(this);
-            }
-
-        },
-
-        set_src: function(src) {
-
-            var settings = $(this).data('PopUp');
-
-            if (src) settings.src = src;
-
-        }
-
-    };
-
-    $.fn.PopUp = function(method) {
-
-        if (methods[method]) {
-
-            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-
-        }
-        else if (typeof method === 'object' || !method) {
-
-            return methods.init.apply(this, arguments);
+          $this.find('.popup-content').addClass('no-scroll');
+          $this.find('.popup-content').html("<iframe src='about:blank' class='" + _class + "' style='width:100%;height:100%;' seamless frameborder='0' scrolling='" + _scroll + "'></iframe>");
 
         }
         else {
 
-            $.error('Method ' + method + ' does not exist on jQuery.Datatable');
+          $this.find('.popup-content').addClass(_class);
 
         }
 
-    };
+        // Set close listener
+        $this.click(function() {
+
+          methods.hide.apply($this);
+
+        });
+
+        $this.find('.popup-content').click(function(event) {
+
+          event.stopPropagation();
+
+        });
+
+        // Show if open and allowed on current device
+        if (settings.open && settings.devices[$('body').attr('data-current-device')]) {
+
+          $(this).css('display', 'block');
+
+        }
+
+        $this.on('resize.sa.popup',function(){
+          methods.resize.apply( $(this) );
+        });
+
+        // Do resize
+        methods.resize.apply(this);
+
+      });
+
+    },
+
+    show: function() {
+
+      var settings = $(this).data('PopUp');
+
+      if (!settings.open) {
+
+        if (settings.devices[$STAN.device]) {
+
+          if (settings.type == 'iframe') {
+
+            // Set iFrame source
+            $(this).find('iframe').attr('src', settings.src);
+
+          }else if (settings.type == 'ajax') {
+
+            // Load ajax content
+            $(this).find('.popup-content').load(settings.src);
+
+          }
+
+          // Display Popup
+          $(this).css('display', 'block');
+
+          // Do resize
+          methods.resize.apply(this);
+
+          // Set open to true
+          settings.open = true;
+
+          // Trigger
+          $(this).trigger('show.sa.popup', [settings]);
+
+          // Return false to stop default action
+          return false;
+
+        }
+        else {
+
+          // Return true to allow default action
+          return true;
+
+        }
+
+      }
+      else {
+
+        return false;
+
+      }
+
+    },
+
+    hide: function() {
+
+      var settings = $(this).data('PopUp');
+
+      if (settings.open) {
+
+        // Close Popup
+        $(this).css('display', 'none');
+
+        // Unset iFrame src
+        if (settings.type == 'iframe'){
+          $(this).find('iframe').attr('src', 'about:blank');
+        }else if (settings.type == 'ajax'){
+          $(this).find('.popup-content').html('');
+        }
+
+        // Set open to false
+        settings.open = false;
+
+        // Trigger
+        $(this).trigger('hide.sa.popup', [settings]);
+
+      }
+
+      // Return false to stop default action
+      return false;
+
+    },
+
+    toggle: function(src) {
+
+      var settings = $(this).data('PopUp');
+
+      if (settings.open) return methods.hide.apply(this);
+      else return methods.show.apply(this, [src]);
+
+    },
+
+    resize: function() {
+
+      var settings = $(this).data('PopUp');
+
+      // Resize to fit
+      var w = $(window).width() - (2 * settings.gutter);
+      var h = $(window).height() - (2 * settings.gutter);
+
+      if( settings.height=='auto'){
+        $(this).find('.popup-display').css('height','auto');
+        var ah=$(this).find('.popup-display').outerHeight();
+        if (h > ah) h = ah;
+      }else{
+        if (h > settings.height) h = settings.height;
+      }
+
+      if (w > settings.width) w = settings.width;
+
+      if (settings.lock_aspect_ratio) {
+        if ((w / h) > (settings.width / settings.height)) w = settings.width * (h / settings.height);
+        else h = settings.height * (w / settings.width);
+      }
+
+      $(this).find('.popup-display').css({
+        width: w + 'px',
+        height: h + 'px',
+        marginTop: '-' + (h / 2) + 'px',
+        marginLeft: '-' + (w / 2) + 'px'
+      });
+
+      // Check if device has changed
+      if (!settings.devices[$STAN.device] && settings.open) {
+        settings.reopen = true;
+        methods.hide.apply(this);
+      }
+      else if (settings.devices[$STAN.device] && settings.reopen && settings.auto_reopen) {
+        settings.reopen = false;
+        methods.show.apply(this);
+      }
+
+    },
+
+    set_src: function(src) {
+
+      var settings = $(this).data('PopUp');
+
+      if (src) settings.src = src;
+
+    }
+
+  };
+
+  $.fn.PopUp = function(method) {
+
+    if (methods[method]) {
+
+      return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+
+    }
+    else if (typeof method === 'object' || !method) {
+
+      return methods.init.apply(this, arguments);
+
+    }
+    else {
+
+      $.error('Method ' + method + ' does not exist on jQuery.Datatable');
+
+    }
+
+  };
 
 }(jQuery, $STAN));
 
