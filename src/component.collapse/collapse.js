@@ -78,8 +78,8 @@ $(function() {
 
             } else {
 
-                $(this).removeClass('inactive');
-                $(this).addClass('active').find('.collapse-content').first().addClass('in').removeClass('collapse').css('height', '');
+              $(this).addClass('inactive');
+              $(this).removeClass('active').find('.collapse-content').first().addClass('in').removeClass('collapse').css('height', '');
 
             }
 

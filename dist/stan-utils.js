@@ -1,5 +1,5 @@
 /*!
- * STAN Utils 0.0.20
+ * STAN Utils 0.0.21
  * Copyright 2014 Andrew Womersley
  */
 
@@ -760,8 +760,8 @@ $(function() {
 
             } else {
 
-                $(this).removeClass('inactive');
-                $(this).addClass('active').find('.collapse-content').first().addClass('in').removeClass('collapse').css('height', '');
+              $(this).addClass('inactive');
+              $(this).removeClass('active').find('.collapse-content').first().addClass('in').removeClass('collapse').css('height', '');
 
             }
 
