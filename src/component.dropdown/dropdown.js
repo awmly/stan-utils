@@ -1,52 +1,58 @@
 /* ========================================================================
- * STAN Utils: Dropdown
- * Author: Andrew Womersley
- * ======================================================================== */
+* STAN Utils: Dropdown
+* Author: Andrew Womersley
+* ======================================================================== */
 
- $(function() {
+$(function() {
 
   'use strict';
 
   var width, subnav, pad;
 
-    $('.sa-dropdown').click(function(event){
+  $('.sa-dropdown').click(function(event){
+
+    if($(this).hasClass('active')){
 
       $('.sa-dropdown').removeClass('active');
 
-        width = 0;
-        subnav = $(this).children('ul');
+    }else{
 
-        pad = subnav.outerWidth()-subnav.width();
+      $('.sa-dropdown').removeClass('active');
+      $(this).addClass('active');
+
+      width = 0;
+      subnav = $(this).find('ul');
+
+
+      pad = subnav.outerWidth()-subnav.width();
 
       subnav.css('width', '1000px')
-            .children('li').css('display', 'inline-block');
+      .children('li').css('display', 'inline-block');
 
-        subnav.children('li').each(function() {
+      subnav.children('li').each(function() {
 
-            if ($(this).outerWidth() > width) width = $(this).outerWidth();
+        if ($(this).outerWidth() > width) width = $(this).outerWidth();
 
-        });
+      });
 
-        width=width+pad;
+      width=width+pad;
 
-        subnav.css('width', '')
-            .children('li').css('display', '');
+      subnav.css('width', '')
+      .children('li').css('display', '');
 
-        if (width > subnav.outerWidth()) subnav.css('width', width + 'px');
-
-
-
-
-      $(this).addClass('active');
+      if (width > subnav.outerWidth()) subnav.css('width', width + 'px');
+      else if (width < $(this).outerWidth()) subnav.css('width', $(this).outerWidth() + 'px');
 
       event.stopPropagation();
 
-    });
+    }
 
-    $('body').on('click',function(){
+  });
 
-      $('.sa-dropdown').removeClass('active');
+  $('body').on('click',function(){
 
-    });
+    $('.sa-dropdown').removeClass('active');
+
+  });
 
 });

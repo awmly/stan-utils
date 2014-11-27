@@ -214,6 +214,8 @@ $(function() {
     // Set hashchange event
     $(window).on('hashchange', readHash);
 
+    CollapseTab();
+
     readHash();
 
 });

@@ -1,5 +1,5 @@
 /*!
- * STAN Utils 0.0.19
+ * STAN Utils 0.0.20
  * Copyright 2014 Andrew Womersley
  */
 
@@ -740,13 +740,13 @@ $(function() {
 
         $('[data-collapse-devices]').each(function() {
 
-            if ($(this).attr('data-collapse-devices').indexOf($STAN.device) >= 0) {
+            if ( $(this).attr('data-collapse-devices')=='all' || $(this).attr('data-collapse-devices').indexOf($STAN.device) >= 0) {
 
                 $(this).removeClass('inactive');
 
                 if ($(this).attr('data-collapse-devices-open')) {
 
-                    if ($(this).attr('data-collapse-devices-open').indexOf($STAN.device) >= 0) {
+                    if ($(this).attr('data-collapse-devices-open')=='all' || $(this).attr('data-collapse-devices-open').indexOf($STAN.device) >= 0) {
                         $(this).addClass('active').find('.collapse-content').first().addClass('in').css('height', '');
                     } else {
                         $(this).removeClass('active').find('.collapse-content').first().removeClass('in').addClass('collapse');
@@ -760,7 +760,7 @@ $(function() {
 
             } else {
 
-                $(this).addClass('inactive');
+                $(this).removeClass('inactive');
                 $(this).addClass('active').find('.collapse-content').first().addClass('in').removeClass('collapse').css('height', '');
 
             }
@@ -772,55 +772,61 @@ $(function() {
 });
 
 /* ========================================================================
- * STAN Utils: Dropdown
- * Author: Andrew Womersley
- * ======================================================================== */
+* STAN Utils: Dropdown
+* Author: Andrew Womersley
+* ======================================================================== */
 
- $(function() {
+$(function() {
 
   'use strict';
 
   var width, subnav, pad;
 
-    $('.sa-dropdown').click(function(event){
+  $('.sa-dropdown').click(function(event){
+
+    if($(this).hasClass('active')){
 
       $('.sa-dropdown').removeClass('active');
 
-        width = 0;
-        subnav = $(this).children('ul');
+    }else{
 
-        pad = subnav.outerWidth()-subnav.width();
+      $('.sa-dropdown').removeClass('active');
+      $(this).addClass('active');
+
+      width = 0;
+      subnav = $(this).find('ul');
+
+
+      pad = subnav.outerWidth()-subnav.width();
 
       subnav.css('width', '1000px')
-            .children('li').css('display', 'inline-block');
+      .children('li').css('display', 'inline-block');
 
-        subnav.children('li').each(function() {
+      subnav.children('li').each(function() {
 
-            if ($(this).outerWidth() > width) width = $(this).outerWidth();
+        if ($(this).outerWidth() > width) width = $(this).outerWidth();
 
-        });
+      });
 
-        width=width+pad;
+      width=width+pad;
 
-        subnav.css('width', '')
-            .children('li').css('display', '');
+      subnav.css('width', '')
+      .children('li').css('display', '');
 
-        if (width > subnav.outerWidth()) subnav.css('width', width + 'px');
-
-
-
-
-      $(this).addClass('active');
+      if (width > subnav.outerWidth()) subnav.css('width', width + 'px');
+      else if (width < $(this).outerWidth()) subnav.css('width', $(this).outerWidth() + 'px');
 
       event.stopPropagation();
 
-    });
+    }
 
-    $('body').on('click',function(){
+  });
 
-      $('.sa-dropdown').removeClass('active');
+  $('body').on('click',function(){
 
-    });
+    $('.sa-dropdown').removeClass('active');
+
+  });
 
 });
 
@@ -875,25 +881,29 @@ $(function() {
 });
 
 /* ========================================================================
- * STAN Utils: Hide Till
- * Author: Andrew Womersley
- * ======================================================================== */
+* STAN Utils: Hide Till
+* Author: Andrew Womersley
+* ======================================================================== */
 
 $(function() {
 
-    'use strict';
+  'use strict';
 
-    $('.hide-till-ready').removeClass('hide-till-ready');
+  $('.hide-till-ready').removeClass('hide-till-ready');
+  $('.none-till-ready').removeClass('none-till-ready');
 
-    $('.hide-on-ready').remove();
+  $('.hide-on-ready').remove();
+  $('.none-on-ready').remove();
 
-    $(window).load(function(){
+  $(window).load(function(){
 
-        $('.hide-till-load').removeClass('hide-till-load');
+    $('.hide-till-load').removeClass('hide-till-load');
+    $('.none-till-load').removeClass('none-till-load');
 
-        $('.hide-on-load').remove();
+    $('.hide-on-load').remove();
+    $('.none-on-load').remove();
 
-    });
+  });
 
 });
 
@@ -966,63 +976,68 @@ $(function() {
 });
 
 /* ========================================================================
- * STAN Utils: InsetOutset
- * Author: Andrew Womersley
- * ======================================================================== */
+* STAN Utils: InsetOutset
+* Author: Andrew Womersley
+* ======================================================================== */
 
 $(function() {
 
-    'use strict';
+  'use strict';
 
-    var InsetOutset = function() {
+  var InsetOutset = function() {
 
-        var padding, width, side, outset, clone;
+    var padding, paddingTop, width, side, outset, clone;
 
-        $('.sa-inset,.sa-outset').each(function() {
-
-            // Set side
-            if ($(this).hasClass('sa-right')) side = 'right';
-            else side = 'left';
-
-            // Reset inline css padding
-            $(this).parent().css('padding-' + side, '');
-
-            // Get offset
-            padding = parseInt($(this).parent().css('padding-' + side));
-
-            // Get width
-            width = $(this).outerWidth(true);
-
-            // If width is zero (hidden)  or less than 10 ie bug) - use getSize to find its width
-            if (!width || width<10) width = $STAN.getSize($(this)).outerWidthMargin;
-
-            // Apply paddings
-            if ($(this).hasClass('sa-outset')) {
-
-                $(this).parent().parent().css('padding-' + side, width + 'px');
-                $(this).css(side, '-' + width + 'px');
-
-            } else {
-
-                $(this).parent().css('padding-' + side, (padding + width) + 'px');
-                $(this).css(side, padding + 'px');
-
-            }
-
-        });
-
-    };
-
-    // Add required parent class
     $('.sa-inset,.sa-outset').each(function() {
-        if ($(this).parent().css('position') == 'static') $(this).parent().addClass('relative');
+
+      // Set side
+      if ($(this).hasClass('sa-right')) side = 'right';
+      else side = 'left';
+
+      // Reset inline css padding
+      $(this).parent().css('padding-' + side, '');
+
+      // Get offset
+      padding = parseInt($(this).parent().css('padding-' + side));
+      paddingTop = parseInt($(this).parent().css('padding-top'));
+
+      // Get width
+      width = $(this).outerWidth(true);
+
+      // If width is zero (hidden)  or less than 10 ie bug) - use getSize to find its width
+      if (!width || width<10) width = $STAN.getSize($(this)).outerWidthMargin;
+
+      // Apply paddings
+      if ($(this).hasClass('sa-outset')) {
+
+        $(this).parent().parent().css('padding-' + side, width + 'px');
+        $(this).css(side, '-' + width + 'px');
+
+      } else {
+
+        $(this).parent().css('padding-' + side, (padding + width) + 'px');
+        $(this).css(side, padding + 'px');
+
+      }
+
+      if( $(this).hasClass('sa-top') ){
+        $(this).css('margin-top', paddingTop + 'px');
+      }
+
     });
 
-    // Add function listeners
-    $(window).on('load resize', InsetOutset);
+  };
 
-    // Turn visibility back on
-    $('.sa-inset,.sa-outset').css('visibility','visible');
+  // Add required parent class
+  $('.sa-inset,.sa-outset').each(function() {
+    if ($(this).parent().css('position') == 'static') $(this).parent().addClass('relative');
+  });
+
+  // Add function listeners
+  $(window).on('load resize', InsetOutset);
+
+  // Turn visibility back on
+  $('.sa-inset,.sa-outset').css('visibility','visible');
 
 });
 
@@ -1627,6 +1642,8 @@ $(function() {
 
     // Set hashchange event
     $(window).on('hashchange', readHash);
+
+    CollapseTab();
 
     readHash();
 

@@ -58,13 +58,13 @@ $(function() {
 
         $('[data-collapse-devices]').each(function() {
 
-            if ($(this).attr('data-collapse-devices').indexOf($STAN.device) >= 0) {
+            if ( $(this).attr('data-collapse-devices')=='all' || $(this).attr('data-collapse-devices').indexOf($STAN.device) >= 0) {
 
                 $(this).removeClass('inactive');
 
                 if ($(this).attr('data-collapse-devices-open')) {
 
-                    if ($(this).attr('data-collapse-devices-open').indexOf($STAN.device) >= 0) {
+                    if ($(this).attr('data-collapse-devices-open')=='all' || $(this).attr('data-collapse-devices-open').indexOf($STAN.device) >= 0) {
                         $(this).addClass('active').find('.collapse-content').first().addClass('in').css('height', '');
                     } else {
                         $(this).removeClass('active').find('.collapse-content').first().removeClass('in').addClass('collapse');
@@ -78,7 +78,7 @@ $(function() {
 
             } else {
 
-                $(this).addClass('inactive');
+                $(this).removeClass('inactive');
                 $(this).addClass('active').find('.collapse-content').first().addClass('in').removeClass('collapse').css('height', '');
 
             }
