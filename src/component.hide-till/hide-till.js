@@ -23,4 +23,6 @@ $(function() {
 
   });
 
+  $($STAN.Tag).trigger('resize.sa.stan');
+
 });
