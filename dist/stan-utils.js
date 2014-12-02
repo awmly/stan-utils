@@ -1,5 +1,5 @@
 /*!
- * STAN Utils 0.0.22
+ * STAN Utils 0.0.23
  * Copyright 2014 Andrew Womersley
  */
 
@@ -808,7 +808,7 @@ $(function() {
 
       });
 
-      width=width+pad;
+      width=width+pad+5;
 
       subnav.css('width', '')
       .children('li').css('display', '');
@@ -3312,6 +3312,13 @@ $(function() {
 
         });
 
+        $this.find('.popup-close').click(function(event) {
+
+          methods.hide.apply($this);
+          event.stopPropagation();
+
+        });
+
         $this.find('.popup-content').click(function(event) {
 
           event.stopPropagation();
@@ -3352,12 +3359,17 @@ $(function() {
           }else if (settings.type == 'ajax') {
 
             // Load ajax content
-            $(this).find('.popup-content').load(settings.src);
+            $(this).find('.popup-display').css('opacity',0);
+            $(this).find('.popup-content').load(settings.src,function(){
+
+              $(this).parent().animate({opacity:1},300);
+
+            });
 
           }
 
           // Display Popup
-          $(this).css('display', 'block');
+          $(this).css({display:'block',opacity:0}).animate({opacity:1},300);
 
           // Do resize
           methods.resize.apply(this);
@@ -3395,7 +3407,9 @@ $(function() {
       if (settings.open) {
 
         // Close Popup
-        $(this).css('display', 'none');
+        $(this).animate({opacity:0},300,function(){
+          $(this).css('display', 'none');
+        });
 
         // Unset iFrame src
         if (settings.type == 'iframe'){

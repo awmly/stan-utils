@@ -126,6 +126,13 @@
 
         });
 
+        $this.find('.popup-close').click(function(event) {
+
+          methods.hide.apply($this);
+          event.stopPropagation();
+
+        });
+
         $this.find('.popup-content').click(function(event) {
 
           event.stopPropagation();
@@ -166,12 +173,17 @@
           }else if (settings.type == 'ajax') {
 
             // Load ajax content
-            $(this).find('.popup-content').load(settings.src);
+            $(this).find('.popup-display').css('opacity',0);
+            $(this).find('.popup-content').load(settings.src,function(){
+
+              $(this).parent().animate({opacity:1},300);
+
+            });
 
           }
 
           // Display Popup
-          $(this).css('display', 'block');
+          $(this).css({display:'block',opacity:0}).animate({opacity:1},300);
 
           // Do resize
           methods.resize.apply(this);
@@ -209,7 +221,9 @@
       if (settings.open) {
 
         // Close Popup
-        $(this).css('display', 'none');
+        $(this).animate({opacity:0},300,function(){
+          $(this).css('display', 'none');
+        });
 
         // Unset iFrame src
         if (settings.type == 'iframe'){

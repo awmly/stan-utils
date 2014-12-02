@@ -35,7 +35,7 @@ $(function() {
 
       });
 
-      width=width+pad;
+      width=width+pad+5;
 
       subnav.css('width', '')
       .children('li').css('display', '');

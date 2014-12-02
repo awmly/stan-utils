@@ -1,5 +1,5 @@
 /*!
- * STAN Utils 0.0.22
+ * STAN Utils 0.0.23
  * Copyright 2014 Andrew Womersley
  */
 
@@ -258,11 +258,11 @@ img.maxheight {
   width: 210px;
   padding: 0;
 }
-.pull-nav.desktop .level0 > .sub {
+.pull-nav.desktop .level1 > .sub {
   left: 0;
   top: 100%;
 }
-.pull-nav.desktop .level0 > .sub.right {
+.pull-nav.desktop .level1 > .sub.right {
   left: auto;
   right: 0;
 }
@@ -272,7 +272,7 @@ img.maxheight {
   right: 15px;
 }
 /** Top level links */
-.pull-nav.desktop .level0 {
+.pull-nav.desktop .level1 {
   float: left;
 }
 /*
@@ -376,11 +376,11 @@ img.maxheight {
   width: 210px;
   padding: 0;
 }
-.slide-nav.desktop .level0 > .sub {
+.slide-nav.desktop .level1 > .sub {
   left: 0;
   top: 100%;
 }
-.slide-nav.desktop .level0 > .sub.right {
+.slide-nav.desktop .level1 > .sub.right {
   left: auto;
   right: 0;
 }
@@ -390,7 +390,7 @@ img.maxheight {
   right: 15px;
 }
 /** Top level links */
-.slide-nav.desktop .level0 {
+.slide-nav.desktop .level1 {
   float: left;
 }
 /*
@@ -5081,17 +5081,27 @@ ul.icon i {
   display: none;
   z-index: 9999;
 }
+.popup .popup-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -50px 0 0 -50px;
+  height: 100px;
+  width: 100px;
+  text-align: center;
+  line-height: 100px;
+  color: #ccc;
+}
 .popup .popup-close {
   position: absolute;
   top: 20px;
   right: 20px;
-  font-size: 24px;
   color: #ccc;
   z-index: 20;
   cursor: pointer;
 }
 .popup .popup-close:hover {
-  color: #333;
+  color: #fff;
 }
 .popup .popup-display {
   position: absolute;
