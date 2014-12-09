@@ -27,7 +27,7 @@
   $(window).ready(function() {
 
     // Show
-    $("[data-toggle='popup.show']").click(function() {
+    $('body').on("click","[data-toggle='popup.show']",function(){
 
       var src=!! $(this).attr('data-src') ? $(this).attr('data-src') : $(this).attr('href');
 
@@ -38,14 +38,14 @@
     });
 
     // Hide
-    $("[data-toggle='popup.hide']").click(function() {
+    $('body').on("click","[data-toggle='popup.hide']",function(){
 
       return methods.hide.apply($($(this).attr('data-target')));
 
     });
 
     // Toggle
-    $("[data-toggle='popup.toggle']").click(function() {
+    $('body').on("click","[data-toggle='popup.toggle']",function(){
 
       var src=!! $(this).attr('data-src') ? $(this).attr('data-src') : $(this).attr('href');
 

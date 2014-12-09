@@ -1,5 +1,5 @@
 /*!
- * STAN Utils 0.0.23
+ * STAN Utils 0.0.24
  * Copyright 2014 Andrew Womersley
  */
 
@@ -1118,7 +1118,7 @@ $(function() {
 
     $(window).on('orientationchange',function(){
 
-      CloseMobile();
+      if( $('.pull-nav').attr('data-open')=='1' ) CloseMobile();
 
     });
 
@@ -3213,7 +3213,7 @@ $(function() {
   $(window).ready(function() {
 
     // Show
-    $("[data-toggle='popup.show']").click(function() {
+    $('body').on("click","[data-toggle='popup.show']",function(){
 
       var src=!! $(this).attr('data-src') ? $(this).attr('data-src') : $(this).attr('href');
 
@@ -3224,14 +3224,14 @@ $(function() {
     });
 
     // Hide
-    $("[data-toggle='popup.hide']").click(function() {
+    $('body').on("click","[data-toggle='popup.hide']",function(){
 
       return methods.hide.apply($($(this).attr('data-target')));
 
     });
 
     // Toggle
-    $("[data-toggle='popup.toggle']").click(function() {
+    $('body').on("click","[data-toggle='popup.toggle']",function(){
 
       var src=!! $(this).attr('data-src') ? $(this).attr('data-src') : $(this).attr('href');
 

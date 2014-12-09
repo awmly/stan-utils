@@ -73,7 +73,7 @@ $(function() {
 
     $(window).on('orientationchange',function(){
 
-      CloseMobile();
+      if( $('.pull-nav').attr('data-open')=='1' ) CloseMobile();
 
     });
 
