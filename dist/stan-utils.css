@@ -1,5 +1,5 @@
 /*!
- * STAN Utils 0.0.25
+ * STAN Utils 0.0.26
  * Copyright 2014 Andrew Womersley
  */
 
@@ -146,13 +146,14 @@
   max-height: 200px;
   padding: 6px;
 }
-.sa-select-multiple.lg {
+.sa-select-multiple.sa-lg {
   max-height: 300px;
 }
 .sa-select-multiple label {
-  margin: 5px 0;
+  margin-bottom: 10px;
   position: relative;
   padding: 5px;
+  display: block;
 }
 .sa-select-multiple label:after {
   content: " ";
@@ -163,9 +164,6 @@
   height: 5px;
   width: 100%;
   border-bottom: 1px solid #ddd;
-}
-.sa-select-multiple label:first-child {
-  margin-top: 0;
 }
 .sa-select-multiple label:last-child {
   margin-bottom: 0;
