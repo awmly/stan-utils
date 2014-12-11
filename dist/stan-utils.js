@@ -1,5 +1,5 @@
 /*!
- * STAN Utils 0.0.24
+ * STAN Utils 0.0.25
  * Copyright 2014 Andrew Womersley
  */
 
@@ -808,12 +808,12 @@ $(function() {
 
       });
 
-      width=width+pad+5;
+      width=width+pad;
 
       subnav.css('width', '')
       .children('li').css('display', '');
 
-      if (width > subnav.outerWidth()) subnav.css('width', width + 'px');
+      if (width > subnav.outerWidth()) subnav.css('width', (width+5) + 'px');
       else if (width < $(this).outerWidth()) subnav.css('width', $(this).outerWidth() + 'px');
 
       event.stopPropagation();
@@ -839,7 +839,7 @@ $(function() {
 
   'use strict';
 
-    $('.sa-checkbox, .sa-radio').click(function(){
+    $('.sa-checkbox, .sa-radio, .sa-select-multiple label').click(function(event){
 
       var $input=$(this).find('input');
 
@@ -866,9 +866,11 @@ $(function() {
 
       }
 
+      event.preventDefault();
+
     });
 
-    $('.sa-checkbox, .sa-radio').each(function(){
+    $('.sa-checkbox, .sa-radio, .sa-select-multiple label').each(function(){
 
       if($(this).find('input').prop('checked')){
 

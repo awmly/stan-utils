@@ -35,12 +35,12 @@ $(function() {
 
       });
 
-      width=width+pad+5;
+      width=width+pad;
 
       subnav.css('width', '')
       .children('li').css('display', '');
 
-      if (width > subnav.outerWidth()) subnav.css('width', width + 'px');
+      if (width > subnav.outerWidth()) subnav.css('width', (width+5) + 'px');
       else if (width < $(this).outerWidth()) subnav.css('width', $(this).outerWidth() + 'px');
 
       event.stopPropagation();

@@ -8,7 +8,9 @@
 .sa-radio,
 .sa-radio label,
 .sa-select,
-.sa-select select{
+.sa-select select,
+.sa-select-multiple,
+.sa-select-multiple label{
   cursor:pointer;
 }
 
@@ -19,7 +21,8 @@
 }
 
 .sa-checkbox input,
-.sa-radio input{
+.sa-radio input,
+.sa-select-multiple input{
   display:none;
 }
 
@@ -43,4 +46,45 @@
   right:10px;
   z-index:20;
   color:#aaa;
+}
+
+.sa-select-multiple{
+    overflow:auto;
+    height:auto;
+    max-height:200px;
+    padding:6px;
+}
+
+.sa-select-multiple.lg{
+  max-height:300px;
+}
+
+.sa-select-multiple label{
+  margin:5px 0;
+  position:relative;
+  padding:5px;
+}
+.sa-select-multiple label:after{
+  content:" ";
+  display:block;
+  position:absolute;
+  top:100%;
+  left:0;
+  height:5px;
+  width:100%;
+  border-bottom:1px solid #ddd;
+}
+.sa-select-multiple label:first-child{
+  margin-top:0;
+}
+.sa-select-multiple label:last-child{
+  margin-bottom:0;
+}
+.sa-select-multiple label:last-child:after{
+  border-bottom:none;
+  height:0;
+}
+
+.sa-select-multiple label.active{
+  background:#eee;
 }

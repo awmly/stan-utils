@@ -7,7 +7,7 @@
 
   'use strict';
 
-    $('.sa-checkbox, .sa-radio').click(function(){
+    $('.sa-checkbox, .sa-radio, .sa-select-multiple label').click(function(event){
 
       var $input=$(this).find('input');
 
@@ -34,9 +34,11 @@
 
       }
 
+      event.preventDefault();
+
     });
 
-    $('.sa-checkbox, .sa-radio').each(function(){
+    $('.sa-checkbox, .sa-radio, .sa-select-multiple label').each(function(){
 
       if($(this).find('input').prop('checked')){
 
