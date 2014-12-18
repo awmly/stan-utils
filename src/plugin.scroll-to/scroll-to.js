@@ -31,13 +31,13 @@
 
         init: function(options) {
 
-            // Save selector in array
-            if($(this.selector).length) Selectors.push(this.selector);
-
             // Add selector to options
             options.selector = this.selector;
 
             return this.each(function() {
+
+                // Save selector in array
+                Selectors.push($(this));
 
                 // Set this
                 var $this = $(this);
@@ -106,7 +106,7 @@
 
               $(this).removeClass(settings.active_class);
               if($(this).attr('data-active-class')) $(this).removeClass( $(this).attr('data-active-class') );
-            
+
           });
 
             var st = {
