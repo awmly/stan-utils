@@ -85,7 +85,7 @@
 
                 $(settings.current_holder).removeClass('active');
 
-                $(element).html($this).addClass('active');
+                $(element).append($this).addClass('active');
 
                 settings.current_holder = element;
 

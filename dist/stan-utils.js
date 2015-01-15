@@ -1,6 +1,6 @@
 /*!
- * STAN Utils 0.0.27
- * Copyright 2014 Andrew Womersley
+ * STAN Utils 0.0.28
+ * Copyright 2015 Andrew Womersley
  */
 
 /* ========================================================================
@@ -976,6 +976,8 @@ $(function() {
 	$(window).on('resize', imgBox);
 
 	$("img[data-img-box]").on('load', imgBox);
+
+	imgBox();
 
 });
 
@@ -2251,7 +2253,7 @@ $(function() {
             });
 
             // Set height for container
-            $(this).css('height', height + 'px');
+            $(this).find('.colousel-inner').height(height);
 
             // Set start and end positions
             settings.start_position = settings.selector_width * -1;
@@ -2558,13 +2560,17 @@ $(function() {
 
         next: function() {
 
-            methods.move.apply($this, ['next', true]);
+          var $this = $(this);
+
+          methods.move.apply($this, ['next', true]);
 
         },
 
         prev: function() {
 
-            methods.move.apply($this, ['prev', true]);
+          var $this = $(this);
+
+          methods.move.apply($this, ['prev', true]);
 
         }
 
@@ -2679,7 +2685,7 @@ $(function() {
 
                 $(settings.current_holder).removeClass('active');
 
-                $(element).html($this).addClass('active');
+                $(element).append($this).addClass('active');
 
                 settings.current_holder = element;
 

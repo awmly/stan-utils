@@ -237,7 +237,7 @@
             });
 
             // Set height for container
-            $(this).css('height', height + 'px');
+            $(this).find('.colousel-inner').height(height);
 
             // Set start and end positions
             settings.start_position = settings.selector_width * -1;
@@ -544,13 +544,17 @@
 
         next: function() {
 
-            methods.move.apply($this, ['next', true]);
+          var $this = $(this);
+
+          methods.move.apply($this, ['next', true]);
 
         },
 
         prev: function() {
 
-            methods.move.apply($this, ['prev', true]);
+          var $this = $(this);
+
+          methods.move.apply($this, ['prev', true]);
 
         }
 

@@ -64,4 +64,6 @@ $(function() {
 
 	$("img[data-img-box]").on('load', imgBox);
 
+	imgBox();
+
 });
