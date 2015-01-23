@@ -139,6 +139,9 @@ var $STAN;
 
     var _STAN_Resize=function(){
 
+      var ww = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+      var wh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+      
       if(ww!=$STAN.windowWidth || wh!=$STAN.windowHeight){
 
         _STAN();
