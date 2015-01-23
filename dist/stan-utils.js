@@ -1,5 +1,5 @@
 /*!
- * STAN Utils 0.0.28
+ * STAN Utils 0.0.29
  * Copyright 2015 Andrew Womersley
  */
 
@@ -81,7 +81,7 @@ var $STAN;
 
             bp = Config[device];
 
-            // Remove classes
+            // Remove classes - moved below
             $(Tag).removeClass(bp.classes);
 
             // Remove data attributes
@@ -120,10 +120,10 @@ var $STAN;
             }
             else {
 
-                if (current_device == device) triggers.push({
-                    type: 'deactive',
-                    device: device
-                });
+              if (current_device == device) triggers.push({
+                type: 'deactive',
+                device: device
+              });
 
             }
 
@@ -144,8 +144,12 @@ var $STAN;
 
     var _STAN_Resize=function(){
 
+      if(ww!=$STAN.windowWidth || wh!=$STAN.windowHeight){
+
         _STAN();
         $(Tag).trigger('resize.sa.stan');
+
+      }
 
     };
 
@@ -1334,7 +1338,7 @@ $(function() {
 
     $("[data-resp-img='true']").each(function(){
 
-      var src = $(this).attr('data-'+$STAN.device);
+      var src = $(this).attr('data-base')+$(this).attr('data-'+$STAN.device);
 
       if( $(this).attr('defer-src') ){
         $(this).attr('defer-src',src);
@@ -1390,7 +1394,23 @@ $(function() {
 }(jQuery, $STAN));
 
 /* ========================================================================
- * STAN Utils: ImgResponsive
+* STAN Utils: Retina Images
+* Author: Andrew Womersley
+* ======================================================================== */
+
+$(function() {
+
+  'use strict';
+
+  // Set pixel ratio
+  var pxRatio = !! window.devicePixelRatio ? window.devicePixelRatio : 1;
+
+  if (pxRatio > 1) $('body').addClass('x2');
+
+});
+
+/* ========================================================================
+ * STAN Utils: Scroll Spy
  * Author: Andrew Womersley
  * ======================================================================== */
 
@@ -1430,6 +1450,56 @@ $(function() {
     $(window).scroll(scrollSpy);
 
     scrollSpy();
+
+});
+
+/* ========================================================================
+* STAN Utils: Stop Parent Scroll
+* Author: Andrew Womersley
+* ======================================================================== */
+
+$(function() {
+
+  'use strict';
+  
+  $('body').on('mousewheel touchend','.stop-parent-scroll',function(event){
+
+    var dir = event.originalEvent.wheelDelta;
+    var $t = $(this);
+
+    if (dir > 0 && $t.scrollTop() === 0) {
+      event.preventDefault();
+    }
+
+    if (dir < 0 && ($t.scrollTop() >= $t.get(0).scrollHeight - $t.innerHeight())) {
+      event.preventDefault();
+    }
+
+    event.stopPropagation();
+
+  });
+
+  $('body').on('touchstart','.stop-parent-scroll',function(event){
+
+    var touch = event.originalEvent.touches[0] || event.originalEvent.changedTouches[0];
+
+    $(this).data('pageY',touch.pageY);
+
+  });
+
+  $('body').on('touchmove','.stop-parent-scroll',function(event){
+
+    event.preventDefault();
+
+    event.stopPropagation();
+
+    var touch = event.originalEvent.touches[0] || event.originalEvent.changedTouches[0];
+
+    var move=($(this).data('pageY')-touch.pageY)/5;
+
+    $(this).scrollTop( $(this).scrollTop()+move );
+
+  });
 
 });
 
@@ -1738,63 +1808,6 @@ $(function() {
     $('html').on("click touchend", ":not(.touch-hover)", function(event) {
         $('*').removeClass('hover');
     });
-
-});
-
-/* ========================================================================
- * STAN Utils: Helpers
- * Author: Andrew Womersley
- * ======================================================================== */
-
-$(function() {
-
-    'use strict';
-
-    // Stop parent scroll
-    $('.stop-parent-scroll').on('mousewheel touchend', function(event) {
-
-      var dir = event.originalEvent.wheelDelta;
-      var $t = $(this);
-
-      if (dir > 0 && $t.scrollTop() === 0) {
-        event.preventDefault();
-      }
-
-      if (dir < 0 && ($t.scrollTop() == $t.get(0).scrollHeight - $t.innerHeight())) {
-        event.preventDefault();
-      }
-
-      event.stopPropagation();
-
-    });
-
-    $('.stop-parent-scroll').on('touchstart', function(event) {
-
-      var touch = event.originalEvent.touches[0] || event.originalEvent.changedTouches[0];
-
-      $(this).data('pageY',touch.pageY);
-
-    });
-
-    $('.stop-parent-scroll').on('touchmove', function(event) {
-
-      event.preventDefault();
-
-      event.stopPropagation();
-
-      var touch = event.originalEvent.touches[0] || event.originalEvent.changedTouches[0];
-
-      var move=($(this).data('pageY')-touch.pageY)/5;
-
-      $(this).scrollTop( $(this).scrollTop()+move );
-
-    });
-
-
-    // Set pixel ratio
-    var pxRatio = !! window.devicePixelRatio ? window.devicePixelRatio : 1;
-
-    if (pxRatio > 1) $('body').addClass('x2');
 
 });
 

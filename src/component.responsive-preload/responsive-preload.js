@@ -11,7 +11,7 @@
 
     $("[data-resp-img='true']").each(function(){
 
-      var src = $(this).attr('data-'+$STAN.device);
+      var src = $(this).attr('data-base')+$(this).attr('data-'+$STAN.device);
 
       if( $(this).attr('defer-src') ){
         $(this).attr('defer-src',src);

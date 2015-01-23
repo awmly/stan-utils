@@ -76,7 +76,7 @@ var $STAN;
 
             bp = Config[device];
 
-            // Remove classes
+            // Remove classes - moved below
             $(Tag).removeClass(bp.classes);
 
             // Remove data attributes
@@ -115,10 +115,10 @@ var $STAN;
             }
             else {
 
-                if (current_device == device) triggers.push({
-                    type: 'deactive',
-                    device: device
-                });
+              if (current_device == device) triggers.push({
+                type: 'deactive',
+                device: device
+              });
 
             }
 
@@ -139,8 +139,12 @@ var $STAN;
 
     var _STAN_Resize=function(){
 
+      if(ww!=$STAN.windowWidth || wh!=$STAN.windowHeight){
+
         _STAN();
         $(Tag).trigger('resize.sa.stan');
+
+      }
 
     };
 
