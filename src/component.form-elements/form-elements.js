@@ -48,4 +48,26 @@
 
    });
 
+
+   // data-toggle='input-sync' data-target='.moduleid' data-action='/scripts/backend/get-modules'
+   $("[data-toggle='input-sync']").change(function(){
+
+     $t=$(this);
+
+     $( $t.attr('data-target') ).load( $t.attr('data-action'), { syncid: $t.val() } );
+
+   }).change();
+
+
+   // data-toggle='set-value' data-target='[name="configure"]' data-value='1' data-no-submit
+   $("[data-toggle='set-value']").click(function(){
+
+     $t=$(this);
+
+     $( $t.attr('data-target') ).val( $t.attr('data-value') );
+
+     if( $t.is('[data-no-submit]') ) return false;
+
+   });
+
 });

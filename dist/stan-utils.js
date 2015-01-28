@@ -1,5 +1,5 @@
 /*!
- * STAN Utils 0.0.30
+ * STAN Utils 0.0.31
  * Copyright 2015 Andrew Womersley
  */
 
@@ -887,6 +887,28 @@ $(function() {
 
    });
 
+
+   // data-toggle='input-sync' data-target='.moduleid' data-action='/scripts/backend/get-modules'
+   $("[data-toggle='input-sync']").change(function(){
+
+     $t=$(this);
+
+     $( $t.attr('data-target') ).load( $t.attr('data-action'), { syncid: $t.val() } );
+
+   }).change();
+
+
+   // data-toggle='set-value' data-target='[name="configure"]' data-value='1' data-no-submit
+   $("[data-toggle='set-value']").click(function(){
+
+     $t=$(this);
+
+     $( $t.attr('data-target') ).val( $t.attr('data-value') );
+
+     if( $t.is('[data-no-submit]') ) return false;
+
+   });
+
 });
 
 /* ========================================================================
@@ -1722,9 +1744,9 @@ $(function() {
     // Set hashchange event
     $(window).on('hashchange', readHash);
 
-    CollapseTab();
-
     readHash();
+
+    CollapseTab();
 
 });
 
@@ -3239,11 +3261,11 @@ $(function() {
     // Show
     $('body').on("click","[data-toggle='popup.show']",function(){
 
-      var src=!! $(this).attr('data-src') ? $(this).attr('data-src') : $(this).attr('href');
+      var target = $($(this).attr('data-target'));
 
-      methods.set_src.apply($($(this).attr('data-target')), [src]);
+      methods.set_settings.apply(target, [$(this)]);
 
-      return methods.show.apply($($(this).attr('data-target')));
+      return methods.show.apply(target);
 
     });
 
@@ -3257,11 +3279,11 @@ $(function() {
     // Toggle
     $('body').on("click","[data-toggle='popup.toggle']",function(){
 
-      var src=!! $(this).attr('data-src') ? $(this).attr('data-src') : $(this).attr('href');
+      var target = $($(this).attr('data-target'));
 
-      methods.set_src.apply($($(this).attr('data-target')), [src]);
+      methods.set_settings.apply(target, [$(this)]);
 
-      return methods.toggle.apply($($(this).attr('data-target')));
+      return methods.toggle.apply(target);
 
     });
 
@@ -3506,11 +3528,20 @@ $(function() {
 
     },
 
-    set_src: function(src) {
+    set_settings:function($t){
+
 
       var settings = $(this).data('PopUp');
 
-      if (src) settings.src = src;
+      var width=$t.attr('data-width') || false;
+      if(width) settings.width=width;
+
+      var height=$t.attr('data-height') || false;
+      if(height) settings.height=height;
+
+      var src=$t.attr('data-src') || $t.attr('href') || false;
+      if(src) settings.src=src;
+
 
     }
 

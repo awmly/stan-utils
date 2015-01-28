@@ -29,11 +29,11 @@
     // Show
     $('body').on("click","[data-toggle='popup.show']",function(){
 
-      var src=!! $(this).attr('data-src') ? $(this).attr('data-src') : $(this).attr('href');
+      var target = $($(this).attr('data-target'));
 
-      methods.set_src.apply($($(this).attr('data-target')), [src]);
+      methods.set_settings.apply(target, [$(this)]);
 
-      return methods.show.apply($($(this).attr('data-target')));
+      return methods.show.apply(target);
 
     });
 
@@ -47,11 +47,11 @@
     // Toggle
     $('body').on("click","[data-toggle='popup.toggle']",function(){
 
-      var src=!! $(this).attr('data-src') ? $(this).attr('data-src') : $(this).attr('href');
+      var target = $($(this).attr('data-target'));
 
-      methods.set_src.apply($($(this).attr('data-target')), [src]);
+      methods.set_settings.apply(target, [$(this)]);
 
-      return methods.toggle.apply($($(this).attr('data-target')));
+      return methods.toggle.apply(target);
 
     });
 
@@ -296,11 +296,20 @@
 
     },
 
-    set_src: function(src) {
+    set_settings:function($t){
+
 
       var settings = $(this).data('PopUp');
 
-      if (src) settings.src = src;
+      var width=$t.attr('data-width') || false;
+      if(width) settings.width=width;
+
+      var height=$t.attr('data-height') || false;
+      if(height) settings.height=height;
+
+      var src=$t.attr('data-src') || $t.attr('href') || false;
+      if(src) settings.src=src;
+
 
     }
 
