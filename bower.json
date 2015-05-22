@@ -1,6 +1,6 @@
 {
   "name": "stan-utils",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "keywords": [
     "css",
     "js",
@@ -24,7 +24,6 @@
   ],
   "dependencies": {
     "jquery": "~1.11.0",
-    "bootstrap": "~3.2.0",
-    "less-prefixer": "*"
+    "bootstrap": "~3.2.0"
   }
 }

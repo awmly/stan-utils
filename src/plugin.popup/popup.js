@@ -1,338 +1,321 @@
 /* ========================================================================
-* STAN Utils: Popup
-* Author: Andrew Womersley
-* ======================================================================== */
+ * STAN Utils: Popup
+ * Author: Andrew Womersley
+ * ======================================================================== */
 
 (function($, $STAN) {
 
-  'use strict';
+	'use strict';
 
-  // Define Global Vars
-  var Selectors = [];
+	// Define Global Vars
+	var Selectors = [];
 
-  $STAN.on('resize',function() {
+	$STAN.on('resize', function() {
 
-    if (!Selectors.length) return;
+		if (!Selectors.length) return;
 
-    $(Selectors).each(function() {
+		$(Selectors).each(function() {
 
-      // Resize check
-      methods.resize.apply(this);
+			// Resize check
+			methods.resize.apply(this);
 
-    });
+		});
 
-  });
+	});
 
-  // Click Listeners
-  $(window).ready(function() {
+	// Click Listeners
+	$(window).ready(function() {
 
-    // Show
-    $('body').on("click","[data-toggle='popup.show']",function(){
+		// Show
+		$('body').on("click", "[data-toggle='popup.show']", function() {
 
-      var target = $($(this).attr('data-target'));
+			var src = !!$(this).attr('data-src') ? $(this).attr('data-src') : $(this).attr('href');
 
-      methods.set_settings.apply(target, [$(this)]);
+			methods.set_src.apply($($(this).attr('data-target')), [src]);
 
-      return methods.show.apply(target);
+			return methods.show.apply($($(this).attr('data-target')));
 
-    });
+		});
 
-    // Hide
-    $('body').on("click","[data-toggle='popup.hide']",function(){
+		// Hide
+		$('body').on("click", "[data-toggle='popup.hide']", function() {
 
-      return methods.hide.apply($($(this).attr('data-target')));
+			return methods.hide.apply($($(this).attr('data-target')));
 
-    });
+		});
 
-    // Toggle
-    $('body').on("click","[data-toggle='popup.toggle']",function(){
+		// Toggle
+		$('body').on("click", "[data-toggle='popup.toggle']", function() {
 
-      var target = $($(this).attr('data-target'));
+			var src = !!$(this).attr('data-src') ? $(this).attr('data-src') : $(this).attr('href');
 
-      methods.set_settings.apply(target, [$(this)]);
+			methods.set_src.apply($($(this).attr('data-target')), [src]);
 
-      return methods.toggle.apply(target);
+			return methods.toggle.apply($($(this).attr('data-target')));
 
-    });
+		});
 
-  });
+	});
 
 
-  // Define Methods
-  var methods = {
+	// Define Methods
+	var methods = {
 
-    init: function(options) {
+		init: function(options) {
 
-      // Save selector in array
-      $(this.selector).each(function(){
+			// Save selector in array
+			$(this.selector).each(function() {
 
-        Selectors.push( $(this) );
+				Selectors.push($(this));
 
-      });
+			});
 
-      // Iterate Through Selectors
-      return this.each(function(index) {
+			// Iterate Through Selectors
+			return this.each(function(index) {
 
-        // Set this
-        var $this = $(this);
+				// Set this
+				var $this = $(this);
 
-        // Set Options
-        var settings = $.extend({
-          type: 'html',
-          src: 'about:blank',
-          width: 200,
-          height: 300,
-          gutter: 15,
-          open: false,
-          auto_reopen: true,
-          lock_aspect_ratio: true,
-          scroll: true,
-          devices: {
-            xs: true,
-            sm: true,
-            md: true,
-            lg: true
-          }
-        }, options);
+				// Set Options
+				var settings = $.extend({
+					type: 'html',
+					src: 'about:blank',
+					width: 200,
+					height: 300,
+					gutter: 15,
+					open: false,
+					auto_reopen: true,
+					lock_aspect_ratio: true,
+					scroll: true,
+					devices: {
+						xs: true,
+						sm: true,
+						md: true,
+						lg: true
+					}
+				}, options);
 
-        // Unlock aspect ratio for variable heights
-        if( settings.height=='auto') settings.lock_aspect_ratio=false;
+				// Unlock aspect ratio for variable heights
+				if (settings.height == 'auto') settings.lock_aspect_ratio = false;
 
-        // Save settings
-        $this.data('PopUp', settings);
+				// Save settings
+				$this.data('PopUp', settings);
 
-        // Scroll settings
-        var _scroll = (settings.scroll) ? 'yes' : 'no';
-        var _class = (settings.scroll) ? '' : 'no-scroll';
+				// Scroll settings
+				var _scroll = (settings.scroll) ? 'yes' : 'no';
+				var _class = (settings.scroll) ? '' : 'no-scroll';
 
 
-        // Set HTML/iFrame/Classes
-        if (settings.type == 'iframe') {
+				// Set HTML/iFrame/Classes
+				if (settings.type == 'iframe') {
 
-          $this.find('.popup-content').addClass('no-scroll');
-          $this.find('.popup-content').html("<iframe src='about:blank' class='" + _class + "' style='width:100%;height:100%;' seamless frameborder='0' scrolling='" + _scroll + "'></iframe>");
+					$this.find('.popup-content').addClass('no-scroll');
+					$this.find('.popup-content').html("<iframe src='about:blank' class='" + _class + "' style='width:100%;height:100%;' seamless frameborder='0' scrolling='" + _scroll +
+						"'></iframe>");
 
-        }
-        else {
+				} else {
 
-          $this.find('.popup-content').addClass(_class);
+					$this.find('.popup-content').addClass(_class);
 
-        }
+				}
 
-        // Set close listener
-        $this.click(function() {
+				// Set close listener
+				$this.find('.popup-close, .popup-mask').click(function(event) {
 
-          methods.hide.apply($this);
+					methods.hide.apply($this);
+					event.stopPropagation();
 
-        });
+				});
 
-        $this.find('.popup-close').click(function(event) {
+				// Show if open and allowed on current device
+				if (settings.open && settings.devices[$('body').attr('data-current-device')]) {
 
-          methods.hide.apply($this);
-          event.stopPropagation();
+					$(this).css('display', 'block');
 
-        });
+				}
 
-        $this.find('.popup-content').click(function(event) {
+				$this.on('resize.sa.popup', function() {
+					methods.resize.apply($(this));
+				});
 
-          event.stopPropagation();
+				// Do resize
+				methods.resize.apply(this);
 
-        });
+			});
 
-        // Show if open and allowed on current device
-        if (settings.open && settings.devices[$('body').attr('data-current-device')]) {
+		},
 
-          $(this).css('display', 'block');
+		show: function() {
 
-        }
+			var settings = $(this).data('PopUp');
 
-        $this.on('resize.sa.popup',function(){
-          methods.resize.apply( $(this) );
-        });
+			if (!settings.open) {
 
-        // Do resize
-        methods.resize.apply(this);
+				if (settings.devices[$STAN.device]) {
 
-      });
+					if (settings.type == 'iframe') {
 
-    },
+						// Set iFrame source
+						$(this).find('iframe').attr('src', settings.src);
 
-    show: function() {
+					} else if (settings.type == 'ajax') {
 
-      var settings = $(this).data('PopUp');
+						// Load ajax content
+						$(this).find('.popup-display').css('opacity', 0);
+						$(this).find('.popup-content').load(settings.src, function() {
 
-      if (!settings.open) {
+							$(this).parent().animate({
+								opacity: 1
+							}, 300);
 
-        if (settings.devices[$STAN.device]) {
+						});
 
-          if (settings.type == 'iframe') {
+					}
 
-            // Set iFrame source
-            $(this).find('iframe').attr('src', settings.src);
+					// Display Popup
+					$(this).css({
+						display: 'block',
+						opacity: 0
+					}).animate({
+						opacity: 1
+					}, 300);
 
-          }else if (settings.type == 'ajax') {
+					// Do resize
+					methods.resize.apply(this);
 
-            // Load ajax content
-            $(this).find('.popup-display').css('opacity',0);
-            $(this).find('.popup-content').load(settings.src,function(){
+					// Set open to true
+					settings.open = true;
 
-              $(this).parent().animate({opacity:1},300);
+					// Trigger
+					$(this).trigger('show.sa.popup', [settings]);
 
-            });
+					// Return false to stop default action
+					return false;
 
-          }
+				} else {
 
-          // Display Popup
-          $(this).css({display:'block',opacity:0}).animate({opacity:1},300);
+					// Return true to allow default action
+					return true;
 
-          // Do resize
-          methods.resize.apply(this);
+				}
 
-          // Set open to true
-          settings.open = true;
+			} else {
 
-          // Trigger
-          $(this).trigger('show.sa.popup', [settings]);
+				return false;
 
-          // Return false to stop default action
-          return false;
+			}
 
-        }
-        else {
+		},
 
-          // Return true to allow default action
-          return true;
+		hide: function() {
 
-        }
+			var settings = $(this).data('PopUp');
 
-      }
-      else {
+			if (settings.open) {
 
-        return false;
+				// Close Popup
+				$(this).animate({
+					opacity: 0
+				}, 300, function() {
+					$(this).css('display', 'none');
+				});
 
-      }
+				// Unset iFrame src
+				if (settings.type == 'iframe') {
+					$(this).find('iframe').attr('src', 'about:blank');
+				} else if (settings.type == 'ajax') {
+					$(this).find('.popup-content').html('');
+				}
 
-    },
+				// Set open to false
+				settings.open = false;
 
-    hide: function() {
+				// Trigger
+				$(this).trigger('hide.sa.popup', [settings]);
 
-      var settings = $(this).data('PopUp');
+			}
 
-      if (settings.open) {
+			// Return false to stop default action
+			return false;
 
-        // Close Popup
-        $(this).animate({opacity:0},300,function(){
-          $(this).css('display', 'none');
-        });
+		},
 
-        // Unset iFrame src
-        if (settings.type == 'iframe'){
-          $(this).find('iframe').attr('src', 'about:blank');
-        }else if (settings.type == 'ajax'){
-          $(this).find('.popup-content').html('');
-        }
+		toggle: function(src) {
 
-        // Set open to false
-        settings.open = false;
+			var settings = $(this).data('PopUp');
 
-        // Trigger
-        $(this).trigger('hide.sa.popup', [settings]);
+			if (settings.open) return methods.hide.apply(this);
+			else return methods.show.apply(this, [src]);
 
-      }
+		},
 
-      // Return false to stop default action
-      return false;
+		resize: function() {
 
-    },
+			var settings = $(this).data('PopUp');
 
-    toggle: function(src) {
+			// Resize to fit
+			var w = $(window).width() - (2 * settings.gutter);
+			var h = $(window).height() - (2 * settings.gutter);
 
-      var settings = $(this).data('PopUp');
+			if (settings.height == 'auto') {
+				$(this).find('.popup-display').css('height', 'auto');
+				var ah = $(this).find('.popup-display').outerHeight();
+				if (h > ah) h = ah;
+			} else {
+				if (h > settings.height) h = settings.height;
+			}
 
-      if (settings.open) return methods.hide.apply(this);
-      else return methods.show.apply(this, [src]);
+			if (w > settings.width) w = settings.width;
 
-    },
+			if (settings.lock_aspect_ratio) {
+				if ((w / h) > (settings.width / settings.height)) w = settings.width * (h / settings.height);
+				else h = settings.height * (w / settings.width);
+			}
 
-    resize: function() {
+			$(this).find('.popup-display').css({
+				width: w + 'px',
+				height: h + 'px',
+				marginTop: '-' + (h / 2) + 'px',
+				marginLeft: '-' + (w / 2) + 'px'
+			});
 
-      var settings = $(this).data('PopUp');
+			// Check if device has changed
+			if (!settings.devices[$STAN.device] && settings.open) {
+				settings.reopen = true;
+				methods.hide.apply(this);
+			} else if (settings.devices[$STAN.device] && settings.reopen && settings.auto_reopen) {
+				settings.reopen = false;
+				methods.show.apply(this);
+			}
 
-      // Resize to fit
-      var w = $(window).width() - (2 * settings.gutter);
-      var h = $(window).height() - (2 * settings.gutter);
+		},
 
-      if( settings.height=='auto'){
-        $(this).find('.popup-display').css('height','auto');
-        var ah=$(this).find('.popup-display').outerHeight();
-        if (h > ah) h = ah;
-      }else{
-        if (h > settings.height) h = settings.height;
-      }
+		set_src: function(src) {
 
-      if (w > settings.width) w = settings.width;
+			var settings = $(this).data('PopUp');
 
-      if (settings.lock_aspect_ratio) {
-        if ((w / h) > (settings.width / settings.height)) w = settings.width * (h / settings.height);
-        else h = settings.height * (w / settings.width);
-      }
+			if (src) settings.src = src;
 
-      $(this).find('.popup-display').css({
-        width: w + 'px',
-        height: h + 'px',
-        marginTop: '-' + (h / 2) + 'px',
-        marginLeft: '-' + (w / 2) + 'px'
-      });
+		}
 
-      // Check if device has changed
-      if (!settings.devices[$STAN.device] && settings.open) {
-        settings.reopen = true;
-        methods.hide.apply(this);
-      }
-      else if (settings.devices[$STAN.device] && settings.reopen && settings.auto_reopen) {
-        settings.reopen = false;
-        methods.show.apply(this);
-      }
+	};
 
-    },
+	$.fn.PopUp = function(method) {
 
-    set_settings:function($t){
+		if (methods[method]) {
 
+			return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
 
-      var settings = $(this).data('PopUp');
+		} else if (typeof method === 'object' || !method) {
 
-      var width=$t.attr('data-width') || false;
-      if(width) settings.width=width;
+			return methods.init.apply(this, arguments);
 
-      var height=$t.attr('data-height') || false;
-      if(height) settings.height=height;
+		} else {
 
-      var src=$t.attr('data-src') || $t.attr('href') || false;
-      if(src) settings.src=src;
+			$.error('Method ' + method + ' does not exist on jQuery.Datatable');
 
+		}
 
-    }
-
-  };
-
-  $.fn.PopUp = function(method) {
-
-    if (methods[method]) {
-
-      return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-
-    }
-    else if (typeof method === 'object' || !method) {
-
-      return methods.init.apply(this, arguments);
-
-    }
-    else {
-
-      $.error('Method ' + method + ' does not exist on jQuery.Datatable');
-
-    }
-
-  };
+	};
 
 }(jQuery, $STAN));

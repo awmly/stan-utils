@@ -1,35 +1,33 @@
 {
-  "name": "stan-utils",
-  "version": "0.0.31",
-  "homepage": "http://stan-utils.smartarts.co.uk",
-  "author": "Andrew Womersley",
-  "scripts": {
-    "test": "grunt test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/awomersley/stan-utils.git"
-  },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://opensource.org/licenses/MIT"
-    }
-  ],
-  "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-contrib-uglify": "~0.4.0",
-    "grunt-contrib-connect": "~0.7.0",
-    "grunt-jekyll": "~0.4.0",
-    "grunt-shell": "~0.6.1",
-    "grunt-prettify": "~0.3.4",
-    "grunt-contrib-htmlmin": "~0.2.0",
-    "grunt-contrib-less": "~0.10.0",
-    "grunt-banner": "~0.2.0",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-less-imports": "~0.9.1",
-    "grunt-concat-sourcemap": "~0.4.1",
-    "grunt-cloudfiles": "~0.3.0"
-  }
+	"name": "stan-utils",
+	"version": "0.0.32",
+	"homepage": "http://stan-utils.smartarts.co.uk",
+	"author": "Andrew Womersley",
+	"scripts": {
+		"test": "grunt test"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/awomersley/stan-utils.git"
+	},
+	"licenses": [{
+		"type": "MIT",
+		"url": "http://opensource.org/licenses/MIT"
+	}],
+	"devDependencies": {
+		"grunt": "~0.4.1",
+		"grunt-contrib-watch": "~0.5.3",
+		"grunt-contrib-uglify": "~0.4.0",
+		"grunt-contrib-connect": "~0.7.0",
+		"grunt-jekyll": "~0.4.0",
+		"grunt-shell": "~0.6.1",
+		"grunt-prettify": "~0.3.4",
+		"grunt-contrib-htmlmin": "~0.2.0",
+		"grunt-contrib-less": "~0.10.0",
+		"grunt-banner": "~0.2.0",
+		"grunt-contrib-concat": "~0.3.0",
+		"grunt-less-imports": "~0.9.1",
+		"grunt-concat-sourcemap": "~0.4.1",
+		"grunt-cloudfiles": "~0.3.0"
+	}
 }

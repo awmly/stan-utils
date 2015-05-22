@@ -1,5 +1,5 @@
 /*!
- * STAN Utils 0.0.31
+ * STAN Utils 0.0.32
  * Copyright 2015 Andrew Womersley
  */
 
@@ -231,298 +231,6 @@ img.maxheight {
 .sa-outset.sa-right {
   left: auto;
   right: 0;
-}
-/* ========================================================================
- * STAN Utils: Pull Down Navigation
- * Author: Andrew Womersley
- * ======================================================================== */
-/*
-===== COMMON =====
- */
-.pull-nav {
-  visibility: hidden;
-}
-.pull-nav-load {
-  cursor: pointer;
-  display: none;
-}
-.pull-nav-mask {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(50, 50, 50, 0.8);
-  display: none;
-  z-index: 100000;
-}
-/*
-===== DESKTOP =====
- */
-.pull-nav.desktop .mobile-only {
-  display: none !important;
-}
-.pull-nav.desktop {
-  visibility: visible;
-  z-index: 200;
-}
-.pull-nav.desktop nav {
-  z-index: 20;
-  position: relative;
-}
-.pull-nav.desktop li {
-  position: relative;
-}
-.pull-nav.desktop li:hover {
-  z-index: 999;
-}
-.pull-nav.desktop li:hover > .sub {
-  visibility: visible;
-}
-.pull-nav.desktop a {
-  text-decoration: none;
-  display: block;
-}
-.pull-nav.desktop .sub-title {
-  display: none;
-}
-/** Sub Nav Positioning */
-.pull-nav.desktop .sub {
-  position: absolute;
-  top: 0;
-  left: 100%;
-  width: 100%;
-  visibility: hidden;
-  width: 210px;
-  padding: 0;
-}
-.pull-nav.desktop .level1 > .sub {
-  left: 0;
-  top: 100%;
-}
-.pull-nav.desktop .level1 > .sub.right {
-  left: auto;
-  right: 0;
-}
-.pull-nav.desktop .sub i {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-}
-/** Top level links */
-.pull-nav.desktop .level1 {
-  float: left;
-}
-/*
-===== MOBILE =====
- */
-.pull-nav.mobile .desktop-only {
-  display: none !important;
-}
-.pull-nav-load.mobile {
-  display: block;
-}
-.pull-nav.mobile {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  z-index: 100001;
-  overflow: hidden;
-  visibility: visible;
-}
-.pull-nav.mobile nav {
-  padding: 0;
-  height: auto;
-}
-.pull-nav.mobile nav > ul {
-  height: auto;
-  overflow: auto;
-}
-.pull-nav.mobile nav a {
-  display: block;
-}
-/** Sub Nav Structure */
-.pull-nav.mobile .sub {
-  display: block;
-}
-/* ========================================================================
- * STAN Utils: Responsive Navigation
- * Author: Andrew Womersley
- * ======================================================================== */
-/*
-===== COMMON =====
- */
-.slide-nav {
-  visibility: hidden;
-}
-.slide-nav-load {
-  cursor: pointer;
-  display: none;
-}
-.slide-nav-mask {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(50, 50, 50, 0.8);
-  display: none;
-  z-index: 100000;
-}
-.slide-nav .desktop-only,
-.slide-nav .mobile-only {
-  display: none;
-}
-/*
-===== DESKTOP =====
- */
-.slide-nav.desktop .desktop-only {
-  display: block;
-}
-.slide-nav.desktop {
-  visibility: visible;
-  z-index: 200;
-}
-.slide-nav.desktop nav {
-  z-index: 20;
-  position: relative;
-}
-.slide-nav.desktop li {
-  position: relative;
-}
-.slide-nav.desktop li:hover {
-  z-index: 999;
-}
-.slide-nav.desktop li:hover > .sub {
-  visibility: visible;
-}
-.slide-nav.desktop a {
-  text-decoration: none;
-  display: block;
-}
-.slide-nav.desktop .sub-title {
-  display: none;
-}
-/** Sub Nav Positioning */
-.slide-nav.desktop .sub {
-  position: absolute;
-  top: 0;
-  left: 100%;
-  width: 100%;
-  visibility: hidden;
-  width: 210px;
-  padding: 0;
-}
-.slide-nav.desktop .level1 > .sub {
-  left: 0;
-  top: 100%;
-}
-.slide-nav.desktop .level1 > .sub.right {
-  left: auto;
-  right: 0;
-}
-.slide-nav.desktop .sub i {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-}
-/** Top level links */
-.slide-nav.desktop .level1 {
-  float: left;
-}
-/*
-===== MOBILE =====
- */
-.slide-nav-load.mobile {
-  display: block;
-}
-.slide-nav.mobile .mobile-only {
-  display: block;
-}
-.slide-nav.mobile {
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 80%;
-  max-width: 300px;
-  height: 100%;
-  z-index: 100001;
-  overflow: hidden;
-}
-.slide-nav.mobile nav {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  padding: 0;
-}
-.slide-nav.mobile nav > ul {
-  height: 100%;
-  overflow: auto;
-}
-/** Sub Nav Structure */
-.slide-nav.mobile .sub {
-  position: absolute;
-  top: 0;
-  left: 100%;
-  width: 100%;
-  height: 100%;
-  display: none;
-}
-.slide-nav.mobile li.open > .sub {
-  display: block;
-}
-.slide-nav.mobile .sub-title {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 100;
-}
-.slide-nav.mobile .sub-links {
-  height: 100%;
-  padding-top: 47px;
-  overflow: auto;
-  margin: 0;
-}
-.slide-nav.mobile a {
-  display: block;
-  position: relative;
-  text-decoration: none;
-}
-.slide-nav.mobile a i {
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  margin-top: -8px;
-}
-.slide-nav.mobile ul {
-  position: static;
-  padding: 0;
-}
-/** Sub Nav Titles and Button */
-.slide-nav.mobile .sub-title {
-  padding: 8px 0;
-}
-.slide-nav.mobile button {
-  position: absolute;
-  top: 8px;
-  left: 15px;
-}
-.slide-nav.mobile button.fwd {
-  left: auto;
-  right: 15px;
-}
-.slide-nav.mobile h2 {
-  padding: 0 55px;
-  text-align: center;
-  line-height: 30px;
-  height: 30px;
-  overflow: hidden;
-  margin: 0;
-  cursor: pointer;
 }
 /* ========================================================================
  * STAN Utils: Tabs
@@ -5114,10 +4822,18 @@ ul.icon i {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #2a2a2a;
-  background: rgba(10, 10, 10, 0.7);
   display: none;
   z-index: 9999;
+}
+.popup .popup-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #2a2a2a;
+  background: rgba(10, 10, 10, 0.7);
+  z-index: 10;
 }
 .popup .popup-loading {
   position: absolute;
@@ -5129,6 +4845,7 @@ ul.icon i {
   text-align: center;
   line-height: 100px;
   color: #ccc;
+  z-index: 20;
 }
 .popup .popup-close {
   position: absolute;
@@ -5145,12 +4862,11 @@ ul.icon i {
   position: absolute;
   top: 50%;
   left: 50%;
-  z-index: 10;
+  z-index: 30;
 }
 .popup .popup-content {
   width: 100%;
   height: 100%;
-  position: relative;
   z-index: 10;
   overflow: auto;
 }

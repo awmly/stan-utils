@@ -1,5 +1,5 @@
 /*!
- * STAN Utils 0.0.31
+ * STAN Utils 0.0.32
  * Copyright 2015 Andrew Womersley
  */
 
@@ -431,259 +431,177 @@ var $STAN;
 }(jQuery, $STAN));
 
 /* ========================================================================
- * STAN Utils: AutoClass
- * Author: Andrew Womersley
- * ======================================================================== */
-
-$(function() {
-
-  'use strict';
-
-    var AutoClass=function(){
-
-        var x, autoclass, parts, selector, classes;
-
-        $('[data-auto-class]').each(function(){
-
-            // Get auto class attribute
-            autoclass=$(this).attr('data-auto-class').split("}");
-
-            for(x=0;x<autoclass.length-1;x++){
-
-              // Get parts
-              parts=autoclass[x].match(/[^{]*/g);
-
-              // Set selector
-              selector=$.trim(parts[0]);
-
-              // Set classes
-              classes=$.trim(parts[2]);
-
-              // Apply classes to selector
-              $(this).find(selector).addClass(classes);
-
-            }
-
-        });
-
-    };
-
-    $(document).on('ready',AutoClass);
-
-});
-
-/* ========================================================================
  * STAN Utils: Card UI
  * Author: Andrew Womersley
  * ======================================================================== */
 
 $(function() {
 
-    'use strict';
+	'use strict';
 
-    var HitTestCount=0;
+	var HitTestCount = 0;
 
-    var CardHitTest = function($card,$siblings,top,left,width,height){
+	var CardHitTest = function($card, $siblings, top, left, width, height) {
 
-        var t = top;
-        var l = left;
-        var w = width;
-        var h = height;
-        var b = t+h;
-        var r = l+w;
+		var t = top;
+		var l = left;
+		var w = width;
+		var h = height;
+		var b = t + h;
+		var r = l + w;
 
-        /*var ct = top;
-        var cl = left;
-        var cw = 100;
-        var ch = 30;
-        var cb = ct+ch;
-        var cr = cl+cw;*/
+		var st, sl, sw, sh, sb, sr;
 
+		var HIT = false;
 
+		$siblings.each(function(index) {
 
-        var st, sl, sw, sh, sb, sr;
-        //console.log(t + " " +l + " " + w + " " + h);
+			if ($(this).data('active') && !HIT) {
 
-        var HIT=false;
+				var st = $(this).data('top');
+				var sl = $(this).data('left');
+				var sw = $(this).data('width');
+				var sh = $(this).outerHeight(true);
+				var sb = st + sh;
+				var sr = sl + sw;
 
-        $siblings.each(function(index){
+				HitTestCount++;
 
-          if($(this).data('active') && !HIT){
+				if (t < sb && b > st) {
+					if (l < sr && r > sl) {
+						HIT = true;
+					}
+				}
 
-            var st = $(this).data('top');
-            var sl = $(this).data('left');
-            var sw = $(this).data('width');
-            var sh = $(this).outerHeight(true);
-            var sb = st+sh;
-            var sr = sl+sw;
+			}
 
-            HitTestCount++;
+		});
 
-            //console.log(index+" "+st+" "+sb);
+		if (!HIT) {
 
-            //console.log(t + " " + st + " " + b + " " + sb);
-            //if( (t>=st && t<sb) || (b>st && b<=sb) ){
-            if( t<sb && b>st){
-              //console.log("HIT TOP");
-              //console.log(l + " " + r + " " + sl + " " + sr);
-              if( l<sr && r>sl ){
-                //console.log("HIT SIDES");
-                HIT=true;
-              }
-            }
+			return true;
 
-          }
+		} else {
 
-        });
+			return false;
 
-        if(!HIT){
+		}
 
-          //console.log("OK");
-          return true;
+	};
 
-        }else{
+	var CardUI = function() {
 
-          //console.log("HIT");
-          return false;
+		$(".sa-cards").each(function() {
 
-        }
+			var $this = $(this);
 
-    };
+			var selector = (typeof $(this).attr('data-selector') !== 'undefined') ? $(this).attr('data-selector') : '.card';
+			var maxCols = (typeof $(this).attr('data-maxcols') !== 'undefined') ? $(this).attr('data-maxcols') : '12';
 
-    var CardUI = function() {
+			if ($(this).find(selector).length) {
 
-        $(".sa-cards").each(function() {
+				var max, _Pos, _Col, pos, col, top, span, width, colid, ok;
 
-            var $this = $(this);
+				var minwidth = $this.outerWidth() / maxCols;
 
-            var selector = (typeof $(this).attr('data-selector') !== 'undefined') ? $(this).attr('data-selector') : '.card';
-            var maxCols = (typeof $(this).attr('data-maxcols') !== 'undefined') ? $(this).attr('data-maxcols') : '12';
+				$(this).find(selector).data('active', false);
+				_Col = [0];
 
-            if ($(this).find(selector).length) {
+				$this.find(selector).each(function(index) {
 
-                var max, _Pos, _Col, _Col2, pos, col, top, span, width, colid, ok;
+					if ($STAN.device == 'xs') {
 
-                var minwidth=$this.outerWidth()/maxCols;
+						$(this).removeClass('absolute').css({
+							left: 'auto',
+							top: 'auto'
+						});
 
-                $(this).find(selector).data('active',false);
-                _Col=[ [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0] ];
-                _Col2=[0];
+					} else {
 
-                $this.find(selector).each(function(index) {
+						width = $(this).outerWidth();
+						span = maxCols / Math.round(($this.parent().width() + 30) / width);
 
-                  if($STAN.device=='xs'){
+						pos = 9999;
+						top = 9999;
 
-                    $(this).removeClass('absolute').css({
-                        left: 'auto',
-                        top: 'auto'
-                    });
+						for (var y in _Col) {
+							ok = false;
+							for (var x = 0; x < maxCols; x++) {
+								if (_Col[y] >= 0) {
+									if (CardHitTest($(this), $this.find(selector), _Col[y], x * 100, 100, 50)) {
 
-                  }else{
+										ok = true
 
-                    width = $(this).outerWidth();
-                    span = maxCols / Math.round(($this.parent().width()+30) / width);
+									}
+								}
+							}
+							if (!ok) _Col[y] = -1;
+						}
 
-                    pos=9999;
-                    top=9999;
+						for (var x = 0; x < maxCols; x++) {
 
-                    //console.log(_Col2);
+							_Pos = _Col;
 
-                    //for(var x in _Col){
+							for (var y in _Pos) {
 
-                      //_Pos=_Col[x];
-                    //  _Pos=_Col2;
+								if (_Pos[y] < top) {
+									colid = parseInt(span) + parseInt(x);
 
-                      //console.log("COL: "+x);
-                      //console.log(_Pos);
+									if (colid <= maxCols && _Pos[y] >= 0) {
 
-                      for(var y in _Col2){
-                        ok=false;
-                        for(var x=0; x<maxCols; x++){
-                          if(_Col2[y]>=0){
-                            if( CardHitTest( $(this), $this.find(selector), _Col2[y], x*100, 100, 50 ) ){
+										if (CardHitTest($(this), $this.find(selector), _Pos[y], x * 100, span * 100, $(this).outerHeight(true))) {
+											col = x;
+											pos = y
+											top = _Pos[y];
+										}
 
-                              ok=true
+									}
+								}
 
-                            }
-                          }
-                        }
-                        if(!ok) _Col2[y]=-1;
-                      }
+							} // end _Pos loop
 
-                    //}
+						} // end _Col loop
 
-                    for(var x=0; x<maxCols; x++){
+						$(this).addClass('absolute').css({
+							left: (minwidth * col) + 'px',
+							top: top + 'px'
+						}).data('active', true).data('top', top).data('left', (100 * col)).data('width', (100 * span));
 
-                      _Pos=_Col2;
+						for (var x = 0; x < span; x++) {
+							colid = parseInt(col) + parseInt(x);
+						}
 
-                      for(var y in _Pos){
+						_Col.push((top + $(this).outerHeight(true)));
 
-                        if(_Pos[y]<top ){
-                          colid=parseInt(span)+parseInt(x);
+					} // end if device XS
 
-                          if(colid<=maxCols && _Pos[y]>=0){
+				}); // end selector each
 
-                            if( CardHitTest( $(this), $this.find(selector), _Pos[y], x*100, span*100, $(this).outerHeight(true) ) ){
-                              col = x;
-                              pos = y
-                              top = _Pos[y];
-                            }
+				max = 0;
 
-                          }
-                        }
+				// Find highest column
+				for (var y in _Col) {
 
-                      } // end _Pos loop
+					if (_Col[y] > max) max = _Col[y];
 
-                    } // end _Col loop
+				}
 
-                    $(this).addClass('absolute').css({
-                        left: (minwidth * col) + 'px',
-                        top: top + 'px'
-                    }).data('active',true).data('top',top).data('left',(100 * col)).data('width',(100* span));
+				// Set holder height to match highest column
+				if ($STAN.device == 'xs') {
+					$(this).css('height', 'auto');
+				} else {
+					$(this).css('height', max + 'px');
+				}
 
-                    for(var x=0; x<span; x++){
-                      colid=parseInt(col)+parseInt(x);
-                      //console.log(colid);
-                      //_Col[colid].push( (top+$(this).outerHeight(true)) );
+			} // end if selector length
 
-                    }
+		}); // end sa-cards each
 
-                    _Col2.push( (top+$(this).outerHeight(true)) );
+	}; // end function
 
-                    } // end if device XS
+	$('body').on('active.sa.stan', CardUI);
 
-                  }); // end selector each
-
-                  max = 0;
-
-                  // Find highest column
-                  for(var y in _Col2){
-
-                      if (_Col2[y] > max) max = _Col2[y];
-
-                  }
-
-                  // Set holder height to match highest column
-                  if($STAN.device=='xs'){
-                    $(this).css('height', 'auto');
-                  }else{
-                    $(this).css('height', max + 'px');
-                  }
-                  //console.log(HitTestCount);
-
-
-
-            } // end if selector length
-
-        }); // end sa-cards each
-
-    }; // end function
-
-    //$(window).on('resize', CardUI);
-
-    $('body').on('active.sa.stan', CardUI);
-
-    $('.sa-cards').on('position.sa.cards', CardUI);
+	$('.sa-cards').on('position.sa.cards', CardUI);
 
 });
 
@@ -1077,280 +995,6 @@ $(function() {
 });
 
 /* ========================================================================
- * STAN Utils: Pull Down Navigation
- * Author: Andrew Womersley
- * ======================================================================== */
-
-$(function() {
-
-    'use strict';
-
-    var OpenMobile = function(){
-
-        $('.pull-nav').attr('data-open',1);
-
-        $('.pull-nav nav').collapse('show');
-
-        $('.pull-nav-mask').css({
-            display: 'block',
-            opacity: 0
-        });
-        $('.pull-nav-mask').animate({
-            opacity: 1
-        }, 200, "swing");
-
-    };
-
-    var CloseMobile = function() {
-
-        $('.pull-nav').attr('data-open', 0);
-
-        $('.pull-nav nav').collapse('hide');
-
-        $('.pull-nav-mask').animate({
-            opacity: 0
-        }, 200, "swing", function() {
-            $('.pull-nav-mask').css('display', 'none');
-        });
-
-    };
-
-    var viewPort = function() {
-
-      var w = $STAN.windowWidth;
-      var h = $STAN.windowHeight;
-      var breakpoint = (typeof $('.pull-nav').attr('data-breakpoint')!=='undefined') ? $('.pull-nav').attr('data-breakpoint') : 992;
-
-      $('.pull-nav, .pull-nav-load').removeClass('desktop mobile');
-
-      if (w < breakpoint) {
-
-          $('.pull-nav, .pull-nav-load').addClass('mobile');
-
-          $('.pull-nav-mask').css({height:h-$('header').height() + 'px', top:$('header').height()+'px'});
-
-          $('.pull-nav nav').addClass('collapse');
-
-          if( $('.pull-nav').attr('data-open')!='1') $('.pull-nav nav').css('height',0).removeClass('in');
-
-          $('.pull-nav ul').css({"max-height":h-$('header').height()-60 + 'px'});
-
-      } else {
-
-          $('.pull-nav').attr('data-open', 0).addClass('desktop');
-
-          $('.pull-nav nav').addClass('in').css({
-              height: ''
-          });
-
-          $('.pull-nav-mask').css('display', 'none');
-
-      }
-
-    };
-
-    $(window).on('orientationchange',function(){
-
-      if( $('.pull-nav').attr('data-open')=='1' ) CloseMobile();
-
-    });
-
-
-    $STAN.on('resize',function() {
-
-        viewPort();
-
-    });
-
-    $('.pull-nav-load').click(function(event) {
-
-        if( $('.pull-nav').attr('data-open')=='1'){
-            CloseMobile();
-        }else{
-            OpenMobile();
-        }
-
-        event.stopPropagation();
-
-    });
-
-    $('.pull-nav-mask').click(function(event) {
-
-        CloseMobile();
-
-        event.stopPropagation();
-
-    });
-
-
-
-    $('.pull-nav-mask').on('wheel mousewheel touchmove', function(event) {
-
-        event.preventDefault();
-
-    });
-
-    viewPort();
-
-});
-
-/* ========================================================================
- * STAN Utils: Responsive Navigation
- * Author: Andrew Womersley
- * ======================================================================== */
-
-$(function() {
-
-    'use strict';
-
-    var CloseMobile = function() {
-
-        $('.slide-nav').animate({
-            left: '-100%'
-        }, 200, "swing", function() {
-            $('.slide-nav').css({
-                visibility: 'hidden'
-            });
-        });
-
-        $('.slide-nav-mask').animate({
-            opacity: 0
-        }, 200, "swing", function() {
-            $('.slide-nav-mask').css('display', 'none');
-        });
-
-        ResetNav();
-
-    };
-
-    var ResetNav = function() {
-
-        $('.slide-nav nav').css('left', 0);
-        $('.slide-nav').find('li').removeClass('open');
-        $('.slide-nav').attr('data-open', 0);
-
-    };
-
-    var viewPort = function (){
-
-      var w = $(window).width();
-      var h = $(window).height();
-      var breakpoint = (typeof $('.slide-nav').attr('data-breakpoint')!=='undefined') ? $('.slide-nav').attr('data-breakpoint') : 992;
-
-      $('.slide-nav, .slide-nav-load').removeClass('desktop mobile');
-
-      if (w < breakpoint) {
-
-          $('.slide-nav, .slide-nav-load').addClass('mobile');
-          $('.slide-nav, .slide-nav-mask').css('height', h + 'px');
-
-      } else {
-
-          $('.slide-nav').addClass('desktop').css({
-              height: '',
-              visibility: '',
-              left: ''
-          });
-
-          $('.slide-nav-mask').css('display', 'none');
-
-          ResetNav();
-      }
-
-    };
-
-    $STAN.on('resize',function() {
-
-        viewPort();
-
-    });
-
-    $('.slide-nav-load').click(function(event) {
-
-        $('.slide-nav').css({
-            visibility: 'visible',
-            left: '-100%'
-        })
-        $('.slide-nav').attr('data-open', 1).animate({
-            left: 0
-        }, 200, "swing");
-        $('.slide-nav-mask').css({
-            display: 'block',
-            opacity: 0
-        });
-        $('.slide-nav-mask').animate({
-            opacity: 1
-        }, 200, "swing");
-
-        event.stopPropagation();
-
-    });
-
-    $('.slide-nav-mask').click(function(event) {
-
-        CloseMobile();
-
-        event.stopPropagation();
-
-    });
-
-    $('.slide-nav a').click(function() {
-
-        if ($(this).parents('.slide-nav').hasClass('mobile') && !$('.slide-nav nav').is(':animated')) {
-
-            var p = $(this).parent();
-
-            if ($(p).find('.sub:not(.desktop-only)').length) {
-
-                $(p).addClass('open');
-                $('.slide-nav nav').animate({
-                    left: '-=100%'
-                }, 200, "swing");
-
-                $(p).find('h2').attr('data-url', $(this).attr('href'));
-                return false;
-
-            }
-
-        }
-
-    });
-
-    $('.slide-nav .bwd').click(function() {
-
-        var p = $(this).closest('li');
-
-        $('.slide-nav nav').animate({
-            left: '+=100%'
-        }, 200, "swing", function() {
-            $(p).removeClass('open');
-        });
-
-    });
-
-    $('.slide-nav .fwd').click(function() {
-
-        CloseMobile();
-
-    });
-
-    $('.slide-nav h2').click(function() {
-
-        document.location.href = $(this).attr('data-url');
-
-    });
-
-    $('.slide-nav-mask').on('wheel mousewheel touchmove', function(event) {
-
-        event.preventDefault();
-
-    });
-
-    viewPort();
-
-});
-
-/* ========================================================================
  * STAN Utils: Responsive Preload
  * Author: Andrew Womersley
  * ======================================================================== */
@@ -1417,22 +1061,6 @@ $(function() {
   $STAN.loadDelayedImages();
 
 }(jQuery, $STAN));
-
-/* ========================================================================
-* STAN Utils: Retina Images
-* Author: Andrew Womersley
-* ======================================================================== */
-
-$(function() {
-
-  'use strict';
-
-  // Set pixel ratio
-  var pxRatio = !! window.devicePixelRatio ? window.devicePixelRatio : 1;
-
-  if (pxRatio > 1) $('body').addClass('x2');
-
-});
 
 /* ========================================================================
  * STAN Utils: Scroll Spy
@@ -3231,341 +2859,324 @@ $(function() {
 }(jQuery, $STAN));
 
 /* ========================================================================
-* STAN Utils: Popup
-* Author: Andrew Womersley
-* ======================================================================== */
+ * STAN Utils: Popup
+ * Author: Andrew Womersley
+ * ======================================================================== */
 
 (function($, $STAN) {
 
-  'use strict';
+	'use strict';
 
-  // Define Global Vars
-  var Selectors = [];
+	// Define Global Vars
+	var Selectors = [];
 
-  $STAN.on('resize',function() {
+	$STAN.on('resize', function() {
 
-    if (!Selectors.length) return;
+		if (!Selectors.length) return;
 
-    $(Selectors).each(function() {
+		$(Selectors).each(function() {
 
-      // Resize check
-      methods.resize.apply(this);
+			// Resize check
+			methods.resize.apply(this);
 
-    });
+		});
 
-  });
+	});
 
-  // Click Listeners
-  $(window).ready(function() {
+	// Click Listeners
+	$(window).ready(function() {
 
-    // Show
-    $('body').on("click","[data-toggle='popup.show']",function(){
+		// Show
+		$('body').on("click", "[data-toggle='popup.show']", function() {
 
-      var target = $($(this).attr('data-target'));
+			var src = !!$(this).attr('data-src') ? $(this).attr('data-src') : $(this).attr('href');
 
-      methods.set_settings.apply(target, [$(this)]);
+			methods.set_src.apply($($(this).attr('data-target')), [src]);
 
-      return methods.show.apply(target);
+			return methods.show.apply($($(this).attr('data-target')));
 
-    });
+		});
 
-    // Hide
-    $('body').on("click","[data-toggle='popup.hide']",function(){
+		// Hide
+		$('body').on("click", "[data-toggle='popup.hide']", function() {
 
-      return methods.hide.apply($($(this).attr('data-target')));
+			return methods.hide.apply($($(this).attr('data-target')));
 
-    });
+		});
 
-    // Toggle
-    $('body').on("click","[data-toggle='popup.toggle']",function(){
+		// Toggle
+		$('body').on("click", "[data-toggle='popup.toggle']", function() {
 
-      var target = $($(this).attr('data-target'));
+			var src = !!$(this).attr('data-src') ? $(this).attr('data-src') : $(this).attr('href');
 
-      methods.set_settings.apply(target, [$(this)]);
+			methods.set_src.apply($($(this).attr('data-target')), [src]);
 
-      return methods.toggle.apply(target);
+			return methods.toggle.apply($($(this).attr('data-target')));
 
-    });
+		});
 
-  });
+	});
 
 
-  // Define Methods
-  var methods = {
+	// Define Methods
+	var methods = {
 
-    init: function(options) {
+		init: function(options) {
 
-      // Save selector in array
-      $(this.selector).each(function(){
+			// Save selector in array
+			$(this.selector).each(function() {
 
-        Selectors.push( $(this) );
+				Selectors.push($(this));
 
-      });
+			});
 
-      // Iterate Through Selectors
-      return this.each(function(index) {
+			// Iterate Through Selectors
+			return this.each(function(index) {
 
-        // Set this
-        var $this = $(this);
+				// Set this
+				var $this = $(this);
 
-        // Set Options
-        var settings = $.extend({
-          type: 'html',
-          src: 'about:blank',
-          width: 200,
-          height: 300,
-          gutter: 15,
-          open: false,
-          auto_reopen: true,
-          lock_aspect_ratio: true,
-          scroll: true,
-          devices: {
-            xs: true,
-            sm: true,
-            md: true,
-            lg: true
-          }
-        }, options);
+				// Set Options
+				var settings = $.extend({
+					type: 'html',
+					src: 'about:blank',
+					width: 200,
+					height: 300,
+					gutter: 15,
+					open: false,
+					auto_reopen: true,
+					lock_aspect_ratio: true,
+					scroll: true,
+					devices: {
+						xs: true,
+						sm: true,
+						md: true,
+						lg: true
+					}
+				}, options);
 
-        // Unlock aspect ratio for variable heights
-        if( settings.height=='auto') settings.lock_aspect_ratio=false;
+				// Unlock aspect ratio for variable heights
+				if (settings.height == 'auto') settings.lock_aspect_ratio = false;
 
-        // Save settings
-        $this.data('PopUp', settings);
+				// Save settings
+				$this.data('PopUp', settings);
 
-        // Scroll settings
-        var _scroll = (settings.scroll) ? 'yes' : 'no';
-        var _class = (settings.scroll) ? '' : 'no-scroll';
+				// Scroll settings
+				var _scroll = (settings.scroll) ? 'yes' : 'no';
+				var _class = (settings.scroll) ? '' : 'no-scroll';
 
 
-        // Set HTML/iFrame/Classes
-        if (settings.type == 'iframe') {
+				// Set HTML/iFrame/Classes
+				if (settings.type == 'iframe') {
 
-          $this.find('.popup-content').addClass('no-scroll');
-          $this.find('.popup-content').html("<iframe src='about:blank' class='" + _class + "' style='width:100%;height:100%;' seamless frameborder='0' scrolling='" + _scroll + "'></iframe>");
+					$this.find('.popup-content').addClass('no-scroll');
+					$this.find('.popup-content').html("<iframe src='about:blank' class='" + _class + "' style='width:100%;height:100%;' seamless frameborder='0' scrolling='" + _scroll +
+						"'></iframe>");
 
-        }
-        else {
+				} else {
 
-          $this.find('.popup-content').addClass(_class);
+					$this.find('.popup-content').addClass(_class);
 
-        }
+				}
 
-        // Set close listener
-        $this.click(function() {
+				// Set close listener
+				$this.find('.popup-close, .popup-mask').click(function(event) {
 
-          methods.hide.apply($this);
+					methods.hide.apply($this);
+					event.stopPropagation();
 
-        });
+				});
 
-        $this.find('.popup-close').click(function(event) {
+				// Show if open and allowed on current device
+				if (settings.open && settings.devices[$('body').attr('data-current-device')]) {
 
-          methods.hide.apply($this);
-          event.stopPropagation();
+					$(this).css('display', 'block');
 
-        });
+				}
 
-        $this.find('.popup-content').click(function(event) {
+				$this.on('resize.sa.popup', function() {
+					methods.resize.apply($(this));
+				});
 
-          event.stopPropagation();
+				// Do resize
+				methods.resize.apply(this);
 
-        });
+			});
 
-        // Show if open and allowed on current device
-        if (settings.open && settings.devices[$('body').attr('data-current-device')]) {
+		},
 
-          $(this).css('display', 'block');
+		show: function() {
 
-        }
+			var settings = $(this).data('PopUp');
 
-        $this.on('resize.sa.popup',function(){
-          methods.resize.apply( $(this) );
-        });
+			if (!settings.open) {
 
-        // Do resize
-        methods.resize.apply(this);
+				if (settings.devices[$STAN.device]) {
 
-      });
+					if (settings.type == 'iframe') {
 
-    },
+						// Set iFrame source
+						$(this).find('iframe').attr('src', settings.src);
 
-    show: function() {
+					} else if (settings.type == 'ajax') {
 
-      var settings = $(this).data('PopUp');
+						// Load ajax content
+						$(this).find('.popup-display').css('opacity', 0);
+						$(this).find('.popup-content').load(settings.src, function() {
 
-      if (!settings.open) {
+							$(this).parent().animate({
+								opacity: 1
+							}, 300);
 
-        if (settings.devices[$STAN.device]) {
+						});
 
-          if (settings.type == 'iframe') {
+					}
 
-            // Set iFrame source
-            $(this).find('iframe').attr('src', settings.src);
+					// Display Popup
+					$(this).css({
+						display: 'block',
+						opacity: 0
+					}).animate({
+						opacity: 1
+					}, 300);
 
-          }else if (settings.type == 'ajax') {
+					// Do resize
+					methods.resize.apply(this);
 
-            // Load ajax content
-            $(this).find('.popup-display').css('opacity',0);
-            $(this).find('.popup-content').load(settings.src,function(){
+					// Set open to true
+					settings.open = true;
 
-              $(this).parent().animate({opacity:1},300);
+					// Trigger
+					$(this).trigger('show.sa.popup', [settings]);
 
-            });
+					// Return false to stop default action
+					return false;
 
-          }
+				} else {
 
-          // Display Popup
-          $(this).css({display:'block',opacity:0}).animate({opacity:1},300);
+					// Return true to allow default action
+					return true;
 
-          // Do resize
-          methods.resize.apply(this);
+				}
 
-          // Set open to true
-          settings.open = true;
+			} else {
 
-          // Trigger
-          $(this).trigger('show.sa.popup', [settings]);
+				return false;
 
-          // Return false to stop default action
-          return false;
+			}
 
-        }
-        else {
+		},
 
-          // Return true to allow default action
-          return true;
+		hide: function() {
 
-        }
+			var settings = $(this).data('PopUp');
 
-      }
-      else {
+			if (settings.open) {
 
-        return false;
+				// Close Popup
+				$(this).animate({
+					opacity: 0
+				}, 300, function() {
+					$(this).css('display', 'none');
+				});
 
-      }
+				// Unset iFrame src
+				if (settings.type == 'iframe') {
+					$(this).find('iframe').attr('src', 'about:blank');
+				} else if (settings.type == 'ajax') {
+					$(this).find('.popup-content').html('');
+				}
 
-    },
+				// Set open to false
+				settings.open = false;
 
-    hide: function() {
+				// Trigger
+				$(this).trigger('hide.sa.popup', [settings]);
 
-      var settings = $(this).data('PopUp');
+			}
 
-      if (settings.open) {
+			// Return false to stop default action
+			return false;
 
-        // Close Popup
-        $(this).animate({opacity:0},300,function(){
-          $(this).css('display', 'none');
-        });
+		},
 
-        // Unset iFrame src
-        if (settings.type == 'iframe'){
-          $(this).find('iframe').attr('src', 'about:blank');
-        }else if (settings.type == 'ajax'){
-          $(this).find('.popup-content').html('');
-        }
+		toggle: function(src) {
 
-        // Set open to false
-        settings.open = false;
+			var settings = $(this).data('PopUp');
 
-        // Trigger
-        $(this).trigger('hide.sa.popup', [settings]);
+			if (settings.open) return methods.hide.apply(this);
+			else return methods.show.apply(this, [src]);
 
-      }
+		},
 
-      // Return false to stop default action
-      return false;
+		resize: function() {
 
-    },
+			var settings = $(this).data('PopUp');
 
-    toggle: function(src) {
+			// Resize to fit
+			var w = $(window).width() - (2 * settings.gutter);
+			var h = $(window).height() - (2 * settings.gutter);
 
-      var settings = $(this).data('PopUp');
+			if (settings.height == 'auto') {
+				$(this).find('.popup-display').css('height', 'auto');
+				var ah = $(this).find('.popup-display').outerHeight();
+				if (h > ah) h = ah;
+			} else {
+				if (h > settings.height) h = settings.height;
+			}
 
-      if (settings.open) return methods.hide.apply(this);
-      else return methods.show.apply(this, [src]);
+			if (w > settings.width) w = settings.width;
 
-    },
+			if (settings.lock_aspect_ratio) {
+				if ((w / h) > (settings.width / settings.height)) w = settings.width * (h / settings.height);
+				else h = settings.height * (w / settings.width);
+			}
 
-    resize: function() {
+			$(this).find('.popup-display').css({
+				width: w + 'px',
+				height: h + 'px',
+				marginTop: '-' + (h / 2) + 'px',
+				marginLeft: '-' + (w / 2) + 'px'
+			});
 
-      var settings = $(this).data('PopUp');
+			// Check if device has changed
+			if (!settings.devices[$STAN.device] && settings.open) {
+				settings.reopen = true;
+				methods.hide.apply(this);
+			} else if (settings.devices[$STAN.device] && settings.reopen && settings.auto_reopen) {
+				settings.reopen = false;
+				methods.show.apply(this);
+			}
 
-      // Resize to fit
-      var w = $(window).width() - (2 * settings.gutter);
-      var h = $(window).height() - (2 * settings.gutter);
+		},
 
-      if( settings.height=='auto'){
-        $(this).find('.popup-display').css('height','auto');
-        var ah=$(this).find('.popup-display').outerHeight();
-        if (h > ah) h = ah;
-      }else{
-        if (h > settings.height) h = settings.height;
-      }
+		set_src: function(src) {
 
-      if (w > settings.width) w = settings.width;
+			var settings = $(this).data('PopUp');
 
-      if (settings.lock_aspect_ratio) {
-        if ((w / h) > (settings.width / settings.height)) w = settings.width * (h / settings.height);
-        else h = settings.height * (w / settings.width);
-      }
+			if (src) settings.src = src;
 
-      $(this).find('.popup-display').css({
-        width: w + 'px',
-        height: h + 'px',
-        marginTop: '-' + (h / 2) + 'px',
-        marginLeft: '-' + (w / 2) + 'px'
-      });
+		}
 
-      // Check if device has changed
-      if (!settings.devices[$STAN.device] && settings.open) {
-        settings.reopen = true;
-        methods.hide.apply(this);
-      }
-      else if (settings.devices[$STAN.device] && settings.reopen && settings.auto_reopen) {
-        settings.reopen = false;
-        methods.show.apply(this);
-      }
+	};
 
-    },
+	$.fn.PopUp = function(method) {
 
-    set_settings:function($t){
+		if (methods[method]) {
 
+			return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
 
-      var settings = $(this).data('PopUp');
+		} else if (typeof method === 'object' || !method) {
 
-      var width=$t.attr('data-width') || false;
-      if(width) settings.width=width;
+			return methods.init.apply(this, arguments);
 
-      var height=$t.attr('data-height') || false;
-      if(height) settings.height=height;
+		} else {
 
-      var src=$t.attr('data-src') || $t.attr('href') || false;
-      if(src) settings.src=src;
+			$.error('Method ' + method + ' does not exist on jQuery.Datatable');
 
+		}
 
-    }
-
-  };
-
-  $.fn.PopUp = function(method) {
-
-    if (methods[method]) {
-
-      return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-
-    }
-    else if (typeof method === 'object' || !method) {
-
-      return methods.init.apply(this, arguments);
-
-    }
-    else {
-
-      $.error('Method ' + method + ' does not exist on jQuery.Datatable');
-
-    }
-
-  };
+	};
 
 }(jQuery, $STAN));
 
