@@ -3,71 +3,73 @@
  * Author: Andrew Womersley
  * ======================================================================== */
 
- $(function() {
+$(function() {
 
-  'use strict';
+	'use strict';
 
-    $('.sa-checkbox, .sa-radio, .sa-select-multiple label').click(function(event){
+	$('body').on('click', '.sa-checkbox, .sa-radio, .sa-select-multiple label', function(event) {
 
-      var $input=$(this).find('input');
+		var $input = $(this).find('input');
 
-      if($input.attr('type')=='radio'){
+		if ($input.attr('type') == 'radio') {
 
-        $("[name='"+$input.attr('name')+"']").each(function(){
+			$("[name='" + $input.attr('name') + "']").each(function() {
 
-          $(this) .prop('checked',false)
-                  .parents('.sa-radio').removeClass('active');
+				$(this).prop('checked', false)
+					.parents('.sa-radio').removeClass('active');
 
-        });
+			});
 
-      }
+		}
 
-      if($(this).hasClass('active')){
+		if ($(this).hasClass('active')) {
 
-        $(this) .removeClass('active')
-                .find('input').prop('checked',false);
+			$(this).removeClass('active')
+				.find('input').prop('checked', false);
 
-      }else{
+		} else {
 
-        $(this) .addClass('active')
-                .find('input').prop('checked',true);
+			$(this).addClass('active')
+				.find('input').prop('checked', true);
 
-      }
+		}
 
-      event.preventDefault();
+		event.preventDefault();
 
-    });
+	});
 
-    $('.sa-checkbox, .sa-radio, .sa-select-multiple label').each(function(){
+	$('.sa-checkbox, .sa-radio, .sa-select-multiple label').each(function() {
 
-      if($(this).find('input').prop('checked')){
+		if ($(this).find('input').prop('checked')) {
 
-        $(this).addClass('active');
+			$(this).addClass('active');
 
-      }
+		}
 
-   });
-
-
-   // data-toggle='input-sync' data-target='.moduleid' data-action='/scripts/backend/get-modules'
-   $("[data-toggle='input-sync']").change(function(){
-
-     $t=$(this);
-
-     $( $t.attr('data-target') ).load( $t.attr('data-action'), { syncid: $t.val() } );
-
-   }).change();
+	});
 
 
-   // data-toggle='set-value' data-target='[name="configure"]' data-value='1' data-no-submit
-   $("[data-toggle='set-value']").click(function(){
+	// data-toggle='input-sync' data-target='.moduleid' data-action='/scripts/backend/get-modules'
+	$("[data-toggle='input-sync']").change(function() {
 
-     $t=$(this);
+		$t = $(this);
 
-     $( $t.attr('data-target') ).val( $t.attr('data-value') );
+		$($t.attr('data-target')).load($t.attr('data-action'), {
+			syncid: $t.val()
+		});
 
-     if( $t.is('[data-no-submit]') ) return false;
+	}).change();
 
-   });
+
+	// data-toggle='set-value' data-target='[name="configure"]' data-value='1' data-no-submit
+	$("[data-toggle='set-value']").click(function() {
+
+		$t = $(this);
+
+		$($t.attr('data-target')).val($t.attr('data-value'));
+
+		if ($t.is('[data-no-submit]')) return false;
+
+	});
 
 });

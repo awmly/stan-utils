@@ -5,170 +5,76 @@
 
 $(function() {
 
-	'use strict';
+  'use strict';
 
-	var HitTestCount = 0;
+  var CardUI = function() {
 
-	var CardHitTest = function($card, $siblings, top, left, width, height) {
+    $(".sa-cards").each(function() {
 
-		var t = top;
-		var l = left;
-		var w = width;
-		var h = height;
-		var b = t + h;
-		var r = l + w;
+      var $this = $(this);
 
-		var st, sl, sw, sh, sb, sr;
+      var selector = (typeof $(this).attr('data-selector') !== 'undefined') ? $(this).attr('data-selector') : '.card';
 
-		var HIT = false;
+      if ($(this).find(selector).length) {
 
-		$siblings.each(function(index) {
+        // Get the width of the selector
+        var width = $this.find(selector).outerWidth();
 
-			if ($(this).data('active') && !HIT) {
+        // Set number of cols based on current view
+        var NumCols = Math.round($this.width() / width) - 1;
 
-				var st = $(this).data('top');
-				var sl = $(this).data('left');
-				var sw = $(this).data('width');
-				var sh = $(this).outerHeight(true);
-				var sb = st + sh;
-				var sr = sl + sw;
+        // Set our cols array which will hold the height of each column - presume a max of 12
+        var Cols = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-				HitTestCount++;
+        // Define som evars
+        var x, col, left, max, min;
 
-				if (t < sb && b > st) {
-					if (l < sr && r > sl) {
-						HIT = true;
-					}
-				}
+        $this.find(selector).each(function() {
 
-			}
+          min = 99999;
 
-		});
+          // Get shortest column
+          for (x = 0; x <= NumCols; x++) {
 
-		if (!HIT) {
+            if (Cols[x] < min) {
+              col = x;
+              min = Cols[x];
+            }
 
-			return true;
+          }
 
-		} else {
+          // Set top and left position for card
+          $(this).css({
+            left: (width * col) + 'px',
+            top: Cols[col] + 'px'
+          });
 
-			return false;
+          // Update column height
+          Cols[col] += $(this).outerHeight(true);
 
-		}
+        });
 
-	};
 
-	var CardUI = function() {
+        max = 0;
 
-		$(".sa-cards").each(function() {
+        // Find highest column
+        for (x = 0; x < NumCols; x++) {
 
-			var $this = $(this);
+          if (Cols[x] > max) max = Cols[x];
 
-			var selector = (typeof $(this).attr('data-selector') !== 'undefined') ? $(this).attr('data-selector') : '.card';
-			var maxCols = (typeof $(this).attr('data-maxcols') !== 'undefined') ? $(this).attr('data-maxcols') : '12';
+        }
 
-			if ($(this).find(selector).length) {
+        // Set holder height to match highest column
+        $(this).css('height', max + 'px');
 
-				var max, _Pos, _Col, pos, col, top, span, width, colid, ok;
+      }
 
-				var minwidth = $this.outerWidth() / maxCols;
+    });
 
-				$(this).find(selector).data('active', false);
-				_Col = [0];
+  }
 
-				$this.find(selector).each(function(index) {
+  $(window).on('resize', CardUI);
 
-					if ($STAN.device == 'xs') {
-
-						$(this).removeClass('absolute').css({
-							left: 'auto',
-							top: 'auto'
-						});
-
-					} else {
-
-						width = $(this).outerWidth();
-						span = maxCols / Math.round(($this.parent().width() + 30) / width);
-
-						pos = 9999;
-						top = 9999;
-
-						for (var y in _Col) {
-							ok = false;
-							for (var x = 0; x < maxCols; x++) {
-								if (_Col[y] >= 0) {
-									if (CardHitTest($(this), $this.find(selector), _Col[y], x * 100, 100, 50)) {
-
-										ok = true
-
-									}
-								}
-							}
-							if (!ok) _Col[y] = -1;
-						}
-
-						for (var x = 0; x < maxCols; x++) {
-
-							_Pos = _Col;
-
-							for (var y in _Pos) {
-
-								if (_Pos[y] < top) {
-									colid = parseInt(span) + parseInt(x);
-
-									if (colid <= maxCols && _Pos[y] >= 0) {
-
-										if (CardHitTest($(this), $this.find(selector), _Pos[y], x * 100, span * 100, $(this).outerHeight(true))) {
-											col = x;
-											pos = y
-											top = _Pos[y];
-										}
-
-									}
-								}
-
-							} // end _Pos loop
-
-						} // end _Col loop
-
-						$(this).addClass('absolute').css({
-							left: (minwidth * col) + 'px',
-							top: top + 'px'
-						}).data('active', true).data('top', top).data('left', (100 * col)).data('width', (100 * span));
-
-						for (var x = 0; x < span; x++) {
-							colid = parseInt(col) + parseInt(x);
-						}
-
-						_Col.push((top + $(this).outerHeight(true)));
-
-					} // end if device XS
-
-				}); // end selector each
-
-				max = 0;
-
-				// Find highest column
-				for (var y in _Col) {
-
-					if (_Col[y] > max) max = _Col[y];
-
-				}
-
-				// Set holder height to match highest column
-				if ($STAN.device == 'xs') {
-					$(this).css('height', 'auto');
-				} else {
-					$(this).css('height', max + 'px');
-				}
-
-			} // end if selector length
-
-		}); // end sa-cards each
-
-	}; // end function
-
-	$('body').on('active.sa.stan', CardUI);
-
-	$('.sa-cards').on('position.sa.cards', CardUI);
+  $('.sa-cards').on('position.sa.cards', CardUI);
 
 });

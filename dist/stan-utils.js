@@ -1,5 +1,5 @@
 /*!
- * STAN Utils 0.0.32
+ * STAN Utils 0.0.33
  * Copyright 2015 Andrew Womersley
  */
 
@@ -437,171 +437,77 @@ var $STAN;
 
 $(function() {
 
-	'use strict';
+  'use strict';
 
-	var HitTestCount = 0;
+  var CardUI = function() {
 
-	var CardHitTest = function($card, $siblings, top, left, width, height) {
+    $(".sa-cards").each(function() {
 
-		var t = top;
-		var l = left;
-		var w = width;
-		var h = height;
-		var b = t + h;
-		var r = l + w;
+      var $this = $(this);
 
-		var st, sl, sw, sh, sb, sr;
+      var selector = (typeof $(this).attr('data-selector') !== 'undefined') ? $(this).attr('data-selector') : '.card';
 
-		var HIT = false;
+      if ($(this).find(selector).length) {
 
-		$siblings.each(function(index) {
+        // Get the width of the selector
+        var width = $this.find(selector).outerWidth();
 
-			if ($(this).data('active') && !HIT) {
+        // Set number of cols based on current view
+        var NumCols = Math.round($this.width() / width) - 1;
 
-				var st = $(this).data('top');
-				var sl = $(this).data('left');
-				var sw = $(this).data('width');
-				var sh = $(this).outerHeight(true);
-				var sb = st + sh;
-				var sr = sl + sw;
+        // Set our cols array which will hold the height of each column - presume a max of 12
+        var Cols = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-				HitTestCount++;
+        // Define som evars
+        var x, col, left, max, min;
 
-				if (t < sb && b > st) {
-					if (l < sr && r > sl) {
-						HIT = true;
-					}
-				}
+        $this.find(selector).each(function() {
 
-			}
+          min = 99999;
 
-		});
+          // Get shortest column
+          for (x = 0; x <= NumCols; x++) {
 
-		if (!HIT) {
+            if (Cols[x] < min) {
+              col = x;
+              min = Cols[x];
+            }
 
-			return true;
+          }
 
-		} else {
+          // Set top and left position for card
+          $(this).css({
+            left: (width * col) + 'px',
+            top: Cols[col] + 'px'
+          });
 
-			return false;
+          // Update column height
+          Cols[col] += $(this).outerHeight(true);
 
-		}
+        });
 
-	};
 
-	var CardUI = function() {
+        max = 0;
 
-		$(".sa-cards").each(function() {
+        // Find highest column
+        for (x = 0; x < NumCols; x++) {
 
-			var $this = $(this);
+          if (Cols[x] > max) max = Cols[x];
 
-			var selector = (typeof $(this).attr('data-selector') !== 'undefined') ? $(this).attr('data-selector') : '.card';
-			var maxCols = (typeof $(this).attr('data-maxcols') !== 'undefined') ? $(this).attr('data-maxcols') : '12';
+        }
 
-			if ($(this).find(selector).length) {
+        // Set holder height to match highest column
+        $(this).css('height', max + 'px');
 
-				var max, _Pos, _Col, pos, col, top, span, width, colid, ok;
+      }
 
-				var minwidth = $this.outerWidth() / maxCols;
+    });
 
-				$(this).find(selector).data('active', false);
-				_Col = [0];
+  }
 
-				$this.find(selector).each(function(index) {
+  $(window).on('resize', CardUI);
 
-					if ($STAN.device == 'xs') {
-
-						$(this).removeClass('absolute').css({
-							left: 'auto',
-							top: 'auto'
-						});
-
-					} else {
-
-						width = $(this).outerWidth();
-						span = maxCols / Math.round(($this.parent().width() + 30) / width);
-
-						pos = 9999;
-						top = 9999;
-
-						for (var y in _Col) {
-							ok = false;
-							for (var x = 0; x < maxCols; x++) {
-								if (_Col[y] >= 0) {
-									if (CardHitTest($(this), $this.find(selector), _Col[y], x * 100, 100, 50)) {
-
-										ok = true
-
-									}
-								}
-							}
-							if (!ok) _Col[y] = -1;
-						}
-
-						for (var x = 0; x < maxCols; x++) {
-
-							_Pos = _Col;
-
-							for (var y in _Pos) {
-
-								if (_Pos[y] < top) {
-									colid = parseInt(span) + parseInt(x);
-
-									if (colid <= maxCols && _Pos[y] >= 0) {
-
-										if (CardHitTest($(this), $this.find(selector), _Pos[y], x * 100, span * 100, $(this).outerHeight(true))) {
-											col = x;
-											pos = y
-											top = _Pos[y];
-										}
-
-									}
-								}
-
-							} // end _Pos loop
-
-						} // end _Col loop
-
-						$(this).addClass('absolute').css({
-							left: (minwidth * col) + 'px',
-							top: top + 'px'
-						}).data('active', true).data('top', top).data('left', (100 * col)).data('width', (100 * span));
-
-						for (var x = 0; x < span; x++) {
-							colid = parseInt(col) + parseInt(x);
-						}
-
-						_Col.push((top + $(this).outerHeight(true)));
-
-					} // end if device XS
-
-				}); // end selector each
-
-				max = 0;
-
-				// Find highest column
-				for (var y in _Col) {
-
-					if (_Col[y] > max) max = _Col[y];
-
-				}
-
-				// Set holder height to match highest column
-				if ($STAN.device == 'xs') {
-					$(this).css('height', 'auto');
-				} else {
-					$(this).css('height', max + 'px');
-				}
-
-			} // end if selector length
-
-		}); // end sa-cards each
-
-	}; // end function
-
-	$('body').on('active.sa.stan', CardUI);
-
-	$('.sa-cards').on('position.sa.cards', CardUI);
+  $('.sa-cards').on('position.sa.cards', CardUI);
 
 });
 
@@ -760,72 +666,74 @@ $(function() {
  * Author: Andrew Womersley
  * ======================================================================== */
 
- $(function() {
+$(function() {
 
-  'use strict';
+	'use strict';
 
-    $('.sa-checkbox, .sa-radio, .sa-select-multiple label').click(function(event){
+	$('body').on('click', '.sa-checkbox, .sa-radio, .sa-select-multiple label', function(event) {
 
-      var $input=$(this).find('input');
+		var $input = $(this).find('input');
 
-      if($input.attr('type')=='radio'){
+		if ($input.attr('type') == 'radio') {
 
-        $("[name='"+$input.attr('name')+"']").each(function(){
+			$("[name='" + $input.attr('name') + "']").each(function() {
 
-          $(this) .prop('checked',false)
-                  .parents('.sa-radio').removeClass('active');
+				$(this).prop('checked', false)
+					.parents('.sa-radio').removeClass('active');
 
-        });
+			});
 
-      }
+		}
 
-      if($(this).hasClass('active')){
+		if ($(this).hasClass('active')) {
 
-        $(this) .removeClass('active')
-                .find('input').prop('checked',false);
+			$(this).removeClass('active')
+				.find('input').prop('checked', false);
 
-      }else{
+		} else {
 
-        $(this) .addClass('active')
-                .find('input').prop('checked',true);
+			$(this).addClass('active')
+				.find('input').prop('checked', true);
 
-      }
+		}
 
-      event.preventDefault();
+		event.preventDefault();
 
-    });
+	});
 
-    $('.sa-checkbox, .sa-radio, .sa-select-multiple label').each(function(){
+	$('.sa-checkbox, .sa-radio, .sa-select-multiple label').each(function() {
 
-      if($(this).find('input').prop('checked')){
+		if ($(this).find('input').prop('checked')) {
 
-        $(this).addClass('active');
+			$(this).addClass('active');
 
-      }
+		}
 
-   });
-
-
-   // data-toggle='input-sync' data-target='.moduleid' data-action='/scripts/backend/get-modules'
-   $("[data-toggle='input-sync']").change(function(){
-
-     $t=$(this);
-
-     $( $t.attr('data-target') ).load( $t.attr('data-action'), { syncid: $t.val() } );
-
-   }).change();
+	});
 
 
-   // data-toggle='set-value' data-target='[name="configure"]' data-value='1' data-no-submit
-   $("[data-toggle='set-value']").click(function(){
+	// data-toggle='input-sync' data-target='.moduleid' data-action='/scripts/backend/get-modules'
+	$("[data-toggle='input-sync']").change(function() {
 
-     $t=$(this);
+		$t = $(this);
 
-     $( $t.attr('data-target') ).val( $t.attr('data-value') );
+		$($t.attr('data-target')).load($t.attr('data-action'), {
+			syncid: $t.val()
+		});
 
-     if( $t.is('[data-no-submit]') ) return false;
+	}).change();
 
-   });
+
+	// data-toggle='set-value' data-target='[name="configure"]' data-value='1' data-no-submit
+	$("[data-toggle='set-value']").click(function() {
+
+		$t = $(this);
+
+		$($t.attr('data-target')).val($t.attr('data-value'));
+
+		if ($t.is('[data-no-submit]')) return false;
+
+	});
 
 });
 
@@ -929,68 +837,68 @@ $(function() {
 });
 
 /* ========================================================================
-* STAN Utils: InsetOutset
-* Author: Andrew Womersley
-* ======================================================================== */
+ * STAN Utils: InsetOutset
+ * Author: Andrew Womersley
+ * ======================================================================== */
 
 $(function() {
 
-  'use strict';
+	'use strict';
 
-  var InsetOutset = function() {
+	var InsetOutset = function() {
 
-    var padding, paddingTop, width, side, outset, clone;
+		var padding, paddingTop, width, side, outset, clone;
 
-    $('.sa-inset,.sa-outset').each(function() {
+		$('.sa-inset,.sa-outset').each(function() {
 
-      // Set side
-      if ($(this).hasClass('sa-right')) side = 'right';
-      else side = 'left';
+			// Set side
+			if ($(this).hasClass('sa-right')) side = 'right';
+			else side = 'left';
 
-      // Reset inline css padding
-      $(this).parent().css('padding-' + side, '');
+			// Reset inline css padding
+			$(this).parent().css('padding-' + side, '');
 
-      // Get offset
-      padding = parseInt($(this).parent().css('padding-' + side));
-      paddingTop = parseInt($(this).parent().css('padding-top'));
+			// Get offset
+			padding = parseInt($(this).parent().css('padding-' + side));
+			paddingTop = parseInt($(this).parent().css('padding-top'));
 
-      // Get width
-      width = $(this).outerWidth(true);
+			// Get width
+			width = $(this).outerWidth(true);
 
-      // If width is zero (hidden)  or less than 10 ie bug) - use getSize to find its width
-      if (!width || width<10) width = $STAN.getSize($(this)).outerWidthMargin;
+			// If width is zero (hidden)  or less than 10 ie bug) - use getSize to find its width
+			if (!width || width < 10) width = $STAN.getSize($(this)).outerWidthMargin;
 
-      // Apply paddings
-      if ($(this).hasClass('sa-outset')) {
+			// Apply paddings
+			if ($(this).hasClass('sa-outset')) {
 
-        $(this).parent().parent().css('padding-' + side, width + 'px');
-        $(this).css(side, '-' + width + 'px');
+				$(this).parent().parent().css('padding-' + side, width + 'px');
+				$(this).css(side, '-' + width + 'px');
 
-      } else {
+			} else {
 
-        $(this).parent().css('padding-' + side, (padding + width) + 'px');
-        $(this).css(side, padding + 'px');
+				$(this).parent().css('padding-' + side, (padding + width) + 'px');
+				$(this).css(side, padding + 'px');
 
-      }
+			}
 
-      if( $(this).hasClass('sa-top') ){
-        $(this).css('margin-top', paddingTop + 'px');
-      }
+			if ($(this).hasClass('sa-top')) {
+				$(this).css('margin-top', paddingTop + 'px');
+			}
 
-    });
+		});
 
-  };
+		// Turn visibility back on
+		$('.sa-inset,.sa-outset').css('visibility', 'visible');
 
-  // Add required parent class
-  $('.sa-inset,.sa-outset').each(function() {
-    if ($(this).parent().css('position') == 'static') $(this).parent().addClass('relative');
-  });
+	};
 
-  // Add function listeners
-  $(window).on('load resize', InsetOutset);
+	// Add required parent class
+	$('.sa-inset,.sa-outset').each(function() {
+		if ($(this).parent().css('position') == 'static') $(this).parent().addClass('relative');
+	});
 
-  // Turn visibility back on
-  $('.sa-inset,.sa-outset').css('visibility','visible');
+	// Add function listeners
+	$(window).on('load resize insetoutset', InsetOutset);
 
 });
 
@@ -3187,241 +3095,236 @@ $(function() {
 
 (function($, $STAN) {
 
-    'use strict';
+	'use strict';
 
-    // Define Methods
-    var methods = {
+	// Define Methods
+	var methods = {
 
-        init: function(options) {
+		init: function(options) {
 
-            // Iterate Through Selectors
-            return this.each(function(index) {
+			// Iterate Through Selectors
+			return this.each(function(index) {
 
-                // Set this
-                var $this = $(this);
+				// Set this
+				var $this = $(this);
 
-                // Set Options
-                var settings = $.extend({
+				// Set Options
+				var settings = $.extend({
 
-                    search_url: '',
-                    http_request: 'GET',
-                    data: [],
-                    searching: false
+					search_url: '',
+					http_request: 'GET',
+					data: [],
+					searching: false
 
-                }, options);
+				}, options);
 
-                // Save settings
-                $this.data('Predinput', settings);
+				// Save settings
+				$this.data('Predinput', settings);
 
-                // Turn off autocomplete on input box
-                $this.find('input').attr('autocomplete', 'off');
+				// Turn off autocomplete on input box
+				$this.find('input').attr('autocomplete', 'off');
 
-                // Add Key press listeners
-                $this.find('input').keyup(function(event) {
+				// Add Key press listeners
+				$this.find('input').keyup(function(event) {
 
-                    methods.keyup.apply($this, [event]);
+					methods.keyup.apply($this, [event]);
 
-                });
+				});
 
-                // Stop return from submitting the form
-                $this.find('input').keydown(function(event) {
+				// Stop return from submitting the form
+				$this.find('input').keydown(function(event) {
 
-                    if (event.keyCode == 13) event.preventDefault();
+					if (event.keyCode == 13) event.preventDefault();
 
-                });
+				});
 
-                // Clear search
-                $this.find('.clear').click(function(event) {
+				// Clear search
+				$this.find('.clear').click(function(event) {
 
-                    $this.find('input').val('');
-                    $(this).css('display', 'none');
-                    methods.hide_results.apply($this);
-                    $this.find('input').focus();
+					$this.find('input').val('');
+					$(this).css('display', 'none');
+					methods.hide_results.apply($this);
+					$this.find('input').focus();
 
-                    // Trigger
-                    $this.trigger('clear.sa.predinput', [settings]);
+					// Trigger
+					$this.trigger('clear.sa.predinput', [settings]);
 
-                });
+				});
 
-                // Stop propagtion on click
-                $this.click(function(event) {
+				// Stop propagtion on click
+				$this.click(function(event) {
 
-                    event.stopPropagation();
+					event.stopPropagation();
 
-                });
+				});
 
-                // Hide when off click
-                $('body').click(function() {
+				// Hide when off click
+				$('body').click(function() {
 
-                    methods.hide_results.apply($this);
+					methods.hide_results.apply($this);
 
-                });
+				});
 
-            });
+			});
 
-        },
+		},
 
-        keyup: function(e) {
+		keyup: function(e) {
 
-            // Load settings
-            var settings = $(this).data('Predinput');
+			// Load settings
+			var settings = $(this).data('Predinput');
 
-            // Set objects
-            var $this = $(this);
-            var $res = $(this).find('.results');
+			// Set objects
+			var $this = $(this);
+			var $res = $(this).find('.results');
 
-            // Check for down, up and return keys
-            if (e.keyCode == 40 || e.keyCode == 38 || e.keyCode == 13) {
+			// Check for down, up and return keys
+			if (e.keyCode == 40 || e.keyCode == 38 || e.keyCode == 13) {
 
-                // Get current index
-                var index = parseInt($res.find('ul').attr('data-index'));
+				// Get current index
+				var index = parseInt($res.find('ul').attr('data-index'));
 
-                if (e.keyCode == 40) { // down
+				if (e.keyCode == 40) { // down
 
-                    index++;
-                    if (index == $res.find('ul li').length) index--;
+					index++;
+					if (index == $res.find('ul li').length) index--;
 
-                }
-                else if (e.keyCode == 38) { // up
+				} else if (e.keyCode == 38) { // up
 
-                    index--;
-                    if (index < 0) index = 0;
+					index--;
+					if (index < 0) index = 0;
 
-                }
-                else if (e.keyCode == 13) {
+				} else if (e.keyCode == 13) {
 
-                    methods.hide_results.apply($this);
+					methods.hide_results.apply($this);
 
-                    // Trigger
-                    $this.trigger('selected.sa.predinput', [settings]);
+					// Trigger
+					$this.trigger('selected.sa.predinput', [settings]);
 
-                }
+				}
 
-                // Save index
-                $res.find('ul').attr('data-index', index);
+				// Save index
+				$res.find('ul').attr('data-index', index);
 
-                // Get object for current index
-                var $index = $res.find('ul li:nth-child(' + (index + 1) + ')');
+				// Get object for current index
+				var $index = $res.find('ul li:nth-child(' + (index + 1) + ')');
 
-                // Remove active class
-                $res.find('ul li').removeClass('active');
+				// Remove active class
+				$res.find('ul li').removeClass('active');
 
-                // Add active class to
-                $index.addClass('active');
+				// Add active class to
+				$index.addClass('active');
 
-                // Set search string
-                $this.find('input').val($index.text());
+				// Set search string
+				$this.find("input[type=text]").val($index.text());
+				$this.find("input[type=hidden]").val($index.attr('data-id'));
 
-            }
-            else {
+			} else {
 
-                if (!settings.searching) {
-                    settings.searching = true;
-                    methods.search.apply($this);
-                }
-                else {
-                    settings.search_again = true;
-                }
+				if (!settings.searching) {
+					settings.searching = true;
+					methods.search.apply($this);
+				} else {
+					settings.search_again = true;
+				}
 
-            }
+			}
 
-            if ($this.find('input').val()) {
-                $this.find('.clear').css('display', 'block');
-            }
-            else {
-                $this.find('.clear').css('display', 'none');
-            }
+			if ($this.find('input').val()) {
+				$this.find('.clear').css('display', 'block');
+			} else {
+				$this.find('.clear').css('display', 'none');
+			}
 
-        },
+		},
 
-        search: function() {
+		search: function() {
 
-            // Load settings
-            var settings = $(this).data('Predinput');
+			// Load settings
+			var settings = $(this).data('Predinput');
 
-            // Set objects
-            var $this = $(this);
-            var $res = $(this).find('.results');
+			// Set objects
+			var $this = $(this);
+			var $res = $(this).find('.results');
 
-            // Clear results HTML
-            $res.html('').css('display', 'block');
+			// Clear results HTML
+			$res.html('').css('display', 'block');
 
-            // Do seach
-            $.ajax({
+			// Do seach
+			$.ajax({
 
-                url: settings.search_url,
-                cache: false,
-                type: settings.http_request,
-                data: {
-                    search: $(this).find('input').val(),
-                    data: JSON.stringify(settings.data)
-                }
+				url: settings.search_url,
+				cache: false,
+				type: settings.http_request,
+				data: {
+					search: $(this).find('input').val(),
+					data: JSON.stringify(settings.data)
+				}
 
-            }).done(function(results) {
+			}).done(function(results) {
 
-                $res.html(results);
+				$res.html(results);
 
-                $res.find('ul').attr('data-index', '-1');
+				$res.find('ul').attr('data-index', '-1');
 
-                $res.find('li').each(function(index) {
-                    $(this).attr('data-index', index);
-                });
+				$res.find('li').each(function(index) {
+					$(this).attr('data-index', index);
+				});
 
-                $res.find('li').mouseover(function() {
-                    $(this).siblings().removeClass('active');
-                    $(this).addClass('active');
-                    $(this).parent().attr('data-index', $(this).attr('data-index'));
-                });
+				$res.find('li').mouseover(function() {
+					$(this).siblings().removeClass('active');
+					$(this).addClass('active');
+					$(this).parent().attr('data-index', $(this).attr('data-index'));
+				});
 
-                $res.find('li').click(function() {
-                    $this.find('input').val($(this).text());
-                    methods.hide_results.apply($this);
+				$res.find('li').click(function() {
+					$this.find("input[type=text]").val($(this).text());
+					$this.find("input[type=hidden]").val($(this).attr('data-id'));
+					methods.hide_results.apply($this);
 
-                    // Trigger
-                    $this.trigger('selected.sa.predinput', [settings]);
+					// Trigger
+					$this.trigger('selected.sa.predinput', [settings]);
 
-                });
+				});
 
-                settings.searching = false;
+				settings.searching = false;
 
-                if (settings.search_again) {
-                    settings.search_again = false;
-                    settings.searching = true;
-                    methods.search.apply($this);
-                }
+				if (settings.search_again) {
+					settings.search_again = false;
+					settings.searching = true;
+					methods.search.apply($this);
+				}
 
-                // Trigger
-                $this.trigger('search.sa.predinput', [settings]);
+				// Trigger
+				$this.trigger('search.sa.predinput', [settings]);
 
-            });
+			});
 
-        },
+		},
 
-        hide_results: function() {
-            $(this).find('.results').css('display', 'none');
-        }
+		hide_results: function() {
+			$(this).find('.results').css('display', 'none');
+		}
 
-    };
+	};
 
-    $.fn.Predinput = function(method) {
+	$.fn.Predinput = function(method) {
 
-        if (methods[method]) {
+		if (methods[method]) {
 
-            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+			return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
 
-        }
-        else if (typeof method === 'object' || !method) {
+		} else if (typeof method === 'object' || !method) {
 
-            return methods.init.apply(this, arguments);
+			return methods.init.apply(this, arguments);
 
-        }
-        else {
+		} else {
 
-            $.error('Method ' + method + ' does not exist on jQuery.Datatable');
+			$.error('Method ' + method + ' does not exist on jQuery.Datatable');
 
-        }
+		}
 
-    };
+	};
 
 }(jQuery, $STAN));
 
