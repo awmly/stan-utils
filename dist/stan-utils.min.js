@@ -1,5 +1,5 @@
 /*!
- * STAN Utils 0.0.33
+ * STAN Utils 0.0.34
  * Copyright 2015 Andrew Womersley
  */
 
