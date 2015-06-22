@@ -6,14 +6,83 @@ base:		"../"
 
 <h1>Image Box</h1>
 
-<h2>Fill</h2>
+<ul class='bullet'>
+  <li><code>fill-full</code> Image will always fill the container meaning not all the image will be seen at all times. Enlarging of image will occor if container is larger than image, the height and width of the image will be the same or greater than the container at all times.</li>
+  <li><code>fill-max</code> Image will always fill the container meaning not all the image will be seen at all times. If image is smaller than container it will be positioned centrally.</li>
+  <li><code>fit-full</code> Image will always fit inside the container meaning all the image will be seen at all times. Enlarging of image will occor if container is larger than image, either the height or width of the container and image will be the same at all times.</li>
+  <li><code>fit-max</code> Image will always fit inside the container meaning all the image will be seen at all times. If image is smaller than container it will be positioned centrally.</li>
+</ul>
+
+<h2>Fill - Full</h2>
 <div style='width:600px;height:300px;border:solid 1px #ccc;'>
-  <img src='{{page.base}}_assets/imgs/img-320.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/img-320.jpg","sm":"{{page.base}}_assets/{{page.base}}_assets/imgs/img-700.jpg","md":"{{page.base}}_assets/imgs/img-1000.jpg","lg":"{{page.base}}_assets/imgs/img-1200.jpg"}' data-img-box='fill' />
+  <img src='{{page.base}}_assets/imgs/img-320.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/img-320.jpg","sm":"{{page.base}}_assets/{{page.base}}_assets/imgs/img-700.jpg","md":"{{page.base}}_assets/imgs/img-1000.jpg","lg":"{{page.base}}_assets/imgs/img-1200.jpg"}' data-img-box='fill-full' />
+</div>
+
+
+<div class='space-md'></div>
+
+<h2>Fit - Full</h2>
+<div style='width:600px;height:300px;border:solid 1px #ccc;'>
+  <img src='{{page.base}}_assets/imgs/img-320.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/img-320.jpg","sm":"{{page.base}}_assets/{{page.base}}_assets/imgs/img-700.jpg","md":"{{page.base}}_assets/imgs/img-1000.jpg","lg":"{{page.base}}_assets/imgs/img-1200.jpg"}' data-img-box='fit-full' />
+</div>
+
+
+<div class='space-md'></div>
+
+<h2>Fill - Max</h2>
+<div style='width:600px;height:300px;border:solid 1px #ccc;'>
+  <img src='{{page.base}}_assets/imgs/img-320.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/img-320.jpg","sm":"{{page.base}}_assets/{{page.base}}_assets/imgs/img-700.jpg","md":"{{page.base}}_assets/imgs/img-1000.jpg","lg":"{{page.base}}_assets/imgs/img-1200.jpg"}' data-img-box='fill-max' />
 </div>
 
 <div class='space-md'></div>
 
-<h2>Fit</h2>
-<div style='width:600px;height:300px;border:solid 1px #ccc;'>
-  <img src='{{page.base}}_assets/imgs/img-320.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/img-320.jpg","sm":"{{page.base}}_assets/{{page.base}}_assets/imgs/img-700.jpg","md":"{{page.base}}_assets/imgs/img-1000.jpg","lg":"{{page.base}}_assets/imgs/img-1200.jpg"}' data-img-box='fit' />
+<h2>Fill - Max</h2>
+<div style='width:200px;height:180px;border:solid 1px #ccc;'>
+  <img src='{{page.base}}_assets/imgs/img-320.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/img-320.jpg","sm":"{{page.base}}_assets/{{page.base}}_assets/imgs/img-700.jpg","md":"{{page.base}}_assets/imgs/img-1000.jpg","lg":"{{page.base}}_assets/imgs/img-1200.jpg"}' data-img-box='fill-max' />
 </div>
+
+<div class='space-md'></div>
+
+<h2>Fill - Max</h2>
+<div style='width:400px;height:180px;border:solid 1px #ccc;'>
+  <img src='{{page.base}}_assets/imgs/img-320.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/img-320.jpg","sm":"{{page.base}}_assets/{{page.base}}_assets/imgs/img-700.jpg","md":"{{page.base}}_assets/imgs/img-1000.jpg","lg":"{{page.base}}_assets/imgs/img-1200.jpg"}' data-img-box='fill-max' />
+</div>
+
+<div class='space-md'></div>
+
+<h2>Fill - Max</h2>
+<div style='width:320px;height:100px;border:solid 1px #ccc;'>
+  <img src='{{page.base}}_assets/imgs/img-320.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/img-320.jpg","sm":"{{page.base}}_assets/{{page.base}}_assets/imgs/img-700.jpg","md":"{{page.base}}_assets/imgs/img-1000.jpg","lg":"{{page.base}}_assets/imgs/img-1200.jpg"}' data-img-box='fill-max' />
+</div>
+
+<div class='space-md'></div>
+
+<h2>Fill - Max</h2>
+<div style='width:320px;height:300px;border:solid 1px #ccc;'>
+  <img src='{{page.base}}_assets/imgs/img-320.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/img-320.jpg","sm":"{{page.base}}_assets/{{page.base}}_assets/imgs/img-700.jpg","md":"{{page.base}}_assets/imgs/img-1000.jpg","lg":"{{page.base}}_assets/imgs/img-1200.jpg"}' data-img-box='fill-max' />
+</div>
+
+
+
+<div class='space-md'></div>
+
+<h2>Fit - Max</h2>
+<div style='width:600px;height:300px;border:solid 1px #ccc;'>
+  <img src='{{page.base}}_assets/imgs/img-320.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/img-320.jpg","sm":"{{page.base}}_assets/{{page.base}}_assets/imgs/img-700.jpg","md":"{{page.base}}_assets/imgs/img-1000.jpg","lg":"{{page.base}}_assets/imgs/img-1200.jpg"}' data-img-box='fit-max' />
+</div>
+
+<div class='space-md'></div>
+
+<h2>Fit - Max</h2>
+<div style='width:600px;height:100px;border:solid 1px #ccc;'>
+  <img src='{{page.base}}_assets/imgs/img-320.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/img-320.jpg","sm":"{{page.base}}_assets/{{page.base}}_assets/imgs/img-700.jpg","md":"{{page.base}}_assets/imgs/img-1000.jpg","lg":"{{page.base}}_assets/imgs/img-1200.jpg"}' data-img-box='fit-max' />
+</div>
+
+<div class='space-md'></div>
+
+<h2>Fit - Max</h2>
+<div style='width:100px;height:600px;border:solid 1px #ccc;'>
+  <img src='{{page.base}}_assets/imgs/img-320.jpg' data-resp-src='{"xs":"{{page.base}}_assets/imgs/img-320.jpg","sm":"{{page.base}}_assets/{{page.base}}_assets/imgs/img-700.jpg","md":"{{page.base}}_assets/imgs/img-1000.jpg","lg":"{{page.base}}_assets/imgs/img-1200.jpg"}' data-img-box='fit-max' />
+</div>
+
+<div class='space-md'></div>

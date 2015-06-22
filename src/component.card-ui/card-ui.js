@@ -46,7 +46,8 @@ $(function() {
           // Set top and left position for card
           $(this).css({
             left: (width * col) + 'px',
-            top: Cols[col] + 'px'
+            top: Cols[col] + 'px',
+            opacity: 1
           });
 
           // Update column height
