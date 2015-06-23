@@ -1,7 +1,7 @@
 /* ========================================================================
-* STAN Utils: Dropdown
-* Author: Andrew Womersley
-* ======================================================================== */
+ * STAN Utils: Dropdown
+ * Author: Andrew Womersley
+ * ======================================================================== */
 
 $(function() {
 
@@ -9,13 +9,13 @@ $(function() {
 
   var width, subnav, pad;
 
-  $('.sa-dropdown').click(function(event){
+  $('.sa-dropdown').click(function(event) {
 
-    if($(this).hasClass('active')){
+    if ($(this).hasClass('active')) {
 
       $('.sa-dropdown').removeClass('active');
 
-    }else{
+    } else {
 
       $('.sa-dropdown').removeClass('active');
       $(this).addClass('active');
@@ -24,10 +24,10 @@ $(function() {
       subnav = $(this).find('ul');
 
 
-      pad = subnav.outerWidth()-subnav.width();
+      pad = subnav.outerWidth() - subnav.width();
 
       subnav.css('width', '1000px')
-      .children('li').css('display', 'inline-block');
+        .children('li').css('display', 'inline-block');
 
       subnav.children('li').each(function() {
 
@@ -35,12 +35,12 @@ $(function() {
 
       });
 
-      width=width+pad;
+      width = width + pad;
 
       subnav.css('width', '')
-      .children('li').css('display', '');
+        .children('li').css('display', '');
 
-      if (width > subnav.outerWidth()) subnav.css('width', (width+5) + 'px');
+      if (width > subnav.outerWidth()) subnav.css('width', (width + 5) + 'px');
       else if (width < $(this).outerWidth()) subnav.css('width', $(this).outerWidth() + 'px');
 
       event.stopPropagation();
@@ -49,7 +49,18 @@ $(function() {
 
   });
 
-  $('body').on('click',function(){
+  $('[data-set-title].sa-dropdown').each(function() {
+
+    var active = $(this).find('li.active a').contents().get(0);
+
+    var val = !!active ? active.nodeValue : false;
+
+    if (val) $(this).find('.title').text(val);
+
+  });
+
+
+  $('body').on('click', function() {
 
     $('.sa-dropdown').removeClass('active');
 
