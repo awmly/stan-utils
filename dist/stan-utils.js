@@ -168,32 +168,35 @@
  * Author: Andrew Womersley
  * ========================================================================*/
 
- (function($, $STAN) {
+(function($, $STAN) {
 
-    'use strict';
+  'use strict';
 
-    $STAN.has = function(feature) {
+  $STAN.has = function(feature) {
 
-        return $STAN.feature[feature];
+    return $STAN.feature[feature];
 
-    };
+  };
 
-    $STAN.feature = [ ];
+  $STAN.feature = [];
 
-    // Placeholder
-    $STAN.feature.placeholder=( 'placeholder' in document.createElement('input') && 'placeholder' in document.createElement('textarea') );
+  // Placeholder
+  $STAN.feature.placeholder = ('placeholder' in document.createElement('input') && 'placeholder' in document.createElement('textarea'));
 
-    // Add event listener
-    $STAN.feature.eventlistener='addEventListener' in window;
+  // Add event listener
+  $STAN.feature.eventlistener = 'addEventListener' in window;
 
-    // XHR2
-    $STAN.feature.xhr2=( 'XMLHttpRequest' in window && 'withCredentials' in new XMLHttpRequest() );
+  // History
+  $STAN.feature.history = !!(window.history && history.pushState);
 
-    // Canvas
-    $STAN.feature.canvas=(function() {
-      var elem = document.createElement('canvas');
-      return !!(elem.getContext && elem.getContext('2d'));
-    })();
+  // XHR2
+  $STAN.feature.xhr2 = ('XMLHttpRequest' in window && 'withCredentials' in new XMLHttpRequest());
+
+  // Canvas
+  $STAN.feature.canvas = (function() {
+    var elem = document.createElement('canvas');
+    return !!(elem.getContext && elem.getContext('2d'));
+  })();
 
 }(jQuery, $STAN));
 
@@ -376,6 +379,8 @@
 
     events[_event].push(_callback);
 
+    return $STAN;
+
   };
 
   $STAN.trigger = function(_event) {
@@ -389,6 +394,8 @@
       }
 
     }
+
+    return $STAN;
 
   };
 
