@@ -209,7 +209,7 @@ $(function() {
     $('.sa-collapse-tabs .tab-content').addClass('collapse');
 
     // Add resize listener
-    $STAN.on('resize', CollapseTab );
+    $STAN.on('window.resize', CollapseTab );
 
     // Set hashchange event
     $(window).on('hashchange', readHash);

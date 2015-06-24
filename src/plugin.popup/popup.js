@@ -10,7 +10,7 @@
 	// Define Global Vars
 	var Selectors = [];
 
-	$STAN.on('resize', function() {
+	$STAN.on('window.resize', function() {
 
 		if (!Selectors.length) return;
 

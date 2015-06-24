@@ -74,8 +74,7 @@ $(function() {
 
   }
 
-  $(window).on('resize', CardUI);
-
-  $('.sa-cards').on('position.sa.cards', CardUI);
+  $STAN.on('breakpoint.active', CardUI);
+  $STAN.on('cards.position', CardUI);
 
 });

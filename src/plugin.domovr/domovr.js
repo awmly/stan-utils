@@ -11,7 +11,7 @@
     var Selectors = [];
 
     // Resize Listener for resizing slideshow height
-    $STAN.on('resize',function() {
+    $STAN.on('window.resize',function() {
 
         if (!Selectors.length) return;
 

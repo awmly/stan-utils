@@ -3,37 +3,35 @@
  * Author: Andrew Womersley
  * ========================================================================*/
 
- (function($, $STAN) {
+(function($, $STAN) {
 
-    'use strict';
+  'use strict';
 
-    // Shortcut events
-    $STAN.on=function(_event,_callback){
+  var events = [];
 
-      if(_event=='xs' || _event=='sm' || _event=='md' || _event=='lg'){
+  // Shortcut events
+  $STAN.on = function(_event, _callback) {
 
-        $($STAN.Tag).on('active.sa.stan',function(event,device){
-          if(device==_event) _callback();
-        });
+    if (!events[_event]) {
+      events[_event] = [];
+    }
 
-      }else{
+    events[_event].push(_callback);
 
-        $($STAN.Tag).on(_event + '.sa.stan',_callback);
+  };
 
+  $STAN.trigger = function(_event) {
+
+    if (events[_event]) {
+
+      var args = Array.prototype.slice.call(arguments, 1);
+
+      for (var x in events[_event]) {
+        events[_event][x].apply(null, args);
       }
 
-    };
+    }
 
-    $STAN.off=function(_event,_callback){
-
-      if(_event=='xs' || _event=='sm' || _event=='md' || _event=='lg'){
-
-        $($STAN.Tag).on('deactive.sa.stan',function(event,device){
-          if(device==_event) _callback();
-        });
-
-      }
-
-    };
+  };
 
 }(jQuery, $STAN));

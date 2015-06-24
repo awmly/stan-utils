@@ -1,7 +1,7 @@
 /* ========================================================================
-* STAN Utils: Hide Till
-* Author: Andrew Womersley
-* ======================================================================== */
+ * STAN Utils: Hide Till
+ * Author: Andrew Womersley
+ * ======================================================================== */
 
 $(function() {
 
@@ -13,7 +13,7 @@ $(function() {
   $('.hide-on-ready').remove();
   $('.none-on-ready').remove();
 
-  $(window).load(function(){
+  $(window).load(function() {
 
     $('.hide-till-load').removeClass('hide-till-load');
     $('.none-till-load').removeClass('none-till-load');
@@ -23,6 +23,6 @@ $(function() {
 
   });
 
-  $($STAN.Tag).trigger('resize.sa.stan');
+  //$($STAN.Tag).trigger('resize.sa.stan');
 
 });
