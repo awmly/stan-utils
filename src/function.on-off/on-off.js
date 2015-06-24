@@ -18,6 +18,8 @@
 
     events[_event].push(_callback);
 
+    return $STAN;
+
   };
 
   $STAN.trigger = function(_event) {
@@ -31,6 +33,8 @@
       }
 
     }
+
+    return $STAN;
 
   };
 
