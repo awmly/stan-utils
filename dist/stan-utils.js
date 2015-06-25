@@ -1,5 +1,5 @@
 /*!
- * STAN Utils 0.0.37
+ * STAN Utils 0.0.39
  * Copyright 2015 Andrew Womersley
  */
 
@@ -371,13 +371,19 @@
   var events = [];
 
   // Shortcut events
-  $STAN.on = function(_event, _callback) {
+  $STAN.on = function(_events, _callback) {
 
-    if (!events[_event]) {
-      events[_event] = [];
+    var _event = _events.split(" ");
+
+    for (var x in _event) {
+
+      if (!events[_event[x]]) {
+        events[_event[x]] = [];
+      }
+
+      events[_event[x]].push(_callback);
+
     }
-
-    events[_event].push(_callback);
 
     return $STAN;
 
@@ -445,6 +451,7 @@ $(function() {
       var $this = $(this);
 
       var selector = (typeof $(this).attr('data-selector') !== 'undefined') ? $(this).attr('data-selector') : '.card';
+      var order = (typeof $(this).attr('data-order') !== 'undefined') ? $(this).attr('data-order') : 'random';
 
       if ($(this).find(selector).length) {
 
@@ -459,19 +466,28 @@ $(function() {
 
         // Define som evars
         var x, col, left, max, min;
+        var cnt = 0;
 
         $this.find(selector).each(function() {
 
           min = 99999;
 
-          // Get shortest column
-          for (x = 0; x <= NumCols; x++) {
+          if (order == 'random') {
 
-            if (Cols[x] < min) {
-              col = x;
-              min = Cols[x];
+            // Get shortest column
+            for (x = 0; x <= NumCols; x++) {
+
+              if (Cols[x] < min) {
+                col = x;
+                min = Cols[x];
+              }
+
             }
 
+          } else {
+            col = cnt;
+            cnt++;
+            if (cnt > NumCols) cnt = 0;
           }
 
           // Set top and left position for card
@@ -505,7 +521,7 @@ $(function() {
 
   }
 
-  $STAN.on('breakpoint.active', CardUI);
+  $STAN.on('window.resize', CardUI);
   $STAN.on('cards.position', CardUI);
 
 });
@@ -517,87 +533,95 @@ $(function() {
 
 $(function() {
 
-    'use strict';
+  'use strict';
 
-    // Add click
-    $('.sa-collapse .sa-click').click(function() {
+  // Add click
+  $('.sa-collapse .sa-click').click(function() {
 
-        if (!$(this).closest('.sa-collapse').hasClass('inactive')) {
+    if (!$(this).closest('.sa-collapse').hasClass('inactive')) {
 
-            if( $(this).closest('.sa-collapse').hasClass('active') ){
+      if ($(this).closest('.sa-collapse').hasClass('active')) {
 
-                $(this).closest('.sa-collapse').removeClass('active')
-                    .find('.collapse-content').first().collapse('hide');
-            }else{
+        $(this).closest('.sa-collapse').removeClass('active')
+          .find('.collapse-content').first().collapse('hide');
+      } else {
 
-              $(this).closest('.sa-collapse').addClass('active')
-                  .find('.collapse-content').first().collapse('show');
+        $(this).closest('.sa-collapse').addClass('active')
+          .find('.collapse-content').first().collapse('show');
 
-            }
+      }
 
-            if ($(this).parents('.sa-accordion').length) {
+      if ($(this).parents('.sa-accordion').length) {
 
-                $(this).closest('.sa-collapse').siblings('.sa-collapse.active').each(function() {
+        $(this).closest('.sa-collapse').siblings('.sa-collapse.active').each(function() {
 
-                    $(this).removeClass('active')
-                        .find('.collapse-content').first().collapse('hide');
-
-                });
-
-            }
-
-        }
-
-    });
-
-
-    // Add BS collapse class
-    $('.sa-collapse .collapse-content').each(function() {
-
-        $(this).addClass('collapse');
-
-    });
-
-    // Check for collapses starting open
-    $('.sa-collapse.active').each(function() {
-
-        $(this).find('.collapse-content').first().addClass('in');
-
-    });
-
-    // Device dependant logic
-    $('body').on('active.sa.stan', function() {
-
-        $('[data-collapse-devices]').each(function() {
-
-            if ( $(this).attr('data-collapse-devices')=='all' || $(this).attr('data-collapse-devices').indexOf($STAN.device) >= 0) {
-
-                $(this).removeClass('inactive');
-
-                if ($(this).attr('data-collapse-devices-open')) {
-
-                    if ($(this).attr('data-collapse-devices-open')=='all' || $(this).attr('data-collapse-devices-open').indexOf($STAN.device) >= 0) {
-                        $(this).addClass('active').find('.collapse-content').first().addClass('in').css('height', '');
-                    } else {
-                        $(this).removeClass('active').find('.collapse-content').first().removeClass('in').addClass('collapse');
-                    }
-
-                } else {
-
-                    $(this).removeClass('active').find('.collapse-content').first().removeClass('in').addClass('collapse');
-
-                }
-
-            } else {
-
-              $(this).addClass('inactive');
-              $(this).removeClass('active').find('.collapse-content').first().addClass('in').removeClass('collapse').css('height', '');
-
-            }
+          $(this).removeClass('active')
+            .find('.collapse-content').first().collapse('hide');
 
         });
 
-    }).trigger('active.sa.stan');
+      }
+
+    }
+
+  });
+
+
+  // Add BS collapse class
+  $('.sa-collapse .collapse-content').each(function() {
+
+    $(this).addClass('collapse');
+
+  });
+
+  // Check for collapses starting open
+  $('.sa-collapse.active').each(function() {
+
+    $(this).find('.collapse-content').first().addClass('in');
+
+  });
+
+  // Device dependant logic
+  function collapseResize() {
+
+    $('[data-collapse-devices]').each(function() {
+
+      if ($(this).attr('data-collapse-devices') == 'all' || $(this).attr('data-collapse-devices').indexOf($STAN.device) >= 0) {
+
+        $(this).removeClass('inactive');
+
+        if ($(this).attr('data-collapse-devices-open')) {
+
+          if ($(this).attr('data-collapse-devices-open') == 'all' || $(this).attr('data-collapse-devices-open').indexOf($STAN.device) >= 0) {
+            $(this).addClass('active').find('.collapse-content').first().addClass('in').css('height', '');
+          } else {
+            $(this).removeClass('active').find('.collapse-content').first().removeClass('in').addClass('collapse');
+          }
+
+        } else {
+
+          $(this).removeClass('active').find('.collapse-content').first().removeClass('in').addClass('collapse');
+
+        }
+
+      } else {
+
+        $(this).addClass('inactive');
+        $(this).removeClass('active').find('.collapse-content').first().addClass('in').removeClass('collapse').css('height', '');
+
+      }
+
+    });
+
+  };
+
+  $STAN.on('breakpoint.active', function() {
+    collapseResize();
+  });
+  $STAN.on('collapse.init', function() {
+    collapseResize();
+  });
+  collapseResize();
 
 });
 
@@ -612,7 +636,7 @@ $(function() {
 
   var width, subnav, pad;
 
-  $('.sa-dropdown').click(function(event) {
+  $("body").on("click", ".sa-dropdown", function(event) {
 
     if ($(this).hasClass('active')) {
 
@@ -756,23 +780,19 @@ $(function() {
 
   'use strict';
 
-  $('.hide-till-ready').removeClass('hide-till-ready');
-  $('.none-till-ready').removeClass('none-till-ready');
+  $('body').addClass('stan-ready');
 
   $('.hide-on-ready').remove();
   $('.none-on-ready').remove();
 
   $(window).load(function() {
 
-    $('.hide-till-load').removeClass('hide-till-load');
-    $('.none-till-load').removeClass('none-till-load');
+    $('body').addClass('stan-loaded');
 
     $('.hide-on-load').remove();
     $('.none-on-load').remove();
 
   });
-
-  //$($STAN.Tag).trigger('resize.sa.stan');
 
 });
 
@@ -2877,6 +2897,7 @@ $(function() {
 					auto_reopen: true,
 					lock_aspect_ratio: true,
 					scroll: true,
+					closeOnMaskClick: true,
 					devices: {
 						xs: true,
 						sm: true,
@@ -2910,7 +2931,9 @@ $(function() {
 				}
 
 				// Set close listener
-				$this.find('.popup-close, .popup-mask').click(function(event) {
+				var closeListeners = '.popup-close';
+				if (settings.closeOnMaskClick) closeListeners += ', .popup-mask';
+				$this.find(closeListeners).click(function(event) {
 
 					methods.hide.apply($this);
 					event.stopPropagation();
@@ -3042,6 +3065,11 @@ $(function() {
 		resize: function() {
 
 			var settings = $(this).data('PopUp');
+
+			$(this).css({
+				width: $STAN.windowWidth + 'px',
+				height: $STAN.windowHeight + 'px'
+			});
 
 			// Resize to fit
 			var w = $(window).width() - (2 * settings.gutter);

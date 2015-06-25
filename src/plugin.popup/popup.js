@@ -87,6 +87,7 @@
 					auto_reopen: true,
 					lock_aspect_ratio: true,
 					scroll: true,
+					closeOnMaskClick: true,
 					devices: {
 						xs: true,
 						sm: true,
@@ -120,7 +121,9 @@
 				}
 
 				// Set close listener
-				$this.find('.popup-close, .popup-mask').click(function(event) {
+				var closeListeners = '.popup-close';
+				if (settings.closeOnMaskClick) closeListeners += ', .popup-mask';
+				$this.find(closeListeners).click(function(event) {
 
 					methods.hide.apply($this);
 					event.stopPropagation();
@@ -252,6 +255,11 @@
 		resize: function() {
 
 			var settings = $(this).data('PopUp');
+
+			$(this).css({
+				width: $STAN.windowWidth + 'px',
+				height: $STAN.windowHeight + 'px'
+			});
 
 			// Resize to fit
 			var w = $(window).width() - (2 * settings.gutter);

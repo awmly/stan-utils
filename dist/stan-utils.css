@@ -1,5 +1,5 @@
 /*!
- * STAN Utils 0.0.37
+ * STAN Utils 0.0.39
  * Copyright 2015 Andrew Womersley
  */
 
@@ -180,12 +180,12 @@
  * STAN Utils: Hide Till
  * Author: Andrew Womersley
  * ======================================================================== */
-.hide-till-ready,
-.hide-till-load {
+body:not(.stan-ready) .hide-till-ready,
+body:not(.stan-loaded) .hide-till-load {
   visibility: hidden;
 }
-.none-till-ready,
-.none-till-load {
+body:not(.stan-ready) .none-till-ready,
+body:not(.stan-loaded) .none-till-load {
   display: none;
 }
 /* ========================================================================

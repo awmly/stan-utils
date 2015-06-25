@@ -9,7 +9,7 @@ $(function() {
 
   var width, subnav, pad;
 
-  $('.sa-dropdown').click(function(event) {
+  $("body").on("click", ".sa-dropdown", function(event) {
 
     if ($(this).hasClass('active')) {
 

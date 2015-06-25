@@ -7,22 +7,18 @@ $(function() {
 
   'use strict';
 
-  $('.hide-till-ready').removeClass('hide-till-ready');
-  $('.none-till-ready').removeClass('none-till-ready');
+  $('body').addClass('stan-ready');
 
   $('.hide-on-ready').remove();
   $('.none-on-ready').remove();
 
   $(window).load(function() {
 
-    $('.hide-till-load').removeClass('hide-till-load');
-    $('.none-till-load').removeClass('none-till-load');
+    $('body').addClass('stan-loaded');
 
     $('.hide-on-load').remove();
     $('.none-on-load').remove();
 
   });
-
-  //$($STAN.Tag).trigger('resize.sa.stan');
 
 });

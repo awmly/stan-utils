@@ -10,13 +10,19 @@
   var events = [];
 
   // Shortcut events
-  $STAN.on = function(_event, _callback) {
+  $STAN.on = function(_events, _callback) {
 
-    if (!events[_event]) {
-      events[_event] = [];
+    var _event = _events.split(" ");
+
+    for (var x in _event) {
+
+      if (!events[_event[x]]) {
+        events[_event[x]] = [];
+      }
+
+      events[_event[x]].push(_callback);
+
     }
-
-    events[_event].push(_callback);
 
     return $STAN;
 

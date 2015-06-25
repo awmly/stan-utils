@@ -14,6 +14,7 @@ $(function() {
       var $this = $(this);
 
       var selector = (typeof $(this).attr('data-selector') !== 'undefined') ? $(this).attr('data-selector') : '.card';
+      var order = (typeof $(this).attr('data-order') !== 'undefined') ? $(this).attr('data-order') : 'random';
 
       if ($(this).find(selector).length) {
 
@@ -28,19 +29,28 @@ $(function() {
 
         // Define som evars
         var x, col, left, max, min;
+        var cnt = 0;
 
         $this.find(selector).each(function() {
 
           min = 99999;
 
-          // Get shortest column
-          for (x = 0; x <= NumCols; x++) {
+          if (order == 'random') {
 
-            if (Cols[x] < min) {
-              col = x;
-              min = Cols[x];
+            // Get shortest column
+            for (x = 0; x <= NumCols; x++) {
+
+              if (Cols[x] < min) {
+                col = x;
+                min = Cols[x];
+              }
+
             }
 
+          } else {
+            col = cnt;
+            cnt++;
+            if (cnt > NumCols) cnt = 0;
           }
 
           // Set top and left position for card
@@ -74,7 +84,7 @@ $(function() {
 
   }
 
-  $STAN.on('breakpoint.active', CardUI);
+  $STAN.on('window.resize', CardUI);
   $STAN.on('cards.position', CardUI);
 
 });

@@ -3,8 +3,10 @@
  * Author: Andrew Womersley
  * ======================================================================== */
 
-.hide-till-ready,
-.hide-till-load{ visibility:hidden; }
+body{
+  &:not(.stan-ready) .hide-till-ready,
+  &:not(.stan-loaded) .hide-till-load{ visibility:hidden; }
 
-.none-till-ready,
-.none-till-load{ display:none; }
+  &:not(.stan-ready) .none-till-ready,
+  &:not(.stan-loaded) .none-till-load{ display:none; }
+}
