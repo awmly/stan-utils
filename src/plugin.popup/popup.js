@@ -10,7 +10,7 @@
 	// Define Global Vars
 	var Selectors = [];
 
-	$STAN.on('window.resize', function() {
+	$STAN.on('window.resize popup.resize', function() {
 
 		if (!Selectors.length) return;
 
@@ -152,6 +152,8 @@
 
 			var settings = $(this).data('PopUp');
 
+			var $this = $(this);
+
 			if (!settings.open) {
 
 				if (settings.devices[$STAN.device]) {
@@ -170,6 +172,8 @@
 							$(this).parent().animate({
 								opacity: 1
 							}, 300);
+
+							methods.resize.apply($this);
 
 						});
 
@@ -266,7 +270,7 @@
 			var h = $(window).height() - (2 * settings.gutter);
 
 			if (settings.height == 'auto') {
-				$(this).find('.popup-display').css('height', 'auto');
+				$(this).find('.popup-display, .popup-content').css('height', 'auto');
 				var ah = $(this).find('.popup-display').outerHeight();
 				if (h > ah) h = ah;
 			} else {

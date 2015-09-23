@@ -10,7 +10,7 @@ port:       9001
 
 # App
 app:        "Stan Plugins"
-version:      "0.0.39"
+version:      "0.0.40"
 
 # Formatting
 tab:          "&nbsp;&nbsp;"
